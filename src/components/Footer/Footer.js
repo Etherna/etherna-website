@@ -18,7 +18,7 @@ const Footer = () => (
             Copyright© {new Date().getFullYear()} Etherna Sagl. All rights reserved.
           </div>
           <nav className="footer-menu">
-            <Link to="privacy-policy">Privacy Policy</Link>
+            <Link to="privacy">Privacy Policy</Link>
           </nav>
         </div>
       </div>
