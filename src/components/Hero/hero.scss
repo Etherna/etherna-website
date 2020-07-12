@@ -1,7 +1,11 @@
 .hero {
-  @apply relative py-16;
+  @apply relative py-8 bg-cover;
   background-image: url(../../images/hero-bg.svg);
   background-position: top center;
+
+  @screen lg {
+    @apply py-16;
+  }
 
   &::before {
     @apply absolute top-0 inset-x-0 h-full -z-1;
@@ -12,11 +16,20 @@
   }
 
   .hero-title {
-    @apply leading-tight mt-24 mb-12;
+    @apply leading-tight mt-12 mb-8;
+    @screen lg {
+      @apply mt-24 mb-12;
+    }
   }
   .hero-description {}
   .hero-tagline {
-    @apply inline-block border-b-4 border-accent mt-16 mb-40;
+    @apply inline-block text-xl border-b-4 border-accent mt-12 mb-20;
+    @screen sm {
+      @apply text-2xl;
+    }
+    @screen md {
+      @apply mt-16 mb-40;
+    }
   }
   .hero-cta {
     @apply inline-flex items-center text-gray-800;

@@ -3,6 +3,8 @@
 }
 
 .builtwith {
+  @apply pb-24;
+
   svg {
     @apply max-w-full mx-auto;
     max-height: 65px;
@@ -10,16 +12,16 @@
 }
 
 .landing-section {
-  @apply my-48 text-center;
+  @apply py-24 text-center;
 
   .landing-title {
-    @apply text-5xl mb-4 text-gray-800;
+    @apply text-5xl mb-4 text-gray-800 break-words leading-tight;
   }
   .landing-description {
     @apply pb-6 text-gray-600 max-w-2xl mx-auto;
   }
   .landing-feature {
-    @apply px-6;
+    @apply px-6 mb-8;
 
     .feature-icon {
       @apply flex justify-around mx-auto bg-center bg-no-repeat;

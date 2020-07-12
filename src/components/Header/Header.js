@@ -42,7 +42,12 @@ const Header = ({ transparent }) => {
             {!showContextualMenu && (
               <span className="mr-2">Menu</span>
             )}
-            <img src={require("@images/svg/menu-toggle.svg")} alt=""/>
+            <div className={classnames("menu-toggle-icon", {
+              "menu-toggle-icon-active": showContextualMenu
+            })}>
+              <span className="line-top"></span>
+              <span className="line-bottom"></span>
+            </div>
           </button>
 
           <div className={classnames("contextual-menu", {

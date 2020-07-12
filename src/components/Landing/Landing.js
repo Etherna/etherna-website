@@ -21,13 +21,13 @@ const Landing = () => {
                   <div className="text-label">Built With</div>
                   <div className="container mt-8">
                     <div className="row">
-                      <div className="col sm:w-1/3">
+                      <div className="col sm:w-1/3 mb-6">
                         <EthereumLogo />
                       </div>
-                      <div className="col sm:w-1/3">
+                      <div className="col sm:w-1/3 mb-6">
                         <SwarmLogo />
                       </div>
-                      <div className="col sm:w-1/3">
+                      <div className="col sm:w-1/3 mb-6">
                         <ReactLogo />
                       </div>
                     </div>
