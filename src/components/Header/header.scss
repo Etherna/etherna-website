@@ -1,0 +1,27 @@
+.header {
+  @apply fixed top-0 inset-x-0 z-10 transition duration-300;
+
+  &:not(.header-transparent),
+  &.header-active {
+    @apply bg-white shadow-sm;
+  }
+
+  .header-container {
+    @apply flex items-center py-4;
+
+    .header-menu {
+      @apply px-4;
+
+      .header-link {
+        @apply px-3 py-2 text-sm text-gray-700 font-semibold;
+        &:hover {
+          @apply opacity-75;
+        }
+      }
+    }
+  }
+}
+
+.header + main {
+  @apply pt-14;
+}

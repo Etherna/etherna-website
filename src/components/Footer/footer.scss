@@ -1,0 +1,21 @@
+.footer {
+  @apply pt-16 pb-10 border-t border-gray-300;
+
+  .footer-container {
+    @apply flex flex-col items-center;
+
+    .social-menu {
+      @apply mt-12 mb-20;
+      min-width: 20rem;
+    }
+    .footer-notice {
+      @apply flex flex-wrap items-center text-gray-500 text-xs;
+    }
+    .copyright {
+      @apply text-xs;
+    }
+    .footer-menu {
+      @apply ml-4;
+    }
+  }
+}

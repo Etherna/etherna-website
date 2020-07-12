@@ -1,0 +1,107 @@
+$fb-color: #1877F2;
+$tw-color: #1DA1F2;
+$tg-color: #1392D1;
+$ds-color: #6378C5;
+
+.social-menu {
+  @apply flex items-center justify-between;
+
+  &-vertical {
+    @apply flex-col;
+  }
+
+  .social-link {
+    @apply p-2;
+
+    svg {
+      height: 16px;
+    }
+
+    path {
+      fill: #A3B0C9;
+      stroke: #A3B0C9;
+      transition: fill stroke;
+      transition-duration: 0.5s;
+    }
+
+    .social-name {
+      @apply hidden;
+    }
+
+    &:hover {
+      &.facebook {
+        path {
+          fill: $fb-color;
+        }
+      }
+      &.twitter {
+        path {
+          fill: $tw-color;
+        }
+      }
+      &.telegram {
+        path {
+          fill: $tg-color;
+        }
+      }
+      &.discord {
+        path {
+          fill: $ds-color;
+        }
+      }
+    }
+  }
+
+
+  &-button-style {
+    @apply items-start;
+
+    .social-link {
+      @apply flex items-center rounded bg-gray-200 text-gray-600 mb-2 px-4;
+
+      &::after {
+        content: "";
+        background-image: url(../../images/svg/arrow-right.svg);
+        opacity: 0;
+        transform: translateX(-1rem);
+        @apply invisible w-0 h-3 bg-center bg-contain bg-no-repeat transition duration-200;
+      }
+
+      &.facebook {
+        path {
+          fill: $fb-color;
+        }
+      }
+      &.twitter {
+        path {
+          fill: $tw-color;
+        }
+      }
+      &.telegram {
+        path {
+          fill: $tg-color;
+        }
+      }
+      &.discord {
+        path {
+          fill: $ds-color;
+        }
+      }
+
+      &:hover {
+        @apply bg-gray-100;
+
+        &::after {
+          content: "";
+          opacity: 1;
+          transform: translateX(0.5rem);
+          @apply visible w-3;
+        }
+      }
+
+      .social-name {
+        @apply block text-sm font-semibold ml-2;
+      }
+    }
+  }
+}

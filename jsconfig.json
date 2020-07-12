@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@images/*": ["src/images/*"]
+    },
+    "experimentalDecorators": true
+  },
+  "include": ["src"],
+  "exclude": [".cache", "public", "node_modules"]
+}

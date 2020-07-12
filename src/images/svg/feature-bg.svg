@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="134px" height="134px" viewBox="0 0 134 134" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61.2 (89653) - https://sketch.com -->
+    <title>feature-bg</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M71.2426407,18.2426407 L112.757359,59.7573593 C115.100505,62.1005051 115.100505,65.8994949 112.757359,68.2426407 L71.2426407,109.757359 C68.8994949,112.100505 65.1005051,112.100505 62.7573593,109.757359 L21.2426407,68.2426407 C18.8994949,65.8994949 18.8994949,62.1005051 21.2426407,59.7573593 L62.7573593,18.2426407 C65.1005051,15.8994949 68.8994949,15.8994949 71.2426407,18.2426407 Z" id="path-1"></path>
+        <filter x="-30.5%" y="-27.5%" width="161.0%" height="161.0%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="3" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="10.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.769731773   0 0 0 0 0.779951521   0 0 0 0 0.808622056  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="feature-bg" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Polygon">
+            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+        </g>
+    </g>
+</svg>
