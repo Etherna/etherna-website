@@ -5,17 +5,25 @@
     @apply flex flex-col items-center;
 
     .social-menu {
-      @apply mt-12 mb-20;
-      min-width: 20rem;
+      @apply mt-12 mb-20 min-w-xxs;
+      @screen sm {
+        @apply min-w-xs;
+      }
     }
     .footer-notice {
-      @apply flex flex-wrap items-center text-gray-500 text-xs;
+      @apply flex flex-wrap items-center text-gray-500 text-xs text-center;
     }
     .copyright {
-      @apply text-xs;
+      @apply text-xs w-full;
+      @screen sm {
+        @apply w-auto;
+      }
     }
     .footer-menu {
-      @apply ml-4;
+      @apply ml-4 w-full;
+      @screen sm {
+        @apply w-auto;
+      }
     }
   }
 }

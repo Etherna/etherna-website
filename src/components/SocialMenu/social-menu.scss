@@ -12,6 +12,9 @@ $ds-color: #6378C5;
 
   .social-link {
     @apply p-2;
+    &:first-of-type {
+      @apply pl-0;
+    }
 
     svg {
       height: 16px;

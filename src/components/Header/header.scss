@@ -2,15 +2,87 @@
   @apply fixed top-0 inset-x-0 z-10 transition duration-300;
 
   &:not(.header-transparent),
-  &.header-active {
+  &-active {
     @apply bg-white shadow-sm;
   }
 
   .header-container {
-    @apply flex items-center py-4;
+    @apply flex flex-wrap items-center py-4;
+
+    @screen lg {
+      @apply flex-no-wrap;
+    }
+
+    .menu-toggle {
+      @apply flex items-center ml-auto text-xs uppercase text-gray-800 font-semibold;
+
+      &:focus,
+      &:active {
+        @apply shadow-none bg-transparent;
+      }
+      @screen lg {
+        @apply hidden;
+      }
+    }
+
+    .contextual-menu {
+      @apply flex flex-wrap w-full origin-top transition duration-500;
+      transform: scaleY(0);
+      height: 0;
+
+      &-active {
+        transform: scaleY(1);
+        height: auto;
+      }
+
+      @screen lg {
+        @apply flex-no-wrap h-auto;
+        transform: scaleY(1);
+      }
+    }
 
     .header-menu {
-      @apply px-4;
+      @apply flex items-center flex-no-wrap;
+
+      @screen lg {
+        @apply px-4;
+      }
+
+      &:first-of-type {
+        .header-link {
+          @apply pl-0;
+        }
+      }
+
+      &-row {
+        @apply w-full flex flex-no-wrap overflow-x-auto py-2;
+        @screen lg {
+          @apply w-auto overflow-x-hidden py-0;
+          &-fill {
+            @apply flex-1;
+          }
+        }
+      }
+
+      &-left {
+        @screen lg {
+          @apply mr-auto;
+        }
+      }
+
+      &-right {
+        @screen lg {
+          @apply ml-auto;
+        }
+      }
+
+      &-extra {
+        @apply w-full;
+
+        @screen lg {
+          @apply w-auto;
+        }
+      }
 
       .header-link {
         @apply px-3 py-2 text-sm text-gray-700 font-semibold;

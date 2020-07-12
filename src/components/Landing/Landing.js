@@ -126,7 +126,7 @@ const Landing = () => {
                 <div className="container">
                   <div className="row py-4 px-4 md:px-8">
                     <div className="col sm:w-1/3">
-                      <h4 className="text-4xl leading-tight font-extrabold text-gray-700">
+                      <h4 className="text-4xl leading-tight font-extrabold text-gray-700 text-center sm:text-left">
                         Let's stay in touch!
                       </h4>
                     </div>

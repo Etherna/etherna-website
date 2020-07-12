@@ -9,7 +9,11 @@ import SocialMenu from "@components/SocialMenu"
 import "./header.scss"
 
 const Header = ({ transparent }) => {
-  const [isActive, setIsActive] = useState(false)
+  const activeHeader = typeof window !== "undefined"
+    ? document.documentElement.scrollTop > 100
+    : false
+  const [isActive, setIsActive] = useState(activeHeader)
+  const [showContextualMenu, setShowContextualMenu] = useState(false)
 
   useEffect(() => {
     window.addEventListener("scroll", handlePageScroll)
@@ -26,7 +30,7 @@ const Header = ({ transparent }) => {
   return (
     <header className={classnames("header", {
       "header-transparent": transparent,
-      "header-active": isActive,
+      "header-active": isActive || showContextualMenu,
     })}>
       <div className="container">
         <div className="header-container">
@@ -34,18 +38,33 @@ const Header = ({ transparent }) => {
             <img src={require("@images/logo.svg")} alt="Etherna" />
           </div>
 
-          <nav className="header-menu mr-auto">
-            <AnchorLink to="transparency" className="header-link">Transparency</AnchorLink>
-            <AnchorLink to="users" className="header-link">Users</AnchorLink>
-            <AnchorLink to="innovative" className="header-link">Innovative</AnchorLink>
-            <AnchorLink to="extendable" className="header-link">Extendable</AnchorLink>
-          </nav>
+          <button className="menu-toggle" onClick={() => setShowContextualMenu(!showContextualMenu)}>
+            {!showContextualMenu && (
+              <span className="mr-2">Menu</span>
+            )}
+            <img src={require("@images/svg/menu-toggle.svg")} alt=""/>
+          </button>
 
-          <nav className="header-menu ml-auto">
-            <Link to="blog" className="header-link">Blog</Link>
-          </nav>
+          <div className={classnames("contextual-menu", {
+            "contextual-menu-active": showContextualMenu
+          })}>
+            <div className="header-menu-row header-menu-row-fill">
+              <nav className="header-menu header-menu-left">
+                <AnchorLink to="transparency" className="header-link">Transparency</AnchorLink>
+                <AnchorLink to="users" className="header-link">Users</AnchorLink>
+                <AnchorLink to="innovative" className="header-link">Innovative</AnchorLink>
+                <AnchorLink to="extendable" className="header-link">Extendable</AnchorLink>
+              </nav>
 
-          <SocialMenu />
+              <nav className="header-menu header-menu-right">
+                <Link to="blog" className="header-link">Blog</Link>
+              </nav>
+            </div>
+
+            <div className="header-menu-row">
+              <SocialMenu />
+            </div>
+          </div>
         </div>
       </div>
     </header>
