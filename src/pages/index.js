@@ -8,7 +8,7 @@ import { LocalizedPage } from "@utils/localizedPage"
 
 const IndexPage = () => (
   <LocalizedPage>
-    <Layout transparentHeader={true}>
+    <Layout transparentHeader={true} showLandingMenu={true}>
       <SEO title="Etherna" />
 
       <Hero />

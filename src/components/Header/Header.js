@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
 import classnames from "classnames"
-import { Link as AnchorLink } from "react-scroll"
 import { Link } from "gatsby"
 
+import LandingMenu from "./LandingMenu"
 import SocialMenu from "@components/SocialMenu"
 import LangSwitcher from "@components/LangSwitcher"
 import { useTranslations } from "@utils/useTranslations"
@@ -11,7 +11,7 @@ import { useLocale } from "@utils/localizedPage"
 
 import "./header.scss"
 
-const Header = ({ transparent }) => {
+const Header = ({ transparent, showLandingMenu }) => {
   const [isActive, setIsActive] = useState(false)
   const [showContextualMenu, setShowContextualMenu] = useState(false)
   const [locale] = useLocale()
@@ -59,12 +59,7 @@ const Header = ({ transparent }) => {
             "contextual-menu-active": showContextualMenu
           })}>
             <div className="header-menu-row header-menu-row-fill">
-              <nav className="header-menu header-menu-left">
-                <AnchorLink to="transparency" className="header-link">{trans("transparency")}</AnchorLink>
-                <AnchorLink to="users" className="header-link">{trans("users")}</AnchorLink>
-                <AnchorLink to="innovative" className="header-link">{trans("innovative")}</AnchorLink>
-                <AnchorLink to="extendable" className="header-link">{trans("extendable")}</AnchorLink>
-              </nav>
+              <LandingMenu />
 
               <nav className="header-menu header-menu-right">
                 <Link to="blog" className="header-link">{trans("blog")}</Link>
@@ -84,10 +79,12 @@ const Header = ({ transparent }) => {
 
 Header.propTypes = {
   transparent: PropTypes.bool,
+  showLandingMenu: PropTypes.bool,
 }
 
 Header.defaultProps = {
-  transparent: false
+  transparent: false,
+  showLandingMenu: false
 }
 
 export default Header

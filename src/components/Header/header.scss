@@ -141,7 +141,34 @@
       .header-link {
         @apply px-3 py-2 text-sm text-gray-700 font-semibold;
         &:hover {
-          @apply opacity-75;
+          @apply text-gray-500;
+        }
+      }
+
+      &.landing-menu {
+        .header-link {
+          @apply relative px-4 py-2 text-gray-600;
+
+          &:before {
+            content: "";
+            transform: scaleX(0);
+            @apply block absolute left-0 right-0 bottom-0 ml-2 mr-2 mb-2 h-2 bg-accent
+              origin-left opacity-0 -z-1 transition duration-500 ease-in-out;
+          }
+
+          &.active,
+          &:hover {
+            @apply text-gray-800;
+
+            &::before {
+              @apply opacity-50;
+              transform: scaleX(1);
+            }
+          }
+
+          &:first-of-type {
+            @apply -ml-2;
+          }
         }
       }
     }
