@@ -1,5 +1,3 @@
-import { useLocale } from "./localizedPage"
-
 export const userLocale = () => {
   let locale = systemLocale()
 

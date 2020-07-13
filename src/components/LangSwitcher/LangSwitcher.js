@@ -26,7 +26,13 @@ const LangSwitcher = ({ className }) => {
   const toggleRef = useRef()
   const CurrentLocaleIcon = locales[locale].icon
 
-  const handleMenuToggle = () => {
+  const handleMenuToggle = e => {
+    const key = e && e.key
+    if (key && (key !== 27 || key !== 32)) {
+      // Trigger only with ESC - SPACE
+      return
+    }
+
     const show = !showMenu
 
     if (show) {
@@ -40,16 +46,35 @@ const LangSwitcher = ({ className }) => {
     setShowMenu(show)
   }
 
+  const handleSwitchLocale = (locale, e) => {
+    const key = e && e.key
+    if (key && (key !== 13)) {
+      // Trigger only with ENTER
+      return
+    }
+
+    switchLocale(locale)
+  }
+
   return (
     <>
       {showMenu && (
-        <div className="lang-switcher-backdrop" onClick={handleMenuToggle}></div>
+        <div
+          className="lang-switcher-backdrop"
+          role="button"
+          tabIndex="0"
+          onClick={handleMenuToggle}
+          onKeyDown={handleMenuToggle}
+          aria-label="Close"
+        ></div>
       )}
 
       <button
         ref={toggleRef}
         className={classnames("lang-menu-toggle", className)}
         onClick={handleMenuToggle}
+        onKeyDown={handleMenuToggle}
+        aria-label="Change language"
       >
         <div className="lang-image">
           <CurrentLocaleIcon />
@@ -65,7 +90,11 @@ const LangSwitcher = ({ className }) => {
                 className={classnames("lang-switcher-menu-item", {
                   "active": loc === locale
                 })}
-                onClick={() => switchLocale(loc)}
+                role="button"
+                tabIndex="0"
+                onClick={e => handleSwitchLocale(loc, e)}
+                onKeyDown={e => handleSwitchLocale(loc, e)}
+                aria-label={`Switch to ${name}`}
                 key={i}
               >
                 <div className="lang-image">
