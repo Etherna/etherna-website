@@ -4,15 +4,17 @@ import Layout from "@components/Layout"
 import SEO from "@components/SEO"
 import Hero from "@components/Hero"
 import Landing from "@components/Landing"
+import { LocalizedPage } from "@utils/localizedPage"
 
 const IndexPage = () => (
-  <Layout transparentHeader={true}>
-    <SEO title="Etherna" />
+  <LocalizedPage>
+    <Layout transparentHeader={true}>
+      <SEO title="Etherna" />
 
-    <Hero />
-
-    <Landing />
-  </Layout>
+      <Hero />
+      <Landing />
+    </Layout>
+  </LocalizedPage>
 )
 
 export default IndexPage

@@ -6,7 +6,6 @@
 
 // You can delete this file if you're not using it
 
-
 ///
 /// Webpack extension
 ///
@@ -17,6 +16,7 @@ exports.onCreateWebpackConfig = ({ actions }) => {
       alias: {
         "@components": path.resolve(__dirname, "src/components"),
         "@images": path.resolve(__dirname, "src/images"),
+        "@utils": path.resolve(__dirname, "src/utils"),
       },
     },
   })

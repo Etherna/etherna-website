@@ -1,0 +1,66 @@
+{
+  "builtWith": "Sviluppato con",
+
+  "transparency": "Trasparenza",
+  "transparencyDescription": "Il tuo canale, la tua narrativa. Noi crediamo nella libertà di parola.",
+  "transparencyFeatures": {
+    "0": {
+      "title": "No shadow ban",
+      "description": "Sii libero di postare ciò che preferisci. Non vieteremo alcun contenuto fintanto che sia legale."
+    },
+    "1": {
+      "title": "Libertà di Parola",
+      "description": "Carica ciò che ti piace. Nessun video verrà censurato. Tutti dovrebbero avere diritto alla proprie idee."
+    },
+    "2": {
+      "title": "Open Source",
+      "description": "Tutto il codice della nostra piattaforma verrà pubblicato su GitHub, e sarà disponibile e visibile a chiunque."
+    }
+  },
+
+  "users": "Per Creator e Utenti",
+  "usersDescription": "La nostra visione è un futuro in cui la rete è libera da pubblicità invasive e in cui tutti supportano i creatori di contenuti.",
+  "usersFeatures": {
+    "0": {
+      "title": "Creatività",
+      "description": "I creatori possono esprimersi senza alcun timore per il loro account."
+    },
+    "1": {
+      "title": "Supportata dai Visualizzatori",
+      "description": "Pagando una somma molto bassa – in base al tempo e alla qualità delle risorse – saremo in grado di sostenere il nostro progetto e anche i creator!"
+    },
+    "2": {
+      "title": "Guadagni Scalabili",
+      "description": "Paghiamo ai creatori lo stesso importo in base alle visualizzazioni. Più utenti guardano i tuoi contenuti, più guadagni."
+    }
+  },
+
+  "innovative": "Innovativa",
+  "innovativeDescription": "Utilizziamo le tecnologie migliori e innovative ora sul mercato.",
+  "innovativeFeatures": {
+    "0": {
+      "title": "Contenuto Decentralizzato",
+      "description": "Tutte le risorse su Etherna, dal tuo avatar ai tuoi video, sono archiviate in un file system decentralizzato chiamato Swarm. Non possiamo eliminare nulla, sarai responsabile di ciò che carichi."
+    },
+    "1": {
+      "title": "Video Criptati",
+      "description": "Al fine di preservare la tua privacy, i video sono crittografati su Swarm. Etherna può memorizzare la chiave di crittografia in modo che possano essere gestiti facilmente."
+    }
+  },
+
+  "extendable": "Espandibile",
+  "extendableDescription": "Forniamo un protocollo di indicizzazione che tutti possono modificare ed estendere, quindi gli utenti saranno in grado di modificare l’indice col loro preferito e godere del contenuto che preferiscono.",
+  "extendableFeatures": {
+    "0": {
+      "title": "Indice Personalizzato",
+      "description": "Puoi specificare un indice diverso dal nostro. Ciò significa che tutti possono creare il proprio indice e condividerlo, facendo in modo che gli utenti accedano a contenuti completamente diversi."
+    },
+    "1": {
+      "title": "Gateway Personalizzato",
+      "description": "Puoi anche specificare un Gateway Swarm differente per scaricare risorse e video."
+    }
+  },
+
+  "contact": "Restiamo in contatto!",
+  "followUs": "Seguici sui nostri social..."
+}

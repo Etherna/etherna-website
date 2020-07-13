@@ -71,6 +71,10 @@ input {
   }
 }
 
+accent {
+  @apply text-accent;
+}
+
 #iubenda_policy .iub_content {
   padding-left: 0 !important;
   padding-right: 0 !important;

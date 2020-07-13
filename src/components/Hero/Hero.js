@@ -1,32 +1,34 @@
 import React from "react"
+import { Link as AnchorLink } from "react-scroll"
 
 import ArrowDown from "!svg-react-loader!@images/svg/arrow-down.svg"
+import { useLocale } from "@utils/localizedPage"
+import { useTranslations } from "@utils/useTranslations"
 
 import "./hero.scss"
 
-const Hero = () => (
-  <div className="hero">
-    <div className="container">
-      <h1 className="hero-title">
-        Let’s stop <span className="text-accent">Video Censorship</span> <br/>
-        together!
-      </h1>
+const Hero = () => {
+  const [locale] = useLocale()
+  const trans = useTranslations(locale, "hero")
 
-      <p className="hero-description">
-        Etherna is a <strong>transparent video platform</strong> where <br/>
-        freedom of speech is incentivized, not convicted.
-      </p>
+  return (
+    <div className="hero">
+      <div className="container">
+        <h1 className="hero-title" dangerouslySetInnerHTML={{ __html: trans("heading") }} />
 
-      <h3 className="hero-tagline">The Revolution Begins Here!</h3>
+        <p className="hero-description" dangerouslySetInnerHTML={{ __html: trans("subheading") }} />
 
-      <div>
-        <a href="#transparency" className="hero-cta">
-          <ArrowDown />
-          Learn more
-        </a>
+        <h3 className="hero-tagline">{trans("tagline")}</h3>
+
+        <div>
+          <AnchorLink to="transparency" className="hero-cta">
+            <ArrowDown />
+            {trans("learnMore")}
+          </AnchorLink>
+        </div>
       </div>
     </div>
-  </div>
-)
+  )
+}
 
 export default Hero

@@ -26,7 +26,7 @@ const PrivacyPolicyPage = () => {
             <h1>Privacy Policy</h1>
             <a
               href="https://www.iubenda.com/privacy-policy/57423156"
-              class="iubenda-white no-brand iubenda-embed iub-body-embed"
+              className="iubenda-white no-brand iubenda-embed iub-body-embed"
               title="Privacy Policy"
             >
               Privacy Policy

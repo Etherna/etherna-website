@@ -1,0 +1,66 @@
+{
+  "builtWith": "Built with",
+
+  "transparency": "Transparency",
+  "transparencyDescription": "Your channel, your narrative. We believe in freedom of speech.",
+  "transparencyFeatures": {
+    "0": {
+      "title": "No shadow banning",
+      "description": "Be free to post want you enjoy to do. We won’t ban any content as long as it’s legal."
+    },
+    "1": {
+      "title": "Freedom of Speech",
+      "description": "Upload what you enjoy to do. No videos will be censored. Everyone should be entitled to its own idea."
+    },
+    "2": {
+      "title": "Open Source",
+      "description": "All codes of our platform will be published on GitHub, and will be available and visible to anyone."
+    }
+  },
+
+  "users": "For Creators and Users",
+  "usersDescription": "Our vision is a future where the web is clear of invasive banners and where everyone supports content creators.",
+  "usersFeatures": {
+    "0": {
+      "title": "Creativity",
+      "description": "Creators can express themself with no concerns about the future of their account."
+    },
+    "1": {
+      "title": "Supported by Viewers",
+      "description": "Paying a very small amount – based on the lot of time and quality of resources – we shall be able to sustain our project and creators too!."
+    },
+    "2": {
+      "title": "Scalable Revenue",
+      "description": "We pay creators the same amount based on views. The more the users watch your contents, the more you will gain."
+    }
+  },
+
+  "innovative": "Innovative",
+  "innovativeDescription": "We use the best and innovative technologies now on the market.",
+  "innovativeFeatures": {
+    "0": {
+      "title": "Decentralized Content",
+      "description": "Every assets on Etherna, from your avatar to your videos, are stored on a decentralized file system call Swarm. We can’t delete anything, you’ll be responsible for what you upload."
+    },
+    "1": {
+      "title": "Encrypted Videos",
+      "description": "In order to preserve your privacy, videos are encrypted on Swarm. Etherna can store the encryption key so they can be managed easily."
+    }
+  },
+
+  "extendable": "Extendable",
+  "extendableDescription": "We provide an indexing protocol that everyone can modify and extend, so users can change the index to their favorite one and enjoy the content they like.",
+  "extendableFeatures": {
+    "0": {
+      "title": "Custom Index",
+      "description": "You can specify an index different from ours. That means everyone can build their own index and share it, making the users access completely different contents."
+    },
+    "1": {
+      "title": "Custom Gateway",
+      "description": "You can also specify a different Swarm Gateway to download assets and videos."
+    }
+  },
+
+  "contact": "Let's stay in touch!",
+  "followUs": "Follow us on our socials..."
+}

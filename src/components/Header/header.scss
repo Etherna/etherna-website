@@ -85,13 +85,13 @@
       height: 0;
 
       &-active {
-        transform: scaleY(1);
+        transform: none;
         height: auto;
       }
 
       @screen lg {
         @apply flex-no-wrap h-auto;
-        transform: scaleY(1);
+        transform: none;
       }
     }
 
@@ -109,7 +109,7 @@
       }
 
       &-row {
-        @apply w-full flex flex-no-wrap overflow-x-auto py-2;
+        @apply w-full flex items-center flex-no-wrap overflow-x-auto py-2;
         @screen lg {
           @apply w-auto overflow-x-hidden py-0;
           &-fill {
