@@ -57,7 +57,7 @@ $ds-color: #6378C5;
     @apply items-start;
 
     .social-link {
-      @apply flex items-center rounded bg-gray-200 text-gray-600 mb-2 px-4;
+      @apply flex items-center rounded bg-gray-200 text-gray-600 mb-2 px-4 mr-3;
 
       &::after {
         content: "";
@@ -89,7 +89,7 @@ $ds-color: #6378C5;
       }
 
       &:hover {
-        @apply bg-gray-100;
+        @apply bg-gray-100 mr-0;
 
         &::after {
           content: "";

@@ -27,13 +27,19 @@ const Landing = () => {
                   <div className="container mt-8">
                     <div className="row">
                       <div className="col sm:w-1/3 mb-6">
-                        <EthereumLogo />
+                        <a href={trans("ethereumUrl")} target="_blank" rel="noreferrer noopener">
+                          <EthereumLogo />
+                        </a>
                       </div>
                       <div className="col sm:w-1/3 mb-6">
-                        <SwarmLogo />
+                        <a href={trans("swarmUrl")} target="_blank" rel="noreferrer noopener">
+                          <SwarmLogo />
+                        </a>
                       </div>
                       <div className="col sm:w-1/3 mb-6">
-                        <ReactLogo />
+                        <a href={trans("reactUrl")} target="_blank" rel="noreferrer noopener">
+                          <ReactLogo />
+                        </a>
                       </div>
                     </div>
                   </div>

@@ -1,5 +1,8 @@
 {
   "builtWith": "Sviluppato con",
+  "ethereumUrl": "https://ethereum.org/it/",
+  "swarmUrl": "https://ethersphere.github.io/swarm-home/",
+  "reactUrl": "https://it.reactjs.org/",
 
   "transparency": "Trasparenza",
   "transparencyDescription": "Il tuo canale, la tua narrativa. Noi crediamo nella libertà di parola.",
