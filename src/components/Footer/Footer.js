@@ -24,7 +24,7 @@ const Footer = () => {
               {trans("copyright", { year: new Date().getFullYear() })}
             </div>
             <nav className="footer-menu">
-              <Link to="privacy">{trans("privacyPolicy")}</Link>
+              <Link to="/privacy">{trans("privacyPolicy")}</Link>
             </nav>
           </div>
         </div>

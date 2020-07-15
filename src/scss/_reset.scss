@@ -1,8 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+//@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
 
 html {
   font-size: 14px;
-  @apply bg-gray-200;
+  @apply bg-gray-100;
 
   @screen sm {
     font-size: 15px;
@@ -25,7 +27,7 @@ a {
 }
 
 h1 {
-  @apply text-5xl mb-6 font-extrabold;
+  @apply text-3xl mb-6 font-extrabold;
   @screen lg {
     @apply mb-8;
   }

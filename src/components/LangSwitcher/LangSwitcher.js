@@ -1,30 +1,26 @@
 import React, { useState, useRef } from "react"
 import PropTypes from "prop-types"
 import classnames from "classnames"
+import { Link } from "gatsby"
 
-import EngFlag from "!svg-react-loader!@images/svg/flag-eng.svg"
-import ItaFlag from "!svg-react-loader!@images/svg/flag-ita.svg"
+import useLocaleInfo from "@utils/useLocaleInfo"
 import { useLocale } from "@utils/localizedPage"
 
 import "./lang-switcher.scss"
 
-const locales = {
-  en: {
-    icon: EngFlag,
-    name: "English"
-  },
-  it: {
-    icon: ItaFlag,
-    name: "Italiano"
-  }
-}
-
 const LangSwitcher = ({ className }) => {
+  const [localeInfo, locales] = useLocaleInfo()
   const [showMenu, setShowMenu] = useState(false)
   const [position, setPosition] = useState({})
-  const [locale, switchLocale] = useLocale()
+  const [
+    locale, {
+      switchLocale,
+      getLocalePath
+    }
+  ] = useLocale()
+  const currentLocaleFlag = localeInfo(locale).flag.localFile.publicURL
   const toggleRef = useRef()
-  const CurrentLocaleIcon = locales[locale].icon
+  const menuRef = useRef()
 
   const handleMenuToggle = e => {
     const key = e && e.key
@@ -37,9 +33,18 @@ const LangSwitcher = ({ className }) => {
 
     if (show) {
       const toggleBounds = toggleRef.current.getBoundingClientRect()
+      const menuBounds = menuRef.current.getBoundingClientRect()
+      const clientWidth = document.documentElement.clientWidth
+      const rightMargin = 20
+
+      let left = toggleBounds.x + (toggleBounds.width / 2) - (menuBounds.width / 2)
+      if (left + menuBounds.width + rightMargin > clientWidth) {
+        left = clientWidth - menuBounds.width - rightMargin
+      }
+
       setPosition({
         top: `${toggleBounds.bottom}px`,
-        right: `0px`
+        left: `${left}px`
       })
     }
 
@@ -54,6 +59,7 @@ const LangSwitcher = ({ className }) => {
     }
 
     switchLocale(locale)
+    setShowMenu(false)
   }
 
   return (
@@ -77,35 +83,56 @@ const LangSwitcher = ({ className }) => {
         aria-label="Change language"
       >
         <div className="lang-image">
-          <CurrentLocaleIcon />
+          <img src={currentLocaleFlag} alt="" />
         </div>
       </button>
 
-      {showMenu && (
-        <nav className="lang-switcher-menu" style={{ ...position }}>
-          {Object.keys(locales).map((loc, i) => {
-            const { name, icon: Icon } = locales[loc]
-            return (
-              <div
-                className={classnames("lang-switcher-menu-item", {
-                  "active": loc === locale
-                })}
-                role="button"
-                tabIndex="0"
-                onClick={e => handleSwitchLocale(loc, e)}
-                onKeyDown={e => handleSwitchLocale(loc, e)}
-                aria-label={`Switch to ${name}`}
-                key={i}
-              >
-                <div className="lang-image">
-                  <Icon />
-                </div>
-                <span>{name}</span>
+      <nav
+        className="lang-switcher-menu"
+        style={{
+          ...position,
+          visibility: showMenu ? "" : "hidden",
+          pointerEvents: showMenu ? "" : "none"
+        }}
+        ref={menuRef}
+      >
+        {locales.map((loc, i) => {
+          const { code, name, flag } = loc
+          const localePath = getLocalePath(code)
+          return localePath ? (
+            <Link
+              className={classnames("lang-switcher-menu-item", {
+                "active": code === locale
+              })}
+              to={localePath}
+              aria-label={`Switch to ${name}`}
+              key={i}
+            >
+              <div className="lang-image">
+                <img src={flag.localFile.publicURL} alt={name} />
               </div>
-            )
-          })}
-        </nav>
-      )}
+              <span>{name}</span>
+            </Link>
+          ) : (
+            <div
+              className={classnames("lang-switcher-menu-item", {
+                "active": code === locale
+              })}
+              role="button"
+              tabIndex="0"
+              onClick={e => handleSwitchLocale(code, e)}
+              onKeyDown={e => handleSwitchLocale(code, e)}
+              aria-label={`Switch to ${name}`}
+              key={i}
+            >
+              <div className="lang-image">
+                <img src={flag.localFile.publicURL} alt={name} />
+              </div>
+              <span>{name}</span>
+            </div>
+          )
+        })}
+      </nav>
     </>
   )
 }

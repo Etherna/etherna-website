@@ -1,0 +1,115 @@
+.post-header {
+  @apply relative flex flex-wrap justify-end min-h-lg -mt-16;
+  @screen md {
+    @apply min-h-xl;
+  }
+
+  &-bg {
+    @apply absolute inset-0 overflow-hidden pointer-events-none;
+
+    &-image {
+      @apply absolute inset-0 bg-no-repeat bg-cover bg-center overflow-hidden;
+      filter: opacity(0.25) blur(20px);
+    }
+  }
+
+  &-meta {
+    @apply flex flex-col items-center justify-end -mb-16 w-full max-w-xl mx-auto;
+
+    .avatar {
+      @apply w-10 h-10;
+    }
+    .author-name {
+      @apply text-base mb-2;
+    }
+    .post-category {
+      @apply inline-block rounded-full text-xs border border-gray-600 text-gray-800
+        transition-colors duration-500 px-2 mb-8;
+
+      &:hover {
+        @apply bg-gray-200;
+      }
+    }
+    .thumbnail {
+      @apply w-full max-h-xs;
+
+      .gatsby-image-wrapper {
+        @apply w-full h-full;
+      }
+    }
+    .publish-time {
+      @apply mb-8 text-sm text-gray-600 font-semibold;
+    }
+  }
+
+  &-nav {
+    @apply mt-20 mx-auto w-full;
+  }
+}
+
+.post {
+  @apply bg-gray-100 mt-16 pb-32;
+
+  article {
+    h1 {
+      @apply font-serif text-5xl leading-none;
+    }
+    h1, h2, h3, h4 {
+      @apply mb-6 mt-12 leading-tight;
+    }
+    h5, h6 {
+      @apply mb-3 mt-6 leading-tight;
+    }
+    p {
+      @apply mb-4 mt-2 leading-normal;
+    }
+    article {
+      @apply mx-auto;
+    }
+    pre, code {
+      @apply overflow-x-auto bg-gray-300 text-sm py-1 px-2 rounded;
+    }
+  }
+
+  &-content {
+    @screen lg {
+      @apply max-w-xl px-0;
+    }
+  }
+  &-sidebar {
+    @apply w-full;
+    @screen lg {
+      @apply flex-1 pt-16 px-4;
+    }
+
+    &-left {
+      @apply mt-16;
+      @screen lg {
+        @apply mt-0;
+      }
+    }
+    &-right {
+      @apply order-3;
+    }
+
+    &-title {
+      @apply mt-0 mb-4;
+    }
+  }
+
+  .read-in {
+    &-btn {
+      @apply inline-flex items-center px-3 py-2 text-xs text-gray-600 border border-gray-400
+        rounded transition-colors duration-500;
+      &:hover {
+        @apply border-blue-500 bg-gray-200;
+      }
+    }
+    &-flag {
+      @apply w-5 h-5 rounded-full mr-2 overflow-hidden;
+    }
+    &-name {
+      @apply leading-none;
+    }
+  }
+}

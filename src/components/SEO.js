@@ -3,7 +3,9 @@ import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
-const SEO = ({ title, description, lang, meta }) => {
+import { useLocale } from "@utils/localizedPage"
+
+const SEO = ({ title, description, keywords, lang, meta }) => {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -17,6 +19,7 @@ const SEO = ({ title, description, lang, meta }) => {
       }
     `
   )
+  const [locale] = useLocale()
 
   const metaDescription = description || site.siteMetadata.description
   const tagline = title === site.siteMetadata.title
@@ -26,7 +29,7 @@ const SEO = ({ title, description, lang, meta }) => {
   return (
     <Helmet
       htmlAttributes={{
-        lang,
+        lang: lang || locale,
       }}
       title={title}
       titleTemplate={`%s – ${tagline}`}
@@ -34,6 +37,10 @@ const SEO = ({ title, description, lang, meta }) => {
         {
           name: `description`,
           content: metaDescription,
+        },
+        {
+          name: `keywords`,
+          content: keywords,
         },
         {
           property: `og:title`,
@@ -71,13 +78,12 @@ const SEO = ({ title, description, lang, meta }) => {
 SEO.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
-  tagline: PropTypes.string,
+  keywords: PropTypes.string,
   lang: PropTypes.string,
   meta: PropTypes.arrayOf(PropTypes.object),
 }
 
 SEO.defaultProps = {
-  lang: `en`,
   meta: [],
   description: ``,
 }

@@ -1,3 +1,5 @@
+export const DEFAULT_LOCALE = "en"
+
 export const userLocale = () => {
   let locale = systemLocale()
 
@@ -16,7 +18,7 @@ export const userLocale = () => {
   const supportedLocales = ["en", "it"]
 
   if (supportedLocales.indexOf(locale) >= 0) return locale
-  else return supportedLocales[0]
+  else return DEFAULT_LOCALE
 }
 
 const systemLocale = () => {

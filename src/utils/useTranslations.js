@@ -37,7 +37,21 @@ export const useTranslations = (locale, namespace = null) => {
     fallback: 'en'
   })
 
-  const trans = (key, replacements) => lang.get(`${namespace ? `${namespace}.`:``}${key}`, replacements)
+  const trans = (key, replacements, forcedLocale = null) => {
+    const stringKey = `${namespace ? `${namespace}.`:``}${key}`
+
+    let translation
+
+    if (forcedLocale) {
+      lang.setLocale(forcedLocale)
+      translation = lang.get(stringKey, replacements)
+      lang.setLocale(locale)
+    } else {
+      translation = lang.get(stringKey, replacements)
+    }
+
+    return translation
+  }
 
   return trans
 }

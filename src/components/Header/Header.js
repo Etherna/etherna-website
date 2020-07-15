@@ -26,7 +26,7 @@ const Header = ({ transparent, showLandingMenu }) => {
   }, [])
 
   const handlePageScroll = () => {
-    const active = document.documentElement.scrollTop > 100
+    const active = document.documentElement.scrollTop > 50
     setIsActive(active)
   }
 
@@ -59,10 +59,12 @@ const Header = ({ transparent, showLandingMenu }) => {
             "contextual-menu-active": showContextualMenu
           })}>
             <div className="header-menu-row header-menu-row-fill">
-              <LandingMenu />
+              {showLandingMenu && (
+                <LandingMenu />
+              )}
 
               <nav className="header-menu header-menu-right">
-                <Link to="blog" className="header-link">{trans("blog")}</Link>
+                <Link to="/blog" className="header-link">{trans("blog")}</Link>
               </nav>
             </div>
 

@@ -1,3 +1,8 @@
+// Enable .env configuration
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 module.exports = {
   siteMetadata: {
     title: `Etherna`,
@@ -6,6 +11,25 @@ module.exports = {
     author: `Mattia Dalzocchio`,
   },
   plugins: [
+    {
+      resolve: "@directus/gatsby-source-directus",
+      options: {
+        url: process.env.DIRECTUS_URL,
+        project: process.env.DIRECTUS_PROJECT,
+        auth: {
+          token: process.env.DIRECTUS_TOKEN
+        },
+        /**
+         * Optional - set the status of the items you want to receive. E.g. if you functionality
+         * want to receive items with status 'published'.
+         * `targetStatus` sets the status you want the items to have. `defaultStatus`
+         * defines a fallback status that will also be accepted (e.g. you want
+         * items with status 'draft', but 'published' is also acceptable)
+         *
+         */
+        targetStatus: ["published", "__NONE__"]
+      },
+    },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -52,8 +76,8 @@ module.exports = {
         ],
       },
   },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+  // this (optional) plugin enables Progressive Web App + Offline functionality
+  // To learn more, visit: https://gatsby.dev/offline
+  // `gatsby-plugin-offline`,
   ],
 }
