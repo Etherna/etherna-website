@@ -23,7 +23,7 @@ const BlogPost = ({ post }) => {
   const [locale, { setLocalePath }] = useLocale()
   const trans = useTranslations(locale, "blog")
   const [localeInfo] = useLocaleInfo()
-  const otherLangs = post.allSlugs.filter(s => s.locale !== locale)
+  const otherLangs = post.allSlugs.filter(s => s.locale !== post.locale)
 
   useEffect(() => {
     setLocalePaths()
@@ -50,6 +50,7 @@ const BlogPost = ({ post }) => {
         description={post.meta_description || post.excerpt}
         keywords={post.meta_keywords}
       />
+
       <BlogPostHeader
         author={post.author}
         postTitle={post.title}
@@ -58,11 +59,12 @@ const BlogPost = ({ post }) => {
         published={post.published_on}
         updated={post.updated_on}
       />
+
       <div className="post">
         <div className="container">
           <div className="row">
             <aside className="col post-sidebar post-sidebar-left">
-              {otherLangs.length && (
+              {otherLangs.length > 0 && (
                 <h6 className="post-sidebar-title">{trans("moreLanguages")}</h6>
               )}
               {otherLangs.map((slugInfo, i) => (
@@ -85,7 +87,7 @@ const BlogPost = ({ post }) => {
                 </React.Fragment>
               ))}
 
-              <h6 className="post-sidebar-title">Share this post</h6>
+              <h6 className="post-sidebar-title">{trans("sharePost")}</h6>
               <ShareButtons
                 url={typeof window !== "undefined" ? window.location.href : ""}
                 title={post.title}
@@ -93,6 +95,7 @@ const BlogPost = ({ post }) => {
               />
             </aside>
             <article className="col post-content">
+              <h1>{post.title}</h1>
               <Markdown markup={post.content} />
             </article>
             <aside className="col post-sidebar post-sidebar-right"></aside>
@@ -108,9 +111,9 @@ BlogPost.propTypes = {
     title: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
-    excerpt: PropTypes.string.isRequired,
-    meta_description: PropTypes.string.isRequired,
-    meta_keywords: PropTypes.string.isRequired,
+    excerpt: PropTypes.string,
+    meta_description: PropTypes.string,
+    meta_keywords: PropTypes.string,
     locale: PropTypes.string.isRequired,
     published_on: PropTypes.string.isRequired,
     updated_on: PropTypes.string,

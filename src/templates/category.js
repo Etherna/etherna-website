@@ -33,15 +33,23 @@ CategoryPage.propTypes = {
 }
 
 export const query = graphql`
-  query($slug: String!, $locale: String!) {
-    category: directusCategory(localized_contents: {elemMatch: {slug: {eq: $slug}, locale: {eq: $locale}}}) {
+  query($slug:String!, $now:Date!, $locale:String!) {
+    category: directusCategory(
+      localized_contents: {elemMatch: {slug: {eq: $slug}, locale: {eq: $locale}}}
+    ) {
       localized_contents {
         name
         locale
         slug
       }
     }
-    posts: allDirectusPost(filter: {published_on: {ne: null}, category_id: {localized_contents: {elemMatch: {slug: {eq: $slug}, locale: {eq: $locale}}}}}) {
+    posts: allDirectusPost(
+      filter: {
+        category_id: {localized_contents: {elemMatch: {slug: {eq: $slug}}}},
+        published_on: {lte: $now},
+        localized_contents: {elemMatch: {locale: {eq: $locale}}}
+      }
+    ) {
       nodes {
         published_on
         author {

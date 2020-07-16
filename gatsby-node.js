@@ -9,6 +9,7 @@
 const path = require("path")
 const { DEFAULT_LOCALE, SUPPORTED_LOCALES } = require("./src/utils/lang")
 
+
 ///
 /// Add localized pages
 ///
@@ -16,7 +17,12 @@ exports.onCreatePage = ({ page, actions }) => {
   const { createPage, deletePage } = actions
   const pageCopy = {...page}
 
-  if (page.path === "/blog/" || page.path === "/") {
+  const localizedRoutes = [
+    "/",
+    "/blog/"
+  ]
+
+  if (localizedRoutes.indexOf(page.path) >= 0) {
     // Delete default page and re-create with locale context
     deletePage(page)
 
@@ -32,6 +38,7 @@ exports.onCreatePage = ({ page, actions }) => {
         context: {
           ...pageCopy.context,
           locale,
+          now: new Date()
         },
       })
     })
@@ -108,6 +115,7 @@ exports.createPages = async ({ actions, graphql }) => {
         context: {
           slug,
           locale,
+          now: new Date(),
           avatar: node.author.avatar
         }
       })
@@ -125,7 +133,8 @@ exports.createPages = async ({ actions, graphql }) => {
         component: path.resolve(`./src/templates/category.js`),
         context: {
           slug,
-          locale
+          locale,
+          now: new Date(),
         }
       })
     })

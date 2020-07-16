@@ -1,5 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
+import classnames from "classnames"
 import moment from "moment"
 import { Link } from "gatsby"
 import Img from "gatsby-image"
@@ -28,13 +29,17 @@ const BlogPostHeader = ({ author, postTitle, image, published, updated, category
   const updatedDate = updated ? moment(updated).locale(locale) : null
 
   return (
-    <header className="post-header">
-      <div className="post-header-bg">
-        <div
-          className="post-header-bg-image"
-          style={{ backgroundImage: `url(${image && image.base64})` }}
-        />
-      </div>
+    <header className={classnames("post-header", {
+      "post-header-hero": image != null
+    })}>
+      {image && (
+        <div className="post-header-bg">
+          <div
+            className="post-header-bg-image"
+            style={{ backgroundImage: `url(${image.base64})` }}
+          />
+        </div>
+      )}
 
       <div className="post-header-nav">
         <div className="container">
@@ -80,11 +85,13 @@ const BlogPostHeader = ({ author, postTitle, image, published, updated, category
         )}
 
         <div className="thumbnail">
-          <Img
-            fluid={image}
-            objectFit="cover"
-            objectPosition="50% 50%"
-          />
+          {image && (
+            <Img
+              fluid={image}
+              objectFit="cover"
+              objectPosition="50% 50%"
+            />
+          )}
         </div>
       </div>
     </header>

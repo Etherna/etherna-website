@@ -50,13 +50,15 @@ const BlogPostPreview = ({ post }) => {
         </footer>
       </div>
       <div className="post-preview-image">
-        <Link to={routes.blogPostPath(post.slug, post.locale)}>
-          <Img
-            fluid={post.image}
-            objectFit="cover"
-            objectPosition="50% 50%"
-          />
-        </Link>
+        {post.image && (
+          <Link to={routes.blogPostPath(post.slug, post.locale)}>
+            <Img
+              fluid={post.image}
+              objectFit="cover"
+              objectPosition="50% 50%"
+            />
+          </Link>
+        )}
       </div>
     </article>
   )
