@@ -3,17 +3,18 @@ const DEFAULT_LOCALE = "en"
 const SUPPORTED_LOCALES = ["it", "en"]
 
 const systemLocale = () => {
-  const language = navigator.browserLanguage ||
+  const language = typeof window !== "undefined" && (
+    navigator.browserLanguage ||
     navigator.systemLanguage ||
-    navigator.language ||
-    "en-US"
+    navigator.language
+  ) || "en-US"
   return language.split("-")[0]
 }
 
 const userLocale = () => {
   let locale = systemLocale()
 
-  if (typeof window !== undefined) {
+  if (typeof window !== "undefined") {
     const searchParams = new URLSearchParams(window.location.search)
     if (searchParams.has("lang")) {
       locale = searchParams.get("lang").toLowerCase()

@@ -57,24 +57,30 @@ export const LocalizedPage = ({ children, locale }) => {
  * @returns {[Locale, LocaleActions]} Locale hook utilities
  */
 export const useLocale = () => {
-  const [state, dispatch] = useContext(LocalizedPageContext)
-  const switchLocale = locale => {
-    dispatch({
-      type: "SWITCH_LOCALE",
-      locale
-    })
-  }
-  const setLocalePath = (locale, path) => {
-    dispatch({
-      type: "SET_LOCALE_PATH",
-      locale,
-      path
-    })
-  }
-  const getLocalePath = locale => (state.pathMap || {})[locale]
-  const actions = {
-    switchLocale, getLocalePath, setLocalePath
+  const context = useContext(LocalizedPageContext)
+  if (context) {
+    const [state, dispatch] = context
+    const switchLocale = locale => {
+      dispatch({
+        type: "SWITCH_LOCALE",
+        locale
+      })
+    }
+    const setLocalePath = (locale, path) => {
+      dispatch({
+        type: "SET_LOCALE_PATH",
+        locale,
+        path
+      })
+    }
+    const getLocalePath = locale => (state.pathMap || {})[locale]
+    const actions = {
+      switchLocale, getLocalePath, setLocalePath
+    }
+
+    return [state.locale, actions]
   }
 
-  return [state.locale, actions]
+  // mainly for the SEO component during SSR
+  return ["en", {}]
 }

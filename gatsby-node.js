@@ -6,6 +6,7 @@
 
 // You can delete this file if you're not using it
 
+const path = require("path")
 const { DEFAULT_LOCALE, SUPPORTED_LOCALES } = require("./src/utils/lang")
 
 ///
@@ -135,8 +136,7 @@ exports.createPages = async ({ actions, graphql }) => {
 ///
 /// Webpack extension
 ///
-const path = require("path")
-exports.onCreateWebpackConfig = ({ actions }) => {
+exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
   actions.setWebpackConfig({
     resolve: {
       alias: {
@@ -146,4 +146,12 @@ exports.onCreateWebpackConfig = ({ actions }) => {
       },
     },
   })
+
+  if (getConfig().mode === "production") {
+    if (process.env.DISABLE_SOURCEMAP === true) {
+      actions.setWebpackConfig({
+        devtool: false
+      })
+    }
+  }
 }
