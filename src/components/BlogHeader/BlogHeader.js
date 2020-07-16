@@ -1,10 +1,30 @@
 import React from "react"
 import classnames from "classnames"
 import PropTypes from "prop-types"
+import { graphql, useStaticQuery } from "gatsby"
+
+import { parseCategories } from "@utils/dataParser"
+import { useLocale } from "@utils/localizedPage"
 
 import "./blog-header.scss"
 
-const BlogHeader = ({ title, categories, activeSlug }) => {
+const BlogHeader = ({ title, activeSlug }) => {
+  const data = useStaticQuery(graphql`
+    query {
+      categories:allDirectusCategory {
+        nodes {
+          localized_contents {
+            slug
+            name
+            locale
+          }
+        }
+      }
+    }
+  `)
+  const [locale] = useLocale()
+  const categories = parseCategories(data.categories.nodes, locale)
+
   return (
     <header className="blog-header">
       <div className="container">
@@ -33,13 +53,6 @@ const BlogHeader = ({ title, categories, activeSlug }) => {
 
 BlogHeader.propTypes = {
   title: PropTypes.string.isRequired,
-  categories: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      slug: PropTypes.string.isRequired,
-      locale: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
   activeSlug: PropTypes.string,
 }
 

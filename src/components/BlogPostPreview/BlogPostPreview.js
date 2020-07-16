@@ -3,15 +3,20 @@ import PropTypes from "prop-types"
 import Img from "gatsby-image"
 import { Link } from "gatsby"
 import moment from "moment"
-import "moment/locale/en-gb"
 import "moment/locale/it"
 
-import Routes from "@utils/routes"
 import Avatar from "@components/common/Avatar"
 import { useLocale } from "@utils/localizedPage"
+import routes from "@utils/routes"
 
 import "./post-preview.scss"
 
+/**
+ * @typedef {object} BlogPostPreviewProps
+ * @property {import("@utils/dataParser").Post} post
+ *
+ * @param {BlogPostPreviewProps} param0
+ */
 const BlogPostPreview = ({ post }) => {
   const [locale] = useLocale()
   const formattedDate = moment(post.published_on).locale(locale)
@@ -21,7 +26,7 @@ const BlogPostPreview = ({ post }) => {
       <div className="post-preview-details">
         <header className="post-preview-header">
           {post.category && (
-            <Link to={Routes.blogCategoryPath(post.category.slug, locale)}>
+            <Link to={routes.blogCategoryPath(post.category.slug, locale)}>
               <div className="post-category">
                 {post.category.name}
               </div>
@@ -29,7 +34,7 @@ const BlogPostPreview = ({ post }) => {
           )}
         </header>
 
-        <Link to={Routes.blogPostPath(post.slug)}>
+        <Link to={routes.blogPostPath(post.slug, post.locale)}>
           <h2 className="post-preview-title">{post.title}</h2>
           <p className="post-preview-excerpt">{post.excerpt}</p>
         </Link>
@@ -45,7 +50,7 @@ const BlogPostPreview = ({ post }) => {
         </footer>
       </div>
       <div className="post-preview-image">
-        <Link to={Routes.blogPostPath(post.slug)}>
+        <Link to={routes.blogPostPath(post.slug, post.locale)}>
           <Img
             fluid={post.image}
             objectFit="cover"

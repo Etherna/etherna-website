@@ -8,7 +8,7 @@ import { useLocale } from "@utils/localizedPage"
 import Avatar from "@components/common/Avatar"
 import { Breadcrumb, BreadcrumbItem } from "@components/common/Breadcrumb"
 import { useTranslations } from "@utils/useTranslations"
-import Routes from "@utils/routes"
+import routes from "@utils/routes"
 
 /**
  * @typedef {object} BlogPostHeaderProps
@@ -23,7 +23,7 @@ import Routes from "@utils/routes"
  */
 const BlogPostHeader = ({ author, postTitle, image, published, updated, category }) => {
   const [locale] = useLocale()
-  const trans = useTranslations(locale, "post")
+  const trans = useTranslations(locale, "blog")
   const publishedDate = moment(published).locale(locale)
   const updatedDate = updated ? moment(updated).locale(locale) : null
 
@@ -42,11 +42,11 @@ const BlogPostHeader = ({ author, postTitle, image, published, updated, category
             <div className="col">
               <Breadcrumb>
                 <BreadcrumbItem title="Etherna" path="/" />
-                <BreadcrumbItem title="Blog" path="/blog" />
+                <BreadcrumbItem title="Blog" path={routes.blogPath(locale)} />
                 {category && (
                   <BreadcrumbItem
                     title={category.name}
-                    path={Routes.blogCategoryPath(category.slug, locale)}
+                    path={routes.blogCategoryPath(category.slug, locale)}
                   />
                 )}
                 <BreadcrumbItem title={postTitle} />
@@ -72,7 +72,7 @@ const BlogPostHeader = ({ author, postTitle, image, published, updated, category
         </div>
 
         {category && (
-          <Link to={Routes.blogCategoryPath(category.slug, locale)}>
+          <Link to={routes.blogCategoryPath(category.slug, locale)}>
             <div className="post-category">
               {category.name}
             </div>

@@ -1,26 +1,25 @@
 import React from "react"
+import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 
 import Layout from "@components/Layout"
 import SEO from "@components/SEO"
-import BlogPosts from "@components/BlogPosts"
+import Blog from "@components/Blog"
 import { LocalizedPage } from "@utils/localizedPage"
-import { parsePosts, parseCategories } from "@utils/dataParser"
-import { userLocale } from "@utils/lang"
+import { parsePosts } from "@utils/dataParser"
 
-const BlogPage = ({ data }) => {
-  const locale = userLocale()
+const BlogPage = ({ data, pageContext }) => {
+  const { locale } = pageContext
   const posts = parsePosts(data.posts.nodes, locale)
-  const categories = parseCategories(data.categories.nodes, locale)
+
   return (
-    <LocalizedPage>
+    <LocalizedPage locale={locale}>
       <Layout>
         <SEO title="Blog" />
 
-        <BlogPosts
-          title="Blog"
+        <Blog
           posts={posts}
-          categories={categories}
+          locale={locale}
         />
       </Layout>
     </LocalizedPage>
@@ -38,9 +37,12 @@ export const query = graphql`
         }
         localized_contents {
           title
-          locale
           slug
+          content
           excerpt
+          meta_description
+          meta_keywords
+          locale
         }
         category: category_id {
           localized_contents {
@@ -70,16 +72,14 @@ export const query = graphql`
       }
       totalCount
     }
-    categories: allDirectusCategory {
-      nodes {
-        localized_contents {
-          slug
-          name
-          locale
-        }
-      }
-    }
   }
 `
+
+BlogPage.propTypes = {
+  data: PropTypes.object,
+  pageContext: PropTypes.shape({
+    locale: PropTypes.string
+  })
+}
 
 export default BlogPage

@@ -1,12 +1,37 @@
 import { DEFAULT_LOCALE } from "./lang"
 
 /**
+ * Home path
+ * @param {string} locale Home locale
+ * @return {string} Home path
+ */
+const homePath = locale => {
+  return locale === DEFAULT_LOCALE || locale === ""
+    ? `/`
+    : `/${locale}`
+}
+
+/**
+ * Blog path
+ * @param {string} locale Blog locale
+ * @return {string} Blog path
+ */
+const blogPath = locale => {
+  return locale === DEFAULT_LOCALE || locale === ""
+    ? `/blog`
+    : `/${locale}/blog`
+}
+
+/**
  * Blog post path
  * @param {string} slug Post slug
+ * @param {string} locale Category locale
  * @return {string} Post path
  */
-const blogPostPath = slug => {
-  return `/blog/${slug}`
+const blogPostPath = (slug, locale = DEFAULT_LOCALE) => {
+  return locale === DEFAULT_LOCALE || locale === ""
+    ? `/blog/${slug}`
+    : `/${locale}/blog/${slug}`
 }
 
 /**
@@ -18,10 +43,12 @@ const blogPostPath = slug => {
 const blogCategoryPath = (slug, locale = DEFAULT_LOCALE) => {
   return locale === DEFAULT_LOCALE || locale === ""
     ? `/category/${slug}`
-    : `/category/${locale}/${slug}`
+    : `/${locale}/category/${slug}`
 }
 
 export default {
+  homePath,
+  blogPath,
   blogPostPath,
   blogCategoryPath
 }

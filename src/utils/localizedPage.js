@@ -33,10 +33,9 @@ const reducer = (state, action) => {
   }
 }
 
-export const LocalizedPage = ({ children }) => {
-  const locale = userLocale()
+export const LocalizedPage = ({ children, locale }) => {
   const store = useReducer(reducer, {
-    locale
+    locale: locale || userLocale()
   })
   return (
     <LocalizedPageContext.Provider value={store}>

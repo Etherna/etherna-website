@@ -46,6 +46,7 @@
  * @property {string} slug
  * @property {string} content
  * @property {string} excerpt
+ * @property {string} locale
  * @property {string} meta_description
  * @property {string} meta_keywords
  * @property {AuthorNode} author
@@ -60,7 +61,7 @@
  * @returns {Post[]} Post object list
  */
 export const parsePosts = (nodes, locale) => {
-  return nodes.map(post => parsePostData(post, locale))
+  return nodes.map(post => parsePost(post, locale))
 }
 
 /**
@@ -70,7 +71,7 @@ export const parsePosts = (nodes, locale) => {
  * @param {string} locale Current locale
  * @returns {Post} Post object
  */
-export const parsePostData = (node, locale) => {
+export const parsePost = (node, locale) => {
   const {
     localized_contents,
     author,

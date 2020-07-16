@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 
 import EthereumLogo from "!svg-react-loader!@images/logos/ethereum-logo.svg"
 import SwarmLogo from "!svg-react-loader!@images/logos/swarm-logo.svg"
@@ -8,12 +8,33 @@ import Card from "@components/common/Card"
 import SocialMenu from "@components/SocialMenu"
 import { useLocale } from "@utils/localizedPage"
 import { useTranslations } from "@utils/useTranslations"
+import useLocaleInfo from "@utils/useLocaleInfo"
+import routes from "@utils/routes"
 
 import "./landing.scss"
 
 const Landing = () => {
-  const [locale] = useLocale()
+  const [locale, { setLocalePath }] = useLocale()
+  const [,locales] = useLocaleInfo()
   const trans = useTranslations(locale, "landing")
+
+  useEffect(() => {
+    setLocalePaths()
+    return () => clearLocalePaths()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const setLocalePaths = () => {
+    locales.forEach(info => {
+      setLocalePath(info.code, routes.homePath(info.code))
+    })
+  }
+
+  const clearLocalePaths = () => {
+    locales.forEach(info => {
+      setLocalePath(info.code, undefined)
+    })
+  }
 
   return (
     <>

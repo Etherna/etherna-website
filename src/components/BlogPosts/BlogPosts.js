@@ -3,19 +3,43 @@ import PropTypes from "prop-types"
 
 import BlogPostPreview from "@components/BlogPostPreview"
 import BlogHeader from "@components/BlogHeader"
+import { Breadcrumb, BreadcrumbItem } from "@components/common/Breadcrumb"
 
 import "./blog.scss"
 
-const BlogPosts = ({ title, posts, categories }) => {
+/**
+ * @typedef BreadcrumbItem
+ * @property {string} title
+ * @property {string} path
+ *
+ * @typedef BlogPostsProp
+ * @property {string} title
+ * @property {import("@utils/dataParser").Post[]} posts
+ * @property {BreadcrumbItem[]} breadcrumb
+ *
+ * @param {BlogPostsProp} param0
+ */
+const BlogPosts = ({ title, posts, breadcrumb }) => {
   return (
     <>
-      <BlogHeader
-        title={title}
-        categories={categories}
-      />
+      <BlogHeader title={title} />
+
       <section className="blog">
         <div className="container">
           <div className="row">
+            {breadcrumb && (
+              <div className="col">
+                <Breadcrumb>
+                  {breadcrumb.map((brItem, i) => (
+                    <BreadcrumbItem
+                      title={brItem.title}
+                      path={brItem.path}
+                      key={i}
+                    />
+                  ))}
+                </Breadcrumb>
+              </div>
+            )}
             <div className="col lg:w-3/4 xl:w-2/3">
               {posts.map((post, i) => (
                 <BlogPostPreview
@@ -35,6 +59,7 @@ const BlogPosts = ({ title, posts, categories }) => {
 }
 
 BlogPosts.propTypes = {
+  title: PropTypes.string.isRequired,
   posts: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
@@ -57,6 +82,12 @@ BlogPosts.propTypes = {
       ).isRequired,
     })
   ).isRequired,
+  breadcrumb: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      path: PropTypes.string,
+    }),
+  ),
 }
 
 export default BlogPosts

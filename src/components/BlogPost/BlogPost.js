@@ -4,11 +4,12 @@ import { Link } from "gatsby"
 import { Markdown } from "react-showdown"
 
 import BlogPostHeader from "./BlogPostHeader"
+import SEO from "@components/SEO"
 import ShareButtons from "@components/ShareButtons"
 import { useLocale } from "@utils/localizedPage"
 import { useTranslations } from "@utils/useTranslations"
-import Routes from "@utils/routes"
 import useLocaleInfo from "@utils/useLocaleInfo"
+import routes from "@utils/routes"
 
 import "./post.scss"
 
@@ -19,30 +20,20 @@ import "./post.scss"
  * @param {BlogPostProps} param0
  */
 const BlogPost = ({ post }) => {
-  const [
-    locale, {
-      switchLocale,
-      setLocalePath
-    }
-  ] = useLocale()
-  const trans = useTranslations(locale, "post")
+  const [locale, { setLocalePath }] = useLocale()
+  const trans = useTranslations(locale, "blog")
   const [localeInfo] = useLocaleInfo()
   const otherLangs = post.allSlugs.filter(s => s.locale !== locale)
 
   useEffect(() => {
-    if (post.locale !== locale) {
-      switchLocale(post.locale)
-    }
-
     setLocalePaths()
-
     return () => clearLocalePaths()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const setLocalePaths = () => {
     post.allSlugs.forEach(info => {
-      setLocalePath(info.locale, Routes.blogPostPath(info.slug))
+      setLocalePath(info.locale, routes.blogPostPath(info.slug, info.locale))
     })
   }
 
@@ -54,6 +45,11 @@ const BlogPost = ({ post }) => {
 
   return (
     <>
+      <SEO
+        title={post.title}
+        description={post.meta_description || post.excerpt}
+        keywords={post.meta_keywords}
+      />
       <BlogPostHeader
         author={post.author}
         postTitle={post.title}
@@ -70,9 +66,9 @@ const BlogPost = ({ post }) => {
                 <h6 className="post-sidebar-title">{trans("moreLanguages")}</h6>
               )}
               {otherLangs.map((slugInfo, i) => (
-                <>
+                <React.Fragment key={i}>
                   <Link
-                    to={Routes.blogPostPath(slugInfo.slug)}
+                    to={routes.blogPostPath(slugInfo.slug, slugInfo.locale)}
                     className="read-in-btn"
                   >
                     <img
@@ -86,7 +82,7 @@ const BlogPost = ({ post }) => {
                   </Link>
 
                   <hr className="my-8" />
-                </>
+                </React.Fragment>
               ))}
 
               <h6 className="post-sidebar-title">Share this post</h6>

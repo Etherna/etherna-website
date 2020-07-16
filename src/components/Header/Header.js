@@ -8,6 +8,7 @@ import SocialMenu from "@components/SocialMenu"
 import LangSwitcher from "@components/LangSwitcher"
 import { useTranslations } from "@utils/useTranslations"
 import { useLocale } from "@utils/localizedPage"
+import routes from "@utils/routes"
 
 import "./header.scss"
 
@@ -64,7 +65,7 @@ const Header = ({ transparent, showLandingMenu }) => {
               )}
 
               <nav className="header-menu header-menu-right">
-                <Link to="/blog" className="header-link">{trans("blog")}</Link>
+                <Link to={routes.blogPath(locale)} className="header-link">{trans("blog")}</Link>
               </nav>
             </div>
 

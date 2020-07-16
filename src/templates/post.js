@@ -3,24 +3,19 @@ import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 
 import Layout from "@components/Layout"
-import SEO from "@components/SEO"
 import BlogPost from "@components/BlogPost"
 import { LocalizedPage } from "@utils/localizedPage"
-import { parsePostData, parseFluidImage } from "@utils/dataParser"
+import { parsePost, parseFluidImage } from "@utils/dataParser"
 
 const PostPage = ({ data, pageContext }) => {
-  let post = parsePostData(data.post, pageContext.locale)
+  const { locale } = pageContext
+
+  let post = parsePost(data.post, locale)
   post.author.avatar = parseFluidImage(data.authorAvatar)
 
   return (
-    <LocalizedPage>
+    <LocalizedPage locale={locale}>
       <Layout transparentHeader={true}>
-        <SEO
-          title={post.title}
-          description={post.meta_description || post.excerpt}
-          keywords={post.meta_keywords}
-        />
-
         <BlogPost
           post={post}
         />
@@ -34,6 +29,7 @@ PostPage.propTypes = {
   pageContext: PropTypes.shape({
     locale: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
+    avatar: PropTypes.number.isRequired,
   }).isRequired,
 }
 
@@ -47,12 +43,12 @@ export const query = graphql`
       }
       localized_contents {
         title
-        locale
-        content
         slug
+        content
         excerpt
         meta_description
         meta_keywords
+        locale
       }
       category: category_id {
         localized_contents {
