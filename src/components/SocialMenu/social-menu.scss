@@ -2,6 +2,8 @@ $fb-color: #1877F2;
 $tw-color: #1DA1F2;
 $tg-color: #1392D1;
 $ds-color: #6378C5;
+$gh-color: #333;
+$li-color: #0B78B7;
 
 .social-menu {
   @apply flex items-center justify-between;
@@ -49,6 +51,16 @@ $ds-color: #6378C5;
           fill: $ds-color;
         }
       }
+      &.github {
+        path {
+          fill: $gh-color;
+        }
+      }
+      &.linkedin {
+        path {
+          fill: $li-color;
+        }
+      }
     }
   }
 
@@ -61,7 +73,7 @@ $ds-color: #6378C5;
 
       &::after {
         content: "";
-        background-image: url(../../images/svg/arrow-right.svg);
+        background-image: url(../../images/icons/arrow-right.svg);
         opacity: 0;
         transform: translateX(-1rem);
         @apply invisible w-0 h-3 bg-center bg-contain bg-no-repeat transition duration-200;
@@ -85,6 +97,16 @@ $ds-color: #6378C5;
       &.discord {
         path {
           fill: $ds-color;
+        }
+      }
+      &.github {
+        path {
+          fill: $gh-color;
+        }
+      }
+      &.linkedin {
+        path {
+          fill: $li-color;
         }
       }
 

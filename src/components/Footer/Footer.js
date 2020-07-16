@@ -15,7 +15,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="container">
         <div className="footer-container">
-          <img src={require("@images/logo-footer.svg")} alt="Etherna" />
+          <img src={require("@images/footer-logo.svg")} alt="Etherna" />
 
           <SocialMenu />
 

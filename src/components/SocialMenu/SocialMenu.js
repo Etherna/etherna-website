@@ -2,10 +2,11 @@ import React from "react"
 import PropTypes from "prop-types"
 import classnames from "classnames"
 
-import FacebookLogo from "!svg-react-loader!@images/svg/facebook-logo.svg"
-import TwitterLogo from "!svg-react-loader!@images/svg/twitter-logo.svg"
-import TelegramLogo from "!svg-react-loader!@images/svg/telegram-logo.svg"
-import DiscordLogo from "!svg-react-loader!@images/svg/discord-logo.svg"
+import FacebookLogo from "!svg-react-loader!@images/logos/facebook-logo.svg"
+import TwitterLogo from "!svg-react-loader!@images/logos/twitter-logo.svg"
+import TelegramLogo from "!svg-react-loader!@images/logos/telegram-logo.svg"
+import DiscordLogo from "!svg-react-loader!@images/logos/discord-logo.svg"
+import GithubLogo from "!svg-react-loader!@images/logos/github-logo.svg"
 import { useTranslations } from "@utils/useTranslations"
 import { useLocale } from "@utils/localizedPage"
 
@@ -55,6 +56,15 @@ const SocialMenu = ({ vertical, buttonStyle }) => {
       >
         <DiscordLogo />
         <span className="social-name">{trans("discord")}</span>
+      </a>
+      <a
+        href="https://github.com/Etherna"
+        className="social-link github"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <GithubLogo />
+        <span className="social-name">{trans("github")}</span>
       </a>
     </nav>
   )

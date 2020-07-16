@@ -1,7 +1,7 @@
 import React from "react"
 import { Link as AnchorLink } from "react-scroll"
 
-import ArrowDown from "!svg-react-loader!@images/svg/arrow-down.svg"
+import ArrowDown from "!svg-react-loader!@images/icons/arrow-down.svg"
 import { useLocale } from "@utils/localizedPage"
 import { useTranslations } from "@utils/useTranslations"
 
