@@ -2,15 +2,6 @@ const DEFAULT_LOCALE = "en"
 
 const SUPPORTED_LOCALES = ["it", "en"]
 
-const systemLocale = () => {
-  const language = typeof window !== "undefined" && (
-    navigator.browserLanguage ||
-    navigator.systemLanguage ||
-    navigator.language
-  ) || "en-US"
-  return language.split("-")[0]
-}
-
 const userLocale = () => {
   let locale = systemLocale()
 
@@ -30,7 +21,16 @@ const userLocale = () => {
   else return DEFAULT_LOCALE
 }
 
+const systemLocale = () => {
+  const navigatorLanguage = typeof window !== "undefined" && (
+    navigator.browserLanguage ||
+    navigator.systemLanguage ||
+    navigator.language
+  )
+  const language = navigatorLanguage || DEFAULT_LOCALE
+  return language.split("-")[0]
+}
+
 exports.DEFAULT_LOCALE = DEFAULT_LOCALE
 exports.SUPPORTED_LOCALES = SUPPORTED_LOCALES
-exports.systemLocale = systemLocale
 exports.userLocale = userLocale
