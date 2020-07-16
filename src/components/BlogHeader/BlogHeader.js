@@ -1,12 +1,13 @@
 import React from "react"
 import classnames from "classnames"
 import PropTypes from "prop-types"
-import { graphql, useStaticQuery } from "gatsby"
+import { graphql, useStaticQuery, Link } from "gatsby"
 
 import { parseCategories } from "@utils/dataParser"
 import { useLocale } from "@utils/localizedPage"
 
 import "./blog-header.scss"
+import routes from "@utils/routes"
 
 const BlogHeader = ({ title, activeSlug }) => {
   const data = useStaticQuery(graphql`
@@ -35,12 +36,17 @@ const BlogHeader = ({ title, activeSlug }) => {
             <ul className="blog-categories">
               {categories.map((category, i) => (
                 <li
-                  className={classnames("blog-categories-item", {
-                    "active": category.slug === activeSlug
-                  })}
+                  className="blog-categories-item"
                   key={i}
                 >
-                  {category.name}
+                  <Link
+                    to={routes.blogCategoryPath(category.slug, category.locale)}
+                    className={classnames("blog-categories-link", {
+                      "active": category.slug === activeSlug
+                    })}
+                  >
+                    {category.name}
+                  </Link>
                 </li>
               ))}
             </ul>

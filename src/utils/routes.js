@@ -42,8 +42,8 @@ const blogPostPath = (slug, locale = DEFAULT_LOCALE) => {
  */
 const blogCategoryPath = (slug, locale = DEFAULT_LOCALE) => {
   return locale === DEFAULT_LOCALE || locale === ""
-    ? `/category/${slug}`
-    : `/${locale}/category/${slug}`
+    ? `/blog/category/${slug}`
+    : `/${locale}/blog/category/${slug}`
 }
 
 export default {

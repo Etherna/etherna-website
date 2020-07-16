@@ -19,10 +19,13 @@ import "./blog.scss"
  *
  * @param {BlogPostsProp} param0
  */
-const BlogPosts = ({ title, posts, breadcrumb }) => {
+const BlogPosts = ({ title, posts, activeSlug, breadcrumb }) => {
   return (
     <>
-      <BlogHeader title={title} />
+      <BlogHeader
+        title={title}
+        activeSlug={activeSlug}
+      />
 
       <section className="blog">
         <div className="container">
@@ -82,6 +85,7 @@ BlogPosts.propTypes = {
       ).isRequired,
     })
   ).isRequired,
+  activeSlug: PropTypes.string,
   breadcrumb: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,

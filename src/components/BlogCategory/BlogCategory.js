@@ -41,6 +41,7 @@ const BlogCategory = ({ category, posts }) => {
       <BlogPosts
         title={`Blog: ${category.name}`}
         posts={posts}
+        activeSlug={category.slug}
         breadcrumb={[{
           title: "Etherna",
           path: "/"
