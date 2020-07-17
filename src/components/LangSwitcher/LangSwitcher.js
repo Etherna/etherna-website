@@ -43,42 +43,48 @@ const LangSwitcherMenu = ({ locales }) => {
     setShowMenu(false)
   }
 
+  const LinkWrapper = ({ children, className, path, code, name }) => path ? (
+    <Link
+      to={path}
+      className={className}
+      aria-label={`Switch to ${name}`}
+    >
+      {children}
+    </Link>
+  ) : (
+    <div
+      className={className}
+      role="button"
+      tabIndex="0"
+      aria-label={`Switch to ${name}`}
+      onClick={e => handleSwitchLocale(code, e)}
+      onKeyDown={e => handleSwitchLocale(code, e)}
+    >
+      {children}
+    </div>
+  )
+
   return (
     <nav className="lang-switcher-menu">
       {locales.map((loc, i) => {
         const { code, name, flag } = loc
         const localePath = getLocalePath(code)
-        return localePath ? (
-          <Link
+
+        return (
+          <LinkWrapper
+            path={localePath}
             className={classnames("lang-switcher-menu-item", {
               "active": code === locale
             })}
-            to={localePath}
-            aria-label={`Switch to ${name}`}
+            code={code}
+            name={name}
             key={i}
           >
             <div className="lang-image">
               <img src={flag.localFile.publicURL} alt={name} />
             </div>
             <span>{name}</span>
-          </Link>
-        ) : (
-          <div
-            className={classnames("lang-switcher-menu-item", {
-              "active": code === locale
-            })}
-            role="button"
-            tabIndex="0"
-            onClick={e => handleSwitchLocale(code, e)}
-            onKeyDown={e => handleSwitchLocale(code, e)}
-            aria-label={`Switch to ${name}`}
-            key={i}
-          >
-            <div className="lang-image">
-              <img src={flag.localFile.publicURL} alt={name} />
-            </div>
-            <span>{name}</span>
-          </div>
+          </LinkWrapper>
         )
       })}
     </nav>

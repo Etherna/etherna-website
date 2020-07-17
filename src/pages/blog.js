@@ -30,8 +30,8 @@ export const query = graphql`
   query($locale:String!, $now:Date!) {
     posts: allDirectusPost(
       filter: {
-        published_on: {lte: $now},
-        localized_contents: {elemMatch: {locale: {eq: $locale}}}
+        localized_contents: {elemMatch: {locale: {eq: $locale}}},
+        published_on: {lte: $now}
       }
     ) {
       nodes {

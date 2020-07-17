@@ -33,8 +33,6 @@ const ProjectsMenu = () => {
   const comingSoonProjects = projects.filter(p => p.coming_soon)
   const [locale] = useLocale()
 
-  console.log(projects);
-
   return (
     <DropDown
       toggleClass={classnames(
@@ -78,6 +76,12 @@ const ProjectMenuItem = ({ project, locale }) => {
     ? null
     : routes.projectPath(project.slug, locale)
 
+  const LinkWrapper = ({ children }) => path ? (
+    <Link to={path}>{children}</Link>
+  ) : (
+    <>{children}</>
+  )
+
   return (
     <div
       className={classnames("projects-menu-item", {
@@ -85,17 +89,17 @@ const ProjectMenuItem = ({ project, locale }) => {
       })}
     >
         <div className="projects-menu-item-image">
-          <Link to={path}>
+          <LinkWrapper>
             {project.image && (
               <img src={project.image.localFile.publicURL} alt={project.title} />
             )}
-          </Link>
+          </LinkWrapper>
         </div>
         <div className="projects-menu-item-info">
-          <Link to={path}>
+          <LinkWrapper>
             <div className="project-title">{project.title}</div>
             <p className="project-description">{project.meta_description}</p>
-          </Link>
+          </LinkWrapper>
         </div>
     </div>
   )

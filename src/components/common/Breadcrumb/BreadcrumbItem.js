@@ -3,15 +3,15 @@ import PropTypes from "prop-types"
 import { Link } from "gatsby"
 
 const BreadcrumbItem = ({ title, path }) => {
+  const LinkWrapper = ({ children }) => path ? (
+    <Link to={path}>{children}</Link>
+  ) : (
+    <>{children}</>
+  )
+
   return (
     <li className="breadcrumb-item">
-      {path ? (
-        <Link to={path}>
-          {title}
-        </Link>
-      ) : (
-        title
-      )}
+      <LinkWrapper>{title}</LinkWrapper>
     </li>
   )
 }
