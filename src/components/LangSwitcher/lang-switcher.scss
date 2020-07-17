@@ -18,7 +18,7 @@
 }
 
 .lang-switcher-menu {
-  @apply fixed bg-white shadow flex-col rounded border-gray-300 mr-4 mt-2 z-20;
+  @apply bg-white shadow flex-col rounded border-gray-300 py-1 mt-2;
 
   &-item {
     @apply flex text-gray-600 font-semibold text-sm px-5 py-2 m-1 rounded-sm cursor-pointer;
@@ -39,8 +39,4 @@
       @apply mr-3 opacity-50;
     }
   }
-}
-
-.lang-switcher-backdrop {
-  @apply fixed left-0 top-0 w-full h-full bg-transparent z-20;
 }

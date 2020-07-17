@@ -1,0 +1,53 @@
+.dropdown {
+  &-toggle {
+    @apply whitespace-no-wrap;
+
+    &-chevron {
+      &:hover {
+        &::after {
+          @apply opacity-50;
+        }
+      }
+
+      &::after {
+        content: "";
+        background-image: url(../../../images/icons/chevron-down.svg);
+        @apply inline-block w-2 h-2 ml-1 bg-center bg-no-repeat bg-contain
+          align-middle transition duration-500;
+      }
+
+      &.active {
+        &::after {
+          @apply transform rotate-180 duration-200;
+        }
+      }
+    }
+  }
+
+  &-menu {
+    @apply fixed transform origin-top scale-y-0 transition duration-200 z-20;
+
+    &.active {
+      @apply scale-y-100;
+    }
+  }
+
+  &-backdrop {
+    @apply fixed left-0 top-0 w-full h-full bg-transparent z-20;
+
+    &:active,
+    &:focus {
+      @apply outline-none;
+    }
+  }
+
+  &-arrow {
+    @apply fixed w-6 h-5;
+    //clip-path: polygon(50% 0, 100% 100%, 0% 100%);
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 12px 20px 12px;
+    border-color: transparent transparent #fff transparent;
+  }
+}

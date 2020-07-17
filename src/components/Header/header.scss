@@ -97,14 +97,21 @@
 
     .header-menu {
       @apply flex items-center flex-no-wrap;
-
       @screen lg {
         @apply px-4;
       }
 
       &:first-of-type {
-        .header-link:first-of-type {
+        @apply pl-0;
+        @screen lg {
+          @apply pl-4;
+        }
+
+        .header-link {
           @apply pl-0;
+          @screen lg {
+            @apply pl-3;
+          }
         }
       }
 
@@ -139,15 +146,15 @@
       }
 
       .header-link {
-        @apply px-3 py-2 text-sm text-gray-700 font-semibold;
+        @apply px-3 py-2 text-sm text-gray-700 font-semibold transition duration-500;
         &:hover {
-          @apply text-gray-500;
+          @apply text-gray-600;
         }
       }
 
       &.landing-menu {
         .header-link {
-          @apply relative px-4 py-2 text-gray-600;
+          @apply relative px-4 py-2 text-gray-700;
 
           &:before {
             content: "";
@@ -167,7 +174,7 @@
           }
 
           &:first-of-type {
-            @apply -ml-2;
+            @apply -ml-2 pl-4;
           }
         }
       }
@@ -185,4 +192,58 @@
 
 .header + main {
   @apply pt-16;
+}
+
+.projects-toggle {
+  &:active,
+  &:focus {
+    @apply outline-none shadow-none;
+  }
+}
+.projects-menu {
+  @apply w-screen max-w-screen-md bg-white rounded-lg shadow-lg
+    border border-gray-100 p-6 my-3;
+
+  &-row {
+    @apply w-full flex flex-wrap;
+  }
+
+  &-item {
+    @apply flex items-center mb-3 px-3 py-2 w-full rounded-lg transition-colors duration-500;
+    min-height: 5.5rem;
+    @screen md {
+      @apply w-1/2;
+    }
+
+    &:not(.disabled) {
+      &:hover {
+        @apply bg-gray-100;
+      }
+    }
+    &.disabled {
+      @apply opacity-50;
+    }
+
+    &-image {
+      @apply w-1/3 pr-4;
+    }
+    &-info {
+      @apply flex-1 text-sm font-semibold;
+
+      .project-title {
+        @apply text-gray-900;
+      }
+      .project-description {
+        @apply text-xs text-gray-500 font-normal;
+      }
+    }
+  }
+
+  .project-soon-label {
+    @apply text-accent text-sm font-normal mt-6 opacity-75 pl-3;
+  }
+
+  .dropdown-arrow {
+    @apply shadow-lg border border-gray-200;
+  }
 }

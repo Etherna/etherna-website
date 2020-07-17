@@ -4,6 +4,7 @@ import classnames from "classnames"
 import { Link } from "gatsby"
 
 import LandingMenu from "./LandingMenu"
+import ProjectsMenu from "./ProjectsMenu"
 import SocialMenu from "@components/SocialMenu"
 import LangSwitcher from "@components/LangSwitcher"
 import { useTranslations } from "@utils/useTranslations"
@@ -65,7 +66,7 @@ const Header = ({ transparent, showLandingMenu }) => {
               )}
 
               <nav className="header-menu header-menu-right">
-                <Link to={routes.projectPath("mongodm", locale)} className="header-link">MongODM</Link>
+                <ProjectsMenu />
                 <Link to={routes.blogPath(locale)} className="header-link">{trans("blog")}</Link>
               </nav>
             </div>
