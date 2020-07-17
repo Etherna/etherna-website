@@ -65,6 +65,7 @@ const Header = ({ transparent, showLandingMenu }) => {
               )}
 
               <nav className="header-menu header-menu-right">
+                <Link to={routes.projectPath("mongodm", locale)} className="header-link">MongODM</Link>
                 <Link to={routes.blogPath(locale)} className="header-link">{trans("blog")}</Link>
               </nav>
             </div>

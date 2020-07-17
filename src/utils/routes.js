@@ -46,9 +46,22 @@ const blogCategoryPath = (slug, locale = DEFAULT_LOCALE) => {
     : `/${locale}/blog/category/${slug}`
 }
 
+/**
+ * Project path
+ * @param {string} slug Project slug
+ * @param {string} locale Category locale
+ * @return {string} Project path
+ */
+const projectPath = (slug, locale = DEFAULT_LOCALE) => {
+  return locale === DEFAULT_LOCALE || locale === ""
+    ? `/project/${slug}`
+    : `/${locale}/project/${slug}`
+}
+
 export default {
   homePath,
   blogPath,
   blogPostPath,
-  blogCategoryPath
+  blogCategoryPath,
+  projectPath
 }

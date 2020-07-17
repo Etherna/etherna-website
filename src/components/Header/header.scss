@@ -103,7 +103,7 @@
       }
 
       &:first-of-type {
-        .header-link {
+        .header-link:first-of-type {
           @apply pl-0;
         }
       }

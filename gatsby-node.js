@@ -46,10 +46,12 @@ exports.onCreatePage = ({ page, actions }) => {
 }
 
 ///
-/// Create custom pages for the blog
+/// Create custom pages for:
+///   - blog
+///   - projects
 ///
 exports.createPages = async ({ actions, graphql }) => {
-  const { data: { posts, categories } } = await graphql(`
+  const { data: { posts, categories, projects } } = await graphql(`
     query {
       posts: allDirectusPost(filter: {published_on: {ne: null}}) {
         nodes {
@@ -99,6 +101,15 @@ exports.createPages = async ({ actions, graphql }) => {
           }
         }
       }
+      projects: allDirectusProject(filter: {coming_soon: {eq: false}}) {
+        nodes {
+          localized_contents {
+            slug
+            title
+            locale
+          }
+        }
+      }
     }
   `)
 
@@ -135,6 +146,23 @@ exports.createPages = async ({ actions, graphql }) => {
           slug,
           locale,
           now: new Date(),
+        }
+      })
+    })
+  })
+  projects.nodes.forEach(node => {
+    node.localized_contents.forEach(localizedProject => {
+      const { slug, locale } = localizedProject
+      const pagePath = locale === DEFAULT_LOCALE
+        ? `/project/${slug}/`
+        : `/${locale}/project/${slug}/`
+
+      actions.createPage({
+        path: pagePath,
+        component: path.resolve(`./src/templates/project.js`),
+        context: {
+          slug,
+          locale
         }
       })
     })

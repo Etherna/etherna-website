@@ -53,7 +53,7 @@
  * @property {Category} category
  * @property {string} published_on
  * @property {string} updated_on
- * @property {object} image
+ * @property {FluidImage} image
  * @property {LocaleSlug[]} allSlugs
  *
  * @param {PostNode[]} nodes Post node list
@@ -100,6 +100,7 @@ export const parsePost = (node, locale) => {
  *
  * @param {CategoryNode[]} nodes Category nodes
  * @param {string} locale Current locale
+ * @returns {Category[]} Parsed categories
  */
 export const parseCategories = (nodes, locale) => {
   return nodes.map(node => parseCategory(node, locale))
@@ -126,6 +127,78 @@ export const parseCategory = (node, locale) => {
     ...localizedCategory,
     allSlugs
   }
+}
+
+/**
+ * @typedef {object} ProjectLocalizedContentsNode
+ * @property {string} locale
+ * @property {string} title
+ * @property {string} slug
+ * @property {string} content
+ * @property {string} meta_description
+ * @property {string} meta_keywords
+ *
+ * @typedef {object} ProjectNode
+ * @property {ProjectLocalizedContentsNode} localized_contents
+ * @property {boolean} coming_soon
+ * @property {string} github_link
+ * @property {object} image
+ *
+ * @typedef {object} PublicImageNode
+ * @property {object} localFile
+ * @property {string} localFile.publicURL
+ *
+ * @typedef {object} Project
+ * @property {string} locale
+ * @property {string} title
+ * @property {string} slug
+ * @property {string} content
+ * @property {string} meta_description
+ * @property {string} meta_keywords
+ * @property {boolean} coming_soon
+ * @property {string} github_link
+ * @property {PublicImageNode} image
+ * @property {LocaleSlug[]} allSlugs
+ *
+ * Parse project node
+ * @param {ProjectNode} node Project node
+ * @param {string} locale Current locale
+ * @returns {Project} Project object
+ */
+export const parseProject = (node, locale) => {
+  if (!node) return
+
+  const {
+    localized_contents,
+    coming_soon,
+    github_link,
+    image
+  } = node
+  const localizedCategory = localized_contents.find(lc => lc.locale === locale)
+    || localized_contents[0]
+  const allSlugs = localized_contents.map(lc => ({
+    slug: lc.slug,
+    locale: lc.locale
+  }))
+  return {
+    ...localizedCategory,
+    coming_soon,
+    github_link,
+    image,
+    allSlugs
+  }
+}
+
+
+/**
+ * Parse a list of project nodes
+ *
+ * @param {ProjectNode[]} nodes Project nodes
+ * @param {string} locale Current locale
+ * @returns {Project[]} Parsed projects
+ */
+export const parseProjects = (nodes, locale) => {
+  return nodes.map(node => parseProject(node, locale))
 }
 
 /**

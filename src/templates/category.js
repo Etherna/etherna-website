@@ -33,7 +33,7 @@ CategoryPage.propTypes = {
 }
 
 export const query = graphql`
-  query($slug:String!, $now:Date!, $locale:String!) {
+  query($locale:String!, $slug:String!, $now:Date!) {
     category: directusCategory(
       localized_contents: {elemMatch: {slug: {eq: $slug}, locale: {eq: $locale}}}
     ) {

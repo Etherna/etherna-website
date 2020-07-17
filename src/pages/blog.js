@@ -12,8 +12,6 @@ const BlogPage = ({ data, pageContext }) => {
   const { locale } = pageContext
   const posts = parsePosts(data.posts.nodes, locale)
 
-  console.log(pageContext, posts);
-
   return (
     <LocalizedPage locale={locale}>
       <Layout>
@@ -29,7 +27,7 @@ const BlogPage = ({ data, pageContext }) => {
 }
 
 export const query = graphql`
-  query($now:Date!, $locale:String!) {
+  query($locale:String!, $now:Date!) {
     posts: allDirectusPost(
       filter: {
         published_on: {lte: $now},
