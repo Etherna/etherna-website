@@ -27,6 +27,7 @@
  * @property {PostLocalizedContentsNode[]} localized_contents,
  * @property {AuthorNode} author
  * @property {CategoryNode} category
+ * @property {number} directusId
  * @property {string} published_on
  * @property {string} updated_on
  * @property {object} image
@@ -42,6 +43,7 @@
  * @property {LocaleSlug[]} allSlugs
  *
  * @typedef {object} Post Post object
+ * @property {number} id
  * @property {string} title
  * @property {string} slug
  * @property {string} content
@@ -74,6 +76,7 @@ export const parsePosts = (nodes, locale) => {
 export const parsePost = (node, locale) => {
   const {
     localized_contents,
+    directusId,
     author,
     category,
     published_on,
@@ -87,6 +90,7 @@ export const parsePost = (node, locale) => {
   }))
   return {
     ...localizedPost,
+    id: directusId,
     author,
     category: parseCategory(category),
     published_on,
@@ -134,6 +138,7 @@ export const parseCategory = (node, locale) => {
  * @property {string} locale
  * @property {string} title
  * @property {string} slug
+ * @property {string} excerpt
  * @property {string} content
  * @property {string} meta_description
  * @property {string} meta_keywords
@@ -152,6 +157,7 @@ export const parseCategory = (node, locale) => {
  * @property {string} locale
  * @property {string} title
  * @property {string} slug
+ * @property {string} excerpt
  * @property {string} content
  * @property {string} meta_description
  * @property {string} meta_keywords
@@ -199,6 +205,57 @@ export const parseProject = (node, locale) => {
  */
 export const parseProjects = (nodes, locale) => {
   return nodes.map(node => parseProject(node, locale))
+}
+
+/**
+ * Parse and group comments with replies
+ *
+ * @typedef {object} CommentNode
+ * @property {number} id
+ * @property {string} name
+ * @property {string} email
+ * @property {string} comment
+ * @property {string} created_on
+ * @property {string} locale
+ * @property {number} parent
+ * @property {number} post
+ *
+ * @typedef {object} Comment
+ * @property {string} name
+ * @property {string} email
+ * @property {string} comment
+ * @property {string} created_on
+ * @property {string} locale
+ * @property {Comment[]} replies
+ *
+ * @param {CommentNode[]} nodes Fetched comment nodes
+ * @returns {Comment[]} Parsed and grouped comments
+ */
+export const parseComments = nodes => {
+  return nodes
+    .filter(node => node.parent === null)
+    .map(node => parseComment(node, nodes))
+}
+
+/**
+ * Parse a comment node and add child comments
+ *
+ * @param {CommentNode} node Main comment node
+ * @param {CommentNode[]} nodes Full node list of comments
+ * @return {Comment} Parsed comment
+ */
+export const parseComment = (node, nodes) => {
+  const childNodes = nodes.filter(n => n.parent === node.id)
+  const replies = childNodes.map(childNode => parseComment(childNode, nodes))
+
+  delete node.id
+  delete node.parent
+  delete node.post
+
+  return {
+    ...node,
+    replies
+  }
 }
 
 /**

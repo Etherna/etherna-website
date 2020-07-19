@@ -3,5 +3,7 @@
   "twitter": "Twitter",
   "telegramChannel": "Canale Telegram",
   "discord": "Discord",
-  "github": "GitHub"
+  "github": "GitHub",
+
+  "cancel": "Annulla"
 }

@@ -3,5 +3,17 @@
   "updated": "Updated",
   "readIn": "Read in",
   "moreLanguages": "This post is available in more languages",
-  "sharePost": "Share this post"
+  "sharePost": "Share this post",
+
+  "comments": "Comments",
+  "showAllLangs": "Show comments from all langs",
+  "commentsFetchError": "Failed to fetch comments...",
+  "commentPlaceholder": "Insert a comment...",
+  "namePlaceholder": "Your name",
+  "emailPlaceholder": "Your email",
+  "authAs": "Authenticated as",
+  "sendComment": "Send comment",
+  "commentSubmitSuccess": "Comment submitted successfully!",
+  "commentSubmitError": "Cannot send your comment. Try again later.",
+  "reply": "Reply"
 }

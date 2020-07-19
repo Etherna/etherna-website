@@ -1,0 +1,123 @@
+.comments {
+  @apply mt-24;
+
+  .thread-message {
+    &-meta {
+      @apply flex flex-wrap mb-4;
+    }
+
+    &-avatar {
+      @apply w-6 h-6 rounded-full overflow-hidden;
+      @screen md {
+        @apply w-8 h-8;
+      }
+    }
+
+    &-info {
+      @apply flex-1 pl-2;
+    }
+    &-by {
+      @apply text-xs text-gray-500 leading-none my-0;
+    }
+    &-comment {
+      @apply leading-none text-gray-900;
+
+      p {
+        @apply mt-0 mb-1;
+      }
+    }
+
+    &-actions {
+      @apply w-full mt-2 text-xs;
+    }
+
+    &-replies {
+      @apply pl-4;
+      @screen md {
+        @apply pl-8;
+      }
+    }
+  }
+}
+
+.comments-form {
+  @apply flex flex-wrap mb-6;
+
+  &-control {
+    @apply w-full bg-transparent border border-gray-300 rounded-lg px-4 py-2
+      transition duration-500;
+
+    &:focus,
+    &:active {
+      @apply bg-white rounded-lg outline-none shadow-none border-accent z-10;
+    }
+    &::placeholder {
+      @apply text-gray-500 text-sm;
+    }
+  }
+
+  &-comment {
+    @apply h-10;
+  }
+  &-name,
+  &-email {
+    @apply hidden;
+    @screen lg {
+      @apply w-1/2;
+    }
+  }
+
+  .submit-comment {
+    @apply hidden mt-3 flex-wrap justify-between w-full;
+    @screen md {
+      @apply flex-no-wrap;
+    }
+
+    .auth-user {
+      @apply flex items-center text-sm my-1;
+
+      &-label {
+        @apply text-gray-600 mr-2 pl-1;
+      }
+      &-avatar {
+        @apply mr-2 w-5 h-5 rounded-full;
+      }
+      &-name {
+        @apply text-gray-700 font-semibold;
+      }
+    }
+  }
+
+  &.active {
+    .comments-form-name,
+    .comments-form-email {
+      @apply block;
+    }
+    .submit-comment {
+      @apply flex;
+    }
+
+    .comments-form-comment {
+      @apply rounded-b-none h-auto;
+    }
+    .comments-form-name {
+      @apply rounded-none;
+      @screen lg {
+        @apply rounded-bl-lg rounded-br-none -mt-px;
+      }
+    }
+    .comments-form-email {
+      @apply rounded-t-none;
+      @screen lg {
+        @apply rounded-bl-none rounded-br-lg -mt-px;
+        &:not(:focus) {
+          @apply border-l-0;
+        }
+      }
+    }
+  }
+}
+
+.close-form {
+  @apply block text-xs mb-3;
+}

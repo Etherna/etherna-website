@@ -45,12 +45,13 @@ export const query = graphql`
     }
     posts: allDirectusPost(
       filter: {
-        category_id: {localized_contents: {elemMatch: {slug: {eq: $slug}}}},
+        category: {localized_contents: {elemMatch: {slug: {eq: $slug}}}},
         published_on: {lte: $now},
         localized_contents: {elemMatch: {locale: {eq: $locale}}}
       }
     ) {
       nodes {
+        directusId
         published_on
         author {
           avatar
@@ -82,7 +83,7 @@ export const query = graphql`
           meta_keywords
           locale
         }
-        category_id {
+        category {
           localized_contents {
             slug
             name

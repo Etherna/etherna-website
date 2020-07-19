@@ -22,7 +22,7 @@ const ProjectsMenu = () => {
             title
             slug
             locale
-            meta_description
+            excerpt
           }
         }
       }
@@ -98,7 +98,7 @@ const ProjectMenuItem = ({ project, locale }) => {
         <div className="projects-menu-item-info">
           <LinkWrapper>
             <div className="project-title">{project.title}</div>
-            <p className="project-description">{project.meta_description}</p>
+            <p className="project-description">{project.excerpt}</p>
           </LinkWrapper>
         </div>
     </div>

@@ -4,7 +4,7 @@ import { useStaticQuery, graphql } from "gatsby"
 /**
  * Get the translations
  * @param {string} locale Locale (eg: "en")
- * @param {string|null} namespace Translation namespace, use null to get all strings (default=null)
+ * @param {string} namespace Translation namespace, use null to get all strings (default=null)
  * @returns {Lang} Lang.js instance
  */
 export const useTranslations = (locale, namespace = null) => {

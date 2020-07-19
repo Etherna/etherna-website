@@ -56,39 +56,11 @@ exports.createPages = async ({ actions, graphql }) => {
       posts: allDirectusPost(filter: {published_on: {ne: null}}) {
         nodes {
           author {
-            first_name
             avatar
-            last_name
           }
           localized_contents {
-            title
             locale
-            content
             slug
-          }
-          category: category_id {
-            localized_contents {
-              locale
-              name
-              slug
-            }
-          }
-          status
-          published_on
-          image {
-            localFile {
-              childImageSharp {
-                fluid(maxWidth: 800) {
-                  aspectRatio
-                  base64
-                  src
-                  srcSet
-                  sizes
-                  presentationHeight
-                  presentationWidth
-                }
-              }
-            }
           }
         }
       }
@@ -96,7 +68,6 @@ exports.createPages = async ({ actions, graphql }) => {
         nodes {
           localized_contents {
             slug
-            name
             locale
           }
         }
@@ -105,7 +76,6 @@ exports.createPages = async ({ actions, graphql }) => {
         nodes {
           localized_contents {
             slug
-            title
             locale
           }
         }

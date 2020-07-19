@@ -36,6 +36,7 @@ PostPage.propTypes = {
 export const query = graphql`
   query($slug: String!, $avatar: Int!) {
     post: directusPost(localized_contents: {elemMatch: {slug: {eq: $slug}}}) {
+      directusId
       author {
         first_name
         avatar
@@ -50,7 +51,7 @@ export const query = graphql`
         meta_keywords
         locale
       }
-      category: category_id {
+      category {
         localized_contents {
           locale
           name

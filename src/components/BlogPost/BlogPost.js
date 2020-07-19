@@ -12,6 +12,7 @@ import useLocaleInfo from "@utils/useLocaleInfo"
 import routes from "@utils/routes"
 
 import "./post.scss"
+import Comments from "@components/Comments"
 
 /**
  * @typedef {object} BlogPostProps
@@ -96,7 +97,10 @@ const BlogPost = ({ post }) => {
             </aside>
             <article className="col post-content">
               <h1>{post.title}</h1>
+
               <Markdown markup={post.content} />
+
+              <Comments postId={post.id} />
             </article>
             <aside className="col post-sidebar post-sidebar-right"></aside>
           </div>

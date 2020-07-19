@@ -35,6 +35,7 @@ export const query = graphql`
       }
     ) {
       nodes {
+        directusId
         author {
           first_name
           avatar
@@ -46,7 +47,7 @@ export const query = graphql`
           excerpt
           locale
         }
-        category: category_id {
+        category {
           localized_contents {
             locale
             name

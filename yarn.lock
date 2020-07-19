@@ -990,7 +990,7 @@
     gatsby-source-filesystem "^2.1.56"
     pluralize "^8.0.0"
 
-"@directus/sdk-js@^6.0.5":
+"@directus/sdk-js@^6.0.5", "@directus/sdk-js@^6.2.0":
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/@directus/sdk-js/-/sdk-js-6.2.0.tgz#07b615be39dca7cf186df9142243abd261ee3e0c"
   integrity sha512-FE0g+D0kSKquecVC2OPgKPB+941esOouIuDFYY6fgsSihKjc/8bKFgDe9einLcYNaOBy3OiNFQp71+B4w04l4w==
@@ -3949,6 +3949,11 @@ crypto-browserify@^3.11.0:
     public-encrypt "^4.0.0"
     randombytes "^2.0.0"
     randomfill "^1.0.3"
+
+crypto-js@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-4.0.0.tgz#2904ab2677a9d042856a2ea2ef80de92e4a36dcc"
+  integrity sha512-bzHZN8Pn+gS7DQA6n+iUmBfl0hO5DJq++QP3U6uTucDtk/0iGpXd/Gg7CGR0p8tJhofJyaKoWBuJI4eAO00BBg==
 
 crypto-random-string@^1.0.0:
   version "1.0.0"
