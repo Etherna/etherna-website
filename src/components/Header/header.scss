@@ -194,6 +194,18 @@
   @apply pt-16;
 }
 
+.lang-menu-toggle {
+  @apply ml-4;
+}
+
+.user-menu-link {
+  @apply ml-4;
+
+  .user-menu-avatar {
+    @apply block w-5 h-5 rounded-full overflow-hidden;
+  }
+}
+
 .projects-toggle {
   &:active,
   &:focus {

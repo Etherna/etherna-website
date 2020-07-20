@@ -5,6 +5,7 @@ import { Link } from "gatsby"
 
 import LandingMenu from "./LandingMenu"
 import ProjectsMenu from "./ProjectsMenu"
+import UserMenu from "./UserMenu"
 import SocialMenu from "@components/SocialMenu"
 import LangSwitcher from "@components/LangSwitcher"
 import { useTranslations } from "@utils/useTranslations"
@@ -73,7 +74,8 @@ const Header = ({ transparent, showLandingMenu }) => {
 
             <div className="header-menu-row">
               <SocialMenu />
-              <LangSwitcher className="ml-4" />
+              <LangSwitcher />
+              <UserMenu />
             </div>
           </div>
         </div>
