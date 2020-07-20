@@ -16,9 +16,6 @@ module.exports = {
       options: {
         url: process.env.DIRECTUS_URL,
         project: process.env.DIRECTUS_PROJECT,
-        auth: {
-          token: process.env.DIRECTUS_TOKEN
-        },
         /**
          * Optional - set the status of the items you want to receive. E.g. if you functionality
          * want to receive items with status 'published'.

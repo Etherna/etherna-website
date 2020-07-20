@@ -6,7 +6,8 @@
   "sharePost": "Condividi questo articolo",
 
   "comments": "Commenti",
-  "showAllLangs": "Mostra commenti in tutte le lingue",
+  "showAllLangs": "Mostra tutti i commenti",
+  "onlyShowLang": "Mostra commenti in italiano",
   "commentsFetchError": "Impossibile caricare i commenti...",
   "commentPlaceholder": "Inserisci un commento...",
   "namePlaceholder": "Il tuo nome",
@@ -15,5 +16,7 @@
   "sendComment": "Invia commento",
   "commentSubmitSuccess": "Commento inviato con successo!",
   "commentSubmitError": "Impossibile inviare il tuo commento. Riprova più tardi.",
-  "reply": "Rispondi"
+  "reply": "Rispondi",
+  "replyingTo": "In risposta a",
+  "ethernaTeam": "Team Etherna"
 }

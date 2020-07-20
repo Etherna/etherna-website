@@ -3,13 +3,12 @@ import PropTypes from "prop-types"
 import DirectusClient from "@directus/sdk-js"
 
 import SpinnerIcon from "!svg-react-loader!@images/animated/spinner.svg"
-import { CommentsContextProvider } from "./commentsContext"
-import CommentsList from "./CommentsList"
+import CommentsThread from "./CommentsThread"
 import CommentForm from "./CommentForm"
+import { CommentsContextProvider } from "./commentsContext"
 import ViewportObserver from "@components/ViewportObserver"
 import { useLocale } from "@utils/localizedPage"
 import { useTranslations } from "@utils/useTranslations"
-import { parseComments } from "@utils/dataParser"
 
 import "./comments.scss"
 
@@ -32,7 +31,7 @@ const Comments = ({ postId }) => {
       fetchComments()
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inViewport])
+  }, [inViewport, showAllLang])
 
   const onEnterViewport = () => {
     setInViewport(true)
@@ -42,16 +41,17 @@ const Comments = ({ postId }) => {
     setIsLoadingComments(true)
     try {
       const localeFilter = !showAllLang && {locale: {eq: locale}}
+      directusClient.config.token = null
       const resp = await directusClient.getItems("comments", {
         limit: -1,
         filter: {
           post: {eq: postId},
           ...localeFilter
-        }
+        },
+        fields: ["*", "owner.*.*"]
       })
 
-      const comments = parseComments(resp.data)
-      setComments(comments)
+      setComments(resp.data)
     } catch (error) {
       setComments(null)
     }
@@ -63,12 +63,16 @@ const Comments = ({ postId }) => {
       childrenRef={containerRef}
       onEnterViewport={onEnterViewport}
     >
-      <CommentsContextProvider client={directusClient} postId={postId}>
+      <CommentsContextProvider
+        client={directusClient}
+        postId={postId}
+        comments={comments}
+      >
         <div className="comments" ref={containerRef}>
           <div className="flex items-center my-4">
-            <h4 className="mr-3 my-0">{trans("comments")}</h4>
-            <button className="ml-auto text-sm" onClick={() => setShowAllLang(!showAllLang)}>
-              {trans("showAllLangs")}
+            <h4 className="comments-heading">{trans("comments")}</h4>
+            <button className="ml-auto text-sm text-gray-700" onClick={() => setShowAllLang(!showAllLang)}>
+              {showAllLang ? trans("onlyShowLang") : trans("showAllLangs")}
             </button>
           </div>
 
@@ -78,13 +82,7 @@ const Comments = ({ postId }) => {
             <SpinnerIcon width="24" />
           )}
 
-          {comments === null && (
-            <p className="text-red-500">{trans("commentsFetchError")}</p>
-          )}
-
-          <ol className="comments-thread">
-            <CommentsList comments={comments} />
-          </ol>
+          <CommentsThread fetchedComments={comments} multiLang={showAllLang} />
         </div>
       </CommentsContextProvider>
     </ViewportObserver>

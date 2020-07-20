@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
 import classnames from "classnames"
+import moment from "moment"
+import { Markdown } from "react-showdown"
 import { Link } from "gatsby"
 
 import SpinnerIcon from "!svg-react-loader!@images/animated/spinner-light.svg"
@@ -10,21 +12,34 @@ import Button from "@components/common/Button"
 import { getCurrentUser, currentUserToken } from "@utils/admin"
 import { useLocale } from "@utils/localizedPage"
 import { useTranslations } from "@utils/useTranslations"
+import gravatar from "@utils/gravatar"
 
-const CommentForm = ({ inViewport }) => {
+/**
+ * @typedef CommentFormProps
+ * @property {boolean} inViewport
+ * @property {import("@utils/dataParser").Comment} replyTo
+ * @property {Function} onCancel
+ *
+ * @param {CommentFormProps} param0
+ */
+const CommentForm = ({ inViewport, replyTo, onCancel }) => {
   const [locale] = useLocale()
   const trans = useTranslations(locale, "blog")
   const transCommon = useTranslations(locale, "common")
-  const [state] = useCommentsContext()
+
   const [isOpen, setIsOpen] = useState(false)
-  const [currentUser, setCurrentUser] = useState(false)
+  const [currentUser, setCurrentUser] = useState(null)
   const [comment, setComment] = useState("")
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [errorMessage, setErrorMessage] = useState(null)
-  const { client, postId, replyTo } = state
+
+  const [state, actions] = useCommentsContext()
+  const { client, postId } = state
+  const { insertComment } = actions
+  const isActive = isOpen || replyTo != null
 
   useEffect(() => {
     if (typeof window === "undefined" || currentUser) return
@@ -42,32 +57,41 @@ const CommentForm = ({ inViewport }) => {
 
   const fetchCurrentUser = async () => {
     const currentUser = getCurrentUser()
-    setCurrentUser(currentUser)
-    setName(currentUser.name)
-    setEmail(currentUser.email)
+    if (currentUser) {
+      setCurrentUser(currentUser)
+      setName(currentUser.name)
+      setEmail(currentUser.email)
+    }
   }
 
   const submitComment = async () => {
     setIsSubmitting(true)
 
     // set current user token, if authenticated
-    if (currentUser) {
-      const token = await currentUserToken()
-      if (token) {
-        client.config.token = token
-      }
-    }
+    const token = await currentUserToken()
+    client.config.token = token || null
 
     // submit comment
     try {
-      await client.createItem("comments", {
+      const resp = await client.createItem("comments", {
         name,
         email,
         comment,
-        locale,
+        status: "published",
+        locale: (replyTo && replyTo.locale) || locale,
         post: postId,
-        parent: replyTo
+        parent: replyTo && replyTo.id
       })
+
+      const newComment = {
+        ...resp.data,
+        owner: (await client.getUser(resp.data.owner, {
+          fields: ["*.*"]
+        })).data
+      }
+
+      // insert comment in thread
+      insertComment(newComment)
 
       // if guest user, save info for future comments
       window.localStorage.setItem("comment:name", name)
@@ -76,72 +100,100 @@ const CommentForm = ({ inViewport }) => {
       // clear form
       setComment("")
       setSubmitted(true)
-      setIsOpen(false)
+      setIsSubmitting(false)
+      handleCancel()
     } catch (error) {
       setErrorMessage(error.message || trans("commentSubmitError"))
+      setIsSubmitting(false)
     }
+  }
 
-    setIsSubmitting(false)
+  const handleCancel = () => {
+    setIsOpen(false)
+    onCancel && onCancel()
   }
 
   return (
     <>
-      {isOpen && (
-        // eslint-disable-next-line
-        <a className="close-form" role="button" onClick={() => setIsOpen(false)}>{transCommon("cancel")}</a>
-      )}
       <form
         className={classnames("comments-form", {
-          "active": isOpen
+          "comments-form-replyto": replyTo != null,
+          "active": isActive
         })}
         onSubmit={submitComment}
       >
-        <textarea
-          type="text"
-          className="comments-form-control comments-form-comment"
-          placeholder={trans("commentPlaceholder")}
-          value={comment}
-          onChange={e => setComment(e.target.value)}
-          onFocus={() => setIsOpen(true)}
-          required
-        />
-        <input
-          type="text"
-          className="comments-form-control comments-form-name"
-          placeholder={trans("namePlaceholder")}
-          value={name}
-          onChange={e => setName(e.target.value)}
-          disabled={currentUser != null}
-          required
-        />
-        <input
-          type="email"
-          className="comments-form-control comments-form-email"
-          placeholder={trans("emailPlaceholder")}
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          disabled={currentUser != null}
-          required
-        />
+        {/* eslint-disable-next-line */}
+        <a className="close-form" role="button" onClick={handleCancel}>{transCommon("cancel")}</a>
 
-        <div className="submit-comment">
-          {currentUser && (
-            <Link to="/admin" className="auth-user">
-              <span className="auth-user-label">{trans("authAs")}:</span>
-              <img src={currentUser.avatar} alt="" className="auth-user-avatar"/>
-              <span className="auth-user-name">{currentUser.name}</span>
-            </Link>
-          )}
-          <Button
-            type="primary"
-            disabled={isSubmitting || comment === "" || name === "" || email === ""}
-            onClick={submitComment}
-          >
-            {isSubmitting && (
-              <SpinnerIcon width="16" height="16" className="inline-block mr-2" />
+        {replyTo && (
+          <div className="comments-form-replyto-msg">
+            <strong className="block mb-3">{trans("replyingTo")}:</strong>
+            <div className="thread-message">
+              <div className="thread-message-meta">
+                <div className="thread-message-avatar">
+                  <img src={gravatar(replyTo.email)} alt={replyTo.name} />
+                </div>
+                <div className="thread-message-info">
+                  <span className="thread-message-by">
+                    {replyTo.name} {moment(replyTo.created_on).locale(locale).fromNow()}
+                  </span>
+                  <span className="thread-message-comment">
+                    <Markdown markdown={replyTo.comment} />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="comments-form-wrapper">
+          <textarea
+            type="text"
+            className="comments-form-control comments-form-comment"
+            placeholder={trans("commentPlaceholder")}
+            value={comment}
+            onChange={e => setComment(e.target.value)}
+            onFocus={() => setIsOpen(true)}
+            required
+          />
+          <input
+            type="text"
+            className="comments-form-control comments-form-name"
+            placeholder={trans("namePlaceholder")}
+            value={name}
+            onChange={e => setName(e.target.value)}
+            disabled={currentUser != null}
+            required
+          />
+          <input
+            type="email"
+            className="comments-form-control comments-form-email"
+            placeholder={trans("emailPlaceholder")}
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            disabled={currentUser != null}
+            required
+          />
+
+          <div className="submit-comment">
+            {currentUser && (
+              <Link to="/admin" className="auth-user">
+                <span className="auth-user-label">{trans("authAs")}:</span>
+                <img src={currentUser.avatar} alt="" className="auth-user-avatar"/>
+                <span className="auth-user-name">{currentUser.name}</span>
+              </Link>
             )}
-            {trans("sendComment")}
-          </Button>
+            <Button
+              type="primary"
+              disabled={isSubmitting || comment === "" || name === "" || email === ""}
+              onClick={submitComment}
+            >
+              {isSubmitting && (
+                <SpinnerIcon width="16" height="16" className="inline-block mr-2" />
+              )}
+              {trans("sendComment")}
+            </Button>
+          </div>
         </div>
       </form>
 
@@ -168,7 +220,13 @@ const CommentForm = ({ inViewport }) => {
 
 CommentForm.propTypes = {
   inViewport: PropTypes.bool,
-  replyTo: PropTypes.number,
+  replyTo: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    comment: PropTypes.string.isRequired,
+  }),
+  handleCancel: PropTypes.func,
 }
 
 CommentForm.defaultProps = {

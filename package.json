@@ -6,6 +6,7 @@
   "dependencies": {
     "@directus/gatsby-source-directus": "^0.2.6",
     "@directus/sdk-js": "^6.2.0",
+    "@tippyjs/react": "^4.1.0",
     "classnames": "^2.2.6",
     "crypto-js": "^4.0.0",
     "dotenv": "^8.2.0",

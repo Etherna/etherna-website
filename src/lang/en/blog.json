@@ -6,7 +6,8 @@
   "sharePost": "Share this post",
 
   "comments": "Comments",
-  "showAllLangs": "Show comments from all langs",
+  "showAllLangs": "Show all comments",
+  "onlyShowLang": "Show english comments",
   "commentsFetchError": "Failed to fetch comments...",
   "commentPlaceholder": "Insert a comment...",
   "namePlaceholder": "Your name",
@@ -15,5 +16,7 @@
   "sendComment": "Send comment",
   "commentSubmitSuccess": "Comment submitted successfully!",
   "commentSubmitError": "Cannot send your comment. Try again later.",
-  "reply": "Reply"
+  "reply": "Reply",
+  "replyingTo": "Replying to",
+  "ethernaTeam": "Etherna Team"
 }

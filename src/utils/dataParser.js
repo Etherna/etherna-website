@@ -210,29 +210,58 @@ export const parseProjects = (nodes, locale) => {
 /**
  * Parse and group comments with replies
  *
+ * @typedef {object} ImageThumbnailNode
+ * @property {string} key
+ * @property {string} dimension
+ * @property {string} url
+ *
+ * @typedef {object} FileNode
+ * @property {string} title
+ * @property {string} filename_disk
+ * @property {object} data
+ * @property {string} data.url
+ * @property {string} data.full_url
+ * @property {ImageThumbnailNode[]} data.thumbnails
+ *
+ * @typedef {object} UserNode
+ * @property {number} id
+ * @property {FileNode} avatar
+ * @property {string} first_name
+ * @property {string} last_name
+ * @property {string} email
+ *
+ * @typedef {object} CommentOwner
+ * @property {number} id
+ * @property {string} avatar
+ * @property {string} name
+ * @property {string} email
+ *
  * @typedef {object} CommentNode
  * @property {number} id
  * @property {string} name
  * @property {string} email
  * @property {string} comment
  * @property {string} created_on
- * @property {string} locale
- * @property {number} parent
- * @property {number} post
+ * @property {string|{code:string}} locale
+ * @property {CommentNode|number} parent
+ * @property {PostNode|number} post
+ * @property {UserNode} owner
  *
  * @typedef {object} Comment
+ * @property {number} id
  * @property {string} name
  * @property {string} email
  * @property {string} comment
  * @property {string} created_on
  * @property {string} locale
+ * @property {CommentOwner} owner
  * @property {Comment[]} replies
  *
  * @param {CommentNode[]} nodes Fetched comment nodes
  * @returns {Comment[]} Parsed and grouped comments
  */
 export const parseComments = nodes => {
-  return nodes
+  return [...nodes]
     .filter(node => node.parent === null)
     .map(node => parseComment(node, nodes))
 }
@@ -245,17 +274,33 @@ export const parseComments = nodes => {
  * @return {Comment} Parsed comment
  */
 export const parseComment = (node, nodes) => {
-  const childNodes = nodes.filter(n => n.parent === node.id)
+  const childNodes = nodes.filter(n => n.parent === node.id || (n.parent || {}).id === node.id)
   const replies = childNodes.map(childNode => parseComment(childNode, nodes))
 
-  delete node.id
-  delete node.parent
-  delete node.post
+  const ownerAvatar =
+    node.owner &&
+    node.owner.avatar &&
+    node.owner.avatar.data.thumbnails.find(t => t.key === "directus-medium-crop")
 
-  return {
-    ...node,
-    replies
+  const owner = node.owner && {
+    id: node.owner.id,
+    name: `${node.owner.first_name} ${node.owner.last_name}`.trim(),
+    email: node.owner.email,
+    avatar: ownerAvatar && ownerAvatar.url
   }
+
+  const comment = {
+    id: node.id,
+    name: node.name,
+    email: node.email,
+    comment: node.comment,
+    created_on: node.created_on,
+    locale: node.locale.code || node.locale,
+    owner,
+    replies,
+  }
+
+  return comment
 }
 
 /**

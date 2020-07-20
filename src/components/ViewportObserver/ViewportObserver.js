@@ -12,7 +12,7 @@ const ViewportObserver = ({
     if (typeof window === "undefined") return
 
     window.addEventListener("resize", updateHandler)
-    document.body.addEventListener("scroll", updateHandler, { passive: true })
+    window.addEventListener("scroll", updateHandler, { passive: true })
 
     if (isRefInViewport()) {
       triggerEvent()
@@ -35,7 +35,7 @@ const ViewportObserver = ({
 
   const clearEvents = () => {
     window.removeEventListener("resize", updateHandler)
-    document.body.removeEventListener("scroll", updateHandler, { passive: true })
+    window.removeEventListener("scroll", updateHandler, { passive: true })
   }
 
   const updateHandler = () => {
@@ -59,16 +59,14 @@ const ViewportObserver = ({
     if (!childrenRef || !childrenRef.current) return
 
     const rect = childrenRef.current.getBoundingClientRect()
-    const docRect = document.documentElement.getBoundingClientRect()
-
     const visible = (
-      // new content has negative position at first
-      rect.top >= 0 && (
-        rect.top + offset < docRect.height ||
-        // new content might be above viewport top
-        rect.bottom + offset < docRect.height
-      )
+      rect.top >= 0 &&
+      rect.bottom <= document.documentElement.clientHeight + offset
     )
+
+    if (visible) {
+      clearEvents()
+    }
 
     return visible
   }
