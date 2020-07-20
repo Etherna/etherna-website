@@ -1,10 +1,11 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useRef } from "react"
 
 import EthereumLogo from "!svg-react-loader!@images/logos/ethereum-logo.svg"
 import SwarmLogo from "!svg-react-loader!@images/logos/swarm-logo.svg"
 import ReactLogo from "!svg-react-loader!@images/logos/react-logo.svg"
 import LandingSection from "./LandingSection"
 import Card from "@components/common/Card"
+import ViewportObserver from "@components/ViewportObserver"
 import SocialMenu from "@components/SocialMenu"
 import { useLocale } from "@utils/localizedPage"
 import { useTranslations } from "@utils/useTranslations"
@@ -14,6 +15,7 @@ import routes from "@utils/routes"
 import "./landing.scss"
 
 const Landing = () => {
+  const builtRef = useRef()
   const [locale, { setLocalePath }] = useLocale()
   const [,locales] = useLocaleInfo()
   const trans = useTranslations(locale, "landing")
@@ -38,38 +40,40 @@ const Landing = () => {
 
   return (
     <>
-      <section className="builtwith">
-        <div className="container">
-          <div className="row">
-            <div className="col">
-              <Card className="py-8">
-                <div className="flex flex-col items-center">
-                  <div className="text-label">{trans("builtWith")}</div>
-                  <div className="container mt-8">
-                    <div className="row">
-                      <div className="col sm:w-1/3 mb-6">
-                        <a href={trans("ethereumUrl")} target="_blank" rel="noreferrer noopener">
-                          <EthereumLogo />
-                        </a>
-                      </div>
-                      <div className="col sm:w-1/3 mb-6">
-                        <a href={trans("swarmUrl")} target="_blank" rel="noreferrer noopener">
-                          <SwarmLogo />
-                        </a>
-                      </div>
-                      <div className="col sm:w-1/3 mb-6">
-                        <a href={trans("reactUrl")} target="_blank" rel="noreferrer noopener">
-                          <ReactLogo />
-                        </a>
+      <ViewportObserver childrenRef={builtRef} viewportClassName="animation-active" offset={50}>
+        <section className="builtwith fade-in-up delay-50" ref={builtRef}>
+          <div className="container">
+            <div className="row">
+              <div className="col">
+                <Card className="py-8">
+                  <div className="flex flex-col items-center">
+                    <div className="text-label">{trans("builtWith")}</div>
+                    <div className="container mt-8">
+                      <div className="row">
+                        <div className="col sm:w-1/3 mb-6">
+                          <a href={trans("ethereumUrl")} target="_blank" rel="noreferrer noopener">
+                            <EthereumLogo />
+                          </a>
+                        </div>
+                        <div className="col sm:w-1/3 mb-6">
+                          <a href={trans("swarmUrl")} target="_blank" rel="noreferrer noopener">
+                            <SwarmLogo />
+                          </a>
+                        </div>
+                        <div className="col sm:w-1/3 mb-6">
+                          <a href={trans("reactUrl")} target="_blank" rel="noreferrer noopener">
+                            <ReactLogo />
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </Card>
+                </Card>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </ViewportObserver>
 
       <LandingSection
         id="transparency"

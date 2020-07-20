@@ -1,33 +1,56 @@
-import React from "react"
+import React, { useRef } from "react"
 import { Link as AnchorLink } from "react-scroll"
 
 import ArrowDown from "!svg-react-loader!@images/icons/arrow-down.svg"
+import ViewportObserver from "@components/ViewportObserver"
 import { useLocale } from "@utils/localizedPage"
 import { useTranslations } from "@utils/useTranslations"
 
 import "./hero.scss"
 
 const Hero = () => {
+  const titleRef = useRef()
+  const subheadingRef = useRef()
+  const taglineRef = useRef()
+  const moreRef = useRef()
   const [locale] = useLocale()
   const trans = useTranslations(locale, "hero")
 
   return (
-    <div className="hero">
+    <section className="hero">
       <div className="container">
-        <h1 className="hero-title" dangerouslySetInnerHTML={{ __html: trans("heading") }} />
+        <ViewportObserver childrenRef={titleRef} viewportClassName="animation-active">
+          <h1
+            className="hero-title fade-in-up"
+            dangerouslySetInnerHTML={{ __html: trans("heading") }}
+            ref={titleRef}
+          />
+        </ViewportObserver>
 
-        <p className="hero-description" dangerouslySetInnerHTML={{ __html: trans("subheading") }} />
+        <ViewportObserver childrenRef={subheadingRef} viewportClassName="animation-active">
+          <p
+            className="hero-description fade-in-up delay-100"
+            dangerouslySetInnerHTML={{ __html: trans("subheading") }}
+            ref={subheadingRef}
+          />
+        </ViewportObserver>
 
-        <h3 className="hero-tagline">{trans("tagline")}</h3>
+        <ViewportObserver childrenRef={taglineRef} viewportClassName="animation-active">
+          <h3 className="hero-tagline fade-in-up delay-200" ref={taglineRef}>
+            {trans("tagline")}
+          </h3>
+        </ViewportObserver>
 
-        <div>
-          <AnchorLink to="transparency" className="hero-cta">
-            <ArrowDown />
-            {trans("learnMore")}
-          </AnchorLink>
-        </div>
+        <ViewportObserver childrenRef={moreRef} viewportClassName="animation-active">
+          <div className="fade-in-up delay-300" ref={moreRef}>
+            <AnchorLink to="transparency" className="hero-cta">
+              <ArrowDown />
+              {trans("learnMore")}
+            </AnchorLink>
+          </div>
+        </ViewportObserver>
       </div>
-    </div>
+    </section>
   )
 }
 

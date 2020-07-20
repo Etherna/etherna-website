@@ -1,5 +1,7 @@
-import React from "react"
+import React, { useRef } from "react"
 import PropTypes from "prop-types"
+
+import ViewportObserver from "@components/ViewportObserver"
 
 const LandingSection = ({
   id,
@@ -7,28 +9,55 @@ const LandingSection = ({
   description,
   features
 }) => {
+  const titleRef = useRef()
+  const descriptionRef = useRef()
+
   return (
     <section id={id} className="landing-section">
       <div className="container">
         <div className="row">
           <div className="col">
-            <h2 className="landing-title">{title}</h2>
-            <p className="landing-description">{description}</p>
+            <ViewportObserver childrenRef={titleRef} viewportClassName="animation-active">
+              <h2 className="landing-title fade-in-up delay-50" ref={titleRef}>{title}</h2>
+            </ViewportObserver>
+            <ViewportObserver childrenRef={descriptionRef} viewportClassName="animation-active">
+              <p className="landing-description fade-in-up delay-100" ref={descriptionRef}>{description}</p>
+            </ViewportObserver>
           </div>
           {features.map((feature, i) => (
-            <div className={`col sm:w-1/${features.length}`} key={i}>
-              <div className="landing-feature">
-                <div className="feature-icon">
-                  <img src={feature.icon} alt={feature.title} />
-                </div>
-                <h3 className="feature-title">{feature.title}</h3>
-                <p className="feature-description">{feature.description}</p>
-              </div>
-            </div>
+            <Feature feature={feature} count={features.length} key={i} />
           ))}
         </div>
       </div>
     </section>
+  )
+}
+
+const Feature = ({ feature, count }) => {
+  const iconRef= useRef()
+  const titleRef= useRef()
+  const descrpitionRef= useRef()
+
+  return (
+    <div className={`col sm:w-1/${count}`}>
+      <div className="landing-feature">
+        <ViewportObserver childrenRef={iconRef} viewportClassName="animation-active">
+          <div className="feature-icon fade-in-up delay-150" ref={iconRef}>
+            <img src={feature.icon} alt={feature.title} />
+          </div>
+        </ViewportObserver>
+        <ViewportObserver childrenRef={titleRef} viewportClassName="animation-active">
+          <h3 className="feature-title fade-in-up delay-200" ref={titleRef}>
+            {feature.title}
+          </h3>
+        </ViewportObserver>
+        <ViewportObserver childrenRef={descrpitionRef} viewportClassName="animation-active" offset={50}>
+          <p className="feature-description fade-in-up delay-300" ref={descrpitionRef}>
+            {feature.description}
+          </p>
+        </ViewportObserver>
+      </div>
+    </div>
   )
 }
 
