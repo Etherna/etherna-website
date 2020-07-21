@@ -7,7 +7,7 @@ export const StorageKeys = {
   avatar: "user:avatar",
 }
 
-const token = typeof window !== undefined
+const token = typeof window !== "undefined"
   ? window.localStorage.getItem(StorageKeys.token)
   : null
 

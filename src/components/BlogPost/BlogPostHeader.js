@@ -62,7 +62,7 @@ const BlogPostHeader = ({ author, postTitle, image, published, updated, category
       </div>
 
       <div className="post-header-meta">
-        <Avatar fluid={author.avatar} />
+        <Avatar id={author.avatar} />
         <h4 className="author-name">{author.first_name} {author.last_name}</h4>
 
         <div className="publish-time">
@@ -102,7 +102,7 @@ BlogPostHeader.propTypes = {
   author: PropTypes.shape({
     first_name: PropTypes.string,
     last_name: PropTypes.string,
-    avatar: PropTypes.object,
+    avatar: PropTypes.number,
   }).isRequired,
   postTitle: PropTypes.string.isRequired,
   image: PropTypes.object,

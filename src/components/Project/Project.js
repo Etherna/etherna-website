@@ -7,6 +7,9 @@ import { useLocale } from "@utils/localizedPage"
 import { useTranslations } from "@utils/useTranslations"
 import routes from "@utils/routes"
 
+// remove this after publishing the first post
+import "../BlogPost/post.scss"
+
 import "./project.scss"
 
 /**

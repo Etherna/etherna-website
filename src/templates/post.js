@@ -5,13 +5,11 @@ import { graphql } from "gatsby"
 import Layout from "@components/Layout"
 import BlogPost from "@components/BlogPost"
 import { LocalizedPage } from "@utils/localizedPage"
-import { parsePost, parseFluidImage } from "@utils/dataParser"
+import { parsePost } from "@utils/dataParser"
 
 const PostPage = ({ data, pageContext }) => {
   const { locale } = pageContext
-
-  let post = parsePost(data.post, locale)
-  post.author.avatar = parseFluidImage(data.authorAvatar)
+  const post = parsePost(data.post, locale)
 
   return (
     <LocalizedPage locale={locale}>
@@ -29,12 +27,11 @@ PostPage.propTypes = {
   pageContext: PropTypes.shape({
     locale: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
-    avatar: PropTypes.number.isRequired,
   }).isRequired,
 }
 
 export const query = graphql`
-  query($slug: String!, $avatar: Int!) {
+  query($slug: String!) {
     post: directusPost(localized_contents: {elemMatch: {slug: {eq: $slug}}}) {
       directusId
       author {
@@ -59,6 +56,7 @@ export const query = graphql`
         }
       }
       status
+      updated_on
       published_on
       image {
         localFile {
@@ -73,21 +71,6 @@ export const query = graphql`
               presentationHeight
               presentationWidth
             }
-          }
-        }
-      }
-    },
-    authorAvatar: directusFile(directusId: {eq: $avatar}) {
-      localFile {
-        childImageSharp {
-          fluid(maxWidth: 128) {
-            aspectRatio
-            base64
-            presentationHeight
-            presentationWidth
-            sizes
-            src
-            srcSet
           }
         }
       }

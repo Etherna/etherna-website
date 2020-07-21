@@ -1,5 +1,6 @@
 import React, { useRef } from "react"
 import PropTypes from "prop-types"
+import classnames from "classnames"
 
 import ViewportObserver from "@components/ViewportObserver"
 
@@ -39,7 +40,11 @@ const Feature = ({ feature, count }) => {
   const descrpitionRef= useRef()
 
   return (
-    <div className={`col sm:w-1/${count}`}>
+    <div className={classnames("col", {
+      // fix purge css
+      "sm:w-1/2": count === 2,
+      "sm:w-1/3": count === 3,
+    })}>
       <div className="landing-feature">
         <ViewportObserver childrenRef={iconRef} viewportClassName="animation-active">
           <div className="feature-icon fade-in-up delay-150" ref={iconRef}>

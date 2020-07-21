@@ -80,6 +80,7 @@ export const parsePost = (node, locale) => {
     author,
     category,
     published_on,
+    updated_on,
     image
   } = node
   const localizedPost = localized_contents.find(lc => lc.locale === locale)
@@ -94,6 +95,7 @@ export const parsePost = (node, locale) => {
     author,
     category: parseCategory(category),
     published_on,
+    updated_on,
     image: parseFluidImage(image),
     allSlugs
   }

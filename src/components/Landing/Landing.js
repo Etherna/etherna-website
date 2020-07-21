@@ -40,7 +40,7 @@ const Landing = () => {
 
   return (
     <>
-      <ViewportObserver childrenRef={builtRef} viewportClassName="animation-active" offset={50}>
+      <ViewportObserver childrenRef={builtRef} viewportClassName="animation-active" offset={200}>
         <section className="builtwith fade-in-up delay-50" ref={builtRef}>
           <div className="container">
             <div className="row">

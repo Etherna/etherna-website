@@ -32,7 +32,8 @@ export const query = graphql`
       filter: {
         localized_contents: {elemMatch: {locale: {eq: $locale}}},
         published_on: {lte: $now}
-      }
+      },
+      sort: {order: DESC, fields: published_on}
     ) {
       nodes {
         directusId

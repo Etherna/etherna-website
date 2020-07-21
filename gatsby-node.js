@@ -38,7 +38,7 @@ exports.onCreatePage = ({ page, actions }) => {
         context: {
           ...pageCopy.context,
           locale,
-          now: new Date()
+          now: (new Date()).toISOString()
         },
       })
     })
@@ -51,9 +51,10 @@ exports.onCreatePage = ({ page, actions }) => {
 ///   - projects
 ///
 exports.createPages = async ({ actions, graphql }) => {
+  const now = (new Date()).toISOString()
   const { data: { posts, categories, projects } } = await graphql(`
     query {
-      posts: allDirectusPost(filter: {published_on: {ne: null}}) {
+      posts: allDirectusPost(filter: {published_on: {lte: "${now}"}}) {
         nodes {
           author {
             avatar
@@ -94,10 +95,10 @@ exports.createPages = async ({ actions, graphql }) => {
         path: pagePath,
         component: path.resolve(`./src/templates/post.js`),
         context: {
+          post: node,
           slug,
           locale,
-          now: new Date(),
-          avatar: node.author.avatar
+          now,
         }
       })
     })
@@ -115,7 +116,7 @@ exports.createPages = async ({ actions, graphql }) => {
         context: {
           slug,
           locale,
-          now: new Date(),
+          now,
         }
       })
     })
@@ -155,7 +156,7 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
   })
 
   if (getConfig().mode === "production") {
-    if (process.env.DISABLE_SOURCEMAP === true) {
+    if (process.env.DISABLE_SOURCEMAP === "true") {
       actions.setWebpackConfig({
         devtool: false
       })

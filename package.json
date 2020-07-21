@@ -7,6 +7,7 @@
     "@directus/gatsby-source-directus": "^0.2.6",
     "@directus/sdk-js": "^6.2.0",
     "@tippyjs/react": "^4.1.0",
+    "axios": "^0.19.2",
     "classnames": "^2.2.6",
     "crypto-js": "^4.0.0",
     "dotenv": "^8.2.0",
@@ -38,7 +39,7 @@
     "tailwindcss": "^1.4.6"
   },
   "scripts": {
-    "build": "gatsby clean && gatsby build",
+    "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "npm run develop",

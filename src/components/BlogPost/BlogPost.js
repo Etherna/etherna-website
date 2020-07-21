@@ -126,7 +126,7 @@ BlogPost.propTypes = {
     author: PropTypes.shape({
       first_name: PropTypes.string,
       last_name: PropTypes.string,
-      avatar: PropTypes.object,
+      avatar: PropTypes.number,
     }).isRequired,
     allSlugs: PropTypes.arrayOf(
       PropTypes.shape({

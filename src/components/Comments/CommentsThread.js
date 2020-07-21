@@ -32,8 +32,8 @@ const CommentsThread = ({ fetchedComments, multiLang }) => {
       )}
 
       {comments && comments.length === 0 && (
-        <div className="py-8 text-gray-700">
-          <h5>{trans("noComments")}</h5>
+        <div className="py-8 text-gray-600">
+          <h5>{trans("noComments")} <span role="img" aria-label="up here">👆</span></h5>
         </div>
       )}
     </>
