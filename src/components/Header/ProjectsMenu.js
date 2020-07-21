@@ -54,7 +54,9 @@ const ProjectsMenu = () => {
         </div>
         {comingSoonProjects.length > 0 && (
           <>
-            <h6 className="project-soon-label">Coming later!</h6>
+            <h6 className="project-soon-label">
+              Coming later <span role="img" aria-label="waiting for launch">🚀</span>
+            </h6>
             <div className="projects-menu-row">
               {comingSoonProjects.map((project, i) => (
                 <ProjectMenuItem

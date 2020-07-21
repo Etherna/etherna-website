@@ -21,13 +21,21 @@ const CommentsThread = ({ fetchedComments, multiLang }) => {
 
   return (
     <>
+      {comments && (
+        <ol className="comments-thread">
+          <CommentsList comments={comments} multiLang={multiLang} />
+        </ol>
+      )}
+
       {comments === null && (
         <p className="text-red-500">{trans("commentsFetchError")}</p>
       )}
 
-      <ol className="comments-thread">
-        <CommentsList comments={comments} multiLang={multiLang} />
-      </ol>
+      {comments && comments.length === 0 && (
+        <div className="py-8 text-gray-700">
+          <h5>{trans("noComments")}</h5>
+        </div>
+      )}
     </>
   )
 }
