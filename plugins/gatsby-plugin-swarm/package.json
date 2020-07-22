@@ -1,0 +1,29 @@
+{
+  "name": "gatsby-plugin-swarm",
+  "description": "Adds support for deploying Gatsby to Swarm/IPFS by ensuring that assets are relative",
+  "version": "1.0.0",
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "swarm",
+    "ens",
+    "ipfs",
+    "ipns",
+    "relative"
+  ],
+  "author": "Mattia Dalzocchio <mattiadalzocchio@me.com>",
+  "license": "MIT",
+  "files": [
+    "path-fixers.js",
+    "gatsby-node.js"
+  ],
+  "dependencies": {
+    "globby": "^11.0.1",
+    "is-text-path": "^2.0.0",
+    "p-map": "^4.0.0",
+    "uglify-js": "^3.10.0"
+  },
+  "peerDependencies": {
+    "gatsby": "^2.20.0"
+  }
+}
