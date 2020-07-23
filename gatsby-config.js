@@ -4,7 +4,7 @@ require("dotenv").config({
 })
 
 module.exports = {
-  pathPrefix: '__PATH_PREFIX__',
+  pathPrefix: process.env.NODE_ENV === `production` && `__PATH_PREFIX__`,
   //pathPrefix: '/bzz:/test/',
   siteMetadata: {
     title: `Etherna`,

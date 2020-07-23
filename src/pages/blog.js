@@ -12,8 +12,6 @@ const BlogPage = ({ data, pageContext }) => {
   const { locale } = pageContext
   const posts = parsePosts(data.posts.nodes, locale)
 
-  console.log(posts);
-
   return (
     <LocalizedPage locale={locale}>
       <Layout>
