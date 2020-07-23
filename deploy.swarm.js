@@ -59,9 +59,6 @@ const deployToSwarm = async () => {
       }
     })
 
-    // console.log(data);
-    // return
-
     // Upload
     const bzz = new BzzNode({ url: config.swarmGateway })
     const manifest = await bzz.uploadDirectory(data)

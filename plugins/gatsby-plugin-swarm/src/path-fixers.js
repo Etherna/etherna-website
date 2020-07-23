@@ -151,16 +151,16 @@ const injectScriptsInHtmlFiles = async (prefix, pattern, forceTrailingSlash, use
   let basenameFixContent = ""
   if (useBasenamePrefix) {
     const basenameFixBuffer = await readFileAsync(path.resolve(__dirname, 'runtime/basename-prefix.js'))
-    const uglyfy = UglifyJS.minify(
+    const uglifyResult = UglifyJS.minify(
       basenameFixBuffer.toString()
         .replace(/__PATH_PREFIX__/g, prefix)
     )
+    basenameFixContent = uglifyResult.code
 
-    basenameFixContent = basenameFixBuffer.toString()//uglyfy.code
-    if (uglyfy.error) {
-      console.log('===================================');
-      console.log(uglyfy.error);
-      console.log('===================================');
+    if (uglifyResult.error) {
+      console.log('============================');
+      console.log(uglifyResult.error);
+      console.log('============================');
     }
   }
 

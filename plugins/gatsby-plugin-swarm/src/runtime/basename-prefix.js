@@ -1,4 +1,6 @@
 (function () {
+  var attributes = ['href', 'src', 'srcset', 'data-href', 'data-src', 'data-src'];
+
   /// don't run if __PATH_PREFIX__ is empty
   if (window.__PATH_PREFIX__) {
     fixCurrentUrls();
@@ -7,19 +9,25 @@
 
   /// Fix current scripts and links
   function fixCurrentUrls() {
-    var currentScripts = document.querySelectorAll('[href], [src], [data-href], [data-src]');
+    var query = attributes
+      .reduce(function (a, b) {
+        return a + '[' + b + '],';
+      }, '')
+      .replace(/,$/, '');
+    var currentScripts = document.querySelectorAll(query);
     fixUrls(currentScripts);
   }
 
   /// Observe for added scripts and links in DOM
   function observeDOM() {
     var observer = new MutationObserver(function (mutations) {
-      mutations.forEach(function (mutation) {
-        if (mutation.type === "attributes") {
-          fixUrls([mutation.target]);
-        }
-        fixUrls(mutation.addedNodes);
-      });
+      // mutations.forEach(function (mutation) {
+      //   if (mutation.type === "attributes") {
+      //     fixUrls([mutation.target]);
+      //   }
+      //   fixUrls(mutation.addedNodes);
+      // });
+      fixCurrentUrls();
     });
     observer.observe(document.documentElement, {
       childList: true,
@@ -35,7 +43,7 @@
     nodes.forEach(function (node) {
       if (typeof node !== "object") return;
 
-      var fixedNode = clonedElWithBasename(node, basename)
+      var fixedNode = clonedElWithBasename(node, basename, false)
       if (fixedNode) {
         node.parentNode.appendChild(fixedNode);
         node.remove();
@@ -44,7 +52,7 @@
   }
 
   // Clone element with attributes
-  function clonedElWithBasename(originEl, basename) {
+  function clonedElWithBasename(originEl, basename, replace) {
     if (!originEl) return null;
     if (typeof originEl !== "object") return null;
     if (typeof originEl.getAttribute !== "function") return null;
@@ -54,21 +62,36 @@
     }
 
     var url, urlAttr;
-    var attributes = ['href', 'src', 'data-href', 'data-src'];
     var patterns = [
       /(^\/|^)__PATH_PREFIX__\//,
       /^(\.?\.\/)+/
-    ]
+    ];
     for (var i = 0; i < attributes.length; i++) {
       var attr = attributes[i];
       var nodeUrl = originEl.getAttribute(attr);
       if (nodeUrl) {
         for (var j = 0; j < patterns.length; j++) {
-          var pattern = patterns[j]
+          var pattern = patterns[j];
           if (pattern.test(nodeUrl)) {
             url = nodeUrl.replace(pattern, basename);
-            urlAttr = attr
+            urlAttr = attr;
             break;
+          }
+          if (attr === 'srcset') {
+            var match = false;
+            var sets = nodeUrl.split(',');
+            sets.forEach(function (set, setIdx) {
+              if (pattern.test(set.trim())) {
+                sets[setIdx] = set.trim().replace(pattern, basename);
+                match = true;
+              }
+            });
+
+            if (match) {
+              url = sets.join(',\n');
+              urlAttr = attr;
+              break;
+            }
           }
         }
 
@@ -78,15 +101,16 @@
 
     if (!url) return null;
 
-    // var cloneEl = document.createElement(originEl.tagName);
-    // for (var i = 0; i < originEl.attributes.length; i++) {
-    //   var attr = originEl.attributes[i];
-    //   cloneEl.setAttribute(attr.name, attr.value);
-    // }
-    // cloneEl.setAttribute(urlAttr, url)
-    // cloneEl.innerText = originEl.innerText;
-    // return cloneEl;
-
+    if (replace) {
+      var cloneEl = document.createElement(originEl.tagName);
+      for (var i = 0; i < originEl.attributes.length; i++) {
+        var attr = originEl.attributes[i];
+        cloneEl.setAttribute(attr.name, attr.value);
+      }
+      cloneEl.setAttribute(urlAttr, url);
+      cloneEl.innerText = originEl.innerText;
+      return cloneEl;
+    }
 
     originEl.setAttribute(urlAttr, url);
   }
