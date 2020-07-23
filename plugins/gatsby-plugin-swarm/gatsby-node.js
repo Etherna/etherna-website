@@ -1,7 +1,7 @@
 const {
   injectScriptsInHtmlFiles,
   relativizeHtmlFiles,
-  relativizeJsFiles,
+  relativizeJsContentFiles,
   relativizeMiscAssetFiles
 } = require("./src/path-fixers")
 
@@ -9,7 +9,8 @@ exports.onPostBuild = async (nodeOptions) => {
   const { store, reporter } = nodeOptions
   const { config, program } = store.getState()
   const plugin = config.plugins.find(plugin => ("resolve" in plugin) && plugin.resolve === "gatsby-plugin-swarm")
-  const { options: { prefix, pattern } } = plugin
+  const { options } = plugin
+  const { prefix, pattern, forceTrailingSlash, useBasename } = options
 
   if (!prefix || prefix === "") {
     reporter.panic(`You must set the prefix option in your gatsby-config.js file`)
@@ -20,9 +21,9 @@ exports.onPostBuild = async (nodeOptions) => {
   }
 
   if (program.prefixPaths) {
-    await relativizeHtmlFiles(prefix)
-    await relativizeJsFiles(prefix)
+    await relativizeHtmlFiles(prefix, forceTrailingSlash)
     await relativizeMiscAssetFiles(prefix)
-    await injectScriptsInHtmlFiles(prefix, pattern)
+    await relativizeJsContentFiles(prefix)
+    await injectScriptsInHtmlFiles(prefix, pattern, forceTrailingSlash, useBasename)
   }
 }

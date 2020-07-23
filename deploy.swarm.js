@@ -44,31 +44,29 @@ const deployToSwarm = async () => {
 
     files.forEach(fileInfo => {
       const [fileName, filePath] = fileInfo
+      const contentType = mimetypes.lookup(filePath)
       data[fileName] = {
         data: fs.readFileSync(filePath),
-        contentType: mimetypes.lookup(filePath),
+        contentType
       }
 
-      //
-      // Add aliases
-      //
-      // if (fileName.endsWith("/index.html") && fileName !== "index.html") {
-      //   const relativeFileName = fileName.replace(/\/index\.html$/, "")
-      //   data[relativeFileName] = {
-      //     data: fs.readFileSync(filePath),
-      //     contentType: mimetypes.lookup(filePath),
-      //   }
-      // }
+      if (/\/index\.html$/.test(fileName)) {
+        const defaultFileName = fileName.replace(/\/index\.html$/, "/")
+        data[defaultFileName] = {
+          data: fs.readFileSync(filePath),
+          contentType
+        }
+      }
     })
+
+    // console.log(data);
+    // return
 
     // Upload
     const bzz = new BzzNode({ url: config.swarmGateway })
     const manifest = await bzz.uploadDirectory(data)
 
     console.log(`App deployed to ${manifest}`)
-
-    // return hash for the feed
-    return `0x${manifest}`
   } catch (error) {
     console.error(error)
   }

@@ -27,25 +27,36 @@ const getRelativePrefix = path => {
  * relative paths inside the HTML files.
  *
  * @param {string} prefix Path prefix to replace
+ * @param {boolean} forceTrailingSlash Add a trailing slash to a tag links if missing
  */
-const relativizeHtmlFiles = async prefix => {
+const relativizeHtmlFiles = async (prefix, forceTrailingSlash = false) => {
   const paths = await globby(['public/**/*.html'])
 
   await pMap(paths, async path => {
     const buffer = await readFileAsync(path)
-    let contents = buffer.toString()
+    let pageContent = buffer.toString()
 
     // Skip if there's nothing to do
-    if (!contents.includes(prefix)) {
+    if (!pageContent.includes(prefix)) {
       return
     }
 
-    const relativePrefix = getRelativePrefix(path)
+    // Fix trailing slash
+    if (forceTrailingSlash) {
+      pageContent = pageContent.replace(/<\s*a[^>]*>.*?<\s*\/\s*a>/g, match => {
+        const tag = match.replace(/href=\"(.*?)\"/, (match, g1) => {
+          const link = g1.replace(/(\/$|$)/, "/")
+          return match.replace(g1, link)
+        })
+        return tag
+      })
+    }
+
+    // Fix base html file
     const pattern = new RegExp(`\/${prefix}\/`, "g")
-
-    contents = contents.replace(pattern, relativePrefix)
-
-    await writeFileAsync(path, contents)
+    let relativePrefix = getRelativePrefix(path)
+    let content = pageContent.replace(pattern, relativePrefix)
+    await writeFileAsync(path, content)
   }, {
     concurrency: TRANSFORM_CONCURRENCY
   })
@@ -58,7 +69,7 @@ const relativizeHtmlFiles = async prefix => {
  *
  * @param {string} prefix Path prefix to replace
  */
-const relativizeJsFiles = async prefix => {
+const relativizeJsContentFiles = async prefix => {
   const paths = await globby(['public/**/*.js'])
 
   await pMap(paths, async path => {
@@ -125,23 +136,46 @@ const relativizeMiscAssetFiles = async prefix => {
  *
  * @param {string} prefix Path prefix to set
  * @param {string} pattern Regex pattern that matches the swarm/ipfs prefix
+ * @param {boolean} forceTrailingSlash Redirect to <path>/ if trailing slash is missing
+ * @param {boolean} useBasenamePrefix Replace prefix with basename path instead of relative paths
  */
-const injectScriptsInHtmlFiles = async (prefix, pattern) => {
+const injectScriptsInHtmlFiles = async (prefix, pattern, forceTrailingSlash, useBasenamePrefix) => {
   const scriptBuffer = await readFileAsync(path.resolve(__dirname, 'runtime/head-prefix.js'))
   const scriptContents = UglifyJS.minify(
     scriptBuffer.toString()
       .replace(/__PATH_PREFIX__/g, prefix)
       .replace(/__PATTERN__/g, pattern)
+      .replace(/__FORCE_TRAILING_SLASH__/g, forceTrailingSlash ? "true" : "false")
   ).code
+
+  let basenameFixContent = ""
+  if (useBasenamePrefix) {
+    const basenameFixBuffer = await readFileAsync(path.resolve(__dirname, 'runtime/basename-prefix.js'))
+    const uglyfy = UglifyJS.minify(
+      basenameFixBuffer.toString()
+        .replace(/__PATH_PREFIX__/g, prefix)
+    )
+
+    basenameFixContent = basenameFixBuffer.toString()//uglyfy.code
+    if (uglyfy.error) {
+      console.log('===================================');
+      console.log(uglyfy.error);
+      console.log('===================================');
+    }
+  }
 
   const paths = await globby(['public/**/*.html'])
 
-  await pMap(paths, async (path) => {
+  await pMap(paths, async path => {
       let contents = await readFileAsync(path)
 
       contents = contents
         .toString()
         .replace(/<head>/, `<head><script>${scriptContents}</script>`)
+
+        if (useBasenamePrefix) {
+          contents = contents.replace(/<\/body>/, `<script>${basenameFixContent}</script></body>`)
+        }
 
       await writeFileAsync(path, contents)
   }, {
@@ -150,6 +184,6 @@ const injectScriptsInHtmlFiles = async (prefix, pattern) => {
 }
 
 exports.relativizeHtmlFiles = relativizeHtmlFiles
-exports.relativizeJsFiles = relativizeJsFiles
 exports.relativizeMiscAssetFiles = relativizeMiscAssetFiles
+exports.relativizeJsContentFiles = relativizeJsContentFiles
 exports.injectScriptsInHtmlFiles = injectScriptsInHtmlFiles

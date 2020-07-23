@@ -5,6 +5,7 @@ require("dotenv").config({
 
 module.exports = {
   pathPrefix: '__PATH_PREFIX__',
+  //pathPrefix: '/bzz:/test/',
   siteMetadata: {
     title: `Etherna`,
     description: `Etherna is a transparent video platform, made for freedom. We believe in freedom of speech and we won't ban any content as long as it's legal. Join us and let's stop censorship together.`,
@@ -32,7 +33,9 @@ module.exports = {
       resolve: `gatsby-plugin-swarm`,
       options: {
         prefix: `__PATH_PREFIX__`,
-        pattern: /^(\/bzz:\/[^/]+)/
+        pattern: /^(\/bzz:\/[^/]+)/,
+        forceTrailingSlash: true,
+        useBasename: true
       },
     },
     `gatsby-plugin-react-helmet`,
