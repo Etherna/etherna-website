@@ -43,7 +43,13 @@ const Hero = () => {
 
         <ViewportObserver childrenRef={moreRef} viewportClassName="animation-active">
           <div className="fade-in-up delay-300" ref={moreRef}>
-            <AnchorLink to="transparency" className="hero-cta">
+            <AnchorLink
+              to="transparency"
+              className="hero-cta"
+              spy={true}
+              smooth={true}
+              duration={500}
+            >
               <ArrowDown />
               {trans("learnMore")}
             </AnchorLink>

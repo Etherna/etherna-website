@@ -93,7 +93,7 @@ export const parsePost = (node, locale) => {
     ...localizedPost,
     id: directusId,
     author,
-    category: parseCategory(category),
+    category: parseCategory(category, locale),
     published_on,
     updated_on,
     image: parseFluidImage(image),

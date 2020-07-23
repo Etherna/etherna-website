@@ -41,7 +41,7 @@ const Header = ({ transparent, showLandingMenu }) => {
       <div className="container">
         <div className="header-container">
           <div className="logo">
-            <Link to="/">
+            <Link to={routes.homePath(locale)}>
               <img src={require("@images/logo.svg")} alt="Etherna" />
             </Link>
           </div>

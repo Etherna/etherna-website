@@ -46,7 +46,7 @@ const BlogPostHeader = ({ author, postTitle, image, published, updated, category
           <div className="row">
             <div className="col">
               <Breadcrumb>
-                <BreadcrumbItem title="Etherna" path="/" />
+                <BreadcrumbItem title="Etherna" path={routes.homePath(locale)} />
                 <BreadcrumbItem title="Blog" path={routes.blogPath(locale)} />
                 {category && (
                   <BreadcrumbItem

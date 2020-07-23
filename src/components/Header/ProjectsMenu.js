@@ -6,6 +6,7 @@ import DropDown from "@components/common/DropDown"
 import { useLocale } from "@utils/localizedPage"
 import routes from "@utils/routes"
 import { parseProjects } from "@utils/dataParser"
+import { useTranslations } from "@utils/useTranslations"
 
 const ProjectsMenu = () => {
   const data = useStaticQuery(graphql`
@@ -32,6 +33,7 @@ const ProjectsMenu = () => {
   const activeProjects = projects.filter(p => !p.coming_soon)
   const comingSoonProjects = projects.filter(p => p.coming_soon)
   const [locale] = useLocale()
+  const trans = useTranslations(locale, "header")
 
   return (
     <DropDown
@@ -39,7 +41,7 @@ const ProjectsMenu = () => {
         "header-link",
         "projects-toggle"
       )}
-      toggleChildren="Projects"
+      toggleChildren={trans("projects")}
       showChevron={true}
     >
       <nav className="projects-menu">
@@ -55,7 +57,7 @@ const ProjectsMenu = () => {
         {comingSoonProjects.length > 0 && (
           <>
             <h6 className="project-soon-label">
-              Coming later <span role="img" aria-label="waiting for launch">🚀</span>
+              {trans("comingLater")} <span role="img" aria-label="waiting for launch">🚀</span>
             </h6>
             <div className="projects-menu-row">
               {comingSoonProjects.map((project, i) => (

@@ -44,7 +44,7 @@ const BlogCategory = ({ category, posts }) => {
         activeSlug={category.slug}
         breadcrumb={[{
           title: "Etherna",
-          path: "/"
+          path: routes.homePath(locale)
         }, {
           title: "Blog",
           path: routes.blogPath(locale)
