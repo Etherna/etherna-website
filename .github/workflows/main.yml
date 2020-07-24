@@ -15,6 +15,7 @@ jobs:
       env:
         DIRECTUS_URL: ${{ secrets.DIRECTUS_URL }}
         DIRECTUS_PROJECT: "etherna"
+        DIRECTUS_TOKEN: ${{ secrets.DIRECTUS_TOKEN }}
         DISABLE_SOURCEMAP: "true"
       with:
         gatsby-arg: build
