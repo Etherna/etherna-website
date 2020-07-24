@@ -52,7 +52,9 @@ export const isLoggedIn = async () => {
 
 export const authenticate = async (email, password) => {
   await directusClient.login({ email, password })
+
   const { data: user } = await directusClient.getMe()
+  directusClient.config.token = user.token
 
   // save current auth token
   window.localStorage.setItem(StorageKeys.token, user.token)

@@ -27,14 +27,14 @@ const AdminLoginForm = ({ onLogin }) => {
 
   return (
     <form onSubmit={login}>
+      {errorMessage && (
+        <div className="mb-4">
+          <Alert type="danger" title="Login error" onClose={() => setErrorMessage(null)}>
+            {errorMessage}
+          </Alert>
+        </div>
+      )}
       <div className="input-group">
-        {errorMessage && (
-          <div className="mb-4">
-            <Alert type="danger" onClose={() => setErrorMessage(null)}>
-              {errorMessage}
-            </Alert>
-          </div>
-        )}
         <input
           type="email"
           name="email"
