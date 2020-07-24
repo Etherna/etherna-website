@@ -1,0 +1,34 @@
+name: Deploy on Hosting
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: Build Gatsby Site
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2.1.0
+    - name: Build Gatsby Site
+      uses: jzweifel/gatsby-cli-github-action@master
+      env:
+        DIRECTUS_URL: ${{ secrets.DIRECTUS_URL }}
+        DIRECTUS_PROJECT: "etherna"
+        DISABLE_SOURCEMAP: "true"
+      with:
+        gatsby-arg: build
+        
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2.1.0
+    - name: Upload ftp
+      uses: sebastianpopp/ftp-action@releases/v2
+      with:
+        host: ${{ secrets.FTP_HOST }}
+        user: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        localDir: "public"
+        remoteDir: "html"
