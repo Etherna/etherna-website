@@ -29,11 +29,11 @@ const ProjectsMenu = () => {
       }
     }
   `)
-  const projects = parseProjects(data.projects.nodes)
-  const activeProjects = projects.filter(p => !p.coming_soon)
-  const comingSoonProjects = projects.filter(p => p.coming_soon)
   const [locale] = useLocale()
   const trans = useTranslations(locale, "header")
+  const projects = parseProjects(data.projects.nodes, locale)
+  const activeProjects = projects.filter(p => !p.coming_soon)
+  const comingSoonProjects = projects.filter(p => p.coming_soon)
 
   return (
     <DropDown
