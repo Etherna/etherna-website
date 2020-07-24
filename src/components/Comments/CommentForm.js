@@ -85,7 +85,7 @@ const CommentForm = ({ inViewport, replyTo, onCancel }) => {
 
       const newComment = {
         ...resp.data,
-        owner: (await client.getUser(resp.data.owner, {
+        owner: resp.data.owner && (await client.getUser(resp.data.owner, {
           fields: ["*.*"]
         })).data
       }

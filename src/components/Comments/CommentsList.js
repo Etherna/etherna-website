@@ -51,8 +51,8 @@ const CommentsList = ({ comments, depth, multiLang }) => {
                   />
                 )}
                 {
-                  msg.owner != null ? (
-                    <Tippy content={msg.owner != null && trans("ethernaTeam")}>
+                  msg.owner ? (
+                    <Tippy content={trans("ethernaTeam")}>
                       <span className="thread-message-name verified">
                         {(msg.owner && msg.owner.name) || msg.name}
                       </span>
