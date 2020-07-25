@@ -12,9 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2.1.0
-    - name: Compare passphrase
-      if: ${{ secrets.PASSPHRASE != github.event.inputs.passphrase }}
-      uses: andymckay/cancel-action@0.2
+    - name: Validate with secret
+      uses: mattiaz9/conditional-cancel-action@0.1
+      with:
+        match_1: ${{ secrets.PASSPHRASE }}
+        match_2: ${{ github.event.inputs.passphrase }}
     - name: Build Gatsby Site
       uses: jzweifel/gatsby-cli-github-action@master
       env:
