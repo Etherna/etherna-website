@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2.1.0
     - name: Compare passphrase
-      if: secrets.PASSPHRASE != github.event.inputs.passphrase
+      if: ${{ secrets.PASSPHRASE != github.event.inputs.passphrase }}
       uses: andymckay/cancel-action@0.2
     - name: Build Gatsby Site
       uses: jzweifel/gatsby-cli-github-action@master
