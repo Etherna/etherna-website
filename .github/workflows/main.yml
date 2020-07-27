@@ -8,16 +8,16 @@ on:
 jobs:
   build:
     name: Deploy Gatsby Site
+    env:
+      DIRECTUS_URL: ${{ secrets.DIRECTUS_URL }}
+      DIRECTUS_PROJECT: "etherna"
+      DIRECTUS_TOKEN: ${{ secrets.DIRECTUS_TOKEN }}
+      DISABLE_SOURCEMAP: "true"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2.1.0
     - name: Build Gatsby Site
       uses: jzweifel/gatsby-cli-github-action@master
-      env:
-        DIRECTUS_URL: ${{ secrets.DIRECTUS_URL }}
-        DIRECTUS_PROJECT: "etherna"
-        DIRECTUS_TOKEN: ${{ secrets.DIRECTUS_TOKEN }}
-        DISABLE_SOURCEMAP: "true"
       with:
         gatsby-arg: build
     - name: Upload ftp
