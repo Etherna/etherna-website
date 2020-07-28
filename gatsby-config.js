@@ -1,4 +1,4 @@
-// Enable .env configuration
+// Enable local .env configuration
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
@@ -39,6 +39,12 @@ module.exports = {
         pattern: /^(\/bzz:\/[^/]+)/,
         forceTrailingSlash: true,
         useBasename: true
+      },
+    },
+    {
+      resolve: `gatsby-plugin-env-variables`,
+      options: {
+        allowList: [`DIRECTUS_URL`, `DIRECTUS_PROJECT`]
       },
     },
     `gatsby-plugin-react-helmet`,
