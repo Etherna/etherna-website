@@ -72,6 +72,10 @@ input {
   }
 }
 
+blockquote {
+  @apply pl-2 py-1 border-l-4 border-gray-400;
+}
+
 accent {
   @apply text-accent;
 }

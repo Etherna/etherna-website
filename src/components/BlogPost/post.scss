@@ -73,6 +73,13 @@
     pre, code {
       @apply overflow-x-auto bg-gray-300 text-sm py-1 px-2 rounded;
     }
+    blockquote {
+      @apply text-gray-700;
+
+      p {
+        @apply my-1;
+      }
+    }
   }
 
   &-content {
