@@ -91,6 +91,10 @@ const Landing = () => {
           icon: require("@images/icons/feature-open-source.svg"),
           title: trans("transparencyFeatures.2.title"),
           description: trans("transparencyFeatures.2.description")
+        }, {
+          icon: require("@images/icons/feature-community.svg"),
+          title: trans("transparencyFeatures.3.title"),
+          description: trans("transparencyFeatures.3.description")
         }]}
       />
 
@@ -99,17 +103,21 @@ const Landing = () => {
         title={trans("users")}
         description={trans("usersDescription")}
         features={[{
-          icon: require("@images/icons/feature-creativity.svg"),
+          icon: require("@images/icons/feature-no-ads.svg"),
           title: trans("usersFeatures.0.title"),
           description: trans("usersFeatures.0.description")
         }, {
-          icon: require("@images/icons/feature-viewers.svg"),
+          icon: require("@images/icons/feature-creativity.svg"),
           title: trans("usersFeatures.1.title"),
           description: trans("usersFeatures.1.description")
         }, {
-          icon: require("@images/icons/feature-revenue.svg"),
+          icon: require("@images/icons/feature-viewers.svg"),
           title: trans("usersFeatures.2.title"),
           description: trans("usersFeatures.2.description")
+        }, {
+          icon: require("@images/icons/feature-revenue.svg"),
+          title: trans("usersFeatures.3.title"),
+          description: trans("usersFeatures.3.description")
         }]}
       />
 
@@ -125,6 +133,10 @@ const Landing = () => {
           icon: require("@images/icons/feature-encrypted.svg"),
           title: trans("innovativeFeatures.1.title"),
           description: trans("innovativeFeatures.1.description")
+        }, {
+          icon: require("@images/icons/feature-permanent.svg"),
+          title: trans("innovativeFeatures.2.title"),
+          description: trans("innovativeFeatures.2.description")
         }]}
       />
 
