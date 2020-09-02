@@ -44,6 +44,7 @@ const Feature = ({ feature, count }) => {
       // fix purge css
       "sm:w-1/2": count === 2,
       "sm:w-1/3": count === 3,
+      "sm:w-1/3 mx-auto": count === 4,
     })}>
       <div className="landing-feature">
         <ViewportObserver childrenRef={iconRef} viewportClassName="animation-active">

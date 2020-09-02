@@ -18,6 +18,10 @@
     "2": {
       "title": "Open Source",
       "description": "Tutto il codice della nostra piattaforma verrà pubblicato su GitHub, e sarà disponibile e visibile a chiunque."
+    },
+    "3": {
+      "title": "Basato sulla Community",
+      "description": "Ogni nostra decisione verrà condivisa con trasparenza con l'aiuto degli utenti nelle nostra piattaforme di condivisione."
     }
   },
 
@@ -25,14 +29,18 @@
   "usersDescription": "La nostra visione è un futuro in cui la rete è libera da pubblicità invasive e in cui tutti supportano i creatori di contenuti.",
   "usersFeatures": {
     "0": {
+      "title": "Nessuna Pubblicità",
+      "description": "Guarda ogni video senza distrazioni e pubblicità targhettizzate. Sarai liberò di vedere ogni contenuto fastidiose perdite di tempo."
+    },
+    "1": {
       "title": "Creatività",
       "description": "I creatori possono esprimersi senza alcun timore per il loro account."
     },
-    "1": {
+    "2": {
       "title": "Supportata dai Visualizzatori",
       "description": "Pagando una somma molto bassa – in base al tempo e alla qualità delle risorse – saremo in grado di sostenere il nostro progetto e anche i creator!"
     },
-    "2": {
+    "3": {
       "title": "Guadagni Scalabili",
       "description": "Paghiamo ai creatori lo stesso importo in base alle visualizzazioni. Più utenti guardano i tuoi contenuti, più guadagni."
     }
@@ -43,11 +51,15 @@
   "innovativeFeatures": {
     "0": {
       "title": "Contenuto Decentralizzato",
-      "description": "Tutte le risorse su Etherna, dal tuo avatar ai tuoi video, sono archiviate in un file system decentralizzato chiamato Swarm. Non possiamo eliminare nulla, sarai responsabile di ciò che carichi."
+      "description": "Tutte le risorse su Etherna, dal tuo avatar ai tuoi video, sono archiviate in un file system decentralizzato chiamato Swarm. Non possiamo eliminare nulla."
     },
     "1": {
       "title": "Video Criptati",
       "description": "Al fine di preservare la tua privacy, i video sono crittografati su Swarm. Etherna può memorizzare la chiave di crittografia in modo che possano essere gestiti facilmente."
+    },
+    "2": {
+      "title": "Dati Permanenti",
+      "description": "I video caricati non potranno essere eliminati dal nostro storage decentralizzato. Questo significa che sarai responsabile di ciò che carichi."
     }
   },
 

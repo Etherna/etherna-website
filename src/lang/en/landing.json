@@ -18,6 +18,10 @@
     "2": {
       "title": "Open Source",
       "description": "All codes of our platform will be published on GitHub, and will be available and visible to anyone."
+    },
+    "3": {
+      "title": "Community Based",
+      "description": "All our decisions will be shared transparently with the help of users in our social platforms."
     }
   },
 
@@ -25,14 +29,18 @@
   "usersDescription": "Our vision is a future where the web is clear of invasive banners and where everyone supports content creators.",
   "usersFeatures": {
     "0": {
+      "title": "No Ads",
+      "description": "Watch any videos without distractions and targeted advertising. You will be free to watch any content without annoying time-wasting ads."
+    },
+    "1": {
       "title": "Creativity",
       "description": "Creators can express themself with no concerns about the future of their account."
     },
-    "1": {
+    "2": {
       "title": "Supported by Viewers",
       "description": "Paying a very small amount – based on the lot of time and quality of resources – we shall be able to sustain our project and creators too!."
     },
-    "2": {
+    "3": {
       "title": "Scalable Revenue",
       "description": "We pay creators the same amount based on views. The more the users watch your contents, the more you will gain."
     }
@@ -43,11 +51,15 @@
   "innovativeFeatures": {
     "0": {
       "title": "Decentralized Content",
-      "description": "Every assets on Etherna, from your avatar to your videos, are stored on a decentralized file system call Swarm. We can’t delete anything, you’ll be responsible for what you upload."
+      "description": "Every assets on Etherna, from your avatar to your videos, are stored on a decentralized file system call Swarm. We can’t delete anything."
     },
     "1": {
       "title": "Encrypted Videos",
       "description": "In order to preserve your privacy, videos are encrypted on Swarm. Etherna can store the encryption key so they can be managed easily."
+    },
+    "2": {
+      "title": "Permanent Data",
+      "description": "Videos cannot be deleted from our decentralized storage. This means that you’ll be responsible for what you upload."
     }
   },
 
