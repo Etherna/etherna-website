@@ -80,6 +80,20 @@
         @apply my-1;
       }
     }
+    ul {
+      @apply list-disc pl-8;
+
+      ul {
+        @apply pl-4;
+      }
+    }
+    ol {
+      @apply list-decimal pl-8;
+
+      ol {
+        @apply pl-4;
+      }
+    }
   }
 
   &-content {
