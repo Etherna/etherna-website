@@ -77,5 +77,13 @@
   },
 
   "contact": "Restiamo in contatto!",
-  "followUs": "Seguici sui nostri social..."
+  "subcribeNewsletter": "Iscrivi alla Newsletter",
+  "firstNamePlaceholder": "Nome (facoltativo)",
+  "lastNamePlaceholder": "Cognome (facoltativo)",
+  "emailPlaceholder": "Email",
+  "subcribeThankYou": "🎉 Grazie, hai preso un'ottima decisione!",
+  "subcribeErrorTitle": "Oops!",
+  "subcribeErrorDescription": "C'è stato un problema con la tua richiesta di iscrizione. Prova ancora.",
+  "subcribeErrorEmail": "Devi fornire un indirizzo email valido.",
+  "followUs": "oppure seguici sui nostri social..."
 }

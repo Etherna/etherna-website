@@ -2,16 +2,16 @@
   @apply block w-full border px-4 py-3 rounded;
 
   &-success {
-    @apply bg-green-100 border-green-300 text-green-700;
+    @apply bg-green-100 border-green-200 text-green-600;
   }
   &-danger {
-    @apply bg-red-100 border-red-300 text-red-700;
+    @apply bg-red-100 border-red-200 text-red-600;
   }
   &-warning {
-    @apply bg-orange-100 border-orange-300 text-orange-700;
+    @apply bg-orange-100 border-orange-200 text-orange-600;
   }
   &-info {
-    @apply bg-blue-100 border-blue-300 text-blue-700;
+    @apply bg-blue-100 border-blue-200 text-blue-600;
   }
 
   &-header {

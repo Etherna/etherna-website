@@ -1,9 +1,9 @@
 <svg width="80px" height="80px" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <circle stroke-opacity="0.3" stroke="#fff" stroke-width="8" cx="40" cy="40" r="36"></circle>
-        <path d="M76,40 C76,20.117749 59.882251,4 40,4" id="Path" stroke-opacity="0.8" stroke="#fff" stroke-width="8" stroke-linecap="round">
+        <path d="M76,40 C76,20.117749 59.882251,4 40,4" id="spinner-light-path" stroke-opacity="0.8" stroke="#fff" stroke-width="8" stroke-linecap="round">
             <animateTransform
-                xlink:href="#Path"
+                xlink:href="#spinner-light-path"
                 attributeName="transform"
                 attributeType="XML"
                 type="rotate"
