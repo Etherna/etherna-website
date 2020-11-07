@@ -5,7 +5,7 @@
   &-primary {
     @apply bg-accent text-white;
     &:hover {
-      @apply bg-opacity-75 text-white;
+      @apply bg-accent-light text-white;
     }
   }
   &-secondary {

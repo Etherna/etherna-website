@@ -1,0 +1,37 @@
+.newsletter-form {
+  @apply w-full flex flex-col mt-6 mx-auto max-w-4xl;
+
+  @screen lg {
+    @apply flex-row;
+  }
+
+  .newsletter-form-field {
+    @apply border border-b-0 border-gray-300 rounded-none text-sm px-4 py-3 transition-all duration-200;
+
+    &:first-child {
+      @apply rounded-t-lg;
+    }
+    &:focus {
+      @apply z-10;
+    }
+
+    @screen lg {
+      @apply border-b flex-1 -mr-px;
+
+      &:first-child {
+        @apply rounded-none rounded-l-lg;
+      }
+    }
+  }
+  .newsletter-form-cta {
+    @apply flex items-center rounded-b-lg rounded-t-none py-3;
+
+    @screen lg {
+      @apply rounded-lg rounded-l-none;
+    }
+
+    svg {
+      @apply w-6 h-6 mr-2;
+    }
+  }
+}

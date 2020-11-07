@@ -7,6 +7,7 @@ import LandingSection from "./LandingSection"
 import Card from "@components/common/Card"
 import ViewportObserver from "@components/ViewportObserver"
 import SocialMenu from "@components/SocialMenu"
+import NewsletterForm from "@components/NewsletterForm"
 import { useLocale } from "@utils/localizedPage"
 import { useTranslations } from "@utils/useTranslations"
 import useLocaleInfo from "@utils/useLocaleInfo"
@@ -159,19 +160,18 @@ const Landing = () => {
         <div className="container">
           <div className="row">
             <div className="col">
-              <Card className="">
-                <div className="container">
-                  <div className="row py-4 px-4 md:px-8">
-                    <div className="col sm:w-1/3">
-                      <h4 className="text-4xl leading-tight font-extrabold text-gray-700 text-center sm:text-left">
-                        {trans("contact")}
-                      </h4>
-                    </div>
-                    <div className="col w-auto mx-auto">
-                      <p className="text-gray-600 mb-6">{trans("followUs")}</p>
-                      <SocialMenu vertical={true} buttonStyle={true} />
-                    </div>
-                  </div>
+              <Card className="" size="lg">
+                <div className="flex flex-col items-center">
+                  <h4 className="text-4xl leading-tight font-extrabold text-gray-700 text-center">
+                    {trans("contact")}
+                  </h4>
+                  <img src={require("../../images/newsletter.svg")} alt="" width="120" />
+                  <NewsletterForm />
+
+                  <hr className="w-24 my-12" />
+
+                  <p className="text-gray-600 mb-4">{trans("followUs")}</p>
+                  <SocialMenu vertical={true} buttonStyle={true} />
                 </div>
               </Card>
             </div>
