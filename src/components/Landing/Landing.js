@@ -7,6 +7,7 @@ import LandingSection from "./LandingSection"
 import Card from "@components/common/Card"
 import ViewportObserver from "@components/ViewportObserver"
 import SocialMenu from "@components/SocialMenu"
+import Awards from "@components/Awards"
 import NewsletterForm from "@components/NewsletterForm"
 import { useLocale } from "@utils/localizedPage"
 import { useTranslations } from "@utils/useTranslations"
@@ -155,6 +156,8 @@ const Landing = () => {
           description: trans("extendableFeatures.1.description")
         }]}
       />
+
+      <Awards />
 
       <section className="social mb-16">
         <div className="container">

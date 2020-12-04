@@ -1,5 +1,5 @@
 .newsletter-form {
-  @apply w-full flex flex-col mt-6 mx-auto max-w-4xl;
+  @apply flex flex-col mt-6 max-w-4xl mx-auto;
 
   @screen lg {
     @apply flex-row;
@@ -16,15 +16,16 @@
     }
 
     @screen lg {
-      @apply border-b flex-1 -mr-px;
+      @apply max-w-56 border-b -mr-px;
 
       &:first-child {
         @apply rounded-none rounded-l-lg;
       }
     }
   }
+
   .newsletter-form-cta {
-    @apply flex items-center rounded-b-lg rounded-t-none py-3;
+    @apply flex items-center rounded-b-lg rounded-t-none py-3 whitespace-no-wrap;
 
     @screen lg {
       @apply rounded-lg rounded-l-none;
