@@ -25,6 +25,10 @@ a {
   }
 }
 
+h1, h2, h3, h4, h5, h6 {
+  @apply tracking-tight;
+}
+
 h1 {
   @apply text-3xl mb-6 font-extrabold;
   @screen lg {
