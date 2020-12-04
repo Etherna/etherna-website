@@ -159,7 +159,7 @@ const Landing = () => {
 
       <Awards />
 
-      <section className="social mb-16">
+      <section className="social my-16">
         <div className="container">
           <div className="row">
             <div className="col">

@@ -21,7 +21,11 @@
       @apply mt-16 mb-12;
     }
   }
-  .hero-description {}
+
+  .hero-description {
+    @apply text-lg;
+  }
+
   .hero-tagline {
     @apply inline-block text-xl border-b-4 border-accent mt-12 mb-20;
     @screen sm {
