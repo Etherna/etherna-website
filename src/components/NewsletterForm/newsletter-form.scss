@@ -16,7 +16,7 @@
     }
 
     @screen lg {
-      @apply border-b flex-1 -mr-px;
+      @apply border-b -mr-px;
 
       &:first-child {
         @apply rounded-none rounded-l-lg;
@@ -24,7 +24,7 @@
     }
   }
   .newsletter-form-cta {
-    @apply flex items-center rounded-b-lg rounded-t-none py-3;
+    @apply flex items-center rounded-b-lg rounded-t-none py-3 whitespace-no-wrap;
 
     @screen lg {
       @apply rounded-lg rounded-l-none;
