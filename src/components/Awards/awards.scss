@@ -6,7 +6,7 @@
   }
 
   &-list {
-    @apply flex flex-col;
+    @apply flex flex-col items-center;
     @screen sm {
       @apply flex-row justify-evenly;
     }
