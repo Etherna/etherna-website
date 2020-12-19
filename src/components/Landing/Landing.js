@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react"
 
 import EthereumLogo from "!svg-react-loader!@images/logos/ethereum-logo.svg"
 import SwarmLogo from "!svg-react-loader!@images/logos/swarm-logo.svg"
+import MongodbLogo from "!svg-react-loader!@images/logos/mongodb-logo.svg"
 import ReactLogo from "!svg-react-loader!@images/logos/react-logo.svg"
 import LandingSection from "./LandingSection"
 import Card from "@components/common/Card"
@@ -52,17 +53,22 @@ const Landing = () => {
                     <div className="text-label">{trans("builtWith")}</div>
                     <div className="container mt-8">
                       <div className="row">
-                        <div className="col sm:w-1/3 mb-6">
+                        <div className="col w-1/2 sm:w-1/4 mb-6">
                           <a href={trans("ethereumUrl")} target="_blank" rel="noreferrer noopener">
                             <EthereumLogo />
                           </a>
                         </div>
-                        <div className="col sm:w-1/3 mb-6">
+                        <div className="col w-1/2 sm:w-1/4 mb-6">
                           <a href={trans("swarmUrl")} target="_blank" rel="noreferrer noopener">
                             <SwarmLogo />
                           </a>
                         </div>
-                        <div className="col sm:w-1/3 mb-6">
+                        <div className="col w-1/2 sm:w-1/4 mb-6">
+                          <a href={trans("mongodbUrl")} target="_blank" rel="noreferrer noopener">
+                            <MongodbLogo />
+                          </a>
+                        </div>
+                        <div className="col w-1/2 sm:w-1/4 mb-6">
                           <a href={trans("reactUrl")} target="_blank" rel="noreferrer noopener">
                             <ReactLogo />
                           </a>
