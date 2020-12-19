@@ -1,7 +1,8 @@
 {
   "builtWith": "Built with",
   "ethereumUrl": "https://ethereum.org/",
-  "swarmUrl": "https://ethersphere.github.io/swarm-home/",
+  "mongodbUrl": "https://www.mongodb.com/",
+  "swarmUrl": "https://swarm.ethereum.org/",
   "reactUrl": "https://reactjs.org/",
 
   "transparency": "Transparency",
