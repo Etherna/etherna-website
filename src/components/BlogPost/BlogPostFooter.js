@@ -17,7 +17,7 @@ const BlogFooter = () => {
     <footer className="post-footer">
       <h6 className="post-footer-title">
         <DiscussionIcon width="14" className="mr-2" />
-        Discussions
+        {transBlog("discussions")}
       </h6>
       <p className="post-footer-notice">{transBlog("contactsUsForMore")}</p>
       <p className="post-footer-notice">{transBlog("theseAreOurChannels")}</p>
