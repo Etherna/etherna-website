@@ -138,3 +138,21 @@
     }
   }
 }
+
+.post-footer {
+  @apply mt-32 mb-4 py-10 border-t-2 border-b-2 border-gray-500;
+
+  .post-footer-title {
+    @apply font-bold text-center flex items-center mt-0 mb-3;
+  }
+  .post-footer-notice {
+    @apply text-sm text-gray-600 mb-1;
+  }
+  .post-footer-channels {
+    @apply list-none pl-0 mt-6;
+
+    .post-footer-channel > a {
+      @apply flex items-center text-sm text-gray-800;
+    }
+  }
+}

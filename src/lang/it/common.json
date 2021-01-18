@@ -1,9 +1,11 @@
 {
   "facebookPage": "Pagina Facebook",
   "twitter": "Twitter",
+  "telegram": "Telegram",
   "telegramChannel": "Canale Telegram",
   "discord": "Discord",
   "github": "GitHub",
+  "githubDiscussions": "GitHub Discussions",
 
   "cancel": "Annulla"
 }

@@ -4,6 +4,7 @@ import { Link } from "gatsby"
 import { Markdown } from "react-showdown"
 
 import BlogPostHeader from "./BlogPostHeader"
+import BlogPostFooter from "./BlogPostFooter"
 import SEO from "@components/SEO"
 import ShareButtons from "@components/ShareButtons"
 import { useLocale } from "@utils/localizedPage"
@@ -12,7 +13,6 @@ import useLocaleInfo from "@utils/useLocaleInfo"
 import routes from "@utils/routes"
 
 import "./post.scss"
-import Comments from "@components/Comments"
 
 /**
  * @typedef {object} BlogPostProps
@@ -100,7 +100,9 @@ const BlogPost = ({ post }) => {
 
               <Markdown markup={post.content} />
 
-              <Comments postId={post.id} />
+              {/* <Comments postId={post.id} /> */}
+
+              <BlogPostFooter />
             </article>
             <aside className="col post-sidebar post-sidebar-right"></aside>
           </div>
