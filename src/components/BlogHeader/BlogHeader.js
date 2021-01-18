@@ -6,9 +6,9 @@ import { graphql, useStaticQuery, Link } from "gatsby"
 
 import { parseCategories } from "@utils/dataParser"
 import { useLocale } from "@utils/localizedPage"
+import routes from "@utils/routes"
 
 import "./blog-header.scss"
-import routes from "@utils/routes"
 
 const BlogHeader = ({ title, activeSlug }) => {
   const data = useStaticQuery(graphql`
