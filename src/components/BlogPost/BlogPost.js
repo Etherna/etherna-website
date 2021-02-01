@@ -5,6 +5,7 @@ import { Markdown } from "react-showdown"
 
 import BlogPostHeader from "./BlogPostHeader"
 import BlogPostFooter from "./BlogPostFooter"
+import BlogPostSchema from "./BlogPostSchema"
 import SEO from "@components/SEO"
 import ShareButtons from "@components/ShareButtons"
 import { useLocale } from "@utils/localizedPage"
@@ -103,6 +104,19 @@ const BlogPost = ({ post }) => {
               {/* <Comments postId={post.id} /> */}
 
               <BlogPostFooter />
+
+              <BlogPostSchema
+                author={post.author}
+                title={post.title}
+                image={post.image && post.image.src}
+                url={routes.blogPostPath(post.slug, post.locale)}
+                excerpt={post.excerpt}
+                content={post.content}
+                keywords={post.meta_keywords}
+                lang={post.locale}
+                publishDate={post.published_on}
+                updateDate={post.updated_on}
+              />
             </article>
             <aside className="col post-sidebar post-sidebar-right"></aside>
           </div>
