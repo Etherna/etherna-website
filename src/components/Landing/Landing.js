@@ -9,6 +9,7 @@ import Card from "@components/common/Card"
 import ViewportObserver from "@components/ViewportObserver"
 import SocialMenu from "@components/SocialMenu"
 import Awards from "@components/Awards"
+import Roadmap from "@components/Roadmap"
 import NewsletterForm from "@components/NewsletterForm"
 import { useLocale } from "@utils/localizedPage"
 import { useTranslations } from "@utils/useTranslations"
@@ -164,6 +165,8 @@ const Landing = () => {
       />
 
       <Awards />
+
+      <Roadmap />
 
       <section className="social my-16">
         <div className="container">

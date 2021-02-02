@@ -1,0 +1,140 @@
+.roadmap {
+  @apply py-16;
+
+  &-title {
+    @apply relative text-4xl mb-8 py-1 text-center bg-no-repeat;
+    background-image: url(../../images/roadmap-title-bg.svg);
+    background-size: 100% 100%;
+  }
+
+  &-list {
+    @apply flex flex-no-wrap items-stretch overflow-x-auto py-4;
+    scroll-snap-type: x mandatory;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    @screen lg {
+      @apply justify-evenly;
+    }
+  }
+
+  &-item {
+    @apply relative rounded-lg w-full min-w-xxs p-6 text-center bg-gray-200;
+    @apply transition-all duration-500 cursor-pointer transform;
+    scroll-snap-align: start;
+    max-width: 90%;
+
+    @screen sm {
+      @apply max-w-48;
+
+      &:hover {
+        @apply scale-105;
+      }
+    }
+
+    &-image {
+      @apply w-20 h-20 mb-10 mx-auto;
+    }
+
+    &-title {
+      @apply mb-0;
+    }
+
+    &-subtitle {
+      @apply text-sm text-gray-600 leading-tight mt-3;
+    }
+
+    &-description {
+      @apply transform scale-y-0 h-0 m-0 text-gray-800;
+    }
+
+    &-close {
+      @apply absolute flex items-center justify-center right-0 top-0 w-12 h-12 rounded-full -mt-4 -mr-4;
+      @apply bg-white border border-gray-100 shadow-md;
+
+      &::after {
+        content: "";
+        background-image: url(../../images/icons/cross.svg);
+        @apply w-4 h-4 bg-center bg-contain bg-no-repeat;
+      }
+    }
+
+    &-status {
+      @apply absolute text-xs font-semibold left-0 top-0 m-4 px-2 py-px rounded-full;
+
+      &-done {
+        @apply bg-green-500 text-green-100;
+      }
+      &-ongoing {
+        @apply bg-blue-500 text-blue-100;
+      }
+      &-todo {
+        @apply bg-gray-600 text-gray-100;
+      }
+    }
+
+    &-done {
+      .roadmap-item-title {
+        @apply text-gray-700;
+      }
+    }
+    &-ongoing {
+      @apply bg-gray-300;
+
+      .roadmap-item-subtitle {
+        @apply text-gray-800;
+      }
+    }
+    &-todo {
+      @apply opacity-50;
+
+      .roadmap-item-title {
+        @apply text-gray-700;
+      }
+    }
+
+    &.disabled {
+      @apply pointer-events-none;
+    }
+
+    &.show {
+      @apply fixed mx-auto max-w-screen-md bg-gray-100 opacity-100 z-50 shadow-xl transform-none cursor-default;
+      width: 80%;
+
+      .roadmap-item-description {
+        @apply mt-10 h-auto scale-y-100 opacity-100;
+      }
+    }
+
+    &.hide {
+      @apply transition-none opacity-0;
+    }
+
+    &.hiding {
+      @apply max-w-48 shadow-none;
+
+      .roadmap-item-description {
+        @apply scale-y-0 h-0;
+      }
+    }
+  }
+
+  &-item + &-item {
+    @apply ml-3;
+  }
+
+  &-backdrop {
+    @apply fixed inset-0 z-40 bg-gray-900 bg-opacity-0 cursor-pointer overflow-auto;
+    @apply transition-all duration-200;
+
+    &.show {
+      @apply bg-opacity-25;
+    }
+
+    &.hide {
+      @apply bg-opacity-25;
+    }
+  }
+}

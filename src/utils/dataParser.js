@@ -197,7 +197,6 @@ export const parseProject = (node, locale) => {
   }
 }
 
-
 /**
  * Parse a list of project nodes
  *
@@ -207,6 +206,63 @@ export const parseProject = (node, locale) => {
  */
 export const parseProjects = (nodes, locale) => {
   return nodes.map(node => parseProject(node, locale))
+}
+
+/**
+ * @typedef {object} MilestoneLocalizedContentsNode
+ * @property {string} locale
+ * @property {string} title
+ * @property {string} subtitle
+ * @property {string} description
+ *
+ * @typedef {object} MilestoneNode
+ * @property {MilestoneLocalizedContentsNode} localized_contents
+ * @property {string} completion
+ * @property {string} due_date
+ * @property {object} image
+ *
+ * @typedef {object} Milestone
+ * @property {string} locale
+ * @property {string} title
+ * @property {string} subtitle
+ * @property {string} description
+ * @property {"done"|"ongoing"|"todo"|"undefined"} completion
+ * @property {string} dueDate
+ * @property {PublicImageNode} image
+ *
+ * Parse milestone node
+ * @param {MilestoneNode} node Milestone node
+ * @param {string} locale Current locale
+ * @returns {Milestone} Milestone object
+ */
+export const parseMilestone = (node, locale) => {
+  if (!node) return
+
+  const {
+    localized_contents,
+    due_date,
+    completion,
+    image
+  } = node
+  const localizedCategory = localized_contents.find(lc => lc.locale === locale)
+    || localized_contents[0]
+  return {
+    ...localizedCategory,
+    due_date,
+    completion,
+    image,
+  }
+}
+
+/**
+ * Parse a list of milestone nodes
+ *
+ * @param {MilestoneNode[]} nodes Milestone nodes
+ * @param {string} locale Current locale
+ * @returns {Milestone[]} Parsed milestones
+ */
+export const parseMilestones = (nodes, locale) => {
+  return nodes.map(node => parseMilestone(node, locale))
 }
 
 /**
