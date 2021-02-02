@@ -18,37 +18,29 @@ const LandingMenu = () => {
         smooth={true}
         duration={500}
       >
-        {trans("transparency")}
+        {trans("features")}
       </AnchorLink>
+
       <AnchorLink
-        to="users"
+        to="awards"
         className="header-link"
         activeClass="active"
         spy={true}
         smooth={true}
         duration={500}
       >
-        {trans("users")}
+        {trans("awards")}
       </AnchorLink>
+
       <AnchorLink
-        to="innovative"
+        to="roadmap"
         className="header-link"
         activeClass="active"
         spy={true}
         smooth={true}
         duration={500}
       >
-        {trans("innovative")}
-      </AnchorLink>
-      <AnchorLink
-        to="extendable"
-        className="header-link"
-        activeClass="active"
-        spy={true}
-        smooth={true}
-        duration={500}
-      >
-        {trans("extendable")}
+        {trans("roadmap")}
       </AnchorLink>
     </nav>
   )
