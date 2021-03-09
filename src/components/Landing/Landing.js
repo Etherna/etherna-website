@@ -138,13 +138,9 @@ const Landing = () => {
           title: trans("innovativeFeatures.0.title"),
           description: trans("innovativeFeatures.0.description")
         }, {
-          icon: require("@images/icons/feature-encrypted.svg"),
+          icon: require("@images/icons/feature-permanent.svg"),
           title: trans("innovativeFeatures.1.title"),
           description: trans("innovativeFeatures.1.description")
-        }, {
-          icon: require("@images/icons/feature-permanent.svg"),
-          title: trans("innovativeFeatures.2.title"),
-          description: trans("innovativeFeatures.2.description")
         }]}
       />
 

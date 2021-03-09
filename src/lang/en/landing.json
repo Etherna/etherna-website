@@ -55,10 +55,6 @@
       "description": "Every assets on Etherna, from your avatar to your videos, are stored on a decentralized file system call Swarm. We can’t delete anything."
     },
     "1": {
-      "title": "Encrypted Videos",
-      "description": "In order to preserve your privacy, videos are encrypted on Swarm. Etherna can store the encryption key so they can be managed easily."
-    },
-    "2": {
       "title": "Permanent Data",
       "description": "Videos cannot be deleted from our decentralized storage. This means that you’ll be responsible for what you upload."
     }
