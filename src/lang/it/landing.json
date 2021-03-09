@@ -55,10 +55,6 @@
       "description": "Tutte le risorse su Etherna, dal tuo avatar ai tuoi video, sono archiviate in un file system decentralizzato chiamato Swarm. Non possiamo eliminare nulla."
     },
     "1": {
-      "title": "Video Criptati",
-      "description": "Al fine di preservare la tua privacy, i video sono crittografati su Swarm. Etherna può memorizzare la chiave di crittografia in modo che possano essere gestiti facilmente."
-    },
-    "2": {
       "title": "Dati Permanenti",
       "description": "I video caricati non potranno essere eliminati dal nostro storage decentralizzato. Questo significa che sarai responsabile di ciò che carichi."
     }
