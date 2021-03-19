@@ -103,7 +103,7 @@
       }
 
       &:first-of-type {
-        @apply pl-0 -ml-2;
+        @apply pl-0;
         @screen lg {
           @apply pl-4;
         }
