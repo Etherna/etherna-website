@@ -19,11 +19,13 @@ const BrandKit = ({ colors, fonts, logos }) => {
         <h2>{trans("colors")}</h2>
         <div className="palette-grid">
           {colors.map((colorInfo, i) => (
-            <ColorPalette
-              name={colorInfo.name}
-              color={colorInfo.color}
-              key={i}
-            />
+            <div className="col xs:w-1/2 sm:max-w-48">
+              <ColorPalette
+                name={colorInfo.name}
+                color={colorInfo.color}
+                key={i}
+              />
+            </div>
           ))}
         </div>
       </section>
@@ -32,14 +34,16 @@ const BrandKit = ({ colors, fonts, logos }) => {
         <h2>{trans("fonts")}</h2>
         <div className="palette-grid">
           {fonts.map((fontInfo, i) => (
-            <FontPalette
-              name={fontInfo.name}
-              fontFamily={fontInfo.font_family}
-              fontWeight={fontInfo.font_weight}
-              link={fontInfo.font_link}
-              importUrl={fontInfo.import_url}
-              key={i}
-            />
+            <div className="col sm:w-1/2 md:w-1/3 lg:w-1/4">
+              <FontPalette
+                name={fontInfo.name}
+                fontFamily={fontInfo.font_family}
+                fontWeight={fontInfo.font_weight}
+                link={fontInfo.font_link}
+                importUrl={fontInfo.import_url}
+                key={i}
+              />
+            </div>
           ))}
         </div>
       </section>

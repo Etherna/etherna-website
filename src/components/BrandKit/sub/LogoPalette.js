@@ -43,17 +43,19 @@ const LogoPalette = ({ name, variants }) => {
       <h3 className="mb-2 mt-8">{name}</h3>
       <div className="palette-grid">
         {groupedVariants.map((group, i) => (
-          <div className="logo-palette" key={i}>
-            <div className="logo-palette-preview">
-              <img src={group.previewImage} alt="" />
-            </div>
-            <h3 className="logo-palette-name">{trans(`logoStyle.${group.style}`)}</h3>
-            <div className="logo-palette-links">
-              {group.variants.map((variant, i) => (
-                <div className="link">
-                  <a href={variant.href} download>{variant.size}</a>
-                </div>
-              ))}
+          <div className="col sm:w-1/2 md:w-1/3 lg:w-1/4">
+            <div className="logo-palette" key={i}>
+              <div className="logo-palette-preview">
+                <img src={group.previewImage} alt="" />
+              </div>
+              <h3 className="logo-palette-name">{trans(`logoStyle.${group.style}`)}</h3>
+              <div className="logo-palette-links">
+                {group.variants.map((variant, i) => (
+                  <div className="link">
+                    <a href={variant.href} download>{variant.size}</a>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         ))}
