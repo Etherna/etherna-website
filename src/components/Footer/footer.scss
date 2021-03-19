@@ -23,6 +23,10 @@
       @apply ml-4 w-full;
       @screen sm {
         @apply w-auto;
+
+        a {
+          @apply ml-2;
+        }
       }
     }
   }

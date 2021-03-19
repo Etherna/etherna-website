@@ -1,0 +1,15 @@
+{
+  "colors": "Colori",
+  "fonts": "Font",
+  "logos": "Loghi",
+
+  "details": "Dettagli",
+
+  "logoStyle": {
+    "default": "Default",
+    "monochrome": "Monocromo",
+    "compact": "Compatto",
+    "light": "Chiaro",
+    "dark": "Scuro"
+  }
+}
