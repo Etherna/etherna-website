@@ -24,6 +24,10 @@
       @screen sm {
         @apply w-auto;
       }
+
+      a {
+        @apply ml-2;
+      }
     }
   }
 }

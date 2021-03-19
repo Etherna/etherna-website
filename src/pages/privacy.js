@@ -3,6 +3,7 @@ import React, { useEffect } from "react"
 import Layout from "@components/Layout"
 import SEO from "@components/SEO"
 import { LocalizedPage } from "@utils/localizedPage"
+import StaticPage from "@components/StaticPage"
 
 const PrivacyPolicyPage = () => {
   useEffect(() => {
@@ -22,20 +23,15 @@ const PrivacyPolicyPage = () => {
       <Layout>
         <SEO title="Privacy Policy" />
 
-        <div className="container">
-          <div className="row">
-            <div className="col pt-20 pb-40">
-              <h1>Privacy Policy</h1>
-              <a
-                href="https://www.iubenda.com/privacy-policy/57423156"
-                className="iubenda-white no-brand iubenda-embed iub-body-embed"
-                title="Privacy Policy"
-              >
-                Privacy Policy
-              </a>
-            </div>
-          </div>
-        </div>
+        <StaticPage title={`Privacy Policy`}>
+          <a
+            href="https://www.iubenda.com/privacy-policy/57423156"
+            className="iubenda-white no-brand iubenda-embed iub-body-embed"
+            title="Privacy Policy"
+          >
+            Privacy Policy
+          </a>
+        </StaticPage>
       </Layout>
     </LocalizedPage>
   )

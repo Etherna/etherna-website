@@ -97,12 +97,13 @@
 
     .header-menu {
       @apply flex items-center flex-no-wrap;
+
       @screen lg {
-        @apply px-4;
+        @apply px-4 ml-0;
       }
 
       &:first-of-type {
-        @apply pl-0;
+        @apply pl-0 -ml-2;
         @screen lg {
           @apply pl-4;
         }
@@ -153,6 +154,12 @@
       }
 
       &.landing-menu {
+        @apply hidden;
+
+        @screen sm {
+          @apply flex;
+        }
+
         .header-link {
           @apply relative px-4 py-2 text-gray-700;
 

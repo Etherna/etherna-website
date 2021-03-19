@@ -2,12 +2,9 @@
 //@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
 
 html {
-  font-size: 14px;
+  font-size: 15px;
   @apply bg-gray-100;
 
-  @screen sm {
-    font-size: 15px;
-  }
   @screen md {
     font-size: 16px;
   }

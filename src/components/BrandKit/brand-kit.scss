@@ -1,0 +1,106 @@
+.brand-kit {
+  h2 {
+    @apply text-xl text-gray-700;
+  }
+
+  &-section {
+    &:not(:first-child) {
+      @apply mt-16;
+    }
+  }
+
+  .palette-grid {
+    @apply flex flex-wrap -m-3;
+
+    > * {
+      @apply p-3;
+    }
+  }
+
+  .color-palette {
+    @apply p-3 w-full overflow-hidden;
+    @apply border border-gray-300 rounded;
+
+    &-preview {
+      @apply pb-24 -mt-3 -mx-3;
+    }
+    &-name {
+      @apply text-base font-semibold mt-3 mb-2;
+    }
+    &-values {
+      @apply text-left;
+
+      th {
+        @apply font-semibold text-sm uppercase text-gray-600 pr-3;
+      }
+      td {
+        @apply text-sm;
+      }
+    }
+  }
+
+  .font-palette {
+    @apply flex flex-col p-3 w-full overflow-hidden;
+    @apply border border-gray-300 rounded;
+
+    &-preview {
+      @apply relative pb-24 -mt-3 -mx-3 px-5 bg-gray-200;
+
+      &.undefined {
+        &::before {
+          content: "ND";
+          top: 50%;
+          transform: translateY(-50%);
+          @apply absolute w-full text-4xl font-semibold text-gray-400 text-center;
+        }
+      }
+
+      .font-preview-text {
+        @apply absolute w-full text-4xl text-center overflow-hidden select-none cursor-default;
+        top: 50%;
+        transform: translateY(-50%);
+        width: calc(100% - theme('spacing.10'));
+      }
+    }
+    &-name {
+      @apply text-base font-semibold mt-3 mb-0;
+    }
+    &-font-name {
+      @apply text-xs text-gray-600 font-semibold mb-4;
+    }
+    &-link {
+      @apply mt-auto ml-auto text-sm font-semibold;
+    }
+  }
+
+  .logo-palette {
+    @apply flex flex-col p-3 w-full overflow-hidden;
+    @apply border border-gray-300 rounded;
+
+    &-preview {
+      @apply flex items-center bg-gray-200 -mx-3 -mt-3 px-4 py-8;
+
+      img {
+        @apply object-contain h-10 w-auto max-w-full mx-auto;
+      }
+    }
+    &-name {
+      @apply text-base font-semibold mt-3 mb-2;
+    }
+    &-links {
+      @apply flex flex-wrap;
+
+      .link {
+        &:not(:last-child) {
+          &::after {
+            content: "|";
+            @apply mx-2 pointer-events-none text-gray-500 text-sm;
+          }
+        }
+        a {
+          @apply text-sm font-semibold;
+        }
+      }
+    }
+  }
+}

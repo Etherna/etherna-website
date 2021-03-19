@@ -1,0 +1,15 @@
+{
+  "colors": "Colors",
+  "fonts": "Fonts",
+  "logos": "Logos",
+
+  "details": "Details",
+
+  "logoStyle": {
+    "default": "Default",
+    "monochrome": "Monochrome",
+    "compact": "Compact",
+    "light": "Light",
+    "dark": "Dark"
+  }
+}

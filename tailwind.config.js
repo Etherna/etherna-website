@@ -10,6 +10,7 @@ module.exports = {
   separator: ':',
   theme: {
     screens: {
+      xs: '375px',
       sm: '640px',
       md: '768px',
       lg: '1024px',
@@ -161,6 +162,7 @@ module.exports = {
       '48': '12rem',
       '56': '14rem',
       '64': '16rem',
+      '80': '20rem',
     },
     backgroundColor: theme => theme('colors'),
     backgroundOpacity: theme => theme('opacity'),
@@ -410,7 +412,10 @@ module.exports = {
       '11': '11',
       '12': '12',
     },
-    padding: theme => theme('spacing'),
+    padding: theme => ({
+      full: "100%",
+      ...theme('spacing')
+    }),
     placeholderColor: theme => theme('colors'),
     placeholderOpacity: theme => theme('opacity'),
     space: (theme, { negative }) => ({
