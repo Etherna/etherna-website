@@ -4,11 +4,13 @@ import EthereumLogo from "!svg-react-loader!@images/logos/ethereum-logo.svg"
 import SwarmLogo from "!svg-react-loader!@images/logos/swarm-logo.svg"
 import MongodbLogo from "!svg-react-loader!@images/logos/mongodb-logo.svg"
 import ReactLogo from "!svg-react-loader!@images/logos/react-logo.svg"
+
 import LandingSection from "./LandingSection"
 import Card from "@components/common/Card"
 import ViewportObserver from "@components/ViewportObserver"
 import SocialMenu from "@components/SocialMenu"
 import Awards from "@components/Awards"
+import Contacts from "@components/Contacts/Contacts"
 import NewsletterForm from "@components/NewsletterForm"
 import { useLocale } from "@utils/localizedPage"
 import { useTranslations } from "@utils/useTranslations"
@@ -20,13 +22,13 @@ import "./landing.scss"
 const Landing = () => {
   const builtRef = useRef()
   const [locale, { setLocalePath }] = useLocale()
-  const [,locales] = useLocaleInfo()
+  const [, locales] = useLocaleInfo()
   const trans = useTranslations(locale, "landing")
 
   useEffect(() => {
     setLocalePaths()
     return () => clearLocalePaths()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const setLocalePaths = () => {
@@ -160,6 +162,8 @@ const Landing = () => {
       />
 
       <Awards />
+
+      <Contacts />
 
       <section className="social my-16">
         <div className="container">
