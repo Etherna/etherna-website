@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import React, { useEffect } from "react"
 import PropTypes from "prop-types"
 
 const ViewportObserver = ({
@@ -21,7 +21,7 @@ const ViewportObserver = ({
     return () => {
       clearEvents()
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const ViewportObserver = ({
     if (isRefInViewport()) {
       triggerEvent()
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [childrenRef.current])
 
   const clearEvents = () => {
@@ -71,7 +71,11 @@ const ViewportObserver = ({
     return visible
   }
 
-  return children
+  return (
+    <>
+      {children}
+    </>
+  )
 }
 
 ViewportObserver.propTypes = {
