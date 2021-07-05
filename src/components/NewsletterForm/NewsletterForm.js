@@ -14,7 +14,6 @@ const NewsletterForm = () => {
   const [locale] = useLocale()
   const trans = useTranslations(locale, "landing")
   const [firstName, setFirstName] = useState("")
-  const [lastName, setLastName] = useState("")
   const [email, setEmail] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -25,6 +24,11 @@ const NewsletterForm = () => {
 
     try {
       // fields validation
+      if (firstName.length < 2) {
+        setIsSubmitting(false)
+        setError(trans("subcribeErrorName"))
+        return
+      }
       if (email.length === 0 || !validateEmail(email)) {
         setIsSubmitting(false)
         setError(trans("subcribeErrorEmail"))
@@ -33,7 +37,7 @@ const NewsletterForm = () => {
 
       const apiEndpoint = `${process.env.DIRECTUS_URL}/${process.env.DIRECTUS_PROJECT}/custom/newsletter`
       await axios.post(apiEndpoint, {
-        email, firstName, lastName
+        email, firstName
       })
 
       setSuccess(true)
@@ -48,22 +52,15 @@ const NewsletterForm = () => {
   }
 
   return (
-   <>
+    <>
       {!success && (
         <form className="newsletter-form">
           <input
             type="text"
             className="newsletter-form-field"
-            placeholder={trans("firstNamePlaceholder")}
+            placeholder={trans("namePlaceholder")}
             value={firstName}
             onChange={e => setFirstName(e.target.value)}
-          />
-          <input
-            type="text"
-            className="newsletter-form-field"
-            placeholder={trans("lastNamePlaceholder")}
-            value={lastName}
-            onChange={e => setLastName(e.target.value)}
           />
           <input
             type="email"
@@ -90,7 +87,7 @@ const NewsletterForm = () => {
       {success && (
         <h3 className="text-center text-gray-600 mt-3">{trans("subcribeThankYou")}</h3>
       )}
-   </>
+    </>
   )
 }
 

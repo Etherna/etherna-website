@@ -1,8 +1,10 @@
 .newsletter-form {
-  @apply flex flex-col mt-6 max-w-4xl mx-auto;
+  @apply flex flex-col mt-6;
+  @apply w-full max-w-lg mx-auto;
 
   @screen lg {
-    @apply flex-row;
+    @apply flex-row justify-center;
+    @apply max-w-none;
   }
 
   .newsletter-form-field {
@@ -16,7 +18,7 @@
     }
 
     @screen lg {
-      @apply max-w-56 border-b -mr-px;
+      @apply max-w-64 border-b -mr-px;
 
       &:first-child {
         @apply rounded-none rounded-l-lg;
