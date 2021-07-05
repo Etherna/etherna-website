@@ -75,11 +75,12 @@
 
   "contact": "Let's stay in touch!",
   "subcribeNewsletter": "Subscribe to our Newsletter",
-  "firstNamePlaceholder": "First name (optional)",
+  "namePlaceholder": "First name",
   "lastNamePlaceholder": "Last name (optional)",
   "emailPlaceholder": "Email",
   "subcribeErrorTitle": "Oops!",
   "subcribeErrorDescription": "There was a problem with your subscription request. Please try again.",
+  "subcribeErrorName": "You must provide a valid name.",
   "subcribeErrorEmail": "You must provide a valid email address.",
   "subcribeThankYou": "🎉 Thank you, you made a good choice!",
   "followUs": " or follow us on our socials..."

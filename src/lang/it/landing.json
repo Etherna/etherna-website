@@ -75,12 +75,13 @@
 
   "contact": "Restiamo in contatto!",
   "subcribeNewsletter": "Iscrivi alla Newsletter",
-  "firstNamePlaceholder": "Nome (facoltativo)",
+  "namePlaceholder": "Nome",
   "lastNamePlaceholder": "Cognome (facoltativo)",
   "emailPlaceholder": "Email",
   "subcribeThankYou": "🎉 Grazie, hai preso un'ottima decisione!",
   "subcribeErrorTitle": "Oops!",
   "subcribeErrorDescription": "C'è stato un problema con la tua richiesta di iscrizione. Prova ancora.",
+  "subcribeErrorName": "Devi fornire un nome valido.",
   "subcribeErrorEmail": "Devi fornire un indirizzo email valido.",
   "followUs": "oppure seguici sui nostri social..."
 }
