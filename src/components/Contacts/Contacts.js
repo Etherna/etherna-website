@@ -10,6 +10,7 @@ const Contacts = () => {
   const [locale] = useLocale()
   const trans = useTranslations(locale, "contacts")
   const titleRef = useRef()
+  const descriptionRef = useRef()
   const contentRef = useRef()
 
   const mailto = (subject) => {
@@ -26,11 +27,13 @@ const Contacts = () => {
               <h2 className="contacts-title fade-in-up delay-50" ref={titleRef}>
                 {trans("helpUsTitle")}
               </h2>
-              <p className="contacts-description">{trans("helpUsDescription")}</p>
+            </ViewportObserver>
+            <ViewportObserver childrenRef={descriptionRef} viewportClassName="animation-active">
+              <p className="contacts-description fade-in-up delay-100" ref={descriptionRef}>{trans("helpUsDescription")}</p>
             </ViewportObserver>
 
             <ViewportObserver childrenRef={contentRef} viewportClassName="animation-active">
-              <div className="row">
+              <div className="row fade-in-up delay-150" ref={contentRef}>
                 <div className="col contacts-col md:w-1/2">
                   <h3 className="contacts-subtitle">{trans("forInvestors")}</h3>
                   <div className="contacts-text">
