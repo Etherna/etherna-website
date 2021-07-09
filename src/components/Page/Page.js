@@ -4,6 +4,7 @@ import { Markdown } from "react-showdown"
 
 import "./page.scss"
 
+import PageCTA from "@components/PageCTA"
 import { useLocale } from "@utils/localizedPage"
 import routes from "@utils/routes"
 
@@ -66,6 +67,12 @@ const Page = ({ page }) => {
               />
             </article>
           </div>
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col">
+          <PageCTA />
         </div>
       </div>
     </div>
