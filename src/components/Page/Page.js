@@ -2,6 +2,8 @@ import React, { useEffect } from "react"
 import PropTypes from "prop-types"
 import { Markdown } from "react-showdown"
 
+import "./page.scss"
+
 import { useLocale } from "@utils/localizedPage"
 import routes from "@utils/routes"
 
@@ -33,13 +35,35 @@ const Page = ({ page }) => {
   }
 
   return (
-    <div className="container py-8">
+    <div className="container-fluid">
+      <div className="row page-header-row">
+        <div className="col">
+          <div className="container">
+            <div className="row">
+              <div className="col">
+                <header className="page-header">
+                  <h1 className="page-header-title">{page.title}</h1>
+                  <p className="page-header-excerpt">{page.excerpt}</p>
+                </header>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="row">
         <div className="col">
           <div className="post post-page">
             <article className="post-content">
-              <h1>{page.title}</h1>
-              <Markdown markdown={page.content} />
+              <Markdown
+                markdown={page.content}
+                options={{
+                  tables: true,
+                  emoji: true,
+                  strikethrough: true,
+                  underline: true,
+                }}
+              />
             </article>
           </div>
         </div>
