@@ -6,7 +6,7 @@ import Layout from "@components/Layout"
 import Project from "@components/Project"
 import { LocalizedPage } from "@utils/localizedPage"
 import { parseProject } from "@utils/dataParser"
-import SEO from "@components/SEO"
+import HeadMeta from "@components/HeadMeta"
 
 const ProjectPage = ({ data, pageContext }) => {
   const { locale } = pageContext
@@ -14,7 +14,7 @@ const ProjectPage = ({ data, pageContext }) => {
 
   return (
     <LocalizedPage locale={locale}>
-      <SEO
+      <HeadMeta
         title={project.title}
         description={project.meta_description}
         keywords={project.meta_keywords}

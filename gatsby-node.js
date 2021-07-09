@@ -15,7 +15,7 @@ const { DEFAULT_LOCALE, SUPPORTED_LOCALES } = require("./src/utils/lang")
 ///
 exports.onCreatePage = ({ page, actions }) => {
   const { createPage, deletePage } = actions
-  const pageCopy = {...page}
+  const pageCopy = { ...page }
 
   const localizedRoutes = [
     "/",
@@ -52,7 +52,7 @@ exports.onCreatePage = ({ page, actions }) => {
 ///
 exports.createPages = async ({ actions, graphql }) => {
   const now = (new Date()).toISOString()
-  const { data: { posts, categories, projects } } = await graphql(`
+  const { data: { posts, categories, projects, pages } } = await graphql(`
     query {
       posts: allDirectusPost(filter: {published_on: {lte: "${now}"}}) {
         nodes {
@@ -74,6 +74,14 @@ exports.createPages = async ({ actions, graphql }) => {
         }
       }
       projects: allDirectusProject(filter: {coming_soon: {eq: false}}) {
+        nodes {
+          localized_contents {
+            slug
+            locale
+          }
+        }
+      }
+      pages: allDirectusPage {
         nodes {
           localized_contents {
             slug
@@ -131,6 +139,23 @@ exports.createPages = async ({ actions, graphql }) => {
       actions.createPage({
         path: pagePath,
         component: path.resolve(`./src/templates/project.js`),
+        context: {
+          slug,
+          locale
+        }
+      })
+    })
+  })
+  pages.nodes.forEach(node => {
+    node.localized_contents.forEach(localizedProject => {
+      const { slug, locale } = localizedProject
+      const pagePath = locale === DEFAULT_LOCALE
+        ? `/${slug}/`
+        : `/${locale}/${slug}/`
+
+      actions.createPage({
+        path: pagePath,
+        component: path.resolve(`./src/templates/page.js`),
         context: {
           slug,
           locale

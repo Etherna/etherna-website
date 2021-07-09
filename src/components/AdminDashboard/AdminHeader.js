@@ -7,7 +7,7 @@ const AdminHeader = () => {
       <div className="admin-header-logo">
         <Link to="/">
           <img
-            src={require("@images/logo.svg")}
+            src={require("@images/logo.svg").default}
             alt="Etherna"
           />
         </Link>

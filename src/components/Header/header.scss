@@ -10,7 +10,7 @@
     @apply flex flex-wrap items-center py-4;
 
     @screen lg {
-      @apply flex-no-wrap;
+      @apply flex-nowrap;
     }
 
     .logo {
@@ -90,13 +90,13 @@
       }
 
       @screen lg {
-        @apply flex-no-wrap h-auto;
+        @apply flex-nowrap h-auto;
         transform: none;
       }
     }
 
     .header-menu {
-      @apply flex items-center flex-no-wrap;
+      @apply flex items-center flex-nowrap;
 
       @screen lg {
         @apply px-4 ml-0;
@@ -117,7 +117,7 @@
       }
 
       &-row {
-        @apply w-full flex items-center flex-no-wrap overflow-x-auto py-2;
+        @apply w-full flex items-center flex-nowrap overflow-x-auto py-2;
         @screen lg {
           @apply w-auto overflow-x-hidden py-0;
           &-fill {
@@ -156,7 +156,7 @@
       &.landing-menu {
         @apply hidden;
 
-        @screen sm {
+        @screen xl {
           @apply flex;
         }
 
@@ -213,25 +213,31 @@
   }
 }
 
-.projects-toggle {
+.mega-toggle {
   &:active,
   &:focus {
     @apply outline-none shadow-none;
   }
 }
-.projects-menu {
-  @apply w-screen max-w-screen-md bg-white rounded-lg shadow-lg
-    border border-gray-100 p-6 my-3;
+.mega-menu {
+  @apply w-screen max-w-screen-md;
+  @apply bg-white rounded-lg;
+  @apply shadow-lg;
+  @apply border border-gray-100;
+  @apply p-6 my-3;
+  @apply md:w-auto md:min-w-min;
 
   &-row {
     @apply w-full flex flex-wrap;
   }
 
   &-item {
-    @apply flex items-center mb-3 px-3 py-2 w-full rounded-lg transition-colors duration-500;
-    min-height: 5.5rem;
+    @apply flex items-center rounded-lg transition-colors duration-500;
+    @apply w-full max-w-96 min-h-[5.5rem];
+    @apply mb-3 px-3 py-2;
+
     @screen md {
-      @apply w-1/2;
+      @apply flex-1;
     }
 
     &:not(.disabled) {
@@ -249,16 +255,16 @@
     &-info {
       @apply flex-1 text-sm font-semibold;
 
-      .project-title {
+      .mega-title {
         @apply text-gray-900;
       }
-      .project-description {
+      .mega-description {
         @apply text-xs text-gray-500 font-normal;
       }
     }
   }
 
-  .project-soon-label {
+  .mega-soon-label {
     @apply text-gray-700 text-sm font-semibold mt-6 opacity-50 pl-3;
   }
 

@@ -73,15 +73,7 @@ $li-color: #0B78B7;
     }
 
     .social-link {
-      @apply flex items-center rounded bg-gray-200 text-gray-600 mb-2 px-4 mx-4 whitespace-no-wrap;
-
-      // &::after {
-      //   content: "";
-      //   background-image: url(../../images/icons/arrow-right.svg);
-      //   opacity: 0;
-      //   transform: translateX(-1rem);
-      //   @apply invisible w-0 h-3 bg-center bg-contain bg-no-repeat transition duration-200;
-      // }
+      @apply flex items-center rounded bg-gray-200 text-gray-600 mb-2 px-4 mx-4 whitespace-nowrap;
 
       &.facebook {
         path {

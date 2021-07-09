@@ -111,7 +111,7 @@
   .submit-comment {
     @apply hidden mt-3 flex-wrap justify-between w-full;
     @screen md {
-      @apply flex-no-wrap;
+      @apply flex-nowrap;
     }
 
     .auth-user {

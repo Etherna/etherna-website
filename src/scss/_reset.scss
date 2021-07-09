@@ -1,17 +1,10 @@
-//@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
-//@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
-
 html {
-  font-size: 15px;
   @apply bg-gray-100;
-
-  @screen md {
-    font-size: 16px;
-  }
 }
 
 body {
   @apply font-sans antialiased text-gray-900;
+  @apply text-sm md:text-base;
 }
 
 a {
@@ -66,7 +59,7 @@ h6 {
 button,
 input {
   &:focus {
-    @apply outline-none shadow-outline;
+    @apply outline-none ring-2 ring-accent/50;
   }
   &:disabled {
     @apply opacity-50 cursor-not-allowed;

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 
 import Layout from "@components/Layout"
-import SEO from "@components/SEO"
+import HeadMeta from "@components/HeadMeta"
 import { LocalizedPage } from "@utils/localizedPage"
 import StaticPage from "@components/StaticPage"
 
@@ -21,7 +21,8 @@ const PrivacyPolicyPage = () => {
   return (
     <LocalizedPage>
       <Layout>
-        <SEO title="Privacy Policy" />
+        {/* eslint-ignore-next-line react/jsx-pascal-case */}
+        <HeadMeta title="Privacy Policy" />
 
         <StaticPage title={`Privacy Policy`}>
           <a

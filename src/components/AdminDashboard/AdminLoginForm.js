@@ -47,7 +47,7 @@ const AdminLoginForm = ({ onLogin }) => {
         />
         <input
           type="password"
-          autoComplete="password"
+          autoComplete="current-password"
           className="form-control"
           placeholder={"Password"}
           value={password}

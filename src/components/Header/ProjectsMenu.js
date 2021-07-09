@@ -39,13 +39,13 @@ const ProjectsMenu = () => {
     <DropDown
       toggleClass={classnames(
         "header-link",
-        "projects-toggle"
+        "mega-toggle"
       )}
       toggleChildren={trans("projects")}
       showChevron={true}
     >
-      <nav className="projects-menu">
-        <div className="projects-menu-row">
+      <nav className="mega-menu">
+        <div className="mega-menu-row">
           {activeProjects.map((project, i) => (
             <ProjectMenuItem
               project={project}
@@ -56,10 +56,10 @@ const ProjectsMenu = () => {
         </div>
         {comingSoonProjects.length > 0 && (
           <>
-            <h6 className="project-soon-label">
+            <h6 className="mega-soon-label">
               {trans("comingLater")} <span role="img" aria-label="waiting for launch">🚀</span>
             </h6>
-            <div className="projects-menu-row">
+            <div className="mega-menu-row">
               {comingSoonProjects.map((project, i) => (
                 <ProjectMenuItem
                   project={project}
@@ -88,23 +88,23 @@ const ProjectMenuItem = ({ project, locale }) => {
 
   return (
     <div
-      className={classnames("projects-menu-item", {
+      className={classnames("mega-menu-item", {
         "disabled": project.coming_soon
       })}
     >
-        <div className="projects-menu-item-image">
-          <LinkWrapper>
-            {project.image && (
-              <img src={project.image.localFile.publicURL} alt={project.title} />
-            )}
-          </LinkWrapper>
-        </div>
-        <div className="projects-menu-item-info">
-          <LinkWrapper>
-            <div className="project-title">{project.title}</div>
-            <p className="project-description">{project.excerpt}</p>
-          </LinkWrapper>
-        </div>
+      <div className="mega-menu-item-image">
+        <LinkWrapper>
+          {project.image && (
+            <img src={project.image.localFile.publicURL} alt={project.title} />
+          )}
+        </LinkWrapper>
+      </div>
+      <div className="mega-menu-item-info">
+        <LinkWrapper>
+          <div className="mega-title">{project.title}</div>
+          <p className="mega-description">{project.excerpt}</p>
+        </LinkWrapper>
+      </div>
     </div>
   )
 }

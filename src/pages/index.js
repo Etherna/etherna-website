@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 
 import Layout from "@components/Layout"
-import SEO from "@components/SEO"
+import HeadMeta from "@components/HeadMeta"
 import Hero from "@components/Hero"
 import Landing from "@components/Landing"
 import { LocalizedPage } from "@utils/localizedPage"
@@ -10,7 +10,8 @@ import { LocalizedPage } from "@utils/localizedPage"
 const IndexPage = ({ pageContext }) => (
   <LocalizedPage locale={pageContext.locale}>
     <Layout transparentHeader={true} showLandingMenu={true}>
-      <SEO title="Etherna" />
+      {/* eslint-ignore-next-line react/jsx-pascal-case */}
+      <HeadMeta title="Etherna" />
 
       <Hero />
       <Landing />

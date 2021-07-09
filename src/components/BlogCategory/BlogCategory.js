@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import PropTypes from "prop-types"
 
-import SEO from "@components/SEO"
+import HeadMeta from "@components/HeadMeta"
 import BlogPosts from "@components/BlogPosts"
 import { useLocale } from "@utils/localizedPage"
 import routes from "@utils/routes"
@@ -19,7 +19,7 @@ const BlogCategory = ({ category, posts }) => {
   useEffect(() => {
     setLocalePaths()
     return () => clearLocalePaths()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const setLocalePaths = () => {
@@ -36,7 +36,7 @@ const BlogCategory = ({ category, posts }) => {
 
   return (
     <>
-      <SEO title={category.name} />
+      <HeadMeta title={category.name} />
 
       <BlogPosts
         title={`Blog: ${category.name}`}
