@@ -97,9 +97,17 @@ const BlogPost = ({ post }) => {
               />
             </aside>
             <article className="col post-content">
-              <h1>{post.title}</h1>
+              <h1 className="post-title">{post.title}</h1>
 
-              <Markdown markup={post.content} />
+              <Markdown
+                markdown={post.content}
+                options={{
+                  tables: true,
+                  emoji: true,
+                  strikethrough: true,
+                  underline: true,
+                }}
+              />
 
               {/* <Comments postId={post.id} /> */}
 

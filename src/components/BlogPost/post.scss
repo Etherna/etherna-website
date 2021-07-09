@@ -57,7 +57,7 @@
   article {
     @apply prose lg:prose-lg;
 
-    h1 {
+    h1.post-title {
       @apply font-serif text-5xl leading-none mt-10;
     }
     h2, h3, h4, h5, h6 {

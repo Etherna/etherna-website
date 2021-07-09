@@ -68,7 +68,15 @@ const Project = ({ project }) => {
 
               <h1>{project.title}</h1>
 
-              <Markdown markdown={project.content} />
+              <Markdown
+                markdown={project.content}
+                options={{
+                  tables: true,
+                  emoji: true,
+                  strikethrough: true,
+                  underline: true,
+                }}
+              />
             </article>
           </div>
         </div>
