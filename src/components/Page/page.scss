@@ -4,6 +4,8 @@
 }
 
 .page-header {
+  @apply max-w-prose mx-auto;
+  @apply lg:text-lg;
 }
 
 .page-header-title {
