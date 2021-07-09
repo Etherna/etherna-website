@@ -58,10 +58,25 @@ const projectPath = (slug, locale = DEFAULT_LOCALE) => {
     : `/${locale}/project/${slug}`
 }
 
-export default {
+/**
+ * Page path
+ * @param {string} slug Page slug
+ * @param {string} locale Category locale
+ * @return {string} Page path
+ */
+const pagePath = (slug, locale = DEFAULT_LOCALE) => {
+  return locale === DEFAULT_LOCALE || locale === ""
+    ? `/${slug}`
+    : `/${locale}/${slug}`
+}
+
+const routes = {
   homePath,
   blogPath,
   blogPostPath,
   blogCategoryPath,
-  projectPath
+  projectPath,
+  pagePath
 }
+
+export default routes
