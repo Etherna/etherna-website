@@ -90,19 +90,19 @@ const Landing = () => {
         title={trans("transparency")}
         description={trans("transparencyDescription")}
         features={[{
-          icon: require("@images/icons/feature-shadow-ban.svg"),
+          icon: require("@images/icons/feature-shadow-ban.svg").default,
           title: trans("transparencyFeatures.0.title"),
           description: trans("transparencyFeatures.0.description")
         }, {
-          icon: require("@images/icons/feature-speech-freedom.svg"),
+          icon: require("@images/icons/feature-speech-freedom.svg").default,
           title: trans("transparencyFeatures.1.title"),
           description: trans("transparencyFeatures.1.description")
         }, {
-          icon: require("@images/icons/feature-open-source.svg"),
+          icon: require("@images/icons/feature-open-source.svg").default,
           title: trans("transparencyFeatures.2.title"),
           description: trans("transparencyFeatures.2.description")
         }, {
-          icon: require("@images/icons/feature-community.svg"),
+          icon: require("@images/icons/feature-community.svg").default,
           title: trans("transparencyFeatures.3.title"),
           description: trans("transparencyFeatures.3.description")
         }]}
@@ -113,19 +113,19 @@ const Landing = () => {
         title={trans("users")}
         description={trans("usersDescription")}
         features={[{
-          icon: require("@images/icons/feature-no-ads.svg"),
+          icon: require("@images/icons/feature-no-ads.svg").default,
           title: trans("usersFeatures.0.title"),
           description: trans("usersFeatures.0.description")
         }, {
-          icon: require("@images/icons/feature-creativity.svg"),
+          icon: require("@images/icons/feature-creativity.svg").default,
           title: trans("usersFeatures.1.title"),
           description: trans("usersFeatures.1.description")
         }, {
-          icon: require("@images/icons/feature-viewers.svg"),
+          icon: require("@images/icons/feature-viewers.svg").default,
           title: trans("usersFeatures.2.title"),
           description: trans("usersFeatures.2.description")
         }, {
-          icon: require("@images/icons/feature-revenue.svg"),
+          icon: require("@images/icons/feature-revenue.svg").default,
           title: trans("usersFeatures.3.title"),
           description: trans("usersFeatures.3.description")
         }]}
@@ -136,11 +136,11 @@ const Landing = () => {
         title={trans("innovative")}
         description={trans("innovativeDescription")}
         features={[{
-          icon: require("@images/icons/feature-decentralized.svg"),
+          icon: require("@images/icons/feature-decentralized.svg").default,
           title: trans("innovativeFeatures.0.title"),
           description: trans("innovativeFeatures.0.description")
         }, {
-          icon: require("@images/icons/feature-permanent.svg"),
+          icon: require("@images/icons/feature-permanent.svg").default,
           title: trans("innovativeFeatures.1.title"),
           description: trans("innovativeFeatures.1.description")
         }]}
@@ -151,11 +151,11 @@ const Landing = () => {
         title={trans("extendable")}
         description={trans("extendableDescription")}
         features={[{
-          icon: require("@images/icons/feature-index.svg"),
+          icon: require("@images/icons/feature-index.svg").default,
           title: trans("extendableFeatures.0.title"),
           description: trans("extendableFeatures.0.description")
         }, {
-          icon: require("@images/icons/feature-gateway.svg"),
+          icon: require("@images/icons/feature-gateway.svg").default,
           title: trans("extendableFeatures.1.title"),
           description: trans("extendableFeatures.1.description")
         }]}
@@ -174,7 +174,7 @@ const Landing = () => {
                   <h4 className="text-4xl leading-tight font-extrabold text-gray-700 text-center">
                     {trans("contact")}
                   </h4>
-                  <img src={require("../../images/newsletter.svg")} alt="" width="120" />
+                  <img src={require("../../images/newsletter.svg").default} alt="" width="120" />
                   <NewsletterForm />
 
                   <hr className="w-24 my-12" />

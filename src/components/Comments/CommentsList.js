@@ -68,7 +68,15 @@ const CommentsList = ({ comments, depth, multiLang }) => {
                 </span>
               </span>
               <span className="thread-message-comment">
-                <Markdown markdown={msg.comment} />
+                <Markdown
+                  markdown={msg.comment}
+                  options={{
+                    tables: true,
+                    emoji: true,
+                    strikethrough: true,
+                    underline: true,
+                  }}
+                />
               </span>
 
               {/* Disable replies after certain depth */}
@@ -92,7 +100,7 @@ const CommentsList = ({ comments, depth, multiLang }) => {
           <ol className={classnames(`thread-message-replies`, `depth-${depth}`)}>
             <CommentsList
               comments={msg.replies}
-              depth={depth+1}
+              depth={depth + 1}
               multiLang={multiLang}
             />
           </ol>

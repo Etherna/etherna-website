@@ -1,0 +1,18 @@
+.page-header-row {
+  @apply py-12;
+  @apply bg-white;
+}
+
+.page-header {
+  @apply max-w-prose mx-auto;
+  @apply lg:text-lg;
+}
+
+.page-header-title {
+  @apply mb-2;
+}
+
+.page-header-excerpt {
+  @apply text-gray-600 font-medium;
+  @apply max-w-prose;
+}

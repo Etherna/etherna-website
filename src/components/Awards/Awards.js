@@ -9,7 +9,7 @@ import { useTranslations } from "@utils/useTranslations"
 const AwardList = [{
   title: "SwarmGrants",
   description: "SwarmGrantsDesc",
-  image: require("@images/logos/swarm-grants.svg"),
+  image: require("@images/logos/swarm-grants.svg").default,
   link: "https://medium.com/ethereum-swarm/buzz-is-in-the-air-swarm-grants-results-are-in-a030ab9178a9"
 }]
 

@@ -5,6 +5,7 @@ import { Link } from "gatsby"
 
 import LandingMenu from "./LandingMenu"
 import ProjectsMenu from "./ProjectsMenu"
+import PagesMenu from "./PagesMenu"
 import UserMenu from "./UserMenu"
 import SocialMenu from "@components/SocialMenu"
 import LangSwitcher from "@components/LangSwitcher"
@@ -42,7 +43,7 @@ const Header = ({ transparent, showLandingMenu }) => {
         <div className="header-container">
           <div className="logo">
             <Link to={routes.homePath(locale)}>
-              <img src={require("@images/logo.svg")} alt="Etherna" />
+              <img src={require("@images/logo.svg").default} alt="Etherna" />
             </Link>
           </div>
 
@@ -67,6 +68,7 @@ const Header = ({ transparent, showLandingMenu }) => {
               )}
 
               <nav className="header-menu header-menu-right">
+                <PagesMenu />
                 <ProjectsMenu />
                 <Link to={routes.blogPath(locale)} className="header-link">{trans("blog")}</Link>
               </nav>

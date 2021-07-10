@@ -2,34 +2,36 @@ import React from "react"
 import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 
-import Layout from "@components/Layout"
-import Project from "@components/Project"
-import { LocalizedPage } from "@utils/localizedPage"
-import { parseProject } from "@utils/dataParser"
 import HeadMeta from "@components/HeadMeta"
+import Layout from "@components/Layout"
+import Page from "@components/Page"
+import { LocalizedPage } from "@utils/localizedPage"
+import { parsePage } from "@utils/dataParser"
 
-const ProjectPage = ({ data, pageContext }) => {
+const PageTemplate = ({ data, pageContext }) => {
   const { locale } = pageContext
-  const project = parseProject(data.project, pageContext.locale)
+  const page = parsePage(data.page, pageContext.locale)
+
+  console.log('page', page);
 
   return (
     <LocalizedPage locale={locale}>
       <HeadMeta
-        title={project.title}
-        description={project.meta_description}
-        keywords={project.meta_keywords}
+        title={page.title}
+        description={page.meta_description}
+        keywords={page.meta_keywords}
       />
 
       <Layout>
-        <Project
-          project={project}
+        <Page
+          page={page}
         />
       </Layout>
     </LocalizedPage>
   )
 }
 
-ProjectPage.propTypes = {
+PageTemplate.propTypes = {
   data: PropTypes.object.isRequired,
   pageContext: PropTypes.shape({
     locale: PropTypes.string.isRequired,
@@ -39,16 +41,9 @@ ProjectPage.propTypes = {
 
 export const query = graphql`
   query ($slug: String!, $locale: String!) {
-    project: directusProject(
+    page: directusPage(
       localized_contents: {elemMatch: {slug: {eq: $slug}, locale: {eq: $locale}}}
     ) {
-      github_link
-      coming_soon
-      image {
-        localFile {
-          publicURL
-        }
-      }
       localized_contents {
         meta_description
         meta_keywords
@@ -56,9 +51,10 @@ export const query = graphql`
         content
         title
         slug
+        excerpt
       }
     }
   }
 `
 
-export default ProjectPage
+export default PageTemplate

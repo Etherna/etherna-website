@@ -5,7 +5,7 @@ import { useStaticQuery, graphql } from "gatsby"
 
 import { useLocale } from "@utils/localizedPage"
 
-const SEO = ({ title, description, keywords, lang, meta }) => {
+const HeadMeta = ({ title, description, keywords, lang, meta }) => {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -89,7 +89,7 @@ const SEO = ({ title, description, keywords, lang, meta }) => {
   )
 }
 
-SEO.propTypes = {
+HeadMeta.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
   keywords: PropTypes.string,
@@ -97,9 +97,9 @@ SEO.propTypes = {
   meta: PropTypes.arrayOf(PropTypes.object),
 }
 
-SEO.defaultProps = {
+HeadMeta.defaultProps = {
   meta: [],
   description: ``,
 }
 
-export default SEO
+export default HeadMeta

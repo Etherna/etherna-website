@@ -1,8 +1,7 @@
 import React from "react"
-
-import SEO from "@components/SEO"
 import { Link } from "gatsby"
 
+import HeadMeta from "@components/HeadMeta"
 import { userLocale } from "@utils/lang"
 import routes from "@utils/routes"
 
@@ -11,7 +10,7 @@ const NotFoundPage = () => {
 
   return (
     <>
-      <SEO title="404: Not found" />
+      <HeadMeta title="404: Not found" />
 
       <div className="bg-gray-200 h-screen">
         <div className="container py-8 text-gray-700">

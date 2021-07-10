@@ -6,7 +6,7 @@ import { Markdown } from "react-showdown"
 import BlogPostHeader from "./BlogPostHeader"
 import BlogPostFooter from "./BlogPostFooter"
 import BlogPostSchema from "./BlogPostSchema"
-import SEO from "@components/SEO"
+import HeadMeta from "@components/HeadMeta"
 import ShareButtons from "@components/ShareButtons"
 import { useLocale } from "@utils/localizedPage"
 import { useTranslations } from "@utils/useTranslations"
@@ -30,7 +30,7 @@ const BlogPost = ({ post }) => {
   useEffect(() => {
     setLocalePaths()
     return () => clearLocalePaths()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const setLocalePaths = () => {
@@ -47,7 +47,7 @@ const BlogPost = ({ post }) => {
 
   return (
     <>
-      <SEO
+      <HeadMeta
         title={post.title}
         description={post.meta_description || post.excerpt}
         keywords={post.meta_keywords}
@@ -97,9 +97,17 @@ const BlogPost = ({ post }) => {
               />
             </aside>
             <article className="col post-content">
-              <h1>{post.title}</h1>
+              <h1 className="post-title">{post.title}</h1>
 
-              <Markdown markup={post.content} />
+              <Markdown
+                markdown={post.content}
+                options={{
+                  tables: true,
+                  emoji: true,
+                  strikethrough: true,
+                  underline: true,
+                }}
+              />
 
               {/* <Comments postId={post.id} /> */}
 

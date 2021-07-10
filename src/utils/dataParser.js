@@ -197,7 +197,6 @@ export const parseProject = (node, locale) => {
   }
 }
 
-
 /**
  * Parse a list of project nodes
  *
@@ -206,6 +205,65 @@ export const parseProject = (node, locale) => {
  * @returns {Project[]} Parsed projects
  */
 export const parseProjects = (nodes, locale) => {
+  return nodes.map(node => parseProject(node, locale))
+}
+
+
+
+
+/**
+ * @typedef {object} PageLocalizedContentsNode
+ * @property {string} locale
+ * @property {string} title
+ * @property {string} slug
+ * @property {string} excerpt
+ * @property {string} content
+ * @property {string} meta_description
+ * @property {string} meta_keywords
+ *
+ * @typedef {object} PageNode
+ * @property {PageLocalizedContentsNode} localized_contents
+ *
+ * @typedef {object} Page
+ * @property {string} locale
+ * @property {string} title
+ * @property {string} slug
+ * @property {string} excerpt
+ * @property {string} content
+ * @property {string} meta_description
+ * @property {string} meta_keywords
+ * @property {LocaleSlug[]} allSlugs
+ *
+ * Parse page node
+ * @param {PageNode} node Page node
+ * @param {string} locale Current locale
+ * @returns {Page} Page object
+ */
+export const parsePage = (node, locale) => {
+  if (!node) return
+
+  const { localized_contents } = node
+  const localizedContents = localized_contents.find(lc => lc.locale === locale)
+    || localized_contents[0]
+  const allSlugs = localized_contents.map(lc => ({
+    slug: lc.slug,
+    locale: lc.locale
+  }))
+  return {
+    ...localizedContents,
+    allSlugs
+  }
+}
+
+
+/**
+ * Parse a list of page nodes
+ *
+ * @param {PageNode[]} nodes Pages nodes
+ * @param {string} locale Current locale
+ * @returns {Page[]} Parsed pages
+ */
+export const parsePages = (nodes, locale) => {
   return nodes.map(node => parseProject(node, locale))
 }
 

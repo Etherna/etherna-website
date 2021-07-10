@@ -4,7 +4,7 @@ import { graphql } from "gatsby"
 
 import { LocalizedPage } from "@utils/localizedPage"
 import Layout from "@components/Layout"
-import SEO from "@components/SEO"
+import HeadMeta from "@components/HeadMeta"
 
 import BrandKit from "@components/BrandKit"
 import StaticPage from "@components/StaticPage"
@@ -16,7 +16,8 @@ const BrandKitPage = ({ data, pageContext }) => {
   return (
     <LocalizedPage locale={locale}>
       <Layout>
-        <SEO title="Blog" />
+        {/* eslint-ignore-next-line react/jsx-pascal-case */}
+        <HeadMeta title="Blog" />
 
         <StaticPage title={`Brand Kit`}>
           <BrandKit

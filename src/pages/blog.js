@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 
 import Layout from "@components/Layout"
-import SEO from "@components/SEO"
+import HeadMeta from "@components/HeadMeta"
 import Blog from "@components/Blog"
 import { LocalizedPage } from "@utils/localizedPage"
 import { parsePosts } from "@utils/dataParser"
@@ -15,7 +15,8 @@ const BlogPage = ({ data, pageContext }) => {
   return (
     <LocalizedPage locale={locale}>
       <Layout>
-        <SEO title="Blog" />
+        {/* eslint-ignore-next-line react/jsx-pascal-case */}
+        <HeadMeta title="Blog" />
 
         <Blog
           posts={posts}

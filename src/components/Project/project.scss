@@ -11,7 +11,7 @@
     &-header {
       @apply flex flex-wrap;
       @screen md {
-        @apply flex-no-wrap;
+        @apply flex-nowrap;
       }
     }
   }

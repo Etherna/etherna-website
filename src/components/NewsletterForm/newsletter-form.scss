@@ -27,7 +27,7 @@
   }
 
   .newsletter-form-cta {
-    @apply flex items-center rounded-b-lg rounded-t-none py-3 whitespace-no-wrap;
+    @apply flex items-center rounded-b-lg rounded-t-none py-3 whitespace-nowrap;
 
     @screen lg {
       @apply rounded-lg rounded-l-none;
