@@ -12,8 +12,6 @@ const PageTemplate = ({ data, pageContext }) => {
   const { locale } = pageContext
   const page = parsePage(data.page, pageContext.locale)
 
-  console.log('page', page);
-
   return (
     <LocalizedPage locale={locale}>
       <HeadMeta
