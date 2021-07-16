@@ -32,3 +32,4 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         localDir: "public"
         remoteDir: ${{ secrets.REMOTE_DIR }}
+        options: "--delete -X cgi-bin/ -X .well-known/"
