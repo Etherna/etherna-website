@@ -27,57 +27,44 @@ const BlogPage = ({ data, pageContext }) => {
   )
 }
 
-export const query = graphql`
-  query($locale:String!, $now:Date!) {
-    posts: allDirectusPost(
-      filter: {
-        localized_contents: {elemMatch: {locale: {eq: $locale}}},
-        published_on: {lte: $now}
-      },
-      sort: {order: DESC, fields: published_on}
-    ) {
-      nodes {
-        directusId
-        author {
-          first_name
-          avatar
-          last_name
-        }
+export const query = graphql`query ($locale: String!, $now: Date!) {
+  posts: allDirectusPost(
+    filter: {localized_contents: {elemMatch: {locale: {eq: $locale}}}, published_on: {lte: $now}}
+    sort: {order: DESC, fields: published_on}
+  ) {
+    nodes {
+      directusId
+      author {
+        first_name
+        avatar
+        last_name
+      }
+      localized_contents {
+        title
+        slug
+        excerpt
+        locale
+      }
+      category {
         localized_contents {
-          title
-          slug
-          excerpt
           locale
+          name
+          slug
         }
-        category {
-          localized_contents {
-            locale
-            name
-            slug
-          }
-        }
-        status
-        published_on
-        image {
-          localFile {
-            childImageSharp {
-              fluid(maxWidth: 800) {
-                aspectRatio
-                base64
-                originalImg
-                src
-                srcSet
-                sizes
-                presentationHeight
-                presentationWidth
-              }
-            }
+      }
+      status
+      published_on
+      image {
+        localFile {
+          childImageSharp {
+            gatsbyImageData(width: 800, placeholder: BLURRED, layout: CONSTRAINED)
           }
         }
       }
-      totalCount
     }
+    totalCount
   }
+}
 `
 
 BlogPage.propTypes = {

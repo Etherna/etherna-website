@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import classnames from "classnames"
 import moment from "moment"
 import { Link } from "gatsby"
-import Img from "gatsby-image"
+import { GatsbyImage } from "gatsby-plugin-image"
 
 import { useLocale } from "@utils/localizedPage"
 import Avatar from "@components/common/Avatar"
@@ -86,16 +86,12 @@ const BlogPostHeader = ({ author, postTitle, image, published, updated, category
 
         <div className="thumbnail">
           {image && (
-            <Img
-              fluid={image}
-              objectFit="cover"
-              objectPosition="50% 50%"
-            />
+            <GatsbyImage image={image} objectFit="cover" objectPosition="50% 50%" />
           )}
         </div>
       </div>
     </header>
-  )
+  );
 }
 
 BlogPostHeader.propTypes = {

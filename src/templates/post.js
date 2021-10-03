@@ -30,52 +30,42 @@ PostPage.propTypes = {
   }).isRequired,
 }
 
-export const query = graphql`
-  query($slug: String!) {
-    post: directusPost(localized_contents: {elemMatch: {slug: {eq: $slug}}}) {
-      directusId
-      author {
-        first_name
-        avatar
-        last_name
-      }
+export const query = graphql`query ($slug: String!) {
+  post: directusPost(localized_contents: {elemMatch: {slug: {eq: $slug}}}) {
+    directusId
+    author {
+      first_name
+      avatar
+      last_name
+    }
+    localized_contents {
+      title
+      slug
+      content
+      excerpt
+      meta_description
+      meta_keywords
+      locale
+    }
+    category {
       localized_contents {
-        title
-        slug
-        content
-        excerpt
-        meta_description
-        meta_keywords
         locale
+        name
+        slug
       }
-      category {
-        localized_contents {
-          locale
-          name
-          slug
-        }
-      }
-      status
-      updated_on
-      published_on
-      image {
-        localFile {
-          childImageSharp {
-            fluid(maxWidth: 800) {
-              aspectRatio
-              base64
-              originalImg
-              src
-              srcSet
-              sizes
-              presentationHeight
-              presentationWidth
-            }
-          }
+    }
+    status
+    updated_on
+    published_on
+    image {
+      localFile {
+        childImageSharp {
+          gatsbyImageData(width: 800, placeholder: BLURRED, layout: CONSTRAINED)
         }
       }
     }
   }
+}
 `
 
 export default PostPage

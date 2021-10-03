@@ -32,68 +32,58 @@ CategoryPage.propTypes = {
   }).isRequired,
 }
 
-export const query = graphql`
-  query($locale:String!, $slug:String!, $now:Date!) {
-    category: directusCategory(
-      localized_contents: {elemMatch: {slug: {eq: $slug}, locale: {eq: $locale}}}
-    ) {
-      localized_contents {
-        name
-        locale
-        slug
-      }
-    }
-    posts: allDirectusPost(
-      filter: {
-        category: {localized_contents: {elemMatch: {slug: {eq: $slug}}}},
-        published_on: {lte: $now},
-        localized_contents: {elemMatch: {locale: {eq: $locale}}}
-      }
-    ) {
-      nodes {
-        directusId
-        published_on
-        author {
-          avatar
-          first_name
-          last_name
-        }
-        image {
-          localFile {
-            childImageSharp {
-              fluid {
-                aspectRatio
-                base64
-                originalImg
-                presentationHeight
-                presentationWidth
-                sizes
-                src
-                srcSet
-              }
-            }
-          }
-        }
-        localized_contents {
-          title
-          slug
-          content
-          excerpt
-          meta_description
-          meta_keywords
-          locale
-        }
-        category {
-          localized_contents {
-            slug
-            name
-            locale
-          }
-        }
-      }
-      totalCount
+export const query = graphql`query ($locale: String!, $slug: String!, $now: Date!) {
+  category: directusCategory(
+    localized_contents: {elemMatch: {slug: {eq: $slug}, locale: {eq: $locale}}}
+  ) {
+    localized_contents {
+      name
+      locale
+      slug
     }
   }
+  posts: allDirectusPost(
+    filter: {
+      category: {localized_contents: {elemMatch: {slug: {eq: $slug}}}}
+      published_on: {lte: $now}
+      localized_contents: {elemMatch: {locale: {eq: $locale}}}
+    }
+  ) {
+    nodes {
+      directusId
+      published_on
+      author {
+        avatar
+        first_name
+        last_name
+      }
+      image {
+        localFile {
+          childImageSharp {
+            gatsbyImageData(placeholder: BLURRED, layout: FULL_WIDTH)
+          }
+        }
+      }
+      localized_contents {
+        title
+        slug
+        content
+        excerpt
+        meta_description
+        meta_keywords
+        locale
+      }
+      category {
+        localized_contents {
+          slug
+          name
+          locale
+        }
+      }
+    }
+    totalCount
+  }
+}
 `
 
 export default CategoryPage

@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import Img from "gatsby-image"
+import { GatsbyImage } from "gatsby-plugin-image"
 import { Link } from "gatsby"
 import moment from "moment"
 import "moment/locale/it"
@@ -52,16 +52,12 @@ const BlogPostPreview = ({ post }) => {
       <div className="post-preview-image">
         {post.image && (
           <Link to={routes.blogPostPath(post.slug, post.locale)}>
-            <Img
-              fluid={post.image}
-              objectFit="cover"
-              objectPosition="50% 50%"
-            />
+            <GatsbyImage image={post.image} objectFit="cover" objectPosition="50% 50%" />
           </Link>
         )}
       </div>
     </article>
-  )
+  );
 }
 
 BlogPostPreview.propTypes = {

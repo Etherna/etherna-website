@@ -397,8 +397,8 @@ export const parseFluidImage = node => {
     !node ||
     !node.localFile ||
     !node.localFile.childImageSharp ||
-    !node.localFile.childImageSharp.fluid
+    !node.localFile.childImageSharp.gatsbyImageData
   ) return
 
-  return node.localFile.childImageSharp.fluid
+  return node.localFile.childImageSharp.gatsbyImageData;
 }
