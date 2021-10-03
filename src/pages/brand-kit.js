@@ -16,7 +16,6 @@ const BrandKitPage = ({ data, pageContext }) => {
   return (
     <LocalizedPage locale={locale}>
       <Layout>
-        {/* eslint-ignore-next-line react/jsx-pascal-case */}
         <HeadMeta title="Blog" />
 
         <StaticPage title={`Brand Kit`}>

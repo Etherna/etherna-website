@@ -10,7 +10,6 @@ import { LocalizedPage } from "@utils/localizedPage"
 const IndexPage = ({ pageContext }) => (
   <LocalizedPage locale={pageContext.locale}>
     <Layout transparentHeader={true} showLandingMenu={true}>
-      {/* eslint-ignore-next-line react/jsx-pascal-case */}
       <HeadMeta title="Etherna" />
 
       <Hero />

@@ -1,0 +1,71 @@
+.modal {
+  @apply fixed inset-0;
+  @apply z-10;
+}
+
+.modalDialog {
+  @apply absolute inset-0;
+  @apply flex flex-col;
+}
+
+.modalHeader {
+  @apply flex-shrink-0;
+  @apply flex;
+  @apply py-4 md:py-8 xl:py-12;
+
+  &.compact {
+    @apply py-3 md:py-6 xl:py-8;
+  }
+
+  .layoutFill & {
+    @apply absolute top-0 inset-x-0;
+  }
+}
+
+.modalContent {
+  @apply flex-grow;
+  @apply flex flex-col;
+  @apply overflow-y-auto;
+
+  > * {
+    @apply flex-shrink-0;
+  }
+}
+
+.modalBackdrop {
+  @apply absolute inset-0;
+
+  .darkBlurred & {
+    @apply bg-black/95;
+    @supports (backdrop-filter: blur(4px)) {
+      @apply bg-black/80;
+      @apply backdrop-blur-md;
+    }
+  }
+  .light & {
+    background-color: white;
+    @apply bg-white;
+  }
+}
+
+.modalClose {
+  @apply flex;
+  @apply w-10 h-10 rounded-full;
+  @apply p-2;
+  @apply ml-auto;
+  @apply transition-colors duration-75;
+  @apply active:bg-gray-500/20;
+
+  svg {
+    @apply w-full h-full;
+  }
+
+  .darkBlurred & {
+    color: white;
+    @apply text-white;
+  }
+  .light & {
+    color: black;
+    @apply text-black;
+  }
+}

@@ -17,6 +17,8 @@ const Layout = ({ children, transparentHeader, showLandingMenu }) => {
       </main>
 
       <Footer />
+
+      <section id="modals"></section>
     </>
   )
 }

@@ -21,7 +21,6 @@ const PrivacyPolicyPage = () => {
   return (
     <LocalizedPage>
       <Layout>
-        {/* eslint-ignore-next-line react/jsx-pascal-case */}
         <HeadMeta title="Privacy Policy" />
 
         <StaticPage title={`Privacy Policy`}>
