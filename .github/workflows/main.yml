@@ -17,13 +17,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2.1.0
-    - uses: actions/setup-node@v2
+    - name: Build Gatsby
+      uses: actions/setup-node@v2
       with:
         node-version: '14'
-    - name: Build Gatsby Site
-      uses: mattiaz9/gatsby-cli-github-action@master
-      with:
-        gatsby-arg: build
+        architecture: 'x64'
+    - run: yarn install --ignore-optional
+    - run: yarn build
     - name: Upload ftp
       uses: sebastianpopp/ftp-action@releases/v2
       with:
