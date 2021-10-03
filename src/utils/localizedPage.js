@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useReducer } from "react"
 
 import { userLocale } from "./lang"
+import { useTranslations } from "./useTranslations"
 
 const LocalizedPageContext = createContext()
 
@@ -48,10 +49,11 @@ export const LocalizedPage = ({ children, locale }) => {
 
 const InnerLocalizedPage = ({ children }) => {
   const localeContext = useLocale()
+  const t = useTranslations(localeContext[0])
 
   return (
     typeof children === "function" ? (
-      children(localeContext)
+      children(localeContext, t)
     ) : (
       children
     )

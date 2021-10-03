@@ -17,7 +17,7 @@ const AboutPage = ({ data, pageContext }) => {
 
   return (
     <LocalizedPage locale={locale}>
-      {(localeContext) => {
+      {(localeContext, t) => {
         if (localeContext && !localePathsSet.current) {
           localePathsSet.current = true
 
@@ -28,9 +28,9 @@ const AboutPage = ({ data, pageContext }) => {
 
         return (
           <Layout>
-            <HeadMeta title="About us" />
+            <HeadMeta title={t`header.about`} />
 
-            <StaticPage title="About us">
+            <StaticPage title={t`header.about`}>
               <Team team={team} />
             </StaticPage>
           </Layout>

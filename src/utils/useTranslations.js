@@ -38,7 +38,7 @@ export const useTranslations = (locale, namespace = null) => {
   })
 
   const trans = (key, replacements, forcedLocale = null) => {
-    const stringKey = `${namespace ? `${namespace}.`:``}${key}`
+    const stringKey = `${namespace ? `${namespace}.` : ``}${key}`
 
     let translation
 
