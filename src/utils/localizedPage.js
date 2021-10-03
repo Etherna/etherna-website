@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useReducer } from "react"
 
 import { userLocale } from "./lang"
+import { useTranslations } from "./useTranslations"
 
 const LocalizedPageContext = createContext()
 
@@ -21,12 +22,12 @@ const reducer = (state, action) => {
       const pathMap = undefined
       const locale = action.locale
       window.localStorage.setItem("locale", locale)
-      return {...state, locale, pathMap}
+      return { ...state, locale, pathMap }
     }
     case "SET_LOCALE_PATH": {
       let pathMap = state.pathMap || {}
       pathMap[action.locale] = action.path
-      return {...state, pathMap}
+      return { ...state, pathMap }
     }
     default:
       return state
@@ -39,8 +40,23 @@ export const LocalizedPage = ({ children, locale }) => {
   })
   return (
     <LocalizedPageContext.Provider value={store}>
-      {children}
+      <InnerLocalizedPage>
+        {children}
+      </InnerLocalizedPage>
     </LocalizedPageContext.Provider>
+  )
+}
+
+const InnerLocalizedPage = ({ children }) => {
+  const localeContext = useLocale()
+  const t = useTranslations(localeContext[0])
+
+  return (
+    typeof children === "function" ? (
+      children(localeContext, t)
+    ) : (
+      children
+    )
   )
 }
 

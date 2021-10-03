@@ -1,10 +1,10 @@
 import React, { useEffect } from "react"
 import PropTypes from "prop-types"
-import { Markdown } from "react-showdown"
 
 import "./page.scss"
 
 import PageCTA from "@components/PageCTA"
+import Markdown from "@components/Markdown"
 import { useLocale } from "@utils/localizedPage"
 import routes from "@utils/routes"
 
@@ -57,7 +57,7 @@ const Page = ({ page }) => {
           <div className="post post-page">
             <article className="post-content">
               <Markdown
-                markdown={page.content}
+                rawMarkdown={page.content}
                 options={{
                   tables: true,
                   emoji: true,

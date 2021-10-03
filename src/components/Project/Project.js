@@ -1,8 +1,8 @@
 import React, { useEffect } from "react"
 import PropTypes from "prop-types"
-import { Markdown } from "react-showdown"
 
 import GitHubLogo from "!svg-react-loader!@images/logos/github-logo.svg"
+import Markdown from "@components/Markdown"
 import { useLocale } from "@utils/localizedPage"
 import { useTranslations } from "@utils/useTranslations"
 import routes from "@utils/routes"
@@ -69,7 +69,7 @@ const Project = ({ project }) => {
               <h1>{project.title}</h1>
 
               <Markdown
-                markdown={project.content}
+                rawMarkdown={project.content}
                 options={{
                   tables: true,
                   emoji: true,

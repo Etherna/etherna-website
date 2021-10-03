@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
 import classnames from "classnames"
 import moment from "moment"
-import { Markdown } from "react-showdown"
 import { Link } from "gatsby"
 
 import SpinnerIcon from "!svg-react-loader!@images/animated/spinner-light.svg"
 import { useCommentsContext } from "./commentsContext"
 import Alert from "@components/common/Alert"
 import Button from "@components/common/Button"
+import Markdown from "@components/Markdown"
 import { getCurrentUser, currentUserToken } from "@utils/admin"
 import { useLocale } from "@utils/localizedPage"
 import { useTranslations } from "@utils/useTranslations"
@@ -46,7 +46,7 @@ const CommentForm = ({ inViewport, replyTo, onCancel }) => {
 
     setName(window.localStorage.getItem("comment:name") || "")
     setEmail(window.localStorage.getItem("comment:email") || "")
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -138,7 +138,7 @@ const CommentForm = ({ inViewport, replyTo, onCancel }) => {
                     {replyTo.name} {moment(replyTo.created_on).locale(locale).fromNow()}
                   </span>
                   <span className="thread-message-comment">
-                    <Markdown markdown={replyTo.comment} />
+                    <Markdown rawMarkdown={replyTo.comment} />
                   </span>
                 </div>
               </div>
@@ -179,7 +179,7 @@ const CommentForm = ({ inViewport, replyTo, onCancel }) => {
             {currentUser && (
               <Link to="/admin" className="auth-user">
                 <span className="auth-user-label">{trans("authAs")}:</span>
-                <img src={currentUser.avatar} alt="" className="auth-user-avatar"/>
+                <img src={currentUser.avatar} alt="" className="auth-user-avatar" />
                 <span className="auth-user-name">{currentUser.name}</span>
               </Link>
             )}

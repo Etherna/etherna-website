@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import classnames from "classnames"
 import moment from "moment"
 import { Link } from "gatsby"
-import Img from "gatsby-image"
+import { GatsbyImage } from "gatsby-plugin-image"
 
 import { useLocale } from "@utils/localizedPage"
 import Avatar from "@components/common/Avatar"
@@ -32,11 +32,11 @@ const BlogPostHeader = ({ author, postTitle, image, published, updated, category
     <header className={classnames("post-header", {
       "post-header-hero": image != null
     })}>
-      {image && (
+      {image && image.placeholder && (
         <div className="post-header-bg">
           <div
             className="post-header-bg-image"
-            style={{ backgroundImage: `url(${image.base64})` }}
+            style={{ backgroundImage: `url(${image.placeholder.fallback})` }}
           />
         </div>
       )}
@@ -86,16 +86,12 @@ const BlogPostHeader = ({ author, postTitle, image, published, updated, category
 
         <div className="thumbnail">
           {image && (
-            <Img
-              fluid={image}
-              objectFit="cover"
-              objectPosition="50% 50%"
-            />
+            <GatsbyImage image={image} objectFit="cover" alt="" />
           )}
         </div>
       </div>
     </header>
-  )
+  );
 }
 
 BlogPostHeader.propTypes = {

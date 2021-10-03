@@ -70,6 +70,7 @@ const Header = ({ transparent, showLandingMenu }) => {
               <nav className="header-menu header-menu-right">
                 <PagesMenu />
                 <ProjectsMenu />
+                <Link to={routes.aboutPath(locale)} className="header-link">{trans("about")}</Link>
                 <Link to={routes.blogPath(locale)} className="header-link">{trans("blog")}</Link>
               </nav>
             </div>

@@ -3,9 +3,9 @@ import PropTypes from "prop-types"
 import classnames from "classnames"
 import moment from "moment"
 import Tippy from "@tippyjs/react"
-import { Markdown } from "react-showdown"
 
 import CommentForm from "./CommentForm"
+import Markdown from "@components/Markdown"
 import gravatar from "@utils/gravatar"
 import { useLocale } from "@utils/localizedPage"
 import { useTranslations } from "@utils/useTranslations"
@@ -69,7 +69,7 @@ const CommentsList = ({ comments, depth, multiLang }) => {
               </span>
               <span className="thread-message-comment">
                 <Markdown
-                  markdown={msg.comment}
+                  rawMarkdown={msg.comment}
                   options={{
                     tables: true,
                     emoji: true,

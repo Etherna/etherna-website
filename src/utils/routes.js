@@ -23,6 +23,20 @@ const blogPath = locale => {
 }
 
 /**
+ * About path
+ * @param {string} locale About locale
+ * @return {string} About path
+ */
+const aboutPath = locale => {
+  const aboutPaths = {
+    it: "chi-siamo"
+  }
+  return locale === DEFAULT_LOCALE || locale === ""
+    ? `/about`
+    : `/${locale}/${aboutPaths[locale] ?? "about"}`
+}
+
+/**
  * Blog post path
  * @param {string} slug Post slug
  * @param {string} locale Category locale
@@ -73,6 +87,7 @@ const pagePath = (slug, locale = DEFAULT_LOCALE) => {
 const routes = {
   homePath,
   blogPath,
+  aboutPath,
   blogPostPath,
   blogCategoryPath,
   projectPath,

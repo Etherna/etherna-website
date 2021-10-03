@@ -1,13 +1,13 @@
 import React, { useEffect } from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
-import { Markdown } from "react-showdown"
 
 import BlogPostHeader from "./BlogPostHeader"
 import BlogPostFooter from "./BlogPostFooter"
 import BlogPostSchema from "./BlogPostSchema"
 import HeadMeta from "@components/HeadMeta"
 import ShareButtons from "@components/ShareButtons"
+import Markdown from "@components/Markdown"
 import { useLocale } from "@utils/localizedPage"
 import { useTranslations } from "@utils/useTranslations"
 import useLocaleInfo from "@utils/useLocaleInfo"
@@ -100,7 +100,7 @@ const BlogPost = ({ post }) => {
               <h1 className="post-title">{post.title}</h1>
 
               <Markdown
-                markdown={post.content}
+                rawMarkdown={post.content}
                 options={{
                   tables: true,
                   emoji: true,

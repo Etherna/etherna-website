@@ -5,7 +5,6 @@ require("dotenv").config({
 
 module.exports = {
   pathPrefix: process.argv.includes(`--prefix-paths`) && `__PATH_PREFIX__`,
-  //pathPrefix: '/bzz:/test/',
   siteMetadata: {
     title: `Etherna`,
     description: `Etherna is a transparent video platform, made for freedom. We believe in freedom of speech and we won't ban any content as long as it's legal. Join us and let's stop censorship together.`,
@@ -48,7 +47,9 @@ module.exports = {
         allowList: [`DIRECTUS_URL`, `DIRECTUS_PROJECT`]
       },
     },
-    `gatsby-plugin-react-helmet`,
+    {
+      resolve: `gatsby-plugin-react-helmet`
+    },
     {
       resolve: 'gatsby-plugin-sitemap',
       options: {
@@ -77,8 +78,15 @@ module.exports = {
         },
       },
     },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-plugin-image`
+    },
+    {
+      resolve: `gatsby-transformer-sharp`
+    },
+    {
+      resolve: `gatsby-plugin-sharp`
+    },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -94,11 +102,16 @@ module.exports = {
     {
       resolve: `gatsby-plugin-sass`,
       options: {
-        postCssPlugins: [
-          require(`tailwindcss`)(`./tailwind.config.js`),
-          require(`autoprefixer`),
-        ],
+        cssLoaderOptions: {
+          esModule: false,
+          modules: {
+            namedExport: false,
+          },
+        },
       },
+    },
+    {
+      resolve: `gatsby-plugin-postcss`,
     },
     {
       resolve: 'gatsby-plugin-matomo',
