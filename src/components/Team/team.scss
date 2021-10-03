@@ -19,10 +19,13 @@
 .team-member {
   @apply flex flex-col;
   @apply w-full;
-  @apply cursor-pointer;
   @apply pb-3;
 
-  &:hover {
+  .team-member-wrapper:not(.fluid) & {
+    @apply cursor-pointer;
+  }
+
+  .team-member-wrapper:not(.fluid) > &:hover {
     .gatsby-image-wrapper {
       @apply scale-105;
     }
