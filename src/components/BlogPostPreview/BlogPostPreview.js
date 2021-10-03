@@ -21,8 +21,6 @@ const BlogPostPreview = ({ post }) => {
   const [locale] = useLocale()
   const formattedDate = moment(post.published_on).locale(locale)
 
-  console.log(post.image);
-
   return (
     <article className="post-preview">
       <div className="post-preview-details">

@@ -28,8 +28,6 @@ const BlogPostHeader = ({ author, postTitle, image, published, updated, category
   const publishedDate = moment(published).locale(locale)
   const updatedDate = updated ? moment(updated).locale(locale) : null
 
-  // console.log('image', image);
-
   return (
     <header className={classnames("post-header", {
       "post-header-hero": image != null
