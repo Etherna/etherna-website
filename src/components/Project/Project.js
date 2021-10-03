@@ -69,7 +69,7 @@ const Project = ({ project }) => {
               <h1>{project.title}</h1>
 
               <Markdown
-                markdown={project.content}
+                rawMarkdown={project.content}
                 options={{
                   tables: true,
                   emoji: true,

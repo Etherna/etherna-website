@@ -69,7 +69,7 @@ const CommentsList = ({ comments, depth, multiLang }) => {
               </span>
               <span className="thread-message-comment">
                 <Markdown
-                  markdown={msg.comment}
+                  rawMarkdown={msg.comment}
                   options={{
                     tables: true,
                     emoji: true,

@@ -99,15 +99,15 @@ const BlogPost = ({ post }) => {
             <article className="col post-content">
               <h1 className="post-title">{post.title}</h1>
 
-              {/* <Markdown
-                markdown={post.content}
+              <Markdown
+                rawMarkdown={post.content}
                 options={{
                   tables: true,
                   emoji: true,
                   strikethrough: true,
                   underline: true,
                 }}
-              /> */}
+              />
 
               {/* <Comments postId={post.id} /> */}
 

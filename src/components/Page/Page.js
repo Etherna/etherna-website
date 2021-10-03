@@ -57,7 +57,7 @@ const Page = ({ page }) => {
           <div className="post post-page">
             <article className="post-content">
               <Markdown
-                markdown={page.content}
+                rawMarkdown={page.content}
                 options={{
                   tables: true,
                   emoji: true,

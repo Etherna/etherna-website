@@ -138,7 +138,7 @@ const CommentForm = ({ inViewport, replyTo, onCancel }) => {
                     {replyTo.name} {moment(replyTo.created_on).locale(locale).fromNow()}
                   </span>
                   <span className="thread-message-comment">
-                    <Markdown markdown={replyTo.comment} />
+                    <Markdown rawMarkdown={replyTo.comment} />
                   </span>
                 </div>
               </div>

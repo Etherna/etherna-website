@@ -12,9 +12,10 @@ const Markdown = ({
   onClick,
 }) => {
   const markdown = useMemo(() => {
+    const safeMarkdown = rawMarkdown ?? ""
     const formattedMarkdown = forceNewLine
-      ? rawMarkdown.replace(/\n/g, "<br />")
-      : rawMarkdown
+      ? safeMarkdown.replace(/\n/g, "<br />")
+      : safeMarkdown
     return snarkdown(formattedMarkdown)
   }, [rawMarkdown, forceNewLine])
 
