@@ -15,7 +15,13 @@ const Team = ({ team }) => {
       <div className="team">
         {team.map(member => (
           <div className="team-member-wrapper" key={member.name}>
-            <div className="team-member" onClick={() => setSelectedMember(member)}>
+            <div
+              className="team-member"
+              role="button"
+              tabIndex={0}
+              onKeyDown={() => { }}
+              onClick={() => setSelectedMember(member)}
+            >
               <div className="team-member-photo">
                 <div>
                   <GatsbyImage image={parseFluidImage(member.photo)} objectFit="cover" alt={member.name ?? ""} />
