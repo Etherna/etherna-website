@@ -100,11 +100,16 @@ module.exports = {
     {
       resolve: `gatsby-plugin-sass`,
       options: {
-        postCssPlugins: [
-          require(`tailwindcss`)(`./tailwind.config.js`),
-          require(`autoprefixer`),
-        ],
+        cssLoaderOptions: {
+          esModule: false,
+          modules: {
+            namedExport: false,
+          },
+        },
       },
+    },
+    {
+      resolve: `gatsby-plugin-postcss`,
     },
     {
       resolve: 'gatsby-plugin-matomo',
