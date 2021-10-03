@@ -10,7 +10,7 @@ const Avatar = ({ id, fluid }) => {
   if (fluid) {
     return (
       <div className="avatar">
-        <GatsbyImage image={fluid} />
+        <GatsbyImage image={fluid} alt="" />
       </div>
     );
   }
@@ -26,25 +26,30 @@ const Avatar = ({ id, fluid }) => {
 
 const QueryAvatar = ({ id }) => {
   const data = useStaticQuery(graphql`{
-  images: allDirectusFile(filter: {type: {regex: "/image/(jpeg)|(png)/"}}) {
-    nodes {
-      directusId
-      localFile {
-        childImageSharp {
-          gatsbyImageData(placeholder: BLURRED, layout: FULL_WIDTH)
+    images: allDirectusFile(filter: {type: {regex: "/image/(jpeg)|(png)/"}}) {
+      nodes {
+        directusId
+        localFile {
+          childImageSharp {
+            gatsbyImageData(
+              width: 250
+              placeholder: BLURRED
+              formats: [AUTO, WEBP, AVIF]
+              layout: CONSTRAINED
+            )
+          }
         }
       }
     }
   }
-}
-`)
+  `)
 
   const img = data.images.nodes.find(img => img.directusId === id)
 
   if (img) {
     return (
       <div className="avatar">
-        <GatsbyImage image={parseFluidImage(img)} objectFit="cover" objectPosition="50% 50%" />
+        <GatsbyImage image={parseFluidImage(img)} objectFit="cover" alt="" />
       </div>
     );
   }

@@ -99,7 +99,7 @@ const BlogPost = ({ post }) => {
             <article className="col post-content">
               <h1 className="post-title">{post.title}</h1>
 
-              <Markdown
+              {/* <Markdown
                 markdown={post.content}
                 options={{
                   tables: true,
@@ -107,7 +107,7 @@ const BlogPost = ({ post }) => {
                   strikethrough: true,
                   underline: true,
                 }}
-              />
+              /> */}
 
               {/* <Comments postId={post.id} /> */}
 

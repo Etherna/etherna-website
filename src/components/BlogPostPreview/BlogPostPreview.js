@@ -21,6 +21,8 @@ const BlogPostPreview = ({ post }) => {
   const [locale] = useLocale()
   const formattedDate = moment(post.published_on).locale(locale)
 
+  console.log(post.image);
+
   return (
     <article className="post-preview">
       <div className="post-preview-details">
@@ -52,7 +54,7 @@ const BlogPostPreview = ({ post }) => {
       <div className="post-preview-image">
         {post.image && (
           <Link to={routes.blogPostPath(post.slug, post.locale)}>
-            <GatsbyImage image={post.image} objectFit="cover" objectPosition="50% 50%" />
+            <GatsbyImage image={post.image} objectFit="cover" alt="" />
           </Link>
         )}
       </div>

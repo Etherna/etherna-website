@@ -28,15 +28,17 @@ const BlogPostHeader = ({ author, postTitle, image, published, updated, category
   const publishedDate = moment(published).locale(locale)
   const updatedDate = updated ? moment(updated).locale(locale) : null
 
+  // console.log('image', image);
+
   return (
     <header className={classnames("post-header", {
       "post-header-hero": image != null
     })}>
-      {image && (
+      {image && image.placeholder && (
         <div className="post-header-bg">
           <div
             className="post-header-bg-image"
-            style={{ backgroundImage: `url(${image.base64})` }}
+            style={{ backgroundImage: `url(${image.placeholder.fallback})` }}
           />
         </div>
       )}
@@ -86,7 +88,7 @@ const BlogPostHeader = ({ author, postTitle, image, published, updated, category
 
         <div className="thumbnail">
           {image && (
-            <GatsbyImage image={image} objectFit="cover" objectPosition="50% 50%" />
+            <GatsbyImage image={image} objectFit="cover" alt="" />
           )}
         </div>
       </div>

@@ -56,7 +56,12 @@ export const query = graphql`query ($locale: String!, $now: Date!) {
       image {
         localFile {
           childImageSharp {
-            gatsbyImageData(width: 800, placeholder: BLURRED, layout: CONSTRAINED)
+            gatsbyImageData(
+              width: 800
+              placeholder: BLURRED
+              formats: [AUTO, WEBP, AVIF]
+              layout: CONSTRAINED
+            )
           }
         }
       }
