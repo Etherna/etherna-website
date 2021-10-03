@@ -21,12 +21,12 @@ const reducer = (state, action) => {
       const pathMap = undefined
       const locale = action.locale
       window.localStorage.setItem("locale", locale)
-      return {...state, locale, pathMap}
+      return { ...state, locale, pathMap }
     }
     case "SET_LOCALE_PATH": {
       let pathMap = state.pathMap || {}
       pathMap[action.locale] = action.path
-      return {...state, pathMap}
+      return { ...state, pathMap }
     }
     default:
       return state
@@ -39,8 +39,22 @@ export const LocalizedPage = ({ children, locale }) => {
   })
   return (
     <LocalizedPageContext.Provider value={store}>
-      {children}
+      <InnerLocalizedPage>
+        {children}
+      </InnerLocalizedPage>
     </LocalizedPageContext.Provider>
+  )
+}
+
+const InnerLocalizedPage = ({ children }) => {
+  const localeContext = useLocale()
+
+  return (
+    typeof children === "function" ? (
+      children(localeContext)
+    ) : (
+      children
+    )
   )
 }
 

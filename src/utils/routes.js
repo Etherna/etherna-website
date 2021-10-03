@@ -28,9 +28,12 @@ const blogPath = locale => {
  * @return {string} About path
  */
 const aboutPath = locale => {
+  const aboutPaths = {
+    it: "chi-siamo"
+  }
   return locale === DEFAULT_LOCALE || locale === ""
     ? `/about`
-    : `/${locale}/chi-siamo`
+    : `/${locale}/${aboutPaths[locale] ?? "about"}`
 }
 
 /**

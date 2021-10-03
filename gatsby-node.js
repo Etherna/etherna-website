@@ -17,12 +17,19 @@ exports.onCreatePage = ({ page, actions }) => {
   const { createPage, deletePage } = actions
   const pageCopy = { ...page }
 
-  const localizedRoutes = [
-    "/",
-    "/blog/"
-  ]
+  const localizedRoutes = {
+    "/": {
+      "it": "/"
+    },
+    "/blog/": {
+      "it": "/blog/"
+    },
+    "/about/": {
+      "it": "/chi-siamo/"
+    },
+  }
 
-  if (localizedRoutes.indexOf(page.path) >= 0) {
+  if (Object.keys(localizedRoutes).indexOf(page.path) >= 0) {
     // Delete default page and re-create with locale context
     deletePage(page)
 
@@ -30,7 +37,7 @@ exports.onCreatePage = ({ page, actions }) => {
     SUPPORTED_LOCALES.forEach(locale => {
       const path = locale === DEFAULT_LOCALE
         ? pageCopy.path
-        : `/${locale}${pageCopy.path}`
+        : `/${locale}${localizedRoutes[pageCopy.path][locale]}`
 
       createPage({
         ...pageCopy,
