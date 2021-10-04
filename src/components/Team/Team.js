@@ -3,10 +3,14 @@ import PropTypes from "prop-types"
 import { GatsbyImage } from "gatsby-plugin-image"
 
 import "./team.scss"
+
 import Modal from "@components/Modal"
 import Markdown from "@components/Markdown"
-import { parseFluidImage } from "@utils/dataParser"
 
+/**
+ * @param {object} param0
+ * @param {import('@utils/dataParser').TeamMember[]} param0.team
+ */
 const Team = ({ team }) => {
   const [selectedMember, setSelectedMember] = useState()
 
@@ -24,7 +28,7 @@ const Team = ({ team }) => {
             >
               <div className="team-member-photo">
                 <div>
-                  <GatsbyImage image={parseFluidImage(member.photo)} objectFit="cover" alt={member.name ?? ""} />
+                  <GatsbyImage image={member.photo} objectFit="cover" alt={member.name ?? ""} />
                 </div>
               </div>
               <h2 className="team-member-name">{member.name}</h2>
@@ -39,7 +43,7 @@ const Team = ({ team }) => {
           <div className="team-member">
             <div className="team-member-photo">
               <div>
-                <GatsbyImage image={parseFluidImage(selectedMember?.photo)} objectFit="cover" alt={selectedMember?.name ?? ""} />
+                <GatsbyImage image={selectedMember?.photo} objectFit="cover" alt={selectedMember?.name ?? ""} />
               </div>
             </div>
             <h2 className="team-member-name">{selectedMember?.name}</h2>

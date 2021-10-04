@@ -267,6 +267,56 @@ export const parsePages = (nodes, locale) => {
   return nodes.map(node => parseProject(node, locale))
 }
 
+
+
+
+/**
+ * @typedef {object} TeamMemberLocalizedContentsNode
+ * @property {string} role
+ * @property {string} bio
+ *
+ * @typedef {object} TeamMemberNode
+ * @property {TeamMemberLocalizedContentsNode} localized_contents
+ * @property {string} name
+ * @property {FluidImage} photo
+ *
+ * @typedef {object} TeamMember
+ * @property {string} locale
+ * @property {string} name
+ * @property {string} role
+ * @property {string} bio
+ * @property {PublicImageNode} photo
+ *
+ * Parse team member node
+ * @param {TeamMemberNode} node Tema node
+ * @param {string} locale Current locale
+ * @returns {TeamMember} Team member object
+ */
+export const parseTeamMember = (node, locale) => {
+  if (!node) return
+
+  const { localized_contents, name, photo } = node
+  const localizedContents = localized_contents.find(lc => lc.locale === locale)
+    || localized_contents[0]
+  return {
+    name,
+    ...localizedContents,
+    photo: parseFluidImage(photo)
+  }
+}
+
+
+/**
+ * Parse a list of team members nodes
+ *
+ * @param {TeamMemberNode[]} nodes Team members nodes
+ * @param {string} locale Current locale
+ * @returns {TeamMember[]} Parsed tema
+ */
+export const parseTeam = (nodes, locale) => {
+  return nodes.map(node => parseTeamMember(node, locale))
+}
+
 /**
  * Parse and group comments with replies
  *
