@@ -8,10 +8,11 @@ import HeadMeta from "@components/HeadMeta"
 import StaticPage from "@components/StaticPage"
 import Team from "@components/Team"
 import routes from "@utils/routes"
+import { parseTeam } from "@utils/dataParser"
 
 const AboutPage = ({ data, pageContext }) => {
   const { locale } = pageContext
-  const team = data.team.nodes
+  const team = parseTeam(data.team.nodes, locale)
 
   const localePathsSet = useRef(false)
 
@@ -44,8 +45,11 @@ export const query = graphql`{
   team: allDirectusTeam {
     nodes {
       name
-      role
-      bio
+      localized_contents {
+        bio
+        role
+        locale
+      }
       photo {
         localFile {
           childImageSharp {
