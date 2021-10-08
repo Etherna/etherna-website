@@ -8310,6 +8310,11 @@ methods@~1.1.2:
   resolved "https://registry.yarnpkg.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
   integrity sha1-VSmk1nZUE07cxSZmVoNbD4Ua/O4=
 
+micro-down@^1.6.2:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/micro-down/-/micro-down-1.6.2.tgz#c92b230b21afb61428731f2b0c9d6d530d1e5068"
+  integrity sha512-703vvzVdzC/rgMxACYi5ixRKULDkebDyb/5SGoVAebJLodATRCxYeTWLtn1UNfEWRvJA8pJ0SAwZ4h8cPdcDTw==
+
 microevent.ts@~0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/microevent.ts/-/microevent.ts-0.1.1.tgz#70b09b83f43df5172d0205a63025bce0f7357fa0"
@@ -10887,11 +10892,6 @@ snapdragon@^0.8.1:
     source-map "^0.5.6"
     source-map-resolve "^0.5.0"
     use "^3.1.0"
-
-snarkdown@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/snarkdown/-/snarkdown-2.0.0.tgz#b1feb4db91b9f94a8ebbd7a50f3e99aee18b1e03"
-  integrity sha512-MgL/7k/AZdXCTJiNgrO7chgDqaB9FGM/1Tvlcenenb7div6obaDATzs16JhFyHHBGodHT3B7RzRc5qk8pFhg3A==
 
 socket.io-adapter@~2.1.0:
   version "2.1.0"
