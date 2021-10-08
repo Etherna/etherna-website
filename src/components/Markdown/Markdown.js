@@ -1,6 +1,7 @@
 import React, { useMemo } from "react"
 import PropTypes from "prop-types"
-import snarkdown from "snarkdown"
+
+import microdownEnhanced from "@utils/microdown"
 
 const Markdown = ({
   as: As = "p",
@@ -16,7 +17,7 @@ const Markdown = ({
     const formattedMarkdown = forceNewLine
       ? safeMarkdown.replace(/\n/g, "<br />")
       : safeMarkdown
-    return snarkdown(formattedMarkdown)
+    return microdownEnhanced(formattedMarkdown)
   }, [rawMarkdown, forceNewLine])
 
   return (

@@ -31,6 +31,7 @@
     "gatsby-source-filesystem": "^3.14.0",
     "gatsby-transformer-sharp": "^3.14.0",
     "lang.js": "^1.1.14",
+    "micro-down": "^1.6.2",
     "moment": "^2.27.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
@@ -38,8 +39,7 @@
     "react-helmet": "^6.1.0",
     "react-scroll": "^1.8.4",
     "remove-markdown": "^0.3.0",
-    "showdown": "^1.9.1",
-    "snarkdown": "^2.0.0"
+    "showdown": "^1.9.1"
   },
   "devDependencies": {
     "@erebos/swarm-node": "^0.13.0",
