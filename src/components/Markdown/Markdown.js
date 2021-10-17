@@ -1,10 +1,10 @@
-import React, { useMemo } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 
 import microdownEnhanced from "@utils/microdown"
 
 const Markdown = ({
-  as: As = "p",
+  as: As = "div",
   role,
   className,
   style,
@@ -12,13 +12,11 @@ const Markdown = ({
   forceNewLine = false,
   onClick,
 }) => {
-  const markdown = useMemo(() => {
-    const safeMarkdown = rawMarkdown ?? ""
-    const formattedMarkdown = forceNewLine
-      ? safeMarkdown.replace(/\n/g, "<br />")
-      : safeMarkdown
-    return microdownEnhanced(formattedMarkdown)
-  }, [rawMarkdown, forceNewLine])
+  const safeMarkdown = rawMarkdown ?? ""
+  const formattedMarkdown = forceNewLine
+    ? safeMarkdown.replace(/\n/g, "<br />")
+    : safeMarkdown
+  const markdown = microdownEnhanced(formattedMarkdown)
 
   return (
     <As
