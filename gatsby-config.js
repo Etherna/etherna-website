@@ -117,7 +117,7 @@ module.exports = {
       resolve: 'gatsby-plugin-matomo',
       options: {
         siteId: '1',
-        matomoUrl: 'https://analytics.etherna.io/',
+        matomoUrl: 'https://analytics.etherna.io',
         siteUrl: 'https://etherna.io/',
         disableCookies: true,
       }
