@@ -90,7 +90,7 @@ const Modal = ({
 
 Modal.propTypes = {
   show: PropTypes.bool.isRequired,
-  appearance: PropTypes.oneOf("light" | "dark-blurred"),
+  appearance: PropTypes.oneOf(["light", "dark-blurred"]),
   compactHeader: PropTypes.bool,
   onClose: PropTypes.func,
 }

@@ -10,11 +10,12 @@ import Team from "@components/Team"
 import routes from "@utils/routes"
 import { parseTeam } from "@utils/dataParser"
 
-const AboutPage = ({ data, pageContext }) => {
+const AboutPage = ({ data, pageContext, location }) => {
   const { locale } = pageContext
   const team = parseTeam(data.team.nodes, locale)
 
   const localePathsSet = useRef(false)
+  const abtest = location.search.includes("abtest")
 
   return (
     <LocalizedPage locale={locale}>
@@ -32,7 +33,7 @@ const AboutPage = ({ data, pageContext }) => {
             <HeadMeta title={t`header.about`} />
 
             <StaticPage title={t`header.about`}>
-              <Team team={team} />
+              <Team team={team} abtest={abtest} />
             </StaticPage>
           </Layout>
         )

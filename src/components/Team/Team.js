@@ -6,17 +6,23 @@ import "./team.scss"
 
 import Modal from "@components/Modal"
 import Markdown from "@components/Markdown"
+import classNames from "classnames"
+import { useTranslations } from "@utils/useTranslations"
+import { useLocale } from "@utils/localizedPage"
 
 /**
  * @param {object} param0
  * @param {import('@utils/dataParser').TeamMember[]} param0.team
+ * @param {boolean} param0.abtest
  */
-const Team = ({ team }) => {
+const Team = ({ team, abtest }) => {
   const [selectedMember, setSelectedMember] = useState()
+  const [locale] = useLocale()
+  const t = useTranslations(locale, "about")
 
   return (
     <>
-      <div className="team">
+      <div className={classNames("team", { abtest })}>
         {team.map(member => (
           <div className="team-member-wrapper" key={member.name}>
             <div
@@ -33,6 +39,10 @@ const Team = ({ team }) => {
               </div>
               <h2 className="team-member-name">{member.name}</h2>
               <p className="team-member-role">{member.role}</p>
+              {member.bio && (
+                <Markdown className="team-member-bio" rawMarkdown={member.bio} forceNewLine />
+              )}
+              <div className="team-show-more">﹢ {t`showMore`}</div>
             </div>
           </div>
         ))}
@@ -43,7 +53,9 @@ const Team = ({ team }) => {
           <div className="team-member">
             <div className="team-member-photo">
               <div>
-                <GatsbyImage image={selectedMember?.photo} objectFit="cover" alt={selectedMember?.name ?? ""} />
+                {selectedMember?.photo && (
+                  <GatsbyImage image={selectedMember.photo} objectFit="cover" alt={selectedMember?.name ?? ""} />
+                )}
               </div>
             </div>
             <h2 className="team-member-name">{selectedMember?.name}</h2>
@@ -65,6 +77,7 @@ Team.propTypes = {
     bio: PropTypes.string,
     photo: PropTypes.object,
   })),
+  abtest: PropTypes.bool,
 }
 
 export default Team
