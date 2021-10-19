@@ -30,7 +30,9 @@
 }
 
 .dropdownMenu {
-  @apply fixed transform origin-top scale-y-0 transition duration-200 z-20;
+  @apply fixed transform origin-top scale-y-0;
+  @apply transition duration-200;
+  @apply z-20;
 
   &.active {
     @apply scale-y-100;

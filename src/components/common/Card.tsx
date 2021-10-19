@@ -10,7 +10,7 @@ type CardProps = {
 
 const Card: React.FC<CardProps> = ({ children, className, size }) => {
   return (
-    <div className={classNames("card", className, {
+    <div className={classNames(classes.card, className, {
       [classes.cardLg]: size === "large"
     })}>
       {children}

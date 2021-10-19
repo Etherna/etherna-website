@@ -1,5 +1,9 @@
+.post {
+  @apply pt-20 pb-32;
+}
+
 h1.postTitle {
-  @apply font-serif text-5xl leading-none mt-10;
+  @apply font-serif text-5xl leading-none;
 }
 
 .postContent {

@@ -38,7 +38,7 @@ const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({ post }) => {
         </Link>
 
         <footer className={classes.postPreviewMeta}>
-          <Avatar id={post.author.avatar} />
+          <Avatar id={post.author.avatar} className={classes.postPreviewMetaAvatar} />
           <h4 className={classes.postPreviewMetaAuthorName}>
             {post.author.first_name} {post.author.last_name}
           </h4>

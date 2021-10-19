@@ -49,14 +49,14 @@ export const useTranslations = (locale: string, namespace?: string) => {
 
   const messages: TranslationsMessages = {}
 
-  translations.nodes.forEach(trans => {
+  for (const trans of translations.nodes) {
     const locale = trans.relativeDirectory
     const name = trans.name
     if (namespace === null || namespace === name) {
       const keys = JSON.parse(trans.internal.content)
       messages[`${locale}.${name}`] = keys
     }
-  })
+  }
 
   const lang = new Lang({
     messages,

@@ -9,13 +9,14 @@ import LinkedInLogo from "!svg-react-loader!@images/logos/linkedin-logo.svg"
 type ShareButtonsProps = {
   title: string
   url: string
+  className?: string
   vertical?: boolean
 }
 
-const ShareButtons: React.FC<ShareButtonsProps> = ({ title, url, vertical = false }) => {
+const ShareButtons: React.FC<ShareButtonsProps> = ({ title, url, className, vertical = false }) => {
   return (
     <div
-      className={classNames(classes.shareButtons, {
+      className={classNames(classes.shareButtons, className, {
         [classes.shareButtonsVertical]: vertical
       })}
     >

@@ -5,10 +5,12 @@ import { useStaticQuery, graphql } from "gatsby"
 import classes from "@styles/components/common/Avatar.module.scss"
 
 import { GatsbyImageData } from "@definitions/sources"
+import classNames from "classnames"
 
 type AvatarProps = {
   id?: number
   imageData?: GatsbyImageData
+  className?: string
 }
 
 type AvatarStaticQuery = {
@@ -16,16 +18,18 @@ type AvatarStaticQuery = {
     nodes: Array<{
       directusId: number
       localFile: {
-        childImageSharp: GatsbyImageData
+        childImageSharp: {
+          gatsbyImageData: GatsbyImageData
+        }
       }
     }>
   }
 }
 
-const Avatar: React.FC<AvatarProps> = ({ id, imageData }) => {
+const Avatar: React.FC<AvatarProps> = ({ id, imageData, className }) => {
   if (imageData) {
     return (
-      <div className={classes.avatar}>
+      <div className={classNames(classes.avatar, className)}>
         <GatsbyImage image={imageData} alt="" />
       </div>
     )
@@ -33,14 +37,14 @@ const Avatar: React.FC<AvatarProps> = ({ id, imageData }) => {
 
   if (typeof id === "number") {
     return (
-      <QueryAvatar id={id} />
+      <QueryAvatar id={id} className={className} />
     )
   }
 
   return null
 }
 
-const QueryAvatar: React.FC<{ id: number }> = ({ id }) => {
+const QueryAvatar: React.FC<{ id: number, className?: string }> = ({ id, className }) => {
   const data = useStaticQuery<AvatarStaticQuery>(graphql`{
     images: allDirectusFile(filter: {type: {regex: "/image/(jpeg)|(png)/"}}) {
       nodes {
@@ -50,7 +54,7 @@ const QueryAvatar: React.FC<{ id: number }> = ({ id }) => {
             gatsbyImageData(
               width: 250
               placeholder: BLURRED
-              formats: [AUTO, WEBP, AVIF]
+              formats: [AUTO, WEBP]
               layout: CONSTRAINED
             )
           }
@@ -64,8 +68,8 @@ const QueryAvatar: React.FC<{ id: number }> = ({ id }) => {
 
   if (img) {
     return (
-      <div className={classes.avatar}>
-        <GatsbyImage image={img.localFile.childImageSharp} objectFit="cover" alt="" />
+      <div className={classNames(classes.avatar, className)}>
+        <GatsbyImage image={img.localFile.childImageSharp.gatsbyImageData} objectFit="cover" alt="" />
       </div>
     )
   }

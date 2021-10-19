@@ -12,17 +12,18 @@ import useLocale from "@context/locale-context/hooks/useLocale"
 import { useTranslations } from "@hooks/useTranslations"
 
 type SocialMenuProps = {
+  className?: string
   linkClassName?: string
   vertical?: boolean
   buttonStyle?: boolean
 }
 
-const SocialMenu: React.FC<SocialMenuProps> = ({ linkClassName, vertical, buttonStyle }) => {
+const SocialMenu: React.FC<SocialMenuProps> = ({ className, linkClassName, vertical, buttonStyle }) => {
   const [locale] = useLocale()
   const { t } = useTranslations(locale, "common")
 
   return (
-    <nav className={classNames(classes.socialMenu, {
+    <nav className={classNames(classes.socialMenu, className, {
       [classes.vertical]: vertical,
       [classes.buttonStyle]: buttonStyle
     })}>
@@ -33,7 +34,7 @@ const SocialMenu: React.FC<SocialMenuProps> = ({ linkClassName, vertical, button
         rel="noopener noreferrer"
       >
         <FacebookLogo />
-        <span className="social-name">{t`facebookPage`}</span>
+        <span className={classes.socialName}>{t`facebookPage`}</span>
       </a>
       <a
         href="https://twitter.com/Etherna_io"
@@ -42,7 +43,7 @@ const SocialMenu: React.FC<SocialMenuProps> = ({ linkClassName, vertical, button
         rel="noopener noreferrer"
       >
         <TwitterLogo />
-        <span className="social-name">{t`twitter`}</span>
+        <span className={classes.socialName}>{t`twitter`}</span>
       </a>
       <a
         href="https://t.me/etherna_io"
@@ -51,7 +52,7 @@ const SocialMenu: React.FC<SocialMenuProps> = ({ linkClassName, vertical, button
         rel="noopener noreferrer"
       >
         <TelegramLogo />
-        <span className="social-name">{t`telegramChannel`}</span>
+        <span className={classes.socialName}>{t`telegramChannel`}</span>
       </a>
       <a
         href="https://discord.gg/vfHYEXf"
@@ -60,7 +61,7 @@ const SocialMenu: React.FC<SocialMenuProps> = ({ linkClassName, vertical, button
         rel="noopener noreferrer"
       >
         <DiscordLogo />
-        <span className="social-name">{t`discord`}</span>
+        <span className={classes.socialName}>{t`discord`}</span>
       </a>
       <a
         href="https://github.com/Etherna"
@@ -69,7 +70,7 @@ const SocialMenu: React.FC<SocialMenuProps> = ({ linkClassName, vertical, button
         rel="noopener noreferrer"
       >
         <GithubLogo />
-        <span className="social-name">{t`github`}</span>
+        <span className={classes.socialName}>{t`github`}</span>
       </a>
     </nav>
   )

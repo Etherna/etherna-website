@@ -22,8 +22,8 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       className={classNames(
-        className,
         classes.btn,
+        className,
         {
           [classes.btnPrimary]: type === "primary",
           [classes.btnSecondary]: type === "secondary",

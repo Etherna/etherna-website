@@ -58,7 +58,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
         updated={post.updated_on}
       />
 
-      <Prose>
+      <Prose className={classes.post}>
         <div className="container">
           <div className="row">
             <BlogPostSidebarLeft post={post} />

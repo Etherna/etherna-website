@@ -65,7 +65,7 @@ const BlogPostHeader: React.FC<BlogPostHeaderProps> = ({ author, postTitle, imag
       </div>
 
       <div className={classes.postHeaderMeta}>
-        <Avatar id={author.avatar} />
+        <Avatar className={classes.postHeaderMetaAvatar} id={author.avatar} />
         <h4 className={classes.postHeaderMetaAuthorName}>{author.first_name} {author.last_name}</h4>
 
         <div className={classes.postHeaderMetaPublishTime}>

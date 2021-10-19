@@ -1,3 +1,6 @@
+const path = require("path")
+const stringHash = require("string-hash")
+
 // Enable local .env configuration
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
@@ -92,9 +95,6 @@ module.exports = {
     {
       resolve: `gatsby-plugin-sharp`
     },
-    // {
-    //   resolve: `gatsby-transformer-typescript-css-modules`
-    // },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -113,6 +113,16 @@ module.exports = {
         cssLoaderOptions: {
           modules: {
             namedExport: false,
+            getLocalIdent: (context, localIdentName, localName, options) => {
+              if (localName === "dark") return "dark"
+
+              const basename = path.basename(context.resourcePath).replace(/\.module\.scss/, "")
+              const hash = stringHash(localName).toString(36).substr(0, 5)
+
+              return process.env.NODE_ENV === "production"
+                ? `_${basename}_${hash}`
+                : `_${basename}_${localName}_${hash}`
+            }
           },
         },
       },

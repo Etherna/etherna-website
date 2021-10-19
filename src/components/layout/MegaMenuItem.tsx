@@ -25,13 +25,13 @@ const MegaMenuItem: React.FC<MegaMenuItemProps> = ({
         [classes.disabled]: disabled
       })}
     >
-      <div className={classes.megaMenuItemImage}>
-        <LinkWrapper to={to}>
-          {imageUrl && (
+      {imageUrl && (
+        <div className={classes.megaMenuItemImage}>
+          <LinkWrapper to={to}>
             <img src={imageUrl} alt={title} />
-          )}
-        </LinkWrapper>
-      </div>
+          </LinkWrapper>
+        </div>
+      )}
       <div className={classes.megaMenuItemInfo}>
         <LinkWrapper to={to}>
           <div className={classes.megaMenuItemTitle}>{title}</div>

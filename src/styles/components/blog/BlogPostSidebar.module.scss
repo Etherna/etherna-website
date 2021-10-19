@@ -1,5 +1,6 @@
 .blogSidebar {
-  @apply w-full;
+  @apply w-full max-w-prose;
+  @apply mx-auto lg:mx-0;
   @apply lg:flex-1 lg:pt-16 lg:px-4;
 }
 

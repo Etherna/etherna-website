@@ -1,8 +1,9 @@
 .prosePost {
-  @apply mt-16 pb-32;
+  @apply mt-4;
 
   article {
     @apply prose lg:prose-lg;
+    @apply mx-auto;
 
     h2,
     h3,

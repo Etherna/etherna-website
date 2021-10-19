@@ -1,6 +1,7 @@
 import { useContext } from "react"
 
 import { LocalizedPageContext } from "@context/locale-context"
+import { LocaleContext } from "@definitions/locale-context"
 
 export type UseLocale = [locale: string, actions: {
   switchLocale(locale: string): void
@@ -40,3 +41,25 @@ export default function useLocale(): UseLocale {
 
   return [state?.locale ?? "en", actions]
 }
+
+export const localeActions = (context: LocaleContext) => ({
+  switchLocale: (locale: string) => {
+    const [, dispatch] = context ?? []
+    dispatch?.({
+      type: "SWITCH_LOCALE",
+      locale
+    })
+  },
+  setLocalePath: (locale: string, path?: string) => {
+    const [, dispatch] = context ?? []
+    dispatch?.({
+      type: "SET_LOCALE_PATH",
+      locale,
+      path
+    })
+  },
+  getLocalePath: (locale: string) => {
+    const [state] = context ?? []
+    return (state?.pathMap || {})[locale]
+  }
+})

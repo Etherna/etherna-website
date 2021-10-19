@@ -64,7 +64,7 @@ export const query = graphql`query ($locale: String!, $slug: String!, $now: Date
             gatsbyImageData(
               width: 800
               placeholder: BLURRED
-              formats: [AUTO, WEBP, AVIF]
+              formats: [AUTO, WEBP]
               layout: CONSTRAINED
             )
           }

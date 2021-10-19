@@ -1,8 +1,8 @@
-import React, { useState, useRef, Fragment } from "react"
-import { Popover } from "@headlessui/react"
+import React, { useState, useRef } from "react"
 import classNames from "classnames"
 
 import classes from "@styles/components/common/Dropdown.module.scss"
+import DropdownContextProvider from "@context/dropdown-context/dropdown-context-provider"
 
 type DropdownProps = {
   toggleChildren?: React.ReactNode
@@ -18,10 +18,17 @@ const Dropdown: React.FC<DropdownProps> = ({
 }) => {
   const toggleRef = useRef<HTMLButtonElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
+  const [showMenu, setShowMenu] = useState(false)
   const [position, setPosition] = useState({})
 
-  const handleMenuToggle = (open: boolean) => {
-    if (open && toggleRef.current && menuRef.current) {
+  const handleMenuToggle = (e: React.KeyboardEvent | React.MouseEvent) => {
+    if ("key" in e && !["Esc", "Enter"].includes(e.key)) {
+      return
+    }
+
+    const show = !showMenu
+
+    if (show && toggleRef.current && menuRef.current) {
       const toggleBounds = toggleRef.current.getBoundingClientRect()
       const menuBounds = menuRef.current.getBoundingClientRect()
       const clientWidth = document.documentElement.clientWidth
@@ -42,50 +49,51 @@ const Dropdown: React.FC<DropdownProps> = ({
         left: `${left}px`
       })
     }
+
+    setShowMenu(show)
   }
 
   return (
-    <Popover as={Fragment}>
-      {({ open }) => (
-        <>
-          {open && (
-            <Popover.Overlay
-              as="div"
-              className={classes.dropdownBackdrop}
-              aria-label="Close"
-              onClick={() => handleMenuToggle(!open)}
-              onKeyDown={() => handleMenuToggle(!open)}
-            />
-          )}
-
-          <Popover.Button
-            ref={toggleRef}
-            className={classNames(
-              classes.dropdownToggle,
-              toggleClass,
-              {
-                [classes.dropdownToggleChevron]: showChevron,
-                [classes.active]: open,
-              }
-            )}
-            onClick={() => handleMenuToggle(!open)}
-            onKeyDown={() => handleMenuToggle(!open)}
-          >
-            {toggleChildren}
-          </Popover.Button>
-
-          <Popover.Panel
-            className={classNames(classes.dropdownMenu, {
-              [classes.active]: open
-            })}
-            style={{ ...position }}
-            ref={menuRef}
-          >
-            {children}
-          </Popover.Panel>
-        </>
+    <>
+      {showMenu && (
+        <div
+          className={classes.dropdownBackdrop}
+          role="button"
+          tabIndex={0}
+          onClick={handleMenuToggle}
+          onKeyDown={handleMenuToggle}
+          aria-label="Close"
+        />
       )}
-    </Popover>
+
+      <button
+        ref={toggleRef}
+        className={classNames(
+          classes.dropdownToggle,
+          toggleClass,
+          {
+            [classes.dropdownToggleChevron]: showChevron,
+            [classes.active]: showMenu,
+          }
+        )}
+        onClick={handleMenuToggle}
+        onKeyDown={handleMenuToggle}
+      >
+        {toggleChildren}
+      </button>
+
+      <div
+        className={classNames(classes.dropdownMenu, {
+          [classes.active]: showMenu
+        })}
+        style={{ ...position }}
+        ref={menuRef}
+      >
+        <DropdownContextProvider showMenu={showMenu} setShowMenu={setShowMenu}>
+          {children}
+        </DropdownContextProvider>
+      </div>
+    </>
   )
 }
 

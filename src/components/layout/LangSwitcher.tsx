@@ -7,6 +7,7 @@ import classes from "@styles/components/layout/LangSwitcher.module.scss"
 import Dropdown from "@components/common/Dropdown"
 import useLocaleInfo, { LocaleInfo } from "@hooks/useLocaleInfo"
 import useLocale from "@context/locale-context/hooks/useLocale"
+import { useDropdownContext } from "@context/dropdown-context"
 
 type LangSwitcherProps = {
   toggleClassName?: string
@@ -70,6 +71,7 @@ type LinkWrapperProps = {
 
 const LinkWrapper: React.FC<LinkWrapperProps> = ({ children, className, to, code, name }) => {
   const [, { switchLocale }] = useLocale()
+  const [, setShowMenu] = useDropdownContext()
 
   const handleSwitchLocale = (locale: string, e: React.KeyboardEvent | React.MouseEvent) => {
     if ("key" in e && e.key !== "Enter") {
@@ -78,7 +80,7 @@ const LinkWrapper: React.FC<LinkWrapperProps> = ({ children, className, to, code
     }
 
     switchLocale(locale)
-    // setShowMenu(false)
+    setShowMenu(false)
   }
 
   return to ? (

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 
 type ViewportObserverProps = {
-  childrenRef: React.MutableRefObject<HTMLElement>
+  childrenRef: React.RefObject<HTMLElement>
   viewportClassName: string
   offset?: number
   onEnterViewport?(): void
@@ -57,7 +57,7 @@ const ViewportObserver: React.FC<ViewportObserverProps> = ({
       onEnterViewport()
     }
     if (typeof viewportClassName === "string") {
-      childrenRef.current.classList.add(viewportClassName)
+      childrenRef.current?.classList.add(viewportClassName)
     }
   }
 

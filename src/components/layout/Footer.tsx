@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
         <div className={classes.footerContainer}>
           <img src={require("@images/footer-logo.svg").default} alt="Etherna" />
 
-          <SocialMenu />
+          <SocialMenu className={classes.footerSocialMenu} />
 
           <div className={classes.footerNotice}>
             <div className={classes.footerCopyright}>

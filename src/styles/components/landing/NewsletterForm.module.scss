@@ -27,10 +27,12 @@
 }
 
 .newsletterFormCta {
-  @apply flex items-center rounded-b-lg rounded-t-none py-3 whitespace-nowrap;
-  @apply lg:rounded-lg lg:rounded-l-none;
+  body & {
+    @apply flex items-center rounded-b-lg rounded-t-none py-3 whitespace-nowrap;
+    @apply lg:rounded-lg lg:rounded-l-none;
 
-  svg {
-    @apply w-6 h-6 mr-2;
+    svg {
+      @apply w-6 h-6 mr-2;
+    }
   }
 }

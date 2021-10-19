@@ -15,7 +15,6 @@ $li-color: #0b78b7;
   &.buttonStyle {
     @apply items-center;
     @apply sm:flex-row sm:flex-wrap sm:mx-auto sm:justify-evenly;
-    @apply hover:bg-gray-100;
   }
 }
 
@@ -75,11 +74,10 @@ $li-color: #0b78b7;
     @apply flex items-center rounded;
     @apply bg-gray-200 text-gray-600;
     @apply mb-2 px-4 mx-4 whitespace-nowrap;
+    @apply hover:bg-gray-100;
 
-    &:hover {
-      .socialName {
-        @apply block text-sm font-semibold ml-2;
-      }
+    .socialName {
+      @apply block text-sm font-semibold ml-2;
     }
   }
 }

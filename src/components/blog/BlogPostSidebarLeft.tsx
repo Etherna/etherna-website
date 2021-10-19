@@ -48,6 +48,7 @@ const BlogPostSidebarLeft: React.FC<BlogPostSidebarLeftProps> = ({ post }) => {
 
       <h6 className={classes.blogSidebarTitle}>{t`sharePost`}</h6>
       <ShareButtons
+        className="mb-16"
         url={typeof window !== "undefined" ? window.location.href : ""}
         title={post.title}
         vertical={true}
