@@ -1,0 +1,20 @@
+.prosePost {
+  @apply mt-16 pb-32;
+
+  article {
+    @apply prose lg:prose-lg;
+
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      @apply leading-tight;
+    }
+    pre,
+    code {
+      @apply overflow-x-auto bg-gray-300 text-sm py-1 px-2 rounded;
+      @apply text-gray-900;
+    }
+  }
+}

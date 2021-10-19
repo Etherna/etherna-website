@@ -1,0 +1,32 @@
+.project {
+  @apply mt-4;
+
+  article {
+    h1 {
+      @apply font-sans;
+    }
+  }
+}
+
+.projectHeader {
+  @apply flex flex-wrap;
+  @apply md:flex-nowrap;
+}
+
+.projectImage {
+  @apply w-full my-3;
+  @apply md:w-auto md:flex-1 md:order-1;
+
+  img {
+    @apply max-w-full h-12;
+  }
+}
+
+.projectContent {
+  @apply mx-auto;
+}
+
+.projectGithub {
+  @apply w-full my-3 ml-auto text-right;
+  @apply md:w-auto md:order-2;
+}

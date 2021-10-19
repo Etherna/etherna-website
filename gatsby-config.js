@@ -7,7 +7,9 @@ module.exports = {
   pathPrefix: process.argv.includes(`--prefix-paths`) && `__PATH_PREFIX__`,
   siteMetadata: {
     title: `Etherna`,
-    description: `Etherna is a transparent video platform, made for freedom. We believe in freedom of speech and we won't ban any content as long as it's legal. Join us and let's stop censorship together.`,
+    description: `Etherna is a transparent video platform, made for freedom.
+      We believe in freedom of speech and we won't ban any content as long as it's legal.
+      Join us and let's stop censorship together.`,
     tagline: `A transparent video platform for content creators.`,
     author: `Mattia Dalzocchio`,
     siteUrl: process.env.SITE_URL,
@@ -48,10 +50,10 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-react-helmet`
+      resolve: `gatsby-plugin-react-helmet-async`
     },
     {
-      resolve: 'gatsby-plugin-sitemap',
+      resolve: "gatsby-plugin-sitemap",
       options: {
         excludes: [`/admin`],
       },
@@ -71,6 +73,9 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-transformer-json`,
+    },
+    {
       resolve: "gatsby-plugin-react-svg",
       options: {
         rule: {
@@ -87,6 +92,9 @@ module.exports = {
     {
       resolve: `gatsby-plugin-sharp`
     },
+    // {
+    //   resolve: `gatsby-transformer-typescript-css-modules`
+    // },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -103,7 +111,6 @@ module.exports = {
       resolve: `gatsby-plugin-sass`,
       options: {
         cssLoaderOptions: {
-          esModule: false,
           modules: {
             namedExport: false,
           },
@@ -114,11 +121,11 @@ module.exports = {
       resolve: `gatsby-plugin-postcss`,
     },
     {
-      resolve: 'gatsby-plugin-matomo',
+      resolve: "gatsby-plugin-matomo",
       options: {
-        siteId: '1',
-        matomoUrl: 'https://analytics.etherna.io',
-        siteUrl: 'https://etherna.io/',
+        siteId: "1",
+        matomoUrl: "https://analytics.etherna.io",
+        siteUrl: "https://etherna.io/",
         disableCookies: true,
       }
     }

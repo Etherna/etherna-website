@@ -1,0 +1,21 @@
+.landingFeature {
+  @apply px-6 mb-8;
+}
+
+.landingFeatureIcon {
+  @apply flex justify-around mx-auto bg-center bg-no-repeat;
+  background-image: url(../../../images/feature-bg.svg);
+}
+
+.landingFeatureTitle {
+  @apply font-semibold text-gray-800 mb-2;
+}
+
+.landingFeatureDescription {
+  @apply text-gray-600;
+}
+
+.landingFeatureTitle,
+.landingFeatureDescription {
+  @apply max-w-sm mx-auto;
+}

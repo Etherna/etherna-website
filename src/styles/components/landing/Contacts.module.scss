@@ -1,0 +1,43 @@
+.contacts {
+  @apply py-16;
+}
+
+.contactsTitle {
+  @apply text-4xl mb-4 text-center;
+}
+
+.contactsDescription {
+  @apply pb-6 text-gray-600 text-center max-w-2xl mx-auto;
+}
+
+.contactsCol {
+  @apply py-6;
+  @apply flex flex-col items-center;
+
+  & + & {
+    @apply border-t border-gray-400;
+    @apply md:border-t-0 md:border-l;
+  }
+}
+
+.contactsSubtitle {
+  @apply text-gray-700;
+}
+
+.contactsText {
+  @apply text-gray-600 text-center;
+}
+
+.contactsBtn {
+  @apply appearance-none border-0 shadow-none outline-none;
+  @apply bg-blue-600 rounded-md;
+  @apply text-white text-center text-sm font-semibold;
+  @apply px-6 py-2 min-w-xxs;
+  @apply whitespace-nowrap;
+  @apply mt-6;
+  @apply transition-colors duration-300;
+
+  &:hover {
+    @apply bg-blue-400 text-white;
+  }
+}

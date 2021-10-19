@@ -1,0 +1,30 @@
+.shareButtons {
+  @apply flex items-center;
+}
+
+.shareButtonsVertical {
+  @screen lg {
+    @apply flex-col items-start;
+
+    .shareButtonsItem {
+      @apply mr-0 mb-8;
+    }
+  }
+}
+
+.shareButtonsItem {
+  @apply mr-4;
+
+  path {
+    @apply transition-colors duration-500;
+    fill: theme("colors.gray.800");
+    stroke: theme("colors.gray.800");
+  }
+
+  &:hover {
+    path {
+      fill: theme("colors.gray.600");
+      stroke: theme("colors.gray.600");
+    }
+  }
+}

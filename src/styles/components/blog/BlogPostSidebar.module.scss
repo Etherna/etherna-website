@@ -1,0 +1,35 @@
+.blogSidebar {
+  @apply w-full;
+  @apply lg:flex-1 lg:pt-16 lg:px-4;
+}
+
+.blogSidebarLeft {
+  @apply mt-16;
+  @apply lg:mt-0;
+}
+
+.blogSidebarRight {
+  @apply order-3;
+}
+
+.blogSidebarTitle {
+  @apply mt-0 mb-4;
+}
+
+.sidebarReadInBtn {
+  @apply inline-flex items-center;
+  @apply px-3 py-2 rounded;
+  @apply text-xs text-gray-600;
+  @apply border border-gray-400;
+  @apply transition-colors duration-500;
+  @apply hover:border-blue-500 hover:bg-gray-200;
+}
+
+.sidebarReadInFlag {
+  @apply w-5 h-5 rounded-full mr-2;
+  @apply overflow-hidden;
+}
+
+.sidebarReadInName {
+  @apply leading-none;
+}

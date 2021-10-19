@@ -1,0 +1,112 @@
+.commentsForm {
+  @apply mb-6;
+
+  &.active {
+    @apply translate-y-0;
+  }
+}
+
+.commentsFormReplyto {
+  // mobile fixed
+  @apply fixed inset-x-0 top-0;
+  @apply m-10 p-8 rounded;
+  @apply bg-white border border-gray-200 shadow-lg;
+  @apply transition duration-500 transform -translate-y-10;
+  @apply z-50;
+  @apply sm:static sm:m-0 sm:p-0;
+  @apply sm:bg-transparent sm:border-none sm:shadow-none sm:z-0;
+}
+
+.commentsFormReplytoMsg {
+  @apply mb-4;
+  @apply sm:hidden;
+}
+
+.commentsFormWrapper {
+  @apply flex flex-wrap;
+}
+
+.commentsFormControl {
+  @apply w-full rounded-lg px-4 py-2;
+  @apply bg-transparent border border-gray-300;
+  @apply transition duration-500;
+
+  &:focus,
+  &:active {
+    @apply bg-white rounded-lg outline-none shadow-none border-accent z-10;
+  }
+  &::placeholder {
+    @apply text-gray-500 text-sm;
+  }
+}
+
+.commentsFormComment {
+  @apply h-10;
+
+  .active & {
+    @apply rounded-b-none h-auto;
+  }
+}
+
+.commentsFormName,
+.commentsFormEmail {
+  @apply hidden;
+  @apply lg:w-1/2;
+
+  .active & {
+    @apply block;
+  }
+}
+
+.commentsFormName {
+  .active & {
+    @apply rounded-none;
+    @apply lg:rounded-bl-lg lg:rounded-br-none lg:-mt-px;
+  }
+}
+
+.commentsFormEmail {
+  .active & {
+    @apply rounded-t-none;
+    @apply lg:rounded-bl-none lg:rounded-br-lg lg:-mt-px;
+    @screen lg {
+      &:not(:focus) {
+        @apply border-l-0;
+      }
+    }
+  }
+}
+
+.commentsFormCloseForm {
+  @apply opacity-0;
+  @apply block text-xs mb-3;
+
+  .active & {
+    @apply opacity-100;
+  }
+}
+
+.commentsFormSubmitComment {
+  @apply hidden mt-3 flex-wrap justify-between w-full;
+  @apply md:flex-nowrap;
+
+  .active & {
+    @apply flex;
+  }
+}
+
+.commentAuthUser {
+  @apply flex items-center text-sm my-1;
+}
+
+.commentAuthUserLabel {
+  @apply text-gray-600 mr-2 pl-1;
+}
+
+.commentAuthUserAvatar {
+  @apply mr-2 w-5 h-5 rounded-full;
+}
+
+.commentAuthUserName {
+  @apply text-gray-700 font-semibold;
+}

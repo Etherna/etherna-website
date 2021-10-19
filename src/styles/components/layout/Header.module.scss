@@ -1,0 +1,122 @@
+.header {
+  @apply fixed top-0 inset-x-0 z-10 transition duration-300;
+
+  &:not(.transparent),
+  &.scrolled {
+    @apply bg-white shadow-sm;
+  }
+
+  & + main {
+    @apply pt-16;
+  }
+}
+
+.headerContainer {
+  @apply flex flex-wrap items-center py-4;
+  @apply lg:flex-nowrap;
+
+  .logo {
+    img {
+      max-height: 20px;
+    }
+  }
+}
+
+.headerToggle {
+  @apply flex items-center ml-auto;
+  @apply text-xs uppercase text-gray-800 font-semibold;
+  @apply lg:hidden;
+
+  &:focus,
+  &:active {
+    @apply shadow-none bg-transparent;
+  }
+}
+
+.headerToggleIcon {
+  @apply relative;
+  width: 30px;
+  height: 30px;
+
+  .lineTop,
+  .lineBottom {
+    @apply absolute left-0 top-0 w-full h-full transition duration-300;
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+
+    &::after {
+      content: "";
+      @apply block absolute bg-gray-900;
+      width: 22px;
+      height: 2px;
+      border-radius: 1px;
+      left: 4px;
+    }
+  }
+  .lineTop {
+    &::after {
+      top: 10px;
+    }
+  }
+  .lineBottom {
+    &::after {
+      bottom: 10px;
+    }
+  }
+
+  &.open {
+    .lineTop {
+      transform: rotate(45deg);
+      &::after {
+        top: 12px;
+        left: 4px;
+      }
+    }
+    .lineBottom {
+      transform: rotate(-45deg);
+      &::after {
+        top: 14px;
+        left: 6px;
+      }
+    }
+  }
+}
+
+.contextualMenu {
+  @apply flex flex-wrap w-full origin-top;
+  @apply transition duration-500;
+  @apply scale-0 h-0;
+  @apply lg:flex-nowrap lg:h-auto lg:transform-none;
+
+  &.active {
+    @apply transform-none h-auto;
+  }
+}
+
+.headerMenuRow {
+  @apply w-full flex items-center flex-nowrap overflow-x-auto py-2;
+  @apply lg:w-auto lg:overflow-x-hidden lg:py-0;
+
+  &.rowFill {
+    @apply lg:flex-1;
+  }
+}
+
+// Overrides
+
+.langMenuToggle {
+  @apply ml-4;
+}
+
+.socialMenuLink {
+  &:first-of-type {
+    @apply pl-0;
+  }
+}
+
+.userMenuLink {
+  @apply ml-4;
+}
+
+.userMenuAvatar {
+  @apply block w-5 h-5 rounded-full overflow-hidden;
+}

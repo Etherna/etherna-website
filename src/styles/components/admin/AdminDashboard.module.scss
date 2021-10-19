@@ -1,0 +1,19 @@
+.adminDashboard {
+  @apply max-w-md mx-auto px-10;
+}
+
+.adminProfile {
+  @apply flex flex-col items-center;
+}
+
+.adminProfileAvatar {
+  @apply w-16 h-16 rounded-full;
+}
+
+.adminProfileName {
+  @apply text-gray-900 mb-4;
+}
+
+.adminProfileEmail {
+  @apply text-gray-600;
+}

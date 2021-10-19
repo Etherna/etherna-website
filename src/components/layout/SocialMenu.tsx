@@ -1,0 +1,78 @@
+import React from "react"
+import classNames from "classnames"
+
+import classes from "@styles/components/layout/SocialMenu.module.scss"
+import FacebookLogo from "!svg-react-loader!@images/logos/facebook-logo.svg"
+import TwitterLogo from "!svg-react-loader!@images/logos/twitter-logo.svg"
+import TelegramLogo from "!svg-react-loader!@images/logos/telegram-logo.svg"
+import DiscordLogo from "!svg-react-loader!@images/logos/discord-logo.svg"
+import GithubLogo from "!svg-react-loader!@images/logos/github-logo.svg"
+import useLocale from "@context/locale-context/hooks/useLocale"
+
+import { useTranslations } from "@hooks/useTranslations"
+
+type SocialMenuProps = {
+  linkClassName?: string
+  vertical?: boolean
+  buttonStyle?: boolean
+}
+
+const SocialMenu: React.FC<SocialMenuProps> = ({ linkClassName, vertical, buttonStyle }) => {
+  const [locale] = useLocale()
+  const { t } = useTranslations(locale, "common")
+
+  return (
+    <nav className={classNames(classes.socialMenu, {
+      [classes.vertical]: vertical,
+      [classes.buttonStyle]: buttonStyle
+    })}>
+      <a
+        href="https://www.facebook.com/Etherna.io/"
+        className={classNames(classes.socialLink, classes.facebook, linkClassName)}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FacebookLogo />
+        <span className="social-name">{t`facebookPage`}</span>
+      </a>
+      <a
+        href="https://twitter.com/Etherna_io"
+        className={classNames(classes.socialLink, classes.twitter, linkClassName)}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <TwitterLogo />
+        <span className="social-name">{t`twitter`}</span>
+      </a>
+      <a
+        href="https://t.me/etherna_io"
+        className={classNames(classes.socialLink, classes.telegram, linkClassName)}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <TelegramLogo />
+        <span className="social-name">{t`telegramChannel`}</span>
+      </a>
+      <a
+        href="https://discord.gg/vfHYEXf"
+        className={classNames(classes.socialLink, classes.discord, linkClassName)}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <DiscordLogo />
+        <span className="social-name">{t`discord`}</span>
+      </a>
+      <a
+        href="https://github.com/Etherna"
+        className={classNames(classes.socialLink, classes.github, linkClassName)}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <GithubLogo />
+        <span className="social-name">{t`github`}</span>
+      </a>
+    </nav>
+  )
+}
+
+export default SocialMenu

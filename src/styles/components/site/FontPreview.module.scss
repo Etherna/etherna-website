@@ -1,0 +1,7 @@
+.fontPreviewText {
+  @apply absolute w-full text-4xl text-center;
+  @apply overflow-hidden select-none cursor-default;
+  top: 50%;
+  transform: translateY(-50%);
+  width: calc(100% - theme("spacing.10"));
+}

@@ -1,0 +1,36 @@
+.newsletterForm {
+  @apply flex flex-col mt-6;
+  @apply w-full max-w-lg mx-auto;
+  @apply lg:flex-row lg:justify-center;
+  @apply lg:max-w-none;
+}
+
+.newsletterFormField {
+  @apply border border-b-0 border-gray-300;
+  @apply rounded-none text-sm px-4 py-3;
+  @apply transition-all duration-200;
+
+  &:first-child {
+    @apply rounded-t-lg;
+  }
+  &:focus {
+    @apply z-10;
+  }
+
+  @screen lg {
+    @apply max-w-64 border-b -mr-px;
+
+    &:first-child {
+      @apply rounded-none rounded-l-lg;
+    }
+  }
+}
+
+.newsletterFormCta {
+  @apply flex items-center rounded-b-lg rounded-t-none py-3 whitespace-nowrap;
+  @apply lg:rounded-lg lg:rounded-l-none;
+
+  svg {
+    @apply w-6 h-6 mr-2;
+  }
+}

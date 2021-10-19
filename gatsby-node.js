@@ -108,7 +108,7 @@ exports.createPages = async ({ actions, graphql }) => {
 
       actions.createPage({
         path: pagePath,
-        component: path.resolve(`./src/templates/post.js`),
+        component: path.resolve(`./src/templates/post.tsx`),
         context: {
           post: node,
           slug,
@@ -127,7 +127,7 @@ exports.createPages = async ({ actions, graphql }) => {
 
       actions.createPage({
         path: pagePath,
-        component: path.resolve(`./src/templates/category.js`),
+        component: path.resolve(`./src/templates/category.tsx`),
         context: {
           slug,
           locale,
@@ -145,7 +145,7 @@ exports.createPages = async ({ actions, graphql }) => {
 
       actions.createPage({
         path: pagePath,
-        component: path.resolve(`./src/templates/project.js`),
+        component: path.resolve(`./src/templates/project.tsx`),
         context: {
           slug,
           locale
@@ -162,7 +162,7 @@ exports.createPages = async ({ actions, graphql }) => {
 
       actions.createPage({
         path: pagePath,
-        component: path.resolve(`./src/templates/page.js`),
+        component: path.resolve(`./src/templates/page.tsx`),
         context: {
           slug,
           locale
@@ -181,7 +181,15 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
     resolve: {
       alias: {
         "@components": path.resolve(__dirname, "src/components"),
+        "@context": path.resolve(__dirname, "src/context"),
         "@images": path.resolve(__dirname, "src/images"),
+        "@queries": path.resolve(__dirname, "src/queries"),
+        "@definitions": path.resolve(__dirname, "src/definitions"),
+        "@lang": path.resolve(__dirname, "src/lang"),
+        "@hooks": path.resolve(__dirname, "src/hooks"),
+        "@styles": path.resolve(__dirname, "src/styles"),
+        "@pages": path.resolve(__dirname, "src/pages"),
+        "@templates": path.resolve(__dirname, "src/templates"),
         "@utils": path.resolve(__dirname, "src/utils"),
       },
     },
