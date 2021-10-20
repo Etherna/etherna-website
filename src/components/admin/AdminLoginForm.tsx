@@ -6,20 +6,24 @@ import Button from "@components/common/Button"
 import Alert from "@components/common/Alert"
 import { authenticate } from "@utils/admin"
 
-const AdminLoginForm = ({ onLogin }) => {
+type AdminLoginFormProps = {
+  onLogin?(): void
+}
+
+const AdminLoginForm: React.FC<AdminLoginFormProps> = ({ onLogin }) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [isLogginIn, setIsLogginIn] = useState(false)
   const [errorMessage, setErrorMessage] = useState(null)
 
-  const login = async e => {
-    e.preventDefault()
+  const login = async (e?: React.FormEvent) => {
+    e?.preventDefault()
 
     setIsLogginIn(true)
     try {
       await authenticate(email, password)
-      onLogin && onLogin()
-    } catch (error) {
+      onLogin?.()
+    } catch (error: any) {
       setErrorMessage(error.message || "Invalid credentials")
     }
     setIsLogginIn(false)
@@ -68,10 +72,6 @@ const AdminLoginForm = ({ onLogin }) => {
       </Button>
     </form>
   )
-}
-
-AdminLoginForm.propTypes = {
-  onLogin: PropTypes.func,
 }
 
 export default AdminLoginForm
