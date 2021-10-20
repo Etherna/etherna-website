@@ -1,13 +1,13 @@
 import React from "react"
 import classNames from "classnames"
 import { graphql, useStaticQuery, Link } from "gatsby"
-import moment from "moment"
 
 import classes from "@styles/components/blog/BlogHeader.module.scss"
 
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { CategoryNode } from "@definitions/sources"
 import { parseCategories } from "@utils/dataParser"
+import dayjs from "@utils/dayjs"
 import routes from "@utils/routes"
 
 type BlogHeaderProps = {
@@ -46,7 +46,7 @@ const BlogHeader: React.FC<BlogHeaderProps> = ({ title, activeSlug }) => {
   `)
   const [locale] = useLocale()
   const nodes = data.categories.nodes.filter(n =>
-    n.posts.filter(p => moment(p.published_on).isBefore(moment())).length > 0
+    n.posts.filter(p => dayjs(p.published_on).isBefore(dayjs())).length > 0
   )
   const categories = parseCategories(nodes, locale)
 

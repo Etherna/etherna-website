@@ -2,7 +2,6 @@ import React from "react"
 import { Link } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
 import classNames from "classnames"
-import moment from "moment"
 
 import classes from "@styles/components/blog/BlogPostHeader.module.scss"
 
@@ -13,6 +12,7 @@ import useLocale from "@context/locale-context/hooks/useLocale"
 import { AuthorNode, GatsbyImageData } from "@definitions/sources"
 import { Category } from "@definitions/app"
 import { useTranslations } from "@hooks/useTranslations"
+import dayjs from "@utils/dayjs"
 import routes from "@utils/routes"
 
 type BlogPostHeaderProps = {
@@ -28,8 +28,8 @@ const BlogPostHeader: React.FC<BlogPostHeaderProps> = ({ author, postTitle, imag
   const [locale] = useLocale()
   const { t } = useTranslations(locale, "blog")
 
-  const publishedDate = moment(published).locale(locale)
-  const updatedDate = updated ? moment(updated).locale(locale) : null
+  const publishedDate = dayjs(published).locale(locale)
+  const updatedDate = updated ? dayjs(updated).locale(locale) : null
 
   return (
     <header className={classNames(classes.postHeader, {

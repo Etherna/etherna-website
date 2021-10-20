@@ -1,14 +1,13 @@
 import React from "react"
 import { GatsbyImage } from "gatsby-plugin-image"
 import { Link } from "gatsby"
-import moment from "moment"
-import "moment/locale/it"
 
 import classes from "@styles/components/blog/BlogPostPreview.module.scss"
 
 import Avatar from "@components/common/Avatar"
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { Post } from "@definitions/app"
+import dayjs from "@utils/dayjs"
 import routes from "@utils/routes"
 
 type BlogPostPreviewProps = {
@@ -17,7 +16,7 @@ type BlogPostPreviewProps = {
 
 const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({ post }) => {
   const [locale] = useLocale()
-  const formattedDate = moment(post.published_on).locale(locale)
+  const formattedDate = dayjs(post.published_on).locale(locale)
 
   return (
     <article className={classes.postPreview}>

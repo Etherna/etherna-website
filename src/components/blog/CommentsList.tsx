@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import classNames from "classnames"
-import moment from "moment"
 import Tippy from "@tippyjs/react"
 
 import classes from "@styles/components/blog/CommentsList.module.scss"
@@ -12,6 +11,7 @@ import useLocale from "@context/locale-context/hooks/useLocale"
 import { Comment } from "@definitions/app"
 import useLocaleInfo from "@hooks/useLocaleInfo"
 import { useTranslations } from "@hooks/useTranslations"
+import dayjs from "@utils/dayjs"
 import gravatar from "@utils/gravatar"
 
 
@@ -64,7 +64,7 @@ const CommentsList: React.FC<CommentsListProps> = ({ comments, depth = 1, multiL
                   )
                 }
                 <span className={classes.threadMessageTime}>
-                  {moment(msg.created_on).locale(locale).fromNow()}
+                  {dayjs(msg.created_on).locale(locale).fromNow()}
                 </span>
               </span>
               <span className={classes.threadMessageComment}>

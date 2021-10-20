@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Link } from "gatsby"
 import classNames from "classnames"
-import moment from "moment"
 
 import classes from "@styles/components/blog/CommentsForm.module.scss"
 import threadClasses from "@styles/components/blog/CommentsList.module.scss"
@@ -16,6 +15,7 @@ import { Comment, CurrentUser } from "@definitions/app"
 import { CommentNode } from "@definitions/sources"
 import { useTranslations } from "@hooks/useTranslations"
 import { getCurrentUser, currentUserToken } from "@utils/admin"
+import dayjs from "@utils/dayjs"
 import gravatar from "@utils/gravatar"
 
 type CommentFormProps = {
@@ -146,7 +146,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ inViewport = false, replyTo, 
                 </div>
                 <div className={threadClasses.threadMessageInfo}>
                   <span className={threadClasses.threadMessageBy}>
-                    {replyTo.name} {moment(replyTo.created_on).locale(locale).fromNow()}
+                    {replyTo.name} {dayjs(replyTo.created_on).locale(locale).fromNow()}
                   </span>
                   <span className={threadClasses.threadMessageComment}>
                     <Markdown rawMarkdown={replyTo.comment} />

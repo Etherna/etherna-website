@@ -1,8 +1,8 @@
 import React from "react"
-import moment from "moment"
 import removeMd from "remove-markdown"
 
 import { AuthorNode } from "@definitions/sources"
+import dayjs from "@utils/dayjs"
 
 type BlogPostSchemaProps = {
   author: AuthorNode
@@ -74,13 +74,13 @@ const BlogPostSchema: React.FC<BlogPostSchemaProps> = ({
   }
 
   if (publishDate) {
-    const date = moment(publishDate).format("YYYY-MM-DD")
+    const date = dayjs(publishDate).format("YYYY-MM-DD")
     schema["dateCreated"] = date
     schema["datePublished"] = date
   }
 
   if (updateDate) {
-    schema["dateModified"] = moment(updateDate).format("YYYY-MM-DD")
+    schema["dateModified"] = dayjs(updateDate).format("YYYY-MM-DD")
   }
 
   return (
