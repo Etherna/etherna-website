@@ -14,7 +14,7 @@ export interface Post {
   meta_description: string | null
   meta_keywords: string | null
   author: AuthorNode
-  category: Category
+  category: Category | null
   image: GatsbyImageData | null
   locale: string
   allSlugs: LocaleSlug[]

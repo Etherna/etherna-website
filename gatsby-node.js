@@ -7,7 +7,6 @@
 // You can delete this file if you're not using it
 
 const path = require("path")
-const stringHash = require("string-hash")
 const { DEFAULT_LOCALE, SUPPORTED_LOCALES } = require("./src/utils/lang")
 
 
