@@ -1,64 +1,68 @@
-<svg width="86px" height="86px" viewBox="0 0 86 86" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <defs>
-        <circle id="path-1" cx="43" cy="43" r="42"></circle>
-        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-3">
-            <stop stop-color="#DA7315" offset="0%"></stop>
-            <stop stop-color="#AF4A12" offset="100%"></stop>
-        </linearGradient>
-        <radialGradient cx="30.6640136%" cy="13.8541708%" fx="30.6640136%" fy="13.8541708%" r="147.261995%" gradientTransform="translate(0.306640,0.138542),scale(1.000000,0.857143),rotate(57.683637),translate(-0.306640,-0.138542)" id="radialGradient-4">
-            <stop stop-color="#FFFFFF" offset="0%"></stop>
-            <stop stop-color="#E3E3E3" offset="100%"></stop>
-        </radialGradient>
-        <polygon id="path-5" points="51.8 0 51.8 9.8 61.6 9.8"></polygon>
-        <filter x="-61.2%" y="-30.6%" width="222.4%" height="222.4%" filterUnits="objectBoundingBox" id="filter-6">
-            <feOffset dx="0" dy="3" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-            <feGaussianBlur stdDeviation="1.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
-            <feColorMatrix values="0 0 0 0 0.683338995   0 0 0 0 0.683338995   0 0 0 0 0.683338995  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
-        </filter>
-        <linearGradient x1="50%" y1="100%" x2="50%" y2="3.061617e-15%" id="linearGradient-7">
-            <stop stop-color="#FF9D5B" offset="0%"></stop>
-            <stop stop-color="#DC7531" offset="100%"></stop>
-        </linearGradient>
-        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-8">
-            <stop stop-color="#DA7315" offset="0%"></stop>
-            <stop stop-color="#E0631E" offset="100%"></stop>
-        </linearGradient>
-        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-9">
-            <stop stop-color="#F09500" offset="0%"></stop>
-            <stop stop-color="#FA6400" offset="100%"></stop>
-        </linearGradient>
-        <path d="M40.1983686,56.7061864 L72.8,86.8 L72.8,86.8 L0,86.8 L32.6016314,56.7061864 C34.7467769,54.7260521 38.0532231,54.7260521 40.1983686,56.7061864 Z" id="path-10"></path>
-        <filter x="-6.2%" y="-7.4%" width="112.4%" height="120.8%" filterUnits="objectBoundingBox" id="filter-11">
-            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-            <feGaussianBlur stdDeviation="1.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
-            <feColorMatrix values="0 0 0 0 0.464928668   0 0 0 0 0.131801027   0 0 0 0 0.0324156631  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
-        </filter>
-    </defs>
-    <g id="newsletter" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <mask id="mask-2" fill="white">
-            <use xlink:href="#path-1"></use>
-        </mask>
-        <use id="Oval" fill="#EBEBEB" xlink:href="#path-1"></use>
-        <g mask="url(#mask-2)">
-            <g transform="translate(7.000000, 14.000000)">
-                <polygon id="Triangle" stroke="none" fill="url(#linearGradient-3)" fill-rule="evenodd" transform="translate(36.400000, 25.200000) scale(-1, -1) rotate(180.000000) translate(-36.400000, -25.200000) " points="36.4 8.4 68.6 37.24 68.6 42 4.2 42 4.2 37.24"></polygon>
-                <polygon id="Rectangle" stroke="#FCFCFC" stroke-width="1.4" fill="url(#radialGradient-4)" fill-rule="evenodd" points="11.2 0 52.5 0 61.6 9.1 61.6 58.8 11.2 58.8"></polygon>
-                <g id="Group" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(14.000000, 5.600000)">
-                    <rect id="Rectangle" fill="#C0B87B" x="0" y="14" width="16.8" height="14"></rect>
-                    <rect id="Rectangle" fill="#44D7B6" x="0" y="0" width="14" height="2.8"></rect>
-                    <path d="M44.8,42 L44.8,44.8 L0,44.8 L0,42 L44.8,42 Z M44.8,36.4 L44.8,39.2 L0,39.2 L0,36.4 L44.8,36.4 Z M44.8,30.8 L44.8,33.6 L0,33.6 L0,30.8 L44.8,30.8 Z M44.8,25.2 L44.8,28 L19.6,28 L19.6,25.2 L44.8,25.2 Z M44.8,19.6 L44.8,22.4 L19.6,22.4 L19.6,19.6 L44.8,19.6 Z M44.8,14 L44.8,16.8 L19.6,16.8 L19.6,14 L44.8,14 Z M25.2,5.6 L25.2,8.4 L0,8.4 L0,5.6 L25.2,5.6 Z" id="Combined-Shape" fill="#BBCFCB"></path>
-                </g>
-                <g id="Path-5" stroke="none" fill="none">
-                    <use fill="black" fill-opacity="1" filter="url(#filter-6)" xlink:href="#path-5"></use>
-                    <use fill="#FCFCFC" fill-rule="evenodd" xlink:href="#path-5"></use>
-                </g>
-                <path d="M21,42 L44.8,75.6 L-0.0926985302,75.6 C-0.86589718,75.6 -1.49269853,74.9731986 -1.49269853,74.2 C-1.49269853,73.9100971 -1.40270169,73.6273436 -1.2351328,73.3907757 L21,42 L21,42 Z" id="Triangle" stroke="none" fill="url(#linearGradient-7)" fill-rule="evenodd" transform="translate(21.000000, 58.800000) rotate(90.000000) translate(-21.000000, -58.800000) "></path>
-                <path d="M51.8,42 L75.6,75.6 L30.7073015,75.6 C29.9341028,75.6 29.3073015,74.9731986 29.3073015,74.2 C29.3073015,73.9100971 29.3972983,73.6273436 29.5648672,73.3907757 L51.8,42 L51.8,42 Z" id="Triangle" stroke="none" fill="url(#linearGradient-8)" fill-rule="evenodd" transform="translate(51.800000, 58.800000) scale(-1, 1) rotate(90.000000) translate(-51.800000, -58.800000) "></path>
-                <g id="Triangle" stroke="none" fill="none" transform="translate(36.400000, 70.000000) scale(-1, 1) translate(-36.400000, -70.000000) ">
-                    <use fill="black" fill-opacity="1" filter="url(#filter-11)" xlink:href="#path-10"></use>
-                    <use fill="url(#linearGradient-9)" fill-rule="evenodd" xlink:href="#path-10"></use>
-                </g>
-            </g>
-        </g>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 86 86">
+  <defs>
+    <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="prefix__news__c">
+      <stop stop-color="#DA7315" offset="0%" />
+      <stop stop-color="#AF4A12" offset="100%" />
+    </linearGradient>
+    <linearGradient x1="50%" y1="100%" x2="50%" y2="0%" id="prefix__news__g">
+      <stop stop-color="#FF9D5B" offset="0%" />
+      <stop stop-color="#DC7531" offset="100%" />
+    </linearGradient>
+    <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="prefix__news__h">
+      <stop stop-color="#DA7315" offset="0%" />
+      <stop stop-color="#E0631E" offset="100%" />
+    </linearGradient>
+    <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="prefix__news__k">
+      <stop stop-color="#F09500" offset="0%" />
+      <stop stop-color="#FA6400" offset="100%" />
+    </linearGradient>
+    <filter x="-61.2%" y="-30.6%" width="222.4%" height="222.4%" filterUnits="objectBoundingBox" id="prefix__news__e">
+      <feOffset dy="3" in="SourceAlpha" result="shadowOffsetOuter1" />
+      <feGaussianBlur stdDeviation="1.5" in="shadowOffsetOuter1" result="shadowBlurOuter1" />
+      <feColorMatrix values="0 0 0 0 0.683338995 0 0 0 0 0.683338995 0 0 0 0 0.683338995 0 0 0 0.5 0"
+        in="shadowBlurOuter1" />
+    </filter>
+    <filter x="-6.2%" y="-7.4%" width="112.4%" height="120.8%" filterUnits="objectBoundingBox" id="prefix__news__i">
+      <feOffset in="SourceAlpha" result="shadowOffsetOuter1" />
+      <feGaussianBlur stdDeviation="1.5" in="shadowOffsetOuter1" result="shadowBlurOuter1" />
+      <feColorMatrix values="0 0 0 0 0.464928668 0 0 0 0 0.131801027 0 0 0 0 0.0324156631 0 0 0 1 0"
+        in="shadowBlurOuter1" />
+    </filter>
+    <path id="prefix__news__f" d="M51.8 0v9.8h9.8z" />
+    <path d="M40.198 56.706L72.8 86.8H0l32.602-30.094a5.6 5.6 0 017.596 0z" id="prefix__news__j" />
+    <radialGradient cx="30.664%" cy="13.854%" fx="30.664%" fy="13.854%" r="147.262%"
+      gradientTransform="scale(1 .85714) rotate(57.684 .286 .15)" id="prefix__news__d">
+      <stop stop-color="#FFF" offset="0%" />
+      <stop stop-color="#E3E3E3" offset="100%" />
+    </radialGradient>
+    <circle id="prefix__news__a" cx="43" cy="43" r="42" />
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <mask id="prefix__news__b" fill="#fff">
+      <use xlink:href="#prefix__news__a" />
+    </mask>
+    <use fill="#EBEBEB" xlink:href="#prefix__news__a" />
+    <g mask="url(#prefix__news__b)">
+      <path fill="url(#prefix__news__c)" transform="translate(7 14)" d="M36.4 8.4l32.2 28.84V42H4.2v-4.76z" />
+      <path stroke="#FCFCFC" stroke-width="1.4" fill="url(#prefix__news__d)" d="M11.2 0h41.3l9.1 9.1v49.7H11.2z"
+        transform="translate(7 14)" />
+      <path fill="#C0B87B" d="M21 33.6h16.8v14H21z" />
+      <path fill="#44D7B6" d="M21 19.6h14v2.8H21z" />
+      <path
+        d="M65.8 61.6v2.8H21v-2.8h44.8zm0-5.6v2.8H21V56h44.8zm0-5.6v2.8H21v-2.8h44.8zm0-5.6v2.8H40.6v-2.8h25.2zm0-5.6V42H40.6v-2.8h25.2zm0-5.6v2.8H40.6v-2.8h25.2zm-19.6-8.4V28H21v-2.8h25.2z"
+        fill="#BBCFCB" />
+      <g transform="translate(7 14)">
+        <use fill="#000" filter="url(#prefix__news__e)" xlink:href="#prefix__news__f" />
+        <use fill="#FCFCFC" xlink:href="#prefix__news__f" />
+      </g>
+      <path d="M21 42l23.8 33.6H-.093a1.4 1.4 0 01-1.142-2.21L21 42z" fill="url(#prefix__news__g)"
+        transform="rotate(90 17.5 69.3)" />
+      <path d="M51.8 42l23.8 33.6H30.707a1.4 1.4 0 01-1.142-2.21L51.8 42z" fill="url(#prefix__news__h)"
+        transform="matrix(0 1 1 0 0 21)" />
+      <g transform="matrix(-1 0 0 1 79.8 14)">
+        <use fill="#000" filter="url(#prefix__news__i)" xlink:href="#prefix__news__j" />
+        <use fill="url(#prefix__news__k)" xlink:href="#prefix__news__j" />
+      </g>
     </g>
+  </g>
 </svg>

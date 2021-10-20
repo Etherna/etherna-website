@@ -1,0 +1,45 @@
+.btn {
+  @apply px-5 py-2 rounded-lg;
+  @apply bg-gray-200;
+  @apply text-gray-700 text-sm font-semibold text-center;
+  @apply transition-colors duration-500;
+
+  &:disabled {
+    @apply cursor-not-allowed opacity-50;
+  }
+}
+
+.btnPrimary {
+  @apply bg-accent text-white;
+  &:hover {
+    @apply bg-accent-light text-white;
+  }
+}
+
+.btnSecondary {
+  @apply bg-gray-600 text-white;
+  &:hover {
+    @apply bg-opacity-75 text-white;
+  }
+}
+
+.btnDanger {
+  @apply bg-red-500 text-white;
+  &:hover {
+    @apply bg-opacity-75 text-white;
+  }
+}
+
+.btnWarning {
+  @apply bg-yellow-500 text-white;
+  &:hover {
+    @apply bg-opacity-75 text-white;
+  }
+}
+
+.btnInfo {
+  @apply bg-blue-400 text-white;
+  &:hover {
+    @apply bg-opacity-75 text-white;
+  }
+}

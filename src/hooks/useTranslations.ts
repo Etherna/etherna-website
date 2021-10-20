@@ -1,0 +1,91 @@
+import Lang, { Replacements } from "lang.js"
+import { useStaticQuery, graphql } from "gatsby"
+
+type TranslationsStaticQuery = {
+  translations: {
+    nodes: Array<{
+      relativePath: string
+      relativeDirectory: string
+      name: string
+      internal: {
+        content: string
+      }
+    }>
+  }
+}
+
+type TranslationsMessages = {
+  [msg: string]: Record<string, string>
+}
+
+export type TransFunction = (
+  key: TemplateStringsArray | string,
+  replacements?: Replacements,
+  forcedLocale?: string
+) => string
+
+/**
+ * Get the translations
+ *
+ * @param locale Locale (eg: "en")
+ * @param namespace Translation namespace, use null to get all strings (default=null)
+ * @returns Lang.js instance
+ */
+export const useTranslations = (locale: string, namespace?: string) => {
+  const { translations } = useStaticQuery<TranslationsStaticQuery>(graphql`
+    query {
+      translations: allFile(filter: {sourceInstanceName: {eq: "translations"}}) {
+        nodes {
+          relativePath
+          relativeDirectory
+          name
+          internal {
+            content
+          }
+        }
+      }
+    }
+  `)
+
+  const messages: TranslationsMessages = {}
+
+  for (const trans of translations.nodes) {
+    const locale = trans.relativeDirectory
+    const transNamespace = trans.name
+    if (!namespace || namespace === transNamespace) {
+      const keys = JSON.parse(trans.internal.content)
+      messages[`${locale}.${transNamespace}`] = keys
+    }
+  }
+
+  const lang = new Lang({
+    messages,
+    locale,
+    fallback: "en"
+  })
+
+  const trans: TransFunction = (
+    key: TemplateStringsArray | string,
+    replacements?: Replacements,
+    forcedLocale?: string
+  ) => {
+    const stringKey = `${namespace ? `${namespace}.` : ``}${key}`
+
+    let translation: string
+
+    if (forcedLocale) {
+      lang.setLocale(forcedLocale)
+      translation = lang.get(stringKey, replacements)
+      lang.setLocale(locale)
+    } else {
+      translation = lang.get(stringKey, replacements)
+    }
+
+    return translation
+  }
+
+  return {
+    t: trans,
+    lang
+  }
+}

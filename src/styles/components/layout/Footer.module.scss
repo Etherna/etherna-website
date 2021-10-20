@@ -1,0 +1,30 @@
+.footer {
+  @apply pt-16 pb-10 border-t border-gray-300 bg-gray-200;
+}
+
+.footerContainer {
+  @apply flex flex-col items-center;
+}
+
+.footerSocialMenu {
+  @apply mt-12 mb-20 min-w-xxs;
+  @apply sm:min-w-xs;
+}
+
+.footerNotice {
+  @apply flex flex-wrap items-center text-gray-500 text-xs text-center;
+}
+
+.footerCopyright {
+  @apply text-xs w-full;
+  @apply sm:w-auto;
+}
+
+.footerMenu {
+  @apply ml-4 w-full;
+  @apply sm:w-auto;
+
+  a {
+    @apply ml-2;
+  }
+}

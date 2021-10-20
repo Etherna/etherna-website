@@ -1,3 +1,6 @@
+const path = require("path")
+const stringHash = require("string-hash")
+
 // Enable local .env configuration
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
@@ -7,7 +10,9 @@ module.exports = {
   pathPrefix: process.argv.includes(`--prefix-paths`) && `__PATH_PREFIX__`,
   siteMetadata: {
     title: `Etherna`,
-    description: `Etherna is a transparent video platform, made for freedom. We believe in freedom of speech and we won't ban any content as long as it's legal. Join us and let's stop censorship together.`,
+    description: `Etherna is a transparent video platform, made for freedom.
+      We believe in freedom of speech and we won't ban any content as long as it's legal.
+      Join us and let's stop censorship together.`,
     tagline: `A transparent video platform for content creators.`,
     author: `Mattia Dalzocchio`,
     siteUrl: process.env.SITE_URL,
@@ -48,10 +53,10 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-react-helmet`
+      resolve: `gatsby-plugin-react-helmet-async`
     },
     {
-      resolve: 'gatsby-plugin-sitemap',
+      resolve: "gatsby-plugin-sitemap",
       options: {
         excludes: [`/admin`],
       },
@@ -71,10 +76,16 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-plugin-react-svg",
+      resolve: `gatsby-transformer-json`,
+    },
+    {
+      resolve: "gatsby-plugin-svgr",
       options: {
-        rule: {
-          include: `/images/svg`,
+        svgoConfig: {
+          plugins: [
+            { removeViewBox: false },
+            { cleanupIDs: true },
+          ],
         },
       },
     },
@@ -103,9 +114,18 @@ module.exports = {
       resolve: `gatsby-plugin-sass`,
       options: {
         cssLoaderOptions: {
-          esModule: false,
           modules: {
             namedExport: false,
+            getLocalIdent: (context, localIdentName, localName, options) => {
+              if (localName === "dark") return "dark"
+
+              const basename = path.basename(context.resourcePath).replace(/\.module\.scss/, "")
+              const hash = stringHash(localName).toString(36).substr(0, 5)
+
+              return process.env.NODE_ENV === "production"
+                ? `_${basename}_${hash}`
+                : `_${basename}_${localName}_${hash}`
+            }
           },
         },
       },
@@ -114,11 +134,11 @@ module.exports = {
       resolve: `gatsby-plugin-postcss`,
     },
     {
-      resolve: 'gatsby-plugin-matomo',
+      resolve: "gatsby-plugin-matomo",
       options: {
-        siteId: '1',
-        matomoUrl: 'https://analytics.etherna.io',
-        siteUrl: 'https://etherna.io/',
+        siteId: "1",
+        matomoUrl: "https://analytics.etherna.io",
+        siteUrl: "https://etherna.io/",
         disableCookies: true,
       }
     }

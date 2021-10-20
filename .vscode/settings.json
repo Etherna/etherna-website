@@ -1,0 +1,55 @@
+{
+  "scss.validate": false,
+  "css.validate": false,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "path-autocomplete.pathMappings": {
+    "@components": "${folder}/src/components",
+    "@context": "${folder}/src/context",
+    "@images": "${folder}/src/images",
+    "@queries": "${folder}/src/queries",
+    "@definitions": "${folder}/src/definitions",
+    "@lang": "${folder}/src/lang",
+    "@hooks": "${folder}/src/hooks",
+    "@styles": "${folder}/src/styles",
+    "@pages": "${folder}/src/pages",
+    "@templates": "${folder}/src/templates",
+    "@utils": "${folder}/src/utils",
+  },
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "typescriptreact"
+  ],
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[scss]": {
+    "tailwindCSS.validate": true
+  },
+  "license-header-manager.excludeFolders": [
+    "node_modules",
+    "build",
+    "images",
+    "config"
+  ],
+  "license-header-manager.excludeExtensions": [
+    ".js"
+  ],
+  "license-header-manager.additionalCommentStyles": [
+    {
+      "extension": ".tsx",
+      "commentStart": "/*",
+      "commentMiddle": " * ",
+      "commentEnd": " */"
+    }
+  ]
+}

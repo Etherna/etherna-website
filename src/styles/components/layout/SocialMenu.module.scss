@@ -1,0 +1,82 @@
+$fb-color: #1877f2;
+$tw-color: #1da1f2;
+$tg-color: #1392d1;
+$ds-color: #6378c5;
+$gh-color: #333;
+$li-color: #0b78b7;
+
+.socialMenu {
+  @apply flex items-center justify-between;
+
+  &.vertical {
+    @apply flex-col;
+  }
+
+  &.buttonStyle {
+    @apply items-center;
+    @apply sm:flex-row sm:flex-wrap sm:mx-auto sm:justify-evenly;
+  }
+}
+
+.socialLink {
+  @apply p-2;
+
+  svg {
+    height: 16px;
+  }
+
+  path {
+    fill: #a3b0c9;
+    transition: fill stroke;
+    transition-duration: 0.5s;
+  }
+
+  .socialName {
+    @apply hidden;
+  }
+
+  &:hover,
+  .buttonStyle & {
+    &.facebook {
+      path {
+        fill: $fb-color;
+      }
+    }
+    &.twitter {
+      path {
+        fill: $tw-color;
+      }
+    }
+    &.telegram {
+      path {
+        fill: $tg-color;
+      }
+    }
+    &.discord {
+      path {
+        fill: $ds-color;
+      }
+    }
+    &.github {
+      path {
+        fill: $gh-color;
+      }
+    }
+    &.linkedin {
+      path {
+        fill: $li-color;
+      }
+    }
+  }
+
+  .buttonStyle & {
+    @apply flex items-center rounded;
+    @apply bg-gray-200 text-gray-600;
+    @apply mb-2 px-4 mx-4 whitespace-nowrap;
+    @apply hover:bg-gray-100;
+
+    .socialName {
+      @apply block text-sm font-semibold ml-2;
+    }
+  }
+}

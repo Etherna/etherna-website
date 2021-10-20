@@ -1,0 +1,18 @@
+.textField {
+  @apply w-full bg-transparent;
+  @apply border-2 border-gray-300;
+  @apply rounded-lg px-4 py-3;
+  @apply transition duration-500 z-0;
+
+  &:focus,
+  &:active {
+    @apply bg-white rounded-lg outline-none shadow-none border-accent z-10;
+  }
+  &::placeholder {
+    @apply text-gray-500 text-sm;
+  }
+
+  &:disabled {
+    @apply pointer-events-none opacity-50;
+  }
+}

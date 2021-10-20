@@ -1,0 +1,33 @@
+.logoPalette {
+  @apply flex flex-col p-3 w-full overflow-hidden;
+  @apply border border-gray-300 rounded;
+}
+
+.logoPalettePreview {
+  @apply flex items-center bg-gray-200 -mx-3 -mt-3 px-4 py-8;
+
+  img {
+    @apply object-contain h-10 w-auto max-w-full mx-auto;
+  }
+}
+
+.logoPaletteName {
+  @apply text-base font-semibold mt-3 mb-2;
+}
+
+.logoPaletteLinks {
+  @apply flex flex-wrap;
+}
+
+.logoPaletteLink {
+  &:not(:last-child) {
+    &::after {
+      content: "|";
+      @apply mx-2 pointer-events-none text-gray-500 text-sm;
+    }
+  }
+
+  a {
+    @apply text-sm font-semibold;
+  }
+}

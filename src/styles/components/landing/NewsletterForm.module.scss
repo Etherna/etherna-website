@@ -1,0 +1,45 @@
+.newsletterForm {
+  @apply flex flex-col mt-6;
+  @apply w-full max-w-lg mx-auto;
+  @apply lg:flex-row lg:justify-center;
+  @apply lg:max-w-none;
+}
+
+.newsletterFormField {
+  // add specificity to override default textfield class
+  .newsletterForm & {
+    @apply border border-b-0 border-gray-300;
+    @apply rounded-none text-sm px-4 py-3;
+    @apply focus:rounded-none;
+    @apply transition-all duration-200;
+
+    &:first-child {
+      @apply rounded-t-lg;
+      @apply focus:rounded-t-lg;
+    }
+    &:focus {
+      @apply z-10;
+    }
+
+    @screen lg {
+      @apply max-w-64 border-b -mr-px;
+      @apply focus:border-b;
+
+      &:first-child {
+        @apply rounded-none rounded-l-lg;
+        @apply focus:rounded-none focus:rounded-l-lg;
+      }
+    }
+  }
+}
+
+.newsletterFormCta {
+  body & {
+    @apply flex items-center rounded-b-lg rounded-t-none py-3 whitespace-nowrap;
+    @apply lg:rounded-lg lg:rounded-l-none;
+
+    svg {
+      @apply w-6 h-6 mr-2;
+    }
+  }
+}
