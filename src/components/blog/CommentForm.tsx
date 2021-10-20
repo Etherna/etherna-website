@@ -9,6 +9,7 @@ import { ReactComponent as SpinnerIcon } from "@images/animated/spinner-light.sv
 import Alert from "@components/common/Alert"
 import Button from "@components/common/Button"
 import Markdown from "@components/common/Markdown"
+import TextField from "@components/common/TextField"
 import useCommentsContext from "@context/comments-context/hooks/useCommentsContext"
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { Comment, CurrentUser } from "@definitions/app"
@@ -158,29 +159,30 @@ const CommentForm: React.FC<CommentFormProps> = ({ inViewport = false, replyTo, 
         )}
 
         <div className={classes.commentsFormWrapper}>
-          <textarea
+          <TextField
             className={classNames(classes.commentsFormControl, classes.commentsFormComment)}
             placeholder={t`commentPlaceholder`}
             value={comment}
-            onChange={e => setComment(e.target.value)}
+            onChange={setComment}
             onFocus={() => setIsOpen(true)}
+            multiline
             required
           />
-          <input
+          <TextField
             type="text"
             className={classNames(classes.commentsFormControl, classes.commentsFormName)}
             placeholder={t`namePlaceholder`}
             value={name}
-            onChange={e => setName(e.target.value)}
+            onChange={setName}
             disabled={currentUser != null}
             required
           />
-          <input
+          <TextField
             type="email"
             className={classNames(classes.commentsFormControl, classes.commentsFormEmail)}
             placeholder={t`emailPlaceholder`}
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={setEmail}
             disabled={currentUser != null}
             required
           />

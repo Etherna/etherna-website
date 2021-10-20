@@ -4,6 +4,8 @@ import { ReactComponent as SpinnerIcon } from "@images/animated/spinner-light.sv
 
 import Button from "@components/common/Button"
 import Alert from "@components/common/Alert"
+import TextField from "@components/common/TextField"
+import InputGroup from "@components/common/InputGroup"
 import { authenticate } from "@utils/admin"
 
 type AdminLoginFormProps = {
@@ -38,27 +40,27 @@ const AdminLoginForm: React.FC<AdminLoginFormProps> = ({ onLogin }) => {
           </Alert>
         </div>
       )}
-      <div className="input-group">
-        <input
+      <InputGroup>
+        <TextField
           type="email"
           name="email"
-          autoComplete="email"
+          autocomplete="email"
           className="form-control"
           placeholder={"Email"}
           value={email}
-          onChange={e => setEmail(e.target.value)}
+          onChange={setEmail}
           required
         />
-        <input
+        <TextField
           type="password"
-          autoComplete="current-password"
+          autocomplete="current-password"
           className="form-control"
           placeholder={"Password"}
           value={password}
-          onChange={e => setPassword(e.target.value)}
+          onChange={setPassword}
           required
         />
-      </div>
+      </InputGroup>
       <Button
         type="primary"
         className="w-full"

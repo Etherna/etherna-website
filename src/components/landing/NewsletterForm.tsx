@@ -6,6 +6,7 @@ import { ReactComponent as Spinner } from "@images/animated/spinner-light.svg"
 
 import Alert from "@components/common/Alert"
 import Button from "@components/common/Button"
+import TextField from "@components/common/TextField"
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { useTranslations } from "@hooks/useTranslations"
 import { validateEmail } from "@utils/validation"
@@ -55,19 +56,19 @@ const NewsletterForm: React.FC = () => {
     <>
       {!success && (
         <form className={classes.newsletterForm}>
-          <input
+          <TextField
             type="text"
             className={classes.newsletterFormField}
             placeholder={t`namePlaceholder`}
             value={firstName}
-            onChange={e => setFirstName(e.target.value)}
+            onChange={setFirstName}
           />
-          <input
+          <TextField
             type="email"
             className={classes.newsletterFormField}
             placeholder={t`emailPlaceholder`}
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={setEmail}
           />
 
           <Button
