@@ -6,6 +6,7 @@ import { enableBodyScroll, disableBodyScroll } from "body-scroll-lock"
 import classes from "@styles/components/common/Modal.module.scss"
 import { ReactComponent as CrossIcon } from "@images/icons/cross-icon.svg"
 
+import Container from "./Container"
 import { createPortal } from "@utils/portals"
 
 type ModalProps = {
@@ -74,17 +75,17 @@ const Modal: React.FC<ModalProps> = ({
             <div className={classNames(classes.modalHeader, {
               compact: compactHeader
             })}>
-              <div className="container">
+              <Container>
                 <button className={classes.modalClose} aria-label="Close" onClick={onClose}>
                   <CrossIcon aria-hidden="true" />
                 </button>
-              </div>
+              </Container>
             </div>
 
             <div className={classes.modalContent} ref={modalContentEl}>
-              <div className="container">
+              <Container>
                 {children}
-              </div>
+              </Container>
             </div>
           </div>
         </Transition.Child>

@@ -1,5 +1,4 @@
 import React, { useEffect } from "react"
-import classNames from "classnames"
 
 import classes from "@styles/components/blog/BlogPost.module.scss"
 
@@ -8,6 +7,9 @@ import BlogPostFooter from "./BlogPostFooter"
 import BlogPostSchema from "./BlogPostSchema"
 import BlogPostSidebarLeft from "./BlogPostSidebarLeft"
 import BlogPostSidebarRight from "./BlogPostSidebarRight"
+import Container from "@components/common/Container"
+import Row from "@components/common/Row"
+import Col from "@components/common/Col"
 import Markdown from "@components/common/Markdown"
 import HeadMeta from "@components/layout/HeadMeta"
 import Prose from "@components/common/Prose"
@@ -59,11 +61,11 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
       />
 
       <Prose className={classes.post}>
-        <div className="container">
-          <div className="row">
+        <Container>
+          <Row>
             <BlogPostSidebarLeft post={post} />
 
-            <article className={classNames("col", classes.postContent)}>
+            <Col as="article" className={classes.postContent}>
               <h1 className={classes.postTitle}>{post.title}</h1>
 
               <Markdown rawMarkdown={post.content} />
@@ -84,11 +86,11 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
                 publishDate={post.published_on}
                 updateDate={post.updated_on}
               />
-            </article>
+            </Col>
 
             <BlogPostSidebarRight />
-          </div>
-        </div>
+          </Row>
+        </Container>
       </Prose>
     </>
   )

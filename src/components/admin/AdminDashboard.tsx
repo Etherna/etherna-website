@@ -6,6 +6,9 @@ import { ReactComponent as SpinnerIcon } from "@images/animated/spinner.svg"
 import AdminLoginForm from "./AdminLoginForm"
 import AdminHeader from "./AdminHeader"
 import Button from "@components/common/Button"
+import Container from "@components/common/Container"
+import Row from "@components/common/Row"
+import Col from "@components/common/Col"
 import { isLoggedIn, getCurrentUser, logout } from "@utils/admin"
 import gravatar from "@utils/gravatar"
 
@@ -51,9 +54,9 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col">
+    <Container>
+      <Row>
+        <Col>
           <AdminHeader />
 
           {isSignedIn && (
@@ -76,9 +79,9 @@ const AdminDashboard = () => {
               <AdminLoginForm onLogin={checkAuth} />
             )}
           </div>
-        </div>
-      </div>
-    </div>
+        </Col>
+      </Row>
+    </Container>
   )
 }
 

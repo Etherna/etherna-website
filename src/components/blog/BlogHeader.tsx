@@ -4,6 +4,9 @@ import { graphql, useStaticQuery, Link } from "gatsby"
 
 import classes from "@styles/components/blog/BlogHeader.module.scss"
 
+import Container from "@components/common/Container"
+import Row from "@components/common/Row"
+import Col from "@components/common/Col"
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { CategoryNode } from "@definitions/sources"
 import { parseCategories } from "@utils/dataParser"
@@ -52,9 +55,9 @@ const BlogHeader: React.FC<BlogHeaderProps> = ({ title, activeSlug }) => {
 
   return (
     <header className={classes.blogHeader}>
-      <div className="container">
-        <div className="row">
-          <div className="col">
+      <Container>
+        <Row>
+          <Col>
             <h1 className={classes.blogHeaderTitle}>{title}</h1>
 
             {categories.length > 0 && (
@@ -76,9 +79,9 @@ const BlogHeader: React.FC<BlogHeaderProps> = ({ title, activeSlug }) => {
                 ))}
               </ul>
             )}
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
     </header>
   )
 }

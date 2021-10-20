@@ -2,8 +2,9 @@ import React, { useMemo } from "react"
 
 import classes from "@styles/components/site/LogoPalette.module.scss"
 
-import { LogoVariantNode } from "@definitions/sources"
+import Col from "@components/common/Col"
 import useLocale from "@context/locale-context/hooks/useLocale"
+import { LogoVariantNode } from "@definitions/sources"
 import { useTranslations } from "@hooks/useTranslations"
 
 type LogoPaletteProps = {
@@ -60,7 +61,7 @@ const LogoPalette: React.FC<LogoPaletteProps> = ({ name, variants, gridClassName
       <h3 className="mb-2 mt-8">{name}</h3>
       <div className={gridClassName}>
         {groupedVariants.map((group, i) => (
-          <div className="col sm:w-1/2 md:w-1/3 lg:w-1/4" key={i}>
+          <Col className="sm:w-1/2 md:w-1/3 lg:w-1/4" key={i}>
             <div className={classes.logoPalette} key={i}>
               <div className={classes.logoPalettePreview}>
                 <img src={group.previewImage} alt="" />
@@ -74,7 +75,7 @@ const LogoPalette: React.FC<LogoPaletteProps> = ({ name, variants, gridClassName
                 ))}
               </div>
             </div>
-          </div>
+          </Col>
         ))}
       </div>
     </div>

@@ -1,9 +1,11 @@
 import React, { useEffect } from "react"
-import classNames from "classnames"
 
 import classes from "@styles/components/site/Page.module.scss"
 
 import PageCTA from "./PageCTA"
+import Container from "@components/common/Container"
+import Row from "@components/common/Row"
+import Col from "@components/common/Col"
 import Markdown from "@components/common/Markdown"
 import Prose from "@components/common/Prose"
 import useLocale from "@context/locale-context/hooks/useLocale"
@@ -36,38 +38,38 @@ const Page: React.FC<PageProps> = ({ page }) => {
   }
 
   return (
-    <div className="container-fluid">
-      <div className={classNames(classes.pageHeaderRow, "row")}>
-        <div className="col">
-          <div className="container">
-            <div className="row">
-              <div className="col">
+    <Container fluid>
+      <Row className={classes.pageHeaderRow}>
+        <Col>
+          <Container>
+            <Row>
+              <Col>
                 <header className={classes.pageHeader}>
                   <h1 className={classes.pageHeaderTitle}>{page.title}</h1>
                   <p className={classes.pageHeaderExcerpt}>{page.excerpt}</p>
                 </header>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+              </Col>
+            </Row>
+          </Container>
+        </Col>
+      </Row>
 
-      <div className="row">
-        <div className="col">
+      <Row>
+        <Col>
           <Prose className="post-page">
             <article>
               <Markdown rawMarkdown={page.content} />
             </article>
           </Prose>
-        </div>
-      </div>
+        </Col>
+      </Row>
 
-      <div className="row">
-        <div className="col">
+      <Row>
+        <Col>
           <PageCTA />
-        </div>
-      </div>
-    </div>
+        </Col>
+      </Row>
+    </Container>
   )
 }
 

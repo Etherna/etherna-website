@@ -2,6 +2,10 @@ import React from "react"
 
 import classes from "@styles/components/layout/StaticPage.module.scss"
 
+import Container from "@components/common/Container"
+import Row from "@components/common/Row"
+import Col from "@components/common/Col"
+
 type StaticPageProps = {
   title?: string
 }
@@ -9,18 +13,18 @@ type StaticPageProps = {
 const StaticPage: React.FC<StaticPageProps> = ({ title, children }) => {
   return (
     <div className={classes.staticPage}>
-      <div className="container">
-        <div className="row">
+      <Container>
+        <Row>
           {title && (
-            <div className="col w-full">
+            <Col>
               <h1>{title}</h1>
-            </div>
+            </Col>
           )}
-          <div className="col w-full">
+          <Col>
             {children}
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
     </div>
   )
 }

@@ -5,6 +5,7 @@ import classNames from "classnames"
 import classes from "@styles/components/blog/BlogPostSidebar.module.scss"
 
 import ShareButtons from "./ShareButtons"
+import Col from "@components/common/Col"
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { Post } from "@definitions/app"
 import { useTranslations } from "@hooks/useTranslations"
@@ -22,7 +23,7 @@ const BlogPostSidebarLeft: React.FC<BlogPostSidebarLeftProps> = ({ post }) => {
   const otherLangs = post.allSlugs.filter(s => s.locale !== post.locale)
 
   return (
-    <aside className={classNames("col", classes.blogSidebar, classes.blogSidebarLeft)}>
+    <Col as="aside" className={classNames(classes.blogSidebar, classes.blogSidebarLeft)}>
       {otherLangs.length > 0 && (
         <h6 className={classes.blogSidebarTitle}>{t`moreLanguages`}</h6>
       )}
@@ -53,7 +54,7 @@ const BlogPostSidebarLeft: React.FC<BlogPostSidebarLeftProps> = ({ post }) => {
         title={post.title}
         vertical={true}
       />
-    </aside>
+    </Col>
   )
 }
 

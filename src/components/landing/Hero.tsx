@@ -8,6 +8,7 @@ import { ReactComponent as ArrowDown } from "@images/icons/arrow-down.svg"
 import ViewportObserver from "@components/layout/ViewportObserver"
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { useTranslations } from "@hooks/useTranslations"
+import Container from "@components/common/Container"
 
 const Hero: React.FC = () => {
   const titleRef = useRef<HTMLHeadingElement>(null)
@@ -19,7 +20,7 @@ const Hero: React.FC = () => {
 
   return (
     <section className={classes.hero}>
-      <div className="container">
+      <Container>
         <ViewportObserver childrenRef={titleRef} viewportClassName="animation-active">
           <h1
             className={classNames(classes.heroTitle, "fade-in-up")}
@@ -56,7 +57,7 @@ const Hero: React.FC = () => {
             </AnchorLink>
           </div>
         </ViewportObserver>
-      </div>
+      </Container>
     </section>
   )
 }

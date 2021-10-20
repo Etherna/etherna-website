@@ -4,7 +4,10 @@ import classNames from "classnames"
 import classes from "@styles/components/landing/LandingSection.module.scss"
 
 import LandingSectionFeature from "./LandingSectionFeature"
+import Container from "@components/common/Container"
 import ViewportObserver from "@components/layout/ViewportObserver"
+import Row from "@components/common/Row"
+import Col from "@components/common/Col"
 
 type LandingSectionProps = {
   id: string
@@ -28,9 +31,9 @@ const LandingSection: React.FC<LandingSectionProps> = ({
 
   return (
     <section id={id} className={classes.landingSection}>
-      <div className="container">
-        <div className="row">
-          <div className="col">
+      <Container>
+        <Row>
+          <Col>
             <ViewportObserver childrenRef={titleRef} viewportClassName="animation-active">
               <h2 className={classNames(classes.landingTitle, "fade-in-up", "delay-50")} ref={titleRef}>
                 {title}
@@ -41,12 +44,12 @@ const LandingSection: React.FC<LandingSectionProps> = ({
                 {description}
               </p>
             </ViewportObserver>
-          </div>
+          </Col>
           {features.map((feature, i) => (
             <LandingSectionFeature feature={feature} count={features.length} key={i} />
           ))}
-        </div>
-      </div>
+        </Row>
+      </Container>
     </section>
   )
 }

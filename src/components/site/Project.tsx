@@ -3,6 +3,9 @@ import React, { useEffect } from "react"
 import classes from "@styles/components/site/Project.module.scss"
 import { ReactComponent as GitHubLogo } from "@images/logos/github-logo.svg"
 
+import Container from "@components/common/Container"
+import Row from "@components/common/Row"
+import Col from "@components/common/Col"
 import Markdown from "@components/common/Markdown"
 import Prose from "@components/common/Prose"
 import useLocale from "@context/locale-context/hooks/useLocale"
@@ -36,9 +39,9 @@ const Project: React.FC<ProjectProps> = ({ project }) => {
     })
   }
   return (
-    <div className="container py-8">
-      <div className="row">
-        <div className="col">
+    <Container className="py-8">
+      <Row>
+        <Col>
           <Prose className={classes.project}>
             <article>
               <header className={classes.projectHeader}>
@@ -70,9 +73,9 @@ const Project: React.FC<ProjectProps> = ({ project }) => {
               <Markdown rawMarkdown={project.content} />
             </article>
           </Prose>
-        </div>
-      </div>
-    </div>
+        </Col>
+      </Row>
+    </Container>
   )
 }
 

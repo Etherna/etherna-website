@@ -5,6 +5,7 @@ import classes from "@styles/components/layout/Footer.module.scss"
 import { ReactComponent as FooterLogo } from "@images/footer-logo.svg"
 
 import SocialMenu from "./SocialMenu"
+import Container from "@components/common/Container"
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { useTranslations } from "@hooks/useTranslations"
 
@@ -14,7 +15,7 @@ const Footer: React.FC = () => {
 
   return (
     <footer className={classes.footer}>
-      <div className="container">
+      <Container>
         <div className={classes.footerContainer}>
           <FooterLogo height={28} />
 
@@ -30,7 +31,7 @@ const Footer: React.FC = () => {
             </nav>
           </div>
         </div>
-      </div>
+      </Container>
     </footer>
   )
 }

@@ -13,6 +13,7 @@ import PagesMenu from "./PagesMenu"
 import UserMenu from "./UserMenu"
 import SocialMenu from "./SocialMenu"
 import LangSwitcher from "./LangSwitcher"
+import Container from "@components/common/Container"
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { useTranslations } from "@hooks/useTranslations"
 import routes from "@utils/routes"
@@ -46,7 +47,7 @@ const Header: React.FC<HeaderProps> = ({ transparent, showLandingMenu }) => {
       [classes.transparent]: transparent,
       [classes.scrolled]: isActive || showContextualMenu,
     })}>
-      <div className="container">
+      <Container>
         <div className={classes.headerContainer}>
           <div className={classes.headerLogo}>
             <Link to={routes.homePath(locale)}>
@@ -91,7 +92,7 @@ const Header: React.FC<HeaderProps> = ({ transparent, showLandingMenu }) => {
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </header>
   )
 }

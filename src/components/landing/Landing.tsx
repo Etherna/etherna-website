@@ -12,6 +12,9 @@ import Contacts from "./Contacts"
 import LandingSection from "./LandingSection"
 import NewsletterForm from "./NewsletterForm"
 import Card from "@components/common/Card"
+import Container from "@components/common/Container"
+import Row from "@components/common/Row"
+import Col from "@components/common/Col"
 import ViewportObserver from "@components/layout/ViewportObserver"
 import SocialMenu from "@components/layout/SocialMenu"
 import useLocale from "@context/locale-context/hooks/useLocale"
@@ -47,41 +50,41 @@ const Landing: React.FC = () => {
     <>
       <ViewportObserver childrenRef={builtRef} viewportClassName="animation-active" offset={200}>
         <section className={classNames(classes.builtwith, "fade-in-up", "delay-50")} ref={builtRef}>
-          <div className="container">
-            <div className="row">
-              <div className="col">
+          <Container>
+            <Row>
+              <Col>
                 <Card className="py-8">
                   <div className="flex flex-col items-center">
                     <div className={classes.textLabel}>{t`builtWith`}</div>
-                    <div className="container mt-8">
-                      <div className="row">
-                        <div className="col w-1/2 sm:w-1/4 mb-6">
+                    <Container className="mt-8">
+                      <Row>
+                        <Col className="w-1/2 sm:w-1/4 mb-6">
                           <a href={t`ethereumUrl`} target="_blank" rel="noreferrer noopener">
                             <EthereumLogo />
                           </a>
-                        </div>
-                        <div className="col w-1/2 sm:w-1/4 mb-6">
+                        </Col>
+                        <Col className="w-1/2 sm:w-1/4 mb-6">
                           <a href={t`swarmUrl`} target="_blank" rel="noreferrer noopener">
                             <SwarmLogo />
                           </a>
-                        </div>
-                        <div className="col w-1/2 sm:w-1/4 mb-6">
+                        </Col>
+                        <Col className="w-1/2 sm:w-1/4 mb-6">
                           <a href={t`mongodbUrl`} target="_blank" rel="noreferrer noopener">
                             <MongodbLogo />
                           </a>
-                        </div>
-                        <div className="col w-1/2 sm:w-1/4 mb-6">
+                        </Col>
+                        <Col className="w-1/2 sm:w-1/4 mb-6">
                           <a href={t`reactUrl`} target="_blank" rel="noreferrer noopener">
                             <ReactLogo />
                           </a>
-                        </div>
-                      </div>
-                    </div>
+                        </Col>
+                      </Row>
+                    </Container>
                   </div>
                 </Card>
-              </div>
-            </div>
-          </div>
+              </Col>
+            </Row>
+          </Container>
         </section>
       </ViewportObserver>
 
@@ -166,9 +169,9 @@ const Landing: React.FC = () => {
       <Contacts />
 
       <section className="social my-16">
-        <div className="container">
-          <div className="row">
-            <div className="col">
+        <Container>
+          <Row>
+            <Col>
               <Card className="" size="large">
                 <div className="flex flex-col items-center">
                   <h4 className="text-4xl leading-tight font-extrabold text-gray-700 text-center">
@@ -183,9 +186,9 @@ const Landing: React.FC = () => {
                   <SocialMenu vertical={true} buttonStyle={true} />
                 </div>
               </Card>
-            </div>
-          </div>
-        </div>
+            </Col>
+          </Row>
+        </Container>
       </section>
 
     </>

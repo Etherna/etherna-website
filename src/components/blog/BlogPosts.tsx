@@ -6,9 +6,12 @@ import BlogPostPreview from "./BlogPostPreview"
 import BlogHeader from "./BlogHeader"
 import Breadcrumb from "@components/common/Breadcrumb"
 import BreadcrumbItem from "@components/common/BreadcrumbItem"
+import Container from "@components/common/Container"
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { Post } from "@definitions/app"
 import { useTranslations } from "@hooks/useTranslations"
+import Row from "@components/common/Row"
+import Col from "@components/common/Col"
 
 type BlogPostsProps = {
   title: string
@@ -32,9 +35,9 @@ const BlogPosts: React.FC<BlogPostsProps> = ({ title, posts, activeSlug, breadcr
       />
 
       <section className={classes.blog}>
-        <div className="container">
-          <div className="row">
-            <div className="col">
+        <Container>
+          <Row>
+            <Col>
               {breadcrumb && (
                 <Breadcrumb>
                   {breadcrumb.map((brItem, i) => (
@@ -46,10 +49,10 @@ const BlogPosts: React.FC<BlogPostsProps> = ({ title, posts, activeSlug, breadcr
                   ))}
                 </Breadcrumb>
               )}
-            </div>
-          </div>
-          <div className="row">
-            <div className="col lg:w-3/4 xl:w-2/3">
+            </Col>
+          </Row>
+          <Row>
+            <Col className="lg:w-3/4 xl:w-2/3">
               {posts.map((post, i) => (
                 <BlogPostPreview
                   post={post}
@@ -62,11 +65,11 @@ const BlogPosts: React.FC<BlogPostsProps> = ({ title, posts, activeSlug, breadcr
                   <h4>{t`noPosts`} <span role="img" aria-label="silence">🤫</span></h4>
                 </div>
               )}
-            </div>
-            <aside className="col lg:w-1/4 xl:w-1/3">
-            </aside>
-          </div>
-        </div>
+            </Col>
+            <Col as="aside" className="lg:w-1/4 xl:w-1/3">
+            </Col>
+          </Row>
+        </Container>
       </section>
     </>
   )

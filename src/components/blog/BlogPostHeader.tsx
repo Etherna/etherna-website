@@ -8,6 +8,9 @@ import classes from "@styles/components/blog/BlogPostHeader.module.scss"
 import Avatar from "@components/common/Avatar"
 import Breadcrumb from "@components/common/Breadcrumb"
 import BreadcrumbItem from "@components/common/BreadcrumbItem"
+import Container from "@components/common/Container"
+import Row from "@components/common/Row"
+import Col from "@components/common/Col"
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { AuthorNode, GatsbyImageData } from "@definitions/sources"
 import { Category } from "@definitions/app"
@@ -45,9 +48,9 @@ const BlogPostHeader: React.FC<BlogPostHeaderProps> = ({ author, postTitle, imag
       )}
 
       <div className={classes.postHeaderNav}>
-        <div className="container">
-          <div className="row">
-            <div className="col">
+        <Container>
+          <Row>
+            <Col>
               <Breadcrumb>
                 <BreadcrumbItem title="Etherna" path={routes.homePath(locale)} />
                 <BreadcrumbItem title="Blog" path={routes.blogPath(locale)} />
@@ -59,9 +62,9 @@ const BlogPostHeader: React.FC<BlogPostHeaderProps> = ({ author, postTitle, imag
                 )}
                 <BreadcrumbItem title={postTitle} />
               </Breadcrumb>
-            </div>
-          </div>
-        </div>
+            </Col>
+          </Row>
+        </Container>
       </div>
 
       <div className={classes.postHeaderMeta}>

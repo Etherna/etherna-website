@@ -7,6 +7,9 @@ import swarmGrantImg from "@images/logos/swarm-grants.svg"
 import ViewportObserver from "@components/layout/ViewportObserver"
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { useTranslations } from "@hooks/useTranslations"
+import Container from "@components/common/Container"
+import Row from "@components/common/Row"
+import Col from "@components/common/Col"
 
 const AwardList = [{
   title: "SwarmGrants",
@@ -23,9 +26,9 @@ const Awards: React.FC = () => {
 
   return (
     <section className={classes.awards}>
-      <div className="container">
-        <div className="row">
-          <div className="col">
+      <Container>
+        <Row>
+          <Col>
             <ViewportObserver childrenRef={titleRef} viewportClassName="animation-active">
               <h2 className={classNames(classes.awardsTitle, "fade-in-up", "delay-50")} ref={titleRef}>
                 {t`awards`}
@@ -48,9 +51,9 @@ const Awards: React.FC = () => {
                 ))}
               </ul>
             </ViewportObserver>
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
     </section>
   )
 }

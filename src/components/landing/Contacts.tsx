@@ -3,9 +3,12 @@ import classNames from "classnames"
 
 import classes from "@styles/components/landing/Contacts.module.scss"
 
+import Container from "@components/common/Container"
 import ViewportObserver from "@components/layout/ViewportObserver"
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { useTranslations } from "@hooks/useTranslations"
+import Row from "@components/common/Row"
+import Col from "@components/common/Col"
 
 const Contacts = () => {
   const [locale] = useLocale()
@@ -21,9 +24,9 @@ const Contacts = () => {
 
   return (
     <section className={classes.contacts} id="contacts">
-      <div className="container">
-        <div className="row">
-          <div className="col">
+      <Container>
+        <Row>
+          <Col>
             <ViewportObserver childrenRef={titleRef} viewportClassName="animation-active">
               <h2 className={classNames(classes.contactsTitle, "fade-in-up", "delay-50")} ref={titleRef}>
                 {t`helpUsTitle`}
@@ -36,8 +39,8 @@ const Contacts = () => {
             </ViewportObserver>
 
             <ViewportObserver childrenRef={contentRef} viewportClassName="animation-active">
-              <div className="row fade-in-up delay-150" ref={contentRef}>
-                <div className={classNames(classes.contactsCol, "col", "md:w-1/2")}>
+              <Row className="fade-in-up delay-150" elRef={contentRef}>
+                <Col className={classNames(classes.contactsCol, "md:w-1/2")}>
                   <h3 className={classes.contactsSubtitle}>{t`forInvestors`}</h3>
                   <div className={classes.contactsText}>
                     <p>{t`forInvestorsDescription`}</p>
@@ -46,8 +49,8 @@ const Contacts = () => {
                   <a className={classes.contactsBtn} href={mailto(t`investorMailSubject`)}>
                     {t`forInvestorsCTALabel`}
                   </a>
-                </div>
-                <div className={classNames(classes.contactsCol, "col", "md:w-1/2")}>
+                </Col>
+                <Col className={classNames(classes.contactsCol, "md:w-1/2")}>
                   <h3 className={classes.contactsSubtitle}>{t`forDevelopers`}</h3>
                   <div className={classes.contactsText}>
                     <p>{t`forDevelopersDescription`}</p>
@@ -56,15 +59,15 @@ const Contacts = () => {
                   <a className={classes.contactsBtn} href={mailto(t`developerMailSubject`)}>
                     {t`forDevelopersCTALabel`}
                   </a>
-                </div>
-                <div className="col mt-12">
+                </Col>
+                <Col className="mt-12">
                   <div className={classes.contactsText} dangerouslySetInnerHTML={{ __html: t`informationText` }} />
-                </div>
-              </div>
+                </Col>
+              </Row>
             </ViewportObserver>
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
     </section>
   )
 }

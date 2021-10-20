@@ -3,6 +3,7 @@ import classNames from "classnames"
 
 import classes from "@styles/components/landing/LandingSectionFeature.module.scss"
 
+import Col from "@components/common/Col"
 import ViewportObserver from "@components/layout/ViewportObserver"
 
 type LandingSectionFeatureProps = {
@@ -20,7 +21,7 @@ const LandingSectionFeature: React.FC<LandingSectionFeatureProps> = ({ feature, 
   const descrpitionRef = useRef<HTMLParagraphElement>(null)
 
   return (
-    <div className={classNames("col", {
+    <Col className={classNames({
       // fix purge css
       "sm:w-1/2": count === 2,
       "sm:w-1/3": count === 3,
@@ -45,7 +46,7 @@ const LandingSectionFeature: React.FC<LandingSectionFeatureProps> = ({ feature, 
           </p>
         </ViewportObserver>
       </div>
-    </div>
+    </Col>
   )
 }
 
