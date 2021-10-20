@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from "gatsby"
 
 import classes from "@styles/components/layout/Footer.module.scss"
+import { ReactComponent as FooterLogo } from "@images/footer-logo.svg"
 
 import SocialMenu from "./SocialMenu"
 import useLocale from "@context/locale-context/hooks/useLocale"
@@ -15,7 +16,7 @@ const Footer: React.FC = () => {
     <footer className={classes.footer}>
       <div className="container">
         <div className={classes.footerContainer}>
-          <img src={require("@images/footer-logo.svg").default} alt="Etherna" />
+          <FooterLogo height={28} />
 
           <SocialMenu className={classes.footerSocialMenu} />
 

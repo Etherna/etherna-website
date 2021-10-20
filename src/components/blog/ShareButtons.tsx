@@ -2,9 +2,9 @@ import React from "react"
 import classNames from "classnames"
 
 import classes from "@styles/components/blog/ShareButtons.module.scss"
-import FacebookLogo from "!svg-react-loader!@images/logos/facebook-logo.svg"
-import TwitterLogo from "!svg-react-loader!@images/logos/twitter-logo.svg"
-import LinkedInLogo from "!svg-react-loader!@images/logos/linkedin-logo.svg"
+import { ReactComponent as FacebookLogo } from "@images/logos/facebook-logo.svg"
+import { ReactComponent as TwitterLogo } from "@images/logos/twitter-logo.svg"
+import { ReactComponent as LinkedInLogo } from "@images/logos/linkedin-logo.svg"
 
 type ShareButtonsProps = {
   title: string

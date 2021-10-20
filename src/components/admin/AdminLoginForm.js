@@ -1,7 +1,7 @@
 import React, { useState } from "react"
-import PropTypes from "prop-types"
 
-import SpinnerIcon from "!svg-react-loader!@images/animated/spinner-light.svg"
+import { ReactComponent as SpinnerIcon } from "@images/animated/spinner-light.svg"
+
 import Button from "@components/common/Button"
 import Alert from "@components/common/Alert"
 import { authenticate } from "@utils/admin"

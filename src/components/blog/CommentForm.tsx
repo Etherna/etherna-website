@@ -4,8 +4,8 @@ import classNames from "classnames"
 
 import classes from "@styles/components/blog/CommentsForm.module.scss"
 import threadClasses from "@styles/components/blog/CommentsList.module.scss"
+import { ReactComponent as SpinnerIcon } from "@images/animated/spinner-light.svg"
 
-import SpinnerIcon from "!svg-react-loader!@images/animated/spinner-light.svg"
 import Alert from "@components/common/Alert"
 import Button from "@components/common/Button"
 import Markdown from "@components/common/Markdown"

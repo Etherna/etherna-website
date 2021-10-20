@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import DirectusClient from "@directus/sdk-js"
 
 import classes from "@styles/components/blog/Comments.module.scss"
-import SpinnerIcon from "!svg-react-loader!@images/animated/spinner.svg"
+import { ReactComponent as SpinnerIcon } from "@images/animated/spinner.svg"
 
 import CommentsThread from "./CommentsThread"
 import CommentForm from "./CommentForm"
@@ -81,7 +81,7 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
             <SpinnerIcon width="24" />
           )}
 
-          <CommentsThread fetchedComments={comments} multiLang={showAllLang} />
+          <CommentsThread fetchedComments={comments ?? []} multiLang={showAllLang} />
         </div>
       </CommentsContextProvider>
     </ViewportObserver>

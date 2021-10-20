@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import axios from "axios"
 
 import classes from "@styles/components/landing/NewsletterForm.module.scss"
-import Spinner from "!svg-react-loader!@images/animated/spinner-light.svg"
+import { ReactComponent as Spinner } from "@images/animated/spinner-light.svg"
 
 import Alert from "@components/common/Alert"
 import Button from "@components/common/Button"

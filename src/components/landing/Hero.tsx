@@ -3,8 +3,8 @@ import { Link as AnchorLink } from "react-scroll"
 import classNames from "classnames"
 
 import classes from "@styles/components/landing/Hero.module.scss"
+import { ReactComponent as ArrowDown } from "@images/icons/arrow-down.svg"
 
-import ArrowDown from "!svg-react-loader!@images/icons/arrow-down.svg"
 import ViewportObserver from "@components/layout/ViewportObserver"
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { useTranslations } from "@hooks/useTranslations"

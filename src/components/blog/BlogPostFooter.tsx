@@ -1,10 +1,10 @@
 import React from "react"
 
 import classes from "@styles/components/blog/BlogPostFooter.module.scss"
-import DiscussionIcon from "!svg-react-loader!@images/icons/discussion.svg"
-import TelegramLogo from "!svg-react-loader!@images/logos/telegram-logo.svg"
-import DiscordLogo from "!svg-react-loader!@images/logos/discord-logo.svg"
-import GithubLogo from "!svg-react-loader!@images/logos/github-logo.svg"
+import { ReactComponent as DiscussionIcon } from "@images/icons/discussion.svg"
+import { ReactComponent as TelegramLogo } from "@images/logos/telegram-logo.svg"
+import { ReactComponent as DiscordLogo } from "@images/logos/discord-logo.svg"
+import { ReactComponent as GithubLogo } from "@images/logos/github-logo.svg"
 
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { useTranslations } from "@hooks/useTranslations"

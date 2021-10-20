@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 
 import classes from "@styles/components/admin/AdminDashboard.module.scss"
-import SpinnerIcon from "!svg-react-loader!@images/animated/spinner.svg"
+import { ReactComponent as SpinnerIcon } from "@images/animated/spinner.svg"
 
 import AdminLoginForm from "./AdminLoginForm"
 import AdminHeader from "./AdminHeader"

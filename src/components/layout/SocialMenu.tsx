@@ -2,13 +2,13 @@ import React from "react"
 import classNames from "classnames"
 
 import classes from "@styles/components/layout/SocialMenu.module.scss"
-import FacebookLogo from "!svg-react-loader!@images/logos/facebook-logo.svg"
-import TwitterLogo from "!svg-react-loader!@images/logos/twitter-logo.svg"
-import TelegramLogo from "!svg-react-loader!@images/logos/telegram-logo.svg"
-import DiscordLogo from "!svg-react-loader!@images/logos/discord-logo.svg"
-import GithubLogo from "!svg-react-loader!@images/logos/github-logo.svg"
-import useLocale from "@context/locale-context/hooks/useLocale"
+import { ReactComponent as FacebookLogo } from "@images/logos/facebook-logo.svg"
+import { ReactComponent as TwitterLogo } from "@images/logos/twitter-logo.svg"
+import { ReactComponent as TelegramLogo } from "@images/logos/telegram-logo.svg"
+import { ReactComponent as DiscordLogo } from "@images/logos/discord-logo.svg"
+import { ReactComponent as GithubLogo } from "@images/logos/github-logo.svg"
 
+import useLocale from "@context/locale-context/hooks/useLocale"
 import { useTranslations } from "@hooks/useTranslations"
 
 type SocialMenuProps = {

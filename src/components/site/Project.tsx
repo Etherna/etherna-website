@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 
 import classes from "@styles/components/site/Project.module.scss"
-import GitHubLogo from "!svg-react-loader!@images/logos/github-logo.svg"
+import { ReactComponent as GitHubLogo } from "@images/logos/github-logo.svg"
 
 import Markdown from "@components/common/Markdown"
 import Prose from "@components/common/Prose"

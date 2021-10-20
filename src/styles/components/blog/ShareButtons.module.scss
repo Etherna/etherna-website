@@ -15,16 +15,18 @@
 .shareButtonsItem {
   @apply mr-4;
 
+  svg {
+    @apply w-5;
+  }
+
   path {
     @apply transition-colors duration-500;
     fill: theme("colors.gray.800");
-    stroke: theme("colors.gray.800");
   }
 
   &:hover {
     path {
       fill: theme("colors.gray.600");
-      stroke: theme("colors.gray.600");
     }
   }
 }

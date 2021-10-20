@@ -79,10 +79,13 @@ module.exports = {
       resolve: `gatsby-transformer-json`,
     },
     {
-      resolve: "gatsby-plugin-react-svg",
+      resolve: "gatsby-plugin-svgr",
       options: {
-        rule: {
-          include: `/images/svg`,
+        svgoConfig: {
+          plugins: [
+            { removeViewBox: false },
+            { cleanupIDs: true },
+          ],
         },
       },
     },

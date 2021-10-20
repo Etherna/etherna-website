@@ -14,11 +14,11 @@
 .headerContainer {
   @apply flex flex-wrap items-center py-4;
   @apply lg:flex-nowrap;
+}
 
-  .logo {
-    img {
-      max-height: 20px;
-    }
+.headerLogo {
+  svg {
+    @apply h-5;
   }
 }
 

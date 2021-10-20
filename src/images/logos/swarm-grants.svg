@@ -1,1 +1,11 @@
-<svg width="95" height="95" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient x1="50%" y1="100%" x2="50%" y2="-37.838%" id="prefix__a"><stop stop-color="#E8D2BA" offset="0%"/><stop stop-color="#C2A080" offset="100%"/></linearGradient></defs><path d="M38.227 37.75l8.227 4.75V52l-8.227 4.75L30 52v-9.5l8.227-4.75zm19 0l8.227 4.75V52l-8.227 4.75L49 52v-9.5l8.227-4.75zM47.73 21.5l2.772 1.6v6.65l5.455 3.149v2.851L47.73 40.5l-8.227-4.75v-9.5l8.227-4.75zm9.5-.5l4.33 2.5v5L57.23 31l-4.33-2.5v-5l4.33-2.5z" fill="url(#prefix__a)" fill-rule="evenodd"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 95 95">
+  <defs>
+    <linearGradient x1="50%" y1="100%" x2="50%" y2="-37.838%" id="prefix__swgrants__a">
+      <stop stop-color="#E8D2BA" offset="0%" />
+      <stop stop-color="#C2A080" offset="100%" />
+    </linearGradient>
+  </defs>
+  <path
+    d="M38.227 37.75l8.227 4.75V52l-8.227 4.75L30 52v-9.5l8.227-4.75zm19 0l8.227 4.75V52l-8.227 4.75L49 52v-9.5l8.227-4.75zM47.73 21.5l2.772 1.6v6.65l5.455 3.149v2.851L47.73 40.5l-8.227-4.75v-9.5l8.227-4.75zm9.5-.5l4.33 2.5v5L57.23 31l-4.33-2.5v-5l4.33-2.5z"
+    fill="url(#prefix__swgrants__a)" fill-rule="evenodd" />
+</svg>

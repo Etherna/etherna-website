@@ -4,6 +4,7 @@ import { Link } from "gatsby"
 
 import classes from "@styles/components/layout/Header.module.scss"
 import linkClasses from "@styles/components/layout/HeaderMenuLink.module.scss"
+import { ReactComponent as Logo } from "@images/logo.svg"
 
 import HeaderMenu from "./HeaderMenu"
 import LandingMenu from "./LandingMenu"
@@ -47,9 +48,9 @@ const Header: React.FC<HeaderProps> = ({ transparent, showLandingMenu }) => {
     })}>
       <div className="container">
         <div className={classes.headerContainer}>
-          <div className="logo">
+          <div className={classes.headerLogo}>
             <Link to={routes.homePath(locale)}>
-              <img src={require("@images/logo.svg").default} alt="Etherna" />
+              <Logo />
             </Link>
           </div>
 

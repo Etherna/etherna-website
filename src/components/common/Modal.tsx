@@ -4,7 +4,7 @@ import classNames from "classnames"
 import { enableBodyScroll, disableBodyScroll } from "body-scroll-lock"
 
 import classes from "@styles/components/common/Modal.module.scss"
-import CrossIcon from "!svg-react-loader!@images/icons/cross-icon.svg"
+import { ReactComponent as CrossIcon } from "@images/icons/cross-icon.svg"
 
 import { createPortal } from "@utils/portals"
 
