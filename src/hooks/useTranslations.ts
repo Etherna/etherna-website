@@ -51,10 +51,10 @@ export const useTranslations = (locale: string, namespace?: string) => {
 
   for (const trans of translations.nodes) {
     const locale = trans.relativeDirectory
-    const name = trans.name
-    if (namespace === null || namespace === name) {
+    const transNamespace = trans.name
+    if (!namespace || namespace === transNamespace) {
       const keys = JSON.parse(trans.internal.content)
-      messages[`${locale}.${name}`] = keys
+      messages[`${locale}.${transNamespace}`] = keys
     }
   }
 
