@@ -134,7 +134,7 @@ $roadmap-photo-size: 12rem;
   @apply font-semibold tracking-tight;
   @apply mt-3;
   @apply opacity-0 -translate-y-full absolute;
-  @apply focus:outline-none focus:shadow-none;
+  @apply focus:ring-transparent focus:outline-none focus:shadow-none;
   @apply transition;
 
   .active & {

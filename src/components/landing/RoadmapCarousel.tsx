@@ -87,7 +87,7 @@ const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({ milestones, onSelectM
               </div>
               <div className={classes.roadmapCarouselItemDetails}>
                 <span className={classes.roadmapCarouselItemInfo}>
-                  <span className={classes.roadmapCarouselItemPhase}>Phase {i + 1}</span>
+                  <span className={classes.roadmapCarouselItemPhase}>{t`phase`} {i + 1}</span>
                   <span className={classes.roadmapCarouselItemQuarter}>{milestone.completion_quarter}</span>
                   <span className={classes.roadmapCarouselItemBadge}>
                     {t(milestone.completion)}
@@ -96,7 +96,7 @@ const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({ milestones, onSelectM
                 <span className={classes.roadmapCarouselItemTitle}>{milestone.title}</span>
                 <span className={classes.roadmapCarouselItemSubtitle}>{milestone.subtitle}</span>
                 <button className={classes.roadmapCarouselItemLink} onClick={() => onSelectMilestone?.(milestone)}>
-                  Details
+                  {t`details`}
                 </button>
               </div>
             </li>

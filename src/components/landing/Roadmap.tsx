@@ -19,6 +19,7 @@ import { MilestoneNode } from "@definitions/sources"
 import { Milestone } from "@definitions/app"
 import { parseMilestones } from "@utils/dataParser"
 import Markdown from "@components/common/Markdown"
+import { useTranslations } from "@hooks/useTranslations"
 
 type RoadmapStaticQuery = {
   milestones: {
@@ -58,8 +59,10 @@ const Roadmap: React.FC = () => {
     }
   `)
   const [locale] = useLocale()
+  const { t } = useTranslations(locale, "roadmap")
   const milestones = parseMilestones(data.milestones.nodes, locale)
-  const titleRef = useRef<HTMLHeadingElement>(null)
+  const titleEl = useRef<HTMLHeadingElement>(null)
+  const roadmapEl = useRef<HTMLDivElement>(null)
   const [selectedMilestone, setSelectedMilestone] = useState<Milestone>()
 
   return (
@@ -67,13 +70,17 @@ const Roadmap: React.FC = () => {
       <Container>
         <Row>
           <Col>
-            <ViewportObserver childrenRef={titleRef} viewportClassName="animation-active">
-              <h2 className={classNames(classes.roadmapTitle, "fade-in-up", "delay-50")} ref={titleRef}>
-                Roadmap
+            <ViewportObserver childrenRef={titleEl} viewportClassName="animation-active">
+              <h2 className={classNames(classes.roadmapTitle, "fade-in-up", "delay-50")} ref={titleEl}>
+                {t`roadmap`}
               </h2>
             </ViewportObserver>
 
-            <RoadmapCarousel milestones={milestones} onSelectMilestone={setSelectedMilestone} />
+            <ViewportObserver childrenRef={roadmapEl} viewportClassName="animation-active">
+              <div className="fade-in-up delay-50" ref={roadmapEl}>
+                <RoadmapCarousel milestones={milestones} onSelectMilestone={setSelectedMilestone} />
+              </div>
+            </ViewportObserver>
           </Col>
         </Row>
       </Container>
