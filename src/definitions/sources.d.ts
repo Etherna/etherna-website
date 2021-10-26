@@ -166,7 +166,7 @@ export interface MilestoneNode {
   localized_contents: MilestoneLocalizedContentsNode[]
   image: ImageNode | null
   completion: "done" | "ongoing" | "todo"
-  completionQuarter: string
+  completion_quarter: string
   latitude: number
   longitude: number
 }

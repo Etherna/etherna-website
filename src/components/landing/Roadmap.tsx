@@ -1,17 +1,24 @@
 import React, { useRef, useState } from "react"
 import { graphql, useStaticQuery } from "gatsby"
+import { GatsbyImage } from "gatsby-plugin-image"
 import classNames from "classnames"
 
 import classes from "@styles/components/landing/Roadmap.module.scss"
+import { ReactComponent as CheckIcon } from "@images/icons/check.svg"
+import { ReactComponent as ClockIcon } from "@images/icons/clock.svg"
+import { ReactComponent as FlagIcon } from "@images/icons/flag.svg"
 
 import RoadmapCarousel from "./RoadmapCarousel"
 import Container from "@components/common/Container"
 import Row from "@components/common/Row"
 import Col from "@components/common/Col"
+import Modal from "@components/common/Modal"
 import ViewportObserver from "@components/layout/ViewportObserver"
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { MilestoneNode } from "@definitions/sources"
+import { Milestone } from "@definitions/app"
 import { parseMilestones } from "@utils/dataParser"
+import Markdown from "@components/common/Markdown"
 
 type RoadmapStaticQuery = {
   milestones: {
@@ -53,8 +60,7 @@ const Roadmap: React.FC = () => {
   const [locale] = useLocale()
   const milestones = parseMilestones(data.milestones.nodes, locale)
   const titleRef = useRef<HTMLHeadingElement>(null)
-  const [selectedMilestone, setSelectedMilestone] = useState()
-  const [hidingMilestone, setHidingMilestone] = useState(false)
+  const [selectedMilestone, setSelectedMilestone] = useState<Milestone>()
 
   return (
     <section className={classes.roadmap}>
@@ -67,10 +73,43 @@ const Roadmap: React.FC = () => {
               </h2>
             </ViewportObserver>
 
-            <RoadmapCarousel milestones={milestones} />
+            <RoadmapCarousel milestones={milestones} onSelectMilestone={setSelectedMilestone} />
           </Col>
         </Row>
       </Container>
+
+      <Modal show={!!selectedMilestone} onClose={() => setSelectedMilestone(undefined)}>
+        {selectedMilestone && (
+          <div className={classNames(classes.roadmapModalContent, {
+            [classes.done]: selectedMilestone.completion === "done",
+            [classes.ongoing]: selectedMilestone.completion === "ongoing",
+            [classes.todo]: selectedMilestone.completion === "todo",
+          })}>
+            <div className={classes.roadmapModalPhoto}>
+              {selectedMilestone.image && (
+                <GatsbyImage image={selectedMilestone.image} objectFit="cover" alt={selectedMilestone.title} />
+              )}
+
+              <span className={classes.roadmapModalStatus}>
+                {selectedMilestone.completion === "done" && (
+                  <CheckIcon aria-hidden />
+                )}
+                {selectedMilestone.completion === "ongoing" && (
+                  <ClockIcon aria-hidden />
+                )}
+                {selectedMilestone.completion === "todo" && (
+                  <FlagIcon aria-hidden />
+                )}
+              </span>
+            </div>
+
+            <span className={classes.roadmapModalTitle}>{selectedMilestone.title}</span>
+            <span className={classes.roadmapModalSubtitle}>{selectedMilestone.subtitle}</span>
+            <span className={classes.roadmapModalQuarter}>{selectedMilestone.completion_quarter}</span>
+            <Markdown className={classes.roadmapModalDescription} rawMarkdown={selectedMilestone.description} />
+          </div>
+        )}
+      </Modal>
     </section>
   )
 }

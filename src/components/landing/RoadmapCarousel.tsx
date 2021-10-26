@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { GatsbyImage } from "gatsby-plugin-image"
 import classNames from "classnames"
 
@@ -7,21 +7,40 @@ import { ReactComponent as ArrowDown } from "@images/icons/arrow-down.svg"
 
 import { Milestone } from "@definitions/app"
 import { smoothScrollBy } from "@utils/scroll"
+import useLocale from "@context/locale-context/hooks/useLocale"
+import { useTranslations } from "@hooks/useTranslations"
 
 type RoadmapCarouselProps = {
   milestones: Milestone[]
+  onSelectMilestone?(milestone: Milestone): void
 }
 
-const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({ milestones }) => {
+const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({ milestones, onSelectMilestone }) => {
+  const [locale] = useLocale()
+  const { t } = useTranslations(locale, "roadmap")
   const [currentIndex, setCurrentIndex] = useState(milestones.findIndex(m => m.completion === "ongoing") ?? 0)
   const [listEl, setListEl] = useState<HTMLOListElement>()
+  const timer = useRef<number>()
 
   useEffect(() => {
     if (listEl) {
-      listEl.scrollTop = currentIndex * 192
+      window.addEventListener("resize", onResize)
+
+      const itemSize = listEl.querySelector<HTMLLIElement>("li")!.clientHeight
+      listEl.scrollTop = currentIndex * itemSize
+    }
+
+    return () => {
+      window.removeEventListener("resize", onResize)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [listEl])
+
+  const onResize = () => {
+    timer.current = setTimeout(() => {
+      scrollToIndex(currentIndex)
+    }, 500) as unknown as number
+  }
 
   const previuos = () => {
     const index = currentIndex - 1
@@ -37,7 +56,8 @@ const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({ milestones }) => {
 
   const scrollToIndex = (index: number) => {
     const container = listEl!
-    const scroll = index * 192
+    const itemSize = container.querySelector<HTMLLIElement>("li")!.clientHeight
+    const scroll = index * itemSize
     smoothScrollBy(container, {
       top: scroll - container.scrollTop,
       duration: 500
@@ -54,6 +74,9 @@ const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({ milestones }) => {
               className={classNames(classes.roadmapCarouselItem, {
                 [classes.visible]: i === currentIndex - 1 || i === currentIndex + 1,
                 [classes.active]: i === currentIndex,
+                [classes.done]: milestone.completion === "done",
+                [classes.ongoing]: milestone.completion === "ongoing",
+                [classes.todo]: milestone.completion === "todo",
               })}
               key={milestone.title}
             >
@@ -63,10 +86,18 @@ const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({ milestones }) => {
                 )}
               </div>
               <div className={classes.roadmapCarouselItemDetails}>
-                <span className={classes.roadmapCarouselItemPhase}>Phase {i + 1}</span>
+                <span className={classes.roadmapCarouselItemInfo}>
+                  <span className={classes.roadmapCarouselItemPhase}>Phase {i + 1}</span>
+                  <span className={classes.roadmapCarouselItemQuarter}>{milestone.completion_quarter}</span>
+                  <span className={classes.roadmapCarouselItemBadge}>
+                    {t(milestone.completion)}
+                  </span>
+                </span>
                 <span className={classes.roadmapCarouselItemTitle}>{milestone.title}</span>
                 <span className={classes.roadmapCarouselItemSubtitle}>{milestone.subtitle}</span>
-                <button className={classes.roadmapCarouselItemLink}>details</button>
+                <button className={classes.roadmapCarouselItemLink} onClick={() => onSelectMilestone?.(milestone)}>
+                  Details
+                </button>
               </div>
             </li>
           ))}

@@ -2,31 +2,39 @@
 
 $roadmap-item-space: 0; //0.75rem;
 $roadmap-item-space-full: $roadmap-item-space * 2;
-$roadmap-photo-size: 6rem;
-$roadmap-photo-size-active: 12rem;
+$roadmap-photo-size: 12rem;
 
 .roadmapCarousel {
-  @apply flex items-center;
+  @apply flex items-center flex-wrap;
 }
 
 .roadmapCarouselMap {
-  @apply w-full sm:w-2/5;
+  @apply w-full md:w-1/3 lg:w-2/5;
+  @apply h-36 bg-gray-300;
 }
 
 .roadmapCarouselWrapper {
   @apply relative;
-  @apply w-full sm:w-3/5;
+  @apply w-full md:w-2/3 lg:w-3/5;
 }
 
 .roadmapCarouselItems {
-  @apply h-[52.5rem] pl-6 overflow-hidden;
-  height: $roadmap-photo-size-active * 3;
+  @apply overflow-hidden;
+  @apply h-120;
+  @apply md:pl-6;
+
+  @screen md {
+    height: $roadmap-photo-size * 3;
+  }
 
   &::before,
   &::after {
     content: "";
-    @apply block;
-    height: $roadmap-photo-size-active;
+    @apply block h-40;
+
+    @screen md {
+      height: $roadmap-photo-size;
+    }
   }
 }
 
@@ -36,6 +44,7 @@ $roadmap-photo-size-active: 12rem;
   @apply opacity-0 -translate-x-7 scale-0 origin-left;
   @apply transition duration-700;
   padding: $roadmap-item-space 0;
+  @apply h-40 md:h-auto;
 
   &.visible {
     @apply opacity-30 translate-x-0 scale-50;
@@ -43,16 +52,20 @@ $roadmap-photo-size-active: 12rem;
 
   &.active {
     @apply pr-7;
-    @apply opacity-100 translate-x-7 scale-100;
+    @apply opacity-100 scale-100;
+    @apply translate-x-0 md:translate-x-7;
   }
 }
 
 .roadmapCarouselItemPhoto {
   @apply rounded-full overflow-hidden;
   @apply bg-gray-200;
-  @apply w-screen h-screen;
-  width: $roadmap-photo-size-active;
-  height: $roadmap-photo-size-active;
+  @apply flex-shrink-0;
+  width: $roadmap-photo-size * 0.5;
+
+  @screen md {
+    width: $roadmap-photo-size;
+  }
 
   img {
     @apply rounded-full;
@@ -61,17 +74,52 @@ $roadmap-photo-size-active: 12rem;
 
 .roadmapCarouselItemDetails {
   @apply flex flex-col;
-  @apply ml-8;
+  @apply ml-2 md:ml-8;
 }
 
-.roadmapCarouselItemPhase {
-  @apply text-gray-500;
+.roadmapCarouselItemInfo {
   @apply text-sm font-semibold tracking-tight uppercase;
 }
 
+.roadmapCarouselItemPhase {
+  @apply block w-full lg:w-auto lg:inline;
+  @apply text-gray-500;
+}
+
+.roadmapCarouselItemQuarter {
+  @apply font-bold whitespace-nowrap;
+  @apply lg:ml-3;
+
+  .done & {
+    @apply text-green-500;
+  }
+  .ongoing & {
+    @apply text-blue-500;
+  }
+  .todo & {
+    @apply text-gray-600;
+  }
+}
+
+.roadmapCarouselItemBadge {
+  @apply text-xs font-bold text-white whitespace-nowrap;
+  @apply ml-3 px-2 py-0.5 rounded-md;
+
+  .done & {
+    @apply bg-green-500;
+  }
+  .ongoing & {
+    @apply bg-blue-500;
+  }
+  .todo & {
+    @apply bg-gray-600;
+  }
+}
+
 .roadmapCarouselItemTitle {
-  @apply text-4xl font-semibold tracking-tight;
+  @apply text-2xl font-semibold tracking-tight;
   @apply mt-3;
+  @apply md:text-4xl;
 }
 
 .roadmapCarouselItemSubtitle {
@@ -101,7 +149,11 @@ $roadmap-photo-size-active: 12rem;
 .roadmapCarouselNav {
   @apply absolute left-2/3 top-1/2 -translate-y-1/2;
   @apply flex flex-col items-center justify-between;
-  height: $roadmap-photo-size-active * 2;
+  @apply h-full;
+
+  @screen md {
+    height: $roadmap-photo-size * 2;
+  }
 }
 
 .roadmapCarouselNavBtn {

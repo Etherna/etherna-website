@@ -49,7 +49,7 @@ export interface Milestone {
   description: string
   image: GatsbyImageData | null
   completion: "done" | "ongoing" | "todo"
-  completionQuarter: string
+  completion_quarter: string
   latitude: number
   longitude: number
   locale: string

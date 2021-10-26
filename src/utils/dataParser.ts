@@ -130,7 +130,7 @@ export const parseMilestone = (node: MilestoneNode, locale: string): Milestone =
     localized_contents,
     image,
     completion,
-    completionQuarter,
+    completion_quarter,
     latitude,
     longitude
   } = node
@@ -140,7 +140,7 @@ export const parseMilestone = (node: MilestoneNode, locale: string): Milestone =
     ...localizedCategory,
     image: parseFluidImage(image),
     completion,
-    completionQuarter,
+    completion_quarter,
     latitude,
     longitude
   }
