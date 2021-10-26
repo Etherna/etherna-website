@@ -161,3 +161,19 @@ export interface LogoVariantNode {
   variant_name: string | null
   image: SvgNode
 }
+
+export interface MilestoneNode {
+  localized_contents: MilestoneLocalizedContentsNode[]
+  image: ImageNode | null
+  completion: "done" | "ongoing" | "todo"
+  completionQuarter: string
+  latitude: number
+  longitude: number
+}
+
+export interface MilestoneLocalizedContentsNode {
+  title: string
+  subtitle: string
+  description: string
+  locale: string
+}

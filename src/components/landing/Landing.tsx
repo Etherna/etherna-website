@@ -21,6 +21,7 @@ import useLocale from "@context/locale-context/hooks/useLocale"
 import useLocaleInfo from "@hooks/useLocaleInfo"
 import { useTranslations } from "@hooks/useTranslations"
 import routes from "@utils/routes"
+import Roadmap from "./Roadmap"
 
 const Landing: React.FC = () => {
   const builtRef = useRef<HTMLDivElement>(null)
@@ -87,6 +88,8 @@ const Landing: React.FC = () => {
           </Container>
         </section>
       </ViewportObserver>
+
+      <Roadmap />
 
       <LandingSection
         id="transparency"

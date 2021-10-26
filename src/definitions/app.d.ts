@@ -43,6 +43,18 @@ export interface Project {
   allSlugs: LocaleSlug[]
 }
 
+export interface Milestone {
+  title: string
+  subtitle: string
+  description: string
+  image: GatsbyImageData | null
+  completion: "done" | "ongoing" | "todo"
+  completionQuarter: string
+  latitude: number
+  longitude: number
+  locale: string
+}
+
 export interface Page {
   title: string
   slug: string

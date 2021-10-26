@@ -1,0 +1,9 @@
+.roadmap {
+  @apply py-16;
+}
+
+.roadmapTitle {
+  @apply relative text-4xl mb-8 py-1 text-center bg-no-repeat;
+  background-image: url(../../../images/roadmap-title-bg.svg);
+  background-size: 100% 100%;
+}

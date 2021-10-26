@@ -5,7 +5,8 @@ import {
   Project,
   TeamMember,
   Comment,
-  CommentOwner
+  CommentOwner,
+  Milestone
 } from "@definitions/app"
 import {
   CategoryNode,
@@ -13,6 +14,7 @@ import {
   FileNode,
   GatsbyImageData,
   ImageNode,
+  MilestoneNode,
   PageNode,
   PostNode,
   ProjectNode,
@@ -110,6 +112,37 @@ export const parseProject = (node: ProjectNode, locale: string): Project => {
     github_link,
     image,
     allSlugs
+  }
+}
+
+/**
+ * Parse a list of milestone nodes
+ */
+export const parseMilestones = (nodes: MilestoneNode[], locale: string) => {
+  return nodes.map(node => parseMilestone(node, locale))
+}
+
+/**
+ * Parse milestone node
+ */
+export const parseMilestone = (node: MilestoneNode, locale: string): Milestone => {
+  const {
+    localized_contents,
+    image,
+    completion,
+    completionQuarter,
+    latitude,
+    longitude
+  } = node
+  const localizedCategory = localized_contents.find(lc => lc.locale === locale)
+    || localized_contents[0]
+  return {
+    ...localizedCategory,
+    image: parseFluidImage(image),
+    completion,
+    completionQuarter,
+    latitude,
+    longitude
   }
 }
 
