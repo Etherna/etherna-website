@@ -5,10 +5,11 @@ import classNames from "classnames"
 import classes from "@styles/components/landing/RoadmapCarousel.module.scss"
 import { ReactComponent as ArrowDown } from "@images/icons/arrow-down.svg"
 
+import RoadmapNav from "./RoadmapNav"
 import { Milestone } from "@definitions/app"
-import { smoothScrollBy } from "@utils/scroll"
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { useTranslations } from "@hooks/useTranslations"
+import { smoothScrollBy } from "@utils/scroll"
 
 type RoadmapCarouselProps = {
   milestones: Milestone[]
@@ -66,7 +67,9 @@ const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({ milestones, onSelectM
 
   return (
     <div className={classes.roadmapCarousel}>
-      <div className={classes.roadmapCarouselMap}></div>
+      <div className={classes.roadmapCarouselMap}>
+        <RoadmapNav latitude={milestones[currentIndex].latitude} longitude={milestones[currentIndex].longitude} />
+      </div>
       <div className={classes.roadmapCarouselWrapper}>
         <ol className={classes.roadmapCarouselItems} ref={el => el && setListEl(el)}>
           {milestones.map((milestone, i) => (

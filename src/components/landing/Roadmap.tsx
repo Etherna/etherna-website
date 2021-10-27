@@ -13,13 +13,13 @@ import Container from "@components/common/Container"
 import Row from "@components/common/Row"
 import Col from "@components/common/Col"
 import Modal from "@components/common/Modal"
+import Markdown from "@components/common/Markdown"
 import ViewportObserver from "@components/layout/ViewportObserver"
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { MilestoneNode } from "@definitions/sources"
 import { Milestone } from "@definitions/app"
-import { parseMilestones } from "@utils/dataParser"
-import Markdown from "@components/common/Markdown"
 import { useTranslations } from "@hooks/useTranslations"
+import { parseMilestones } from "@utils/dataParser"
 
 type RoadmapStaticQuery = {
   milestones: {
@@ -30,7 +30,7 @@ type RoadmapStaticQuery = {
 const Roadmap: React.FC = () => {
   const data = useStaticQuery<RoadmapStaticQuery>(graphql`
     query {
-      milestones: allDirectusMilestone {
+      milestones: allDirectusMilestone(sort: {fields: sort}) {
         nodes {
           localized_contents {
             title
