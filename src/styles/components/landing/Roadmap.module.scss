@@ -3,7 +3,7 @@
 }
 
 .roadmapTitle {
-  @apply relative text-4xl mb-8 py-1 text-center bg-no-repeat;
+  @apply relative text-4xl mb-0 py-1 text-center bg-no-repeat;
   background-image: url(../../../images/roadmap-title-bg.svg);
   background-size: 100% 100%;
 }
