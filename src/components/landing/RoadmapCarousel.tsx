@@ -28,6 +28,7 @@ const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({ milestones, onSelectM
       window.addEventListener("resize", onResize)
 
       const itemSize = listEl.querySelector<HTMLLIElement>("li")!.clientHeight
+      console.log("size", itemSize)
       listEl.scrollTop = currentIndex * itemSize
     }
 
@@ -58,6 +59,8 @@ const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({ milestones, onSelectM
   const scrollToIndex = (index: number) => {
     const container = listEl!
     const itemSize = container.querySelector<HTMLLIElement>("li")!.clientHeight
+    console.log("size", itemSize)
+
     const scroll = index * itemSize
     smoothScrollBy(container, {
       top: scroll - container.scrollTop,
@@ -68,7 +71,11 @@ const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({ milestones, onSelectM
   return (
     <div className={classes.roadmapCarousel}>
       <div className={classes.roadmapCarouselMap}>
-        <RoadmapNav latitude={milestones[currentIndex].latitude} longitude={milestones[currentIndex].longitude} />
+        <RoadmapNav
+          latitude={milestones[currentIndex].latitude}
+          longitude={milestones[currentIndex].longitude}
+          startLongitude={milestones[0].longitude}
+        />
       </div>
       <div className={classes.roadmapCarouselWrapper}>
         <ol className={classes.roadmapCarouselItems} ref={el => el && setListEl(el)}>

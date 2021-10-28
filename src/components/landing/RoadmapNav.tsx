@@ -2,13 +2,15 @@ import React, { useState, useRef, useEffect, useMemo } from "react"
 
 import classes from "@styles/components/landing/RoadmapNav.module.scss"
 import { quadraticBezier } from "@utils/bezier"
+import { solarLongitudeScroll } from "@utils/meridians"
 
 type RoadmapNavProps = {
   latitude: number
   longitude: number
+  startLongitude: number
 }
 
-const RoadmapNav: React.FC<RoadmapNavProps> = ({ latitude, longitude }) => {
+const RoadmapNav: React.FC<RoadmapNavProps> = ({ latitude, longitude, startLongitude }) => {
   const [imageEl, setImageEl] = useState<HTMLDivElement>()
   const [globeSize, setGlobeSize] = useState(128)
   const timer = useRef<number>()
@@ -30,11 +32,7 @@ const RoadmapNav: React.FC<RoadmapNavProps> = ({ latitude, longitude }) => {
   }
 
   const [scrollX, location] = useMemo(() => {
-    const halfGlobe = globeSize / 2
-    const extendedLongitude = longitude < 0 ? 180 + longitude + 180 : longitude
-
     const latitudePercent = (latitude * 0.8 + 50) / (50 + 85) // [85,-50] are the image latitude boundaries
-    const longitudePercent = extendedLongitude / 360
     const location = quadraticBezier(
       1 - latitudePercent,
       50, 0,
@@ -42,10 +40,10 @@ const RoadmapNav: React.FC<RoadmapNavProps> = ({ latitude, longitude }) => {
       50, 100
     )
 
-    const scrollX = -halfGlobe - (globeSize * 2 * longitudePercent)
+    const scrollX = solarLongitudeScroll(longitude, startLongitude, globeSize) + (location.x - 50)
 
     return [scrollX, location]
-  }, [latitude, longitude, globeSize])
+  }, [latitude, longitude, startLongitude, globeSize])
 
   return (
     <div className={classes.roadmapNav}>
