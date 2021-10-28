@@ -20,6 +20,7 @@ import { MilestoneNode } from "@definitions/sources"
 import { Milestone } from "@definitions/app"
 import { useTranslations } from "@hooks/useTranslations"
 import { parseMilestones } from "@utils/dataParser"
+import Prose from "@components/common/Prose"
 
 type RoadmapStaticQuery = {
   milestones: {
@@ -116,7 +117,14 @@ const Roadmap: React.FC = () => {
             <span className={classes.roadmapModalTitle}>{selectedMilestone.title}</span>
             <span className={classes.roadmapModalSubtitle}>{selectedMilestone.subtitle}</span>
             <span className={classes.roadmapModalQuarter}>{selectedMilestone.completion_quarter}</span>
-            <Markdown className={classes.roadmapModalDescription} rawMarkdown={selectedMilestone.description} />
+            <Prose>
+              <article>
+                <Markdown
+                  className={classes.roadmapModalDescription}
+                  rawMarkdown={selectedMilestone.description}
+                />
+              </article>
+            </Prose>
           </div>
         )}
       </Modal>

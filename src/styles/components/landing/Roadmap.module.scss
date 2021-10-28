@@ -75,14 +75,17 @@
 }
 
 .roadmapModalDescription {
-  @apply text-gray-300;
-  @apply max-w-120 mx-auto text-justify;
-  @apply mt-6 pb-6;
+  body article & {
+    @apply text-gray-300;
+    @apply max-w-120 mx-auto text-justify;
+    @apply mt-6 pb-6;
 
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply text-center;
+    h3,
+    h4,
+    h5,
+    h6 {
+      @apply text-gray-300;
+      @apply text-center;
+    }
   }
 }
