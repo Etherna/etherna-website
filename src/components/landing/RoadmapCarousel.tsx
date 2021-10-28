@@ -27,9 +27,9 @@ const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({ milestones, onSelectM
     if (listEl) {
       window.addEventListener("resize", onResize)
 
-      const itemSize = listEl.querySelector<HTMLLIElement>("li")!.clientHeight
-      console.log("size", itemSize)
-      listEl.scrollTop = currentIndex * itemSize
+      scrollToIndex(currentIndex)
+
+      onResize()
     }
 
     return () => {

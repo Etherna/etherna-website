@@ -78,7 +78,10 @@ const Roadmap: React.FC = () => {
 
             <ViewportObserver childrenRef={roadmapEl} viewportClassName="animation-active">
               <div className="fade-in-up delay-50" ref={roadmapEl}>
-                <RoadmapCarousel milestones={milestones} onSelectMilestone={setSelectedMilestone} />
+                <RoadmapCarousel
+                  milestones={milestones}
+                  onSelectMilestone={setSelectedMilestone}
+                />
               </div>
             </ViewportObserver>
           </Col>
