@@ -29,13 +29,13 @@ const LandingSectionFeature: React.FC<LandingSectionFeatureProps> = ({ feature, 
     })}>
       <div className={classes.landingFeature}>
         {feature.icon && (
-          <ViewportObserver childrenRef={iconRef} viewportClassName="animation-active">
+          <ViewportObserver childrenRef={iconRef} viewportClassName="animation-active" offset={50}>
             <div className={classNames(classes.landingFeatureIcon, "fade-in-up", "delay-150")} ref={iconRef}>
               <img src={feature.icon} alt={feature.title} />
             </div>
           </ViewportObserver>
         )}
-        <ViewportObserver childrenRef={titleRef} viewportClassName="animation-active">
+        <ViewportObserver childrenRef={titleRef} viewportClassName="animation-active" offset={50}>
           <h3 className={classNames(classes.landingFeatureTitle, "fade-in-up", "delay-200")} ref={titleRef}>
             {feature.title}
           </h3>
