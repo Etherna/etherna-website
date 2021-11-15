@@ -29,13 +29,13 @@ const Awards: React.FC = () => {
       <Container>
         <Row>
           <Col>
-            <ViewportObserver childrenRef={titleRef} viewportClassName="animation-active">
+            <ViewportObserver childrenRef={titleRef} viewportClassName="animation-active" offset={50}>
               <h2 className={classNames(classes.awardsTitle, "fade-in-up", "delay-50")} ref={titleRef}>
                 {t`awards`}
               </h2>
             </ViewportObserver>
 
-            <ViewportObserver childrenRef={listRef} viewportClassName="animation-active">
+            <ViewportObserver childrenRef={listRef} viewportClassName="animation-active" offset={400}>
               <ul className={classNames(classes.awardsList, "fade-in-up", "delay-200")} ref={listRef}>
                 {AwardList.map((award, i) => (
                   <li className={classes.awardsItem} key={i}>
