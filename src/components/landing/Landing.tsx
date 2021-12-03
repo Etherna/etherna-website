@@ -57,7 +57,7 @@ const Landing: React.FC = () => {
                   <div className="flex flex-col items-center">
                     <div className={classes.textLabel}>{t`builtWith`}</div>
                     <Container className="mt-8">
-                      <Row>
+                      <Row className="items-center">
                         <Col className="w-1/2 sm:w-1/4 mb-6">
                           <a href={t`ethereumUrl`} target="_blank" rel="noreferrer noopener">
                             <EthereumLogo />
