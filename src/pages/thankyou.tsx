@@ -16,7 +16,7 @@ const ThankyouPage: React.FC<ThankyouPageProps> = ({ pageContext }) => {
     <LocalizedPage locale={locale}>
       {(_, t) => {
         let email: string | null = null
-        if (typeof (window || URLSearchParams) !== "undefined") {
+        if (typeof window !== "undefined" && typeof URLSearchParams !== "undefined") {
           email = new URLSearchParams(location.search).get("e")
         }
 
