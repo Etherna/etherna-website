@@ -5,5 +5,5 @@
   "checkCorrectEmail": "Make sure you provided the correct email (<strong>:email</strong>). If this is not the case repeat the registration process in homepage.",
   "writeUs": "If after these checks you still haven't received the email contact us at <a href='mailto:info@etherna.io'>info@etherna.io</a>",
   "success": "Registration completed",
-  "registrationConfirmed": "🎉 Your registration is now completed. You are going to receive our newsletter in the following months."
+  "registrationConfirmed": "🎉 Your registration is completed, you will receive our newsletter containing updates on the developments of the Etherna project."
 }

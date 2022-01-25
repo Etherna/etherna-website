@@ -1,9 +1,9 @@
 {
-  "thankYou": "Grazie per la tua inscrizione 🙏",
+  "thankYou": "Grazie per la tua iscrizione 🙏",
   "checkInbox": "Per completare la registrazione devi cliccare sul link di conferma che ti abbiamo inviato alla tua email.",
   "checkSpam": "Controlla la cartella di SPAM",
   "checkCorrectEmail": "Verifica di aver inserito la mail corretta (<strong>:email</strong>). In caso contrario ripeti il processo di iscrizione in homepage.",
   "writeUs": "Se dopo questi controlli non hai ancora ricevuto la mail contattaci a <a href='mailto:info@etherna.io'>info@etherna.io</a>",
   "success": "Registrazione completata",
-  "registrationConfirmed": "🎉 La tua registrazione è ora completata. Riceverai la nostra newsletter nei prossimi mesi."
+  "registrationConfirmed": "🎉 La tua registrazione è completata, riceverai la nostra newsletter contenente aggiornamenti sugli sviluppi del progetto Etherna."
 }
