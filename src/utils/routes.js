@@ -2,8 +2,8 @@ import { DEFAULT_LOCALE } from "./lang"
 
 /**
  * Home path
- * @param {string} locale Home locale
- * @return {string} Home path
+ * @param locale Home locale
+ * @returns Home path
  */
 const homePath = locale => {
   return locale === DEFAULT_LOCALE || locale === ""
@@ -13,8 +13,8 @@ const homePath = locale => {
 
 /**
  * Blog path
- * @param {string} locale Blog locale
- * @return {string} Blog path
+ * @param locale Blog locale
+ * @returns Blog path
  */
 const blogPath = locale => {
   return locale === DEFAULT_LOCALE || locale === ""
@@ -24,8 +24,8 @@ const blogPath = locale => {
 
 /**
  * About path
- * @param {string} locale About locale
- * @return {string} About path
+ * @param locale About locale
+ * @returns About path
  */
 const aboutPath = locale => {
   const aboutPaths = {
@@ -37,10 +37,32 @@ const aboutPath = locale => {
 }
 
 /**
+ * Thank you page path
+ * @param locale locale
+ * @returns Thank you path
+ */
+const thankyouPath = locale => {
+  return locale === DEFAULT_LOCALE || locale === ""
+    ? `/thankyou`
+    : `/${locale}/thankyou`
+}
+
+/**
+ * Success page path
+ * @param locale locale
+ * @returns Success path
+ */
+const successPath = locale => {
+  return locale === DEFAULT_LOCALE || locale === ""
+    ? `/success`
+    : `/${locale}/success`
+}
+
+/**
  * Blog post path
- * @param {string} slug Post slug
- * @param {string} locale Category locale
- * @return {string} Post path
+ * @param slug Post slug
+ * @param locale Category locale
+ * @returns Post path
  */
 const blogPostPath = (slug, locale = DEFAULT_LOCALE) => {
   return locale === DEFAULT_LOCALE || locale === ""
@@ -50,9 +72,9 @@ const blogPostPath = (slug, locale = DEFAULT_LOCALE) => {
 
 /**
  * Blog category path
- * @param {string} slug Category slug
- * @param {string} locale Category locale
- * @return {string} Category path
+ * @param slug Category slug
+ * @param locale Category locale
+ * @returns Category path
  */
 const blogCategoryPath = (slug, locale = DEFAULT_LOCALE) => {
   return locale === DEFAULT_LOCALE || locale === ""
@@ -62,9 +84,9 @@ const blogCategoryPath = (slug, locale = DEFAULT_LOCALE) => {
 
 /**
  * Project path
- * @param {string} slug Project slug
- * @param {string} locale Category locale
- * @return {string} Project path
+ * @param slug Project slug
+ * @param locale Category locale
+ * @returns Project path
  */
 const projectPath = (slug, locale = DEFAULT_LOCALE) => {
   return locale === DEFAULT_LOCALE || locale === ""
@@ -74,9 +96,9 @@ const projectPath = (slug, locale = DEFAULT_LOCALE) => {
 
 /**
  * Page path
- * @param {string} slug Page slug
- * @param {string} locale Category locale
- * @return {string} Page path
+ * @param slug Page slug
+ * @param locale Category locale
+ * @returns Page path
  */
 const pagePath = (slug, locale = DEFAULT_LOCALE) => {
   return locale === DEFAULT_LOCALE || locale === ""
@@ -88,6 +110,8 @@ const routes = {
   homePath,
   blogPath,
   aboutPath,
+  thankyouPath,
+  successPath,
   blogPostPath,
   blogCategoryPath,
   projectPath,
