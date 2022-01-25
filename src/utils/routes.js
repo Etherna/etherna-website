@@ -38,24 +38,19 @@ const aboutPath = locale => {
 
 /**
  * Thank you page path
- * @param locale locale
+ * @param email email
  * @returns Thank you path
  */
-const thankyouPath = locale => {
-  return locale === DEFAULT_LOCALE || locale === ""
-    ? `/thankyou`
-    : `/${locale}/thankyou`
+const thankyouPath = (email) => {
+  return `/thankyou?e=${encodeURIComponent(email)}`
 }
 
 /**
  * Success page path
- * @param locale locale
  * @returns Success path
  */
-const successPath = locale => {
-  return locale === DEFAULT_LOCALE || locale === ""
-    ? `/success`
-    : `/${locale}/success`
+const successPath = () => {
+  return `/success`
 }
 
 /**

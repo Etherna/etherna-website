@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import axios from "axios"
+import { navigate } from "gatsby"
 
 import classes from "@styles/components/landing/NewsletterForm.module.scss"
 import { ReactComponent as Spinner } from "@images/animated/spinner-light.svg"
@@ -10,6 +11,7 @@ import TextField from "@components/common/TextField"
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { useTranslations } from "@hooks/useTranslations"
 import { validateEmail } from "@utils/validation"
+import routes from "@utils/routes"
 
 const NewsletterForm: React.FC = () => {
   const [locale] = useLocale()
@@ -17,7 +19,6 @@ const NewsletterForm: React.FC = () => {
   const [firstName, setFirstName] = useState("")
   const [email, setEmail] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [success, setSuccess] = useState(false)
   const [error, setError] = useState<string>()
 
   const sendFormRequest = async () => {
@@ -41,58 +42,52 @@ const NewsletterForm: React.FC = () => {
         email, firstName
       })
 
-      setSuccess(true)
-      setEmail("")
       setError(undefined)
+      setIsSubmitting(false)
+      navigate(routes.thankyouPath(email))
+      setEmail("")
     } catch (error) {
       console.error(error)
       setError(t`subcribeErrorDescription`)
+      setIsSubmitting(false)
     }
-
-    setIsSubmitting(false)
   }
 
   return (
     <>
-      {!success && (
-        <form className={classes.newsletterForm}>
-          <TextField
-            type="text"
-            className={classes.newsletterFormField}
-            placeholder={t`namePlaceholder`}
-            value={firstName}
-            onChange={setFirstName}
-          />
-          <TextField
-            type="email"
-            className={classes.newsletterFormField}
-            placeholder={t`emailPlaceholder`}
-            value={email}
-            onChange={setEmail}
-          />
+      <form className={classes.newsletterForm}>
+        <TextField
+          type="text"
+          className={classes.newsletterFormField}
+          placeholder={t`namePlaceholder`}
+          value={firstName}
+          onChange={setFirstName}
+        />
+        <TextField
+          type="email"
+          className={classes.newsletterFormField}
+          placeholder={t`emailPlaceholder`}
+          value={email}
+          onChange={setEmail}
+        />
 
-          <Button
-            className={classes.newsletterFormCta}
-            type="primary"
-            disabled={isSubmitting}
-            onClick={sendFormRequest}
-          >
-            {isSubmitting && (
-              <Spinner />
-            )}
-            {t`subcribeNewsletter`}
-          </Button>
-        </form>
-      )}
+        <Button
+          className={classes.newsletterFormCta}
+          type="primary"
+          disabled={isSubmitting}
+          onClick={sendFormRequest}
+        >
+          {isSubmitting && (
+            <Spinner />
+          )}
+          {t`subcribeNewsletter`}
+        </Button>
+      </form>
 
       {error && (
         <div className="w-full my-4 max-w-4xl">
           <Alert type="danger" title={t`subcribeErrorTitle`} onClose={() => setError(undefined)}>{error}</Alert>
         </div>
-      )}
-
-      {success && (
-        <h3 className="text-center text-gray-600 mt-3">{t`subcribeThankYou`}</h3>
       )}
     </>
   )
