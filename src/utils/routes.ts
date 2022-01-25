@@ -5,7 +5,7 @@ import { DEFAULT_LOCALE } from "./lang"
  * @param locale Home locale
  * @returns Home path
  */
-const homePath = locale => {
+const homePath = (locale: string) => {
   return locale === DEFAULT_LOCALE || locale === ""
     ? `/`
     : `/${locale}`
@@ -16,7 +16,7 @@ const homePath = locale => {
  * @param locale Blog locale
  * @returns Blog path
  */
-const blogPath = locale => {
+const blogPath = (locale: string) => {
   return locale === DEFAULT_LOCALE || locale === ""
     ? `/blog`
     : `/${locale}/blog`
@@ -27,8 +27,8 @@ const blogPath = locale => {
  * @param locale About locale
  * @returns About path
  */
-const aboutPath = locale => {
-  const aboutPaths = {
+const aboutPath = (locale: string) => {
+  const aboutPaths: Record<string, string> = {
     it: "chi-siamo"
   }
   return locale === DEFAULT_LOCALE || locale === ""
@@ -41,7 +41,7 @@ const aboutPath = locale => {
  * @param email email
  * @returns Thank you path
  */
-const thankyouPath = (email) => {
+const thankyouPath = (email: string) => {
   return `/thankyou?e=${encodeURIComponent(email)}`
 }
 
@@ -59,7 +59,7 @@ const successPath = () => {
  * @param locale Category locale
  * @returns Post path
  */
-const blogPostPath = (slug, locale = DEFAULT_LOCALE) => {
+const blogPostPath = (slug: string, locale = DEFAULT_LOCALE) => {
   return locale === DEFAULT_LOCALE || locale === ""
     ? `/blog/${slug}`
     : `/${locale}/blog/${slug}`
@@ -71,7 +71,7 @@ const blogPostPath = (slug, locale = DEFAULT_LOCALE) => {
  * @param locale Category locale
  * @returns Category path
  */
-const blogCategoryPath = (slug, locale = DEFAULT_LOCALE) => {
+const blogCategoryPath = (slug: string, locale = DEFAULT_LOCALE) => {
   return locale === DEFAULT_LOCALE || locale === ""
     ? `/blog/category/${slug}`
     : `/${locale}/blog/category/${slug}`
@@ -83,7 +83,7 @@ const blogCategoryPath = (slug, locale = DEFAULT_LOCALE) => {
  * @param locale Category locale
  * @returns Project path
  */
-const projectPath = (slug, locale = DEFAULT_LOCALE) => {
+const projectPath = (slug: string, locale = DEFAULT_LOCALE) => {
   return locale === DEFAULT_LOCALE || locale === ""
     ? `/project/${slug}`
     : `/${locale}/project/${slug}`
@@ -95,7 +95,7 @@ const projectPath = (slug, locale = DEFAULT_LOCALE) => {
  * @param locale Category locale
  * @returns Page path
  */
-const pagePath = (slug, locale = DEFAULT_LOCALE) => {
+const pagePath = (slug: string, locale = DEFAULT_LOCALE) => {
   return locale === DEFAULT_LOCALE || locale === ""
     ? `/${slug}`
     : `/${locale}/${slug}`
