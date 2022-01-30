@@ -15,5 +15,6 @@
 }
 
 .postFooterChannel > a {
-  @apply flex items-center text-sm text-gray-800;
+  @apply inline-flex items-center text-sm font-medium text-gray-800;
+  @apply mt-1;
 }

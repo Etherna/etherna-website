@@ -9,3 +9,8 @@ h1.postTitle {
 .postContent {
   @apply lg:max-w-xl lg:px-0;
 }
+
+.postFooter {
+  @apply mx-auto;
+  @apply max-w-prose lg:text-lg;
+}
