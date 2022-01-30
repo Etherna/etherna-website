@@ -6,7 +6,7 @@
 
   &:focus,
   &:active {
-    @apply bg-white rounded-lg outline-none shadow-none border-accent z-10;
+    @apply bg-white rounded-lg outline-none shadow-none border-primary-500 z-10;
   }
   &::placeholder {
     @apply text-gray-500 text-sm;

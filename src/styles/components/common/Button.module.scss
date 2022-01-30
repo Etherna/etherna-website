@@ -10,9 +10,9 @@
 }
 
 .btnPrimary {
-  @apply bg-accent text-white;
+  @apply bg-primary-500 text-white;
   &:hover {
-    @apply bg-accent-light text-white;
+    @apply bg-primary-300 text-white;
   }
 }
 

@@ -83,8 +83,8 @@ module.exports = {
       options: {
         svgoConfig: {
           plugins: [
-            { removeViewBox: false },
-            { cleanupIDs: true },
+            { name: "removeViewBox", removeViewBox: false },
+            { name: "cleanupIDs", cleanupIDs: true },
           ],
         },
       },

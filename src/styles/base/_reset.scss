@@ -64,7 +64,7 @@ h6 {
 button,
 input {
   &:focus {
-    @apply outline-none ring-2 ring-accent/50;
+    @apply outline-none ring-2 ring-primary-500/50;
   }
   &:disabled {
     @apply opacity-50 cursor-not-allowed;
@@ -76,7 +76,7 @@ blockquote {
 }
 
 accent {
-  @apply text-accent;
+  @apply text-primary-500;
 }
 
 #iubenda_policy .iub_content {
