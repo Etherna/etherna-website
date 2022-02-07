@@ -6,6 +6,7 @@ import { ReactComponent as EthereumLogo } from "@images/logos/ethereum-logo.svg"
 import { ReactComponent as SwarmLogo } from "@images/logos/swarm-logo.svg"
 import { ReactComponent as MongodbLogo } from "@images/logos/mongodb-logo.svg"
 import { ReactComponent as ReactLogo } from "@images/logos/react-logo.svg"
+import { ReactComponent as DotNetLogo } from "@images/logos/dotnet-logo.svg"
 
 import Awards from "./Awards"
 import Contacts from "./Contacts"
@@ -57,25 +58,30 @@ const Landing: React.FC = () => {
                   <div className="flex flex-col items-center">
                     <div className={classes.textLabel}>{t`builtWith`}</div>
                     <Container className="mt-8">
-                      <Row className="items-center">
-                        <Col className="w-1/2 sm:w-1/4 mb-6">
+                      <Row className="items-center justify-evenly">
+                        <Col className="w-1/2 sm:w-1/3 md:w-1/5 mb-6">
                           <a href={t`ethereumUrl`} target="_blank" rel="noreferrer noopener">
                             <EthereumLogo />
                           </a>
                         </Col>
-                        <Col className="w-1/2 sm:w-1/4 mb-6">
+                        <Col className="w-1/2 sm:w-1/3 md:w-1/5 mb-6">
                           <a href={t`swarmUrl`} target="_blank" rel="noreferrer noopener">
                             <SwarmLogo />
                           </a>
                         </Col>
-                        <Col className="w-1/2 sm:w-1/4 mb-6">
+                        <Col className="w-1/2 sm:w-1/3 md:w-1/5 mb-6">
                           <a href={t`mongodbUrl`} target="_blank" rel="noreferrer noopener">
                             <MongodbLogo />
                           </a>
                         </Col>
-                        <Col className="w-1/2 sm:w-1/4 mb-6">
+                        <Col className="w-1/2 sm:w-1/3 md:w-1/5 mb-6">
                           <a href={t`reactUrl`} target="_blank" rel="noreferrer noopener">
                             <ReactLogo />
+                          </a>
+                        </Col>
+                        <Col className="w-1/2 sm:w-1/3 md:w-1/5 mb-6">
+                          <a href={t`dotnetUrl`} target="_blank" rel="noreferrer noopener">
+                            <DotNetLogo />
                           </a>
                         </Col>
                       </Row>
