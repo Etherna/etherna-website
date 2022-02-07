@@ -4,6 +4,7 @@
   "mongodbUrl": "https://www.mongodb.com/",
   "swarmUrl": "https://www.ethswarm.org/",
   "reactUrl": "https://reactjs.org/",
+  "dotnetUrl": "https://dotnet.microsoft.com/en-us/",
   "transparency": "Transparency",
   "transparencyDescription": "Your channel, your narrative. We believe in freedom of speech.",
   "transparencyFeatures": {
