@@ -44,7 +44,9 @@ const NewsletterForm: React.FC = () => {
 
       setError(undefined)
       setIsSubmitting(false)
-      navigate(routes.thankyouPath(email))
+      navigate(routes.thankyouPath(), {
+        state: { email }
+      })
       setEmail("")
     } catch (error) {
       console.error(error)

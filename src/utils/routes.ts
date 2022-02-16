@@ -38,11 +38,10 @@ const aboutPath = (locale: string) => {
 
 /**
  * Thank you page path
- * @param email email
  * @returns Thank you path
  */
-const thankyouPath = (email: string) => {
-  return `/thankyou?e=${encodeURIComponent(email)}`
+const thankyouPath = () => {
+  return `/thankyou`
 }
 
 /**
