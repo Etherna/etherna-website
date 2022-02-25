@@ -101,7 +101,7 @@ const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({ milestones, hidePhoto
                   <span className={classes.roadmapCarouselItemPhase}>{t`phase`} {i + 1}</span>
                   <span className={classes.roadmapCarouselItemQuarter}>{milestone.completion_quarter}</span>
                   <span className={classes.roadmapCarouselItemBadge}>
-                    {t(milestone.completion)}
+                    {t(milestone.completion_quarter === "n.d." ? "unscheduled" : milestone.completion)}
                   </span>
                 </span>
                 <span className={classes.roadmapCarouselItemTitle}>{milestone.title}</span>
