@@ -1,0 +1,37 @@
+.roadmapNav {
+  @apply w-full relative;
+  @apply max-w-44 md:max-w-56 lg:max-w-72;
+  @apply mx-auto;
+  @apply before:block before:pb-full;
+}
+
+.roadmapNavWorld {
+  @apply absolute inset-8;
+  @apply bg-gray-200;
+  @apply bg-repeat-x;
+  background-position: 50% 50%;
+  background-size: auto 100%;
+  background-image: url(../../../images/world.png);
+  @apply rounded-full overflow-hidden;
+  transition-property: background-position;
+  @apply duration-500;
+}
+
+.roadmapNavMeridian {
+  @apply absolute inset-8;
+
+  svg {
+    @apply w-full h-full;
+
+    .meridian {
+      @apply text-red-300;
+      @apply stroke-current;
+    }
+    .meridianLoc {
+      @apply text-red-500;
+      @apply fill-current;
+      transition-property: cx, cy;
+      @apply duration-500;
+    }
+  }
+}

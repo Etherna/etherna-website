@@ -32,6 +32,7 @@ module.exports = {
         },
       },
       spacing: {
+        full: "100%"
       },
       fontFamily: {
         sans: [

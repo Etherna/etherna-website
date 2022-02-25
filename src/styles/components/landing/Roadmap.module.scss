@@ -1,0 +1,91 @@
+.roadmap {
+  @apply py-16;
+}
+
+.roadmapTitle {
+  @apply relative text-4xl mb-0 py-1 text-center bg-no-repeat;
+  background-image: url(../../../images/roadmap-title-bg.svg);
+  background-size: 100% 100%;
+}
+
+.roadmapModalContent {
+  @apply flex flex-col items-center;
+  @apply text-gray-100;
+}
+
+.roadmapModalPhoto {
+  @apply relative;
+  @apply w-20 h-20 rounded-full;
+  @apply bg-gray-700/25;
+  @apply sm:w-28 sm:h-28;
+  @apply lg:w-36 lg:h-36;
+
+  img {
+    @apply rounded-full;
+  }
+}
+
+.roadmapModalStatus {
+  @apply flex;
+  @apply absolute top-2 right-8 translate-x-full;
+  @apply text-xs font-bold text-white whitespace-nowrap;
+  @apply w-8 h-8;
+  @apply ml-3 rounded-full;
+
+  .done & {
+    @apply bg-green-500;
+  }
+  .ongoing & {
+    @apply bg-blue-500;
+  }
+  .todo & {
+    @apply bg-gray-700;
+  }
+
+  svg {
+    @apply m-auto w-5 h-5;
+  }
+}
+
+.roadmapModalQuarter {
+  @apply text-sm font-bold text-white whitespace-nowrap;
+  @apply mt-2;
+
+  .done & {
+    @apply text-green-500;
+  }
+  .ongoing & {
+    @apply text-blue-500;
+  }
+  .todo & {
+    @apply text-gray-400;
+  }
+}
+
+.roadmapModalTitle {
+  @apply text-2xl font-semibold tracking-tight;
+  @apply mt-3;
+  @apply md:text-4xl;
+}
+
+.roadmapModalSubtitle {
+  @apply text-gray-400;
+  @apply text-sm font-semibold tracking-tight;
+  @apply mt-1;
+}
+
+.roadmapModalDescription {
+  body article & {
+    @apply text-gray-300;
+    @apply max-w-[30rem] mx-auto text-justify;
+    @apply mt-6 pb-6;
+
+    h3,
+    h4,
+    h5,
+    h6 {
+      @apply text-gray-300;
+      @apply text-center;
+    }
+  }
+}

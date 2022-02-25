@@ -5,6 +5,7 @@ type ViewportObserverProps = {
   viewportClassName?: string
   offset?: number
   onEnterViewport?(): void
+  onAnimationEnd?(): void
 }
 
 const ViewportObserver: React.FC<ViewportObserverProps> = ({
@@ -12,7 +13,8 @@ const ViewportObserver: React.FC<ViewportObserverProps> = ({
   childrenRef,
   viewportClassName,
   offset = 0,
-  onEnterViewport
+  onEnterViewport,
+  onAnimationEnd,
 }) => {
   useEffect(() => {
     if (typeof window === "undefined") return
@@ -56,8 +58,10 @@ const ViewportObserver: React.FC<ViewportObserverProps> = ({
     if (typeof onEnterViewport === "function") {
       onEnterViewport()
     }
-    if (typeof viewportClassName === "string") {
-      childrenRef.current?.classList.add(viewportClassName)
+    if (typeof viewportClassName === "string" && childrenRef.current) {
+      childrenRef.current.onanimationend = () => onAnimationEnd?.()
+      childrenRef.current.ontransitionend = () => onAnimationEnd?.()
+      childrenRef.current.classList.add(viewportClassName)
     }
   }
 
