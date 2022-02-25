@@ -13,6 +13,7 @@ import Container from "@components/common/Container"
 import Row from "@components/common/Row"
 import Col from "@components/common/Col"
 import Modal from "@components/common/Modal"
+import Prose from "@components/common/Prose"
 import Markdown from "@components/common/Markdown"
 import ViewportObserver from "@components/layout/ViewportObserver"
 import useLocale from "@context/locale-context/hooks/useLocale"
@@ -20,7 +21,6 @@ import { MilestoneNode } from "@definitions/sources"
 import { Milestone } from "@definitions/app"
 import { useTranslations } from "@hooks/useTranslations"
 import { parseMilestones } from "@utils/dataParser"
-import Prose from "@components/common/Prose"
 
 type RoadmapStaticQuery = {
   milestones: {
@@ -66,6 +66,8 @@ const Roadmap: React.FC = () => {
   const roadmapEl = useRef<HTMLDivElement>(null)
   const [selectedMilestone, setSelectedMilestone] = useState<Milestone>()
 
+  const hideRoadmapPhotos = milestones.some(milestone => !milestone.image)
+
   return (
     <section className={classes.roadmap}>
       <Container>
@@ -81,6 +83,7 @@ const Roadmap: React.FC = () => {
               <div className="fade-in-up delay-50" ref={roadmapEl}>
                 <RoadmapCarousel
                   milestones={milestones}
+                  hidePhotos={hideRoadmapPhotos}
                   onSelectMilestone={setSelectedMilestone}
                 />
               </div>
@@ -97,8 +100,8 @@ const Roadmap: React.FC = () => {
             [classes.todo]: selectedMilestone.completion === "todo",
           })}>
             <div className={classes.roadmapModalPhoto}>
-              {selectedMilestone.image && (
-                <GatsbyImage image={selectedMilestone.image} objectFit="cover" alt={selectedMilestone.title} />
+              {!hideRoadmapPhotos && (
+                <GatsbyImage image={selectedMilestone.image!} objectFit="cover" alt={selectedMilestone.title} />
               )}
 
               <span className={classes.roadmapModalStatus}>

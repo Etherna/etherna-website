@@ -19,7 +19,7 @@ $roadmap-photo-size: 12rem;
 
 .roadmapCarouselItems {
   @apply overflow-hidden;
-  @apply h-120;
+  @apply h-[30rem];
   @apply md:pl-6;
 
   @screen md {

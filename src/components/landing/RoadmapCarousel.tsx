@@ -13,10 +13,11 @@ import { smoothScrollBy } from "@utils/scroll"
 
 type RoadmapCarouselProps = {
   milestones: Milestone[]
+  hidePhotos?: boolean
   onSelectMilestone?(milestone: Milestone): void
 }
 
-const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({ milestones, onSelectMilestone }) => {
+const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({ milestones, hidePhotos, onSelectMilestone }) => {
   const [locale] = useLocale()
   const { t } = useTranslations(locale, "roadmap")
   const [currentIndex, setCurrentIndex] = useState(milestones.findIndex(m => m.completion === "ongoing") ?? 0)
@@ -59,8 +60,6 @@ const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({ milestones, onSelectM
   const scrollToIndex = (index: number) => {
     const container = listEl!
     const itemSize = container.querySelector<HTMLLIElement>("li")!.clientHeight
-    console.log("size", itemSize)
-
     const scroll = index * itemSize
     smoothScrollBy(container, {
       top: scroll - container.scrollTop,
@@ -90,11 +89,13 @@ const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({ milestones, onSelectM
               })}
               key={milestone.title}
             >
-              <div className={classes.roadmapCarouselItemPhoto}>
-                {milestone.image && (
-                  <GatsbyImage image={milestone.image} objectFit="cover" alt={milestone.title} />
-                )}
-              </div>
+              {hidePhotos !== true && (
+                <div className={classes.roadmapCarouselItemPhoto}>
+                  {milestone.image && (
+                    <GatsbyImage image={milestone.image} objectFit="cover" alt={milestone.title} />
+                  )}
+                </div>
+              )}
               <div className={classes.roadmapCarouselItemDetails}>
                 <span className={classes.roadmapCarouselItemInfo}>
                   <span className={classes.roadmapCarouselItemPhase}>{t`phase`} {i + 1}</span>
