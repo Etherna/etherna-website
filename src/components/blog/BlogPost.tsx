@@ -65,27 +65,28 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
           <Row>
             <BlogPostSidebarLeft post={post} />
 
-            <Col as="article" className={classes.postContent}>
-              <h1 className={classes.postTitle}>{post.title}</h1>
+            <Col>
+              <article className={classes.postContent}>
+                <h1 className={classes.postTitle}>{post.title}</h1>
 
-              <Markdown rawMarkdown={post.content} />
+                <Markdown rawMarkdown={post.content} />
 
+                <BlogPostSchema
+                  author={post.author}
+                  title={post.title}
+                  image={parseGatsbyImageSource(post.image)}
+                  url={routes.blogPostPath(post.slug, post.locale)}
+                  excerpt={post.excerpt}
+                  content={post.content}
+                  keywords={post.meta_keywords}
+                  lang={post.locale}
+                  publishDate={post.published_on}
+                  updateDate={post.updated_on}
+                />
+              </article>
+
+              <BlogPostFooter className={classes.postFooter} />
               {/* <Comments postId={post.id} /> */}
-
-              <BlogPostFooter />
-
-              <BlogPostSchema
-                author={post.author}
-                title={post.title}
-                image={parseGatsbyImageSource(post.image)}
-                url={routes.blogPostPath(post.slug, post.locale)}
-                excerpt={post.excerpt}
-                content={post.content}
-                keywords={post.meta_keywords}
-                lang={post.locale}
-                publishDate={post.published_on}
-                updateDate={post.updated_on}
-              />
             </Col>
 
             <BlogPostSidebarRight />

@@ -12,7 +12,7 @@
       @apply block;
       @apply absolute left-0 right-0 bottom-0;
       @apply ml-2 mr-2 mb-2 h-2;
-      @apply bg-accent;
+      @apply bg-primary-500;
       @apply origin-left opacity-0 -z-1 scale-0;
       @apply transition duration-500 ease-in-out;
     }

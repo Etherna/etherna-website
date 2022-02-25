@@ -3,8 +3,8 @@
 }
 
 .postHeaderHero {
-  @apply min-h-lg;
-  @apply md:min-h-xl;
+  @apply min-h-[32rem];
+  @apply md:min-h-[36rem];
 }
 
 .postHeaderBg {

@@ -42,6 +42,6 @@
   }
 
   &.active {
-    @apply border-2 border-accent text-accent bg-accent bg-opacity-5;
+    @apply border-2 border-primary-500 text-primary-500 bg-primary-500 bg-opacity-5;
   }
 }

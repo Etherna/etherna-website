@@ -2,9 +2,9 @@
   "builtWith": "Sviluppato con",
   "ethereumUrl": "https://ethereum.org/it/",
   "mongodbUrl": "https://www.mongodb.com/it/",
-  "swarmUrl": "https://swarm.ethereum.org/",
+  "swarmUrl": "https://www.ethswarm.org/",
   "reactUrl": "https://it.reactjs.org/",
-
+  "dotnetUrl": "https://dotnet.microsoft.com/en-us/",
   "transparency": "Trasparenza",
   "transparencyDescription": "Il tuo canale, la tua narrativa. Noi crediamo nella libertà di parola.",
   "transparencyFeatures": {
@@ -25,7 +25,6 @@
       "description": "Ogni nostra decisione verrà condivisa con trasparenza con l'aiuto degli utenti nelle nostra piattaforme di condivisione."
     }
   },
-
   "users": "Per Creator e Utenti",
   "usersDescription": "La nostra visione è un futuro in cui la rete è libera da pubblicità invasive e in cui tutti supportano i creatori di contenuti.",
   "usersFeatures": {
@@ -46,7 +45,6 @@
       "description": "Paghiamo ai creatori lo stesso importo in base alle visualizzazioni. Più utenti guardano i tuoi contenuti, più guadagni."
     }
   },
-
   "innovative": "Innovativa",
   "innovativeDescription": "Utilizziamo le tecnologie migliori e innovative ora sul mercato.",
   "innovativeFeatures": {
@@ -59,7 +57,6 @@
       "description": "I video caricati non potranno essere eliminati dal nostro storage decentralizzato. Questo significa che sarai responsabile di ciò che carichi."
     }
   },
-
   "extendable": "Espandibile",
   "extendableDescription": "Forniamo un protocollo di indicizzazione che tutti possono modificare ed estendere, quindi gli utenti saranno in grado di modificare l’indice col loro preferito e godere del contenuto che preferiscono.",
   "extendableFeatures": {
@@ -72,7 +69,6 @@
       "description": "Puoi anche specificare un Gateway Swarm differente per scaricare risorse e video."
     }
   },
-
   "contact": "Restiamo in contatto!",
   "subcribeNewsletter": "Iscrivi alla Newsletter",
   "namePlaceholder": "Nome",

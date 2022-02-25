@@ -46,15 +46,6 @@ const SocialMenu: React.FC<SocialMenuProps> = ({ className, linkClassName, verti
         <span className={classes.socialName}>{t`twitter`}</span>
       </a>
       <a
-        href="https://t.me/etherna_io"
-        className={classNames(classes.socialLink, classes.telegram, linkClassName)}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <TelegramLogo />
-        <span className={classes.socialName}>{t`telegramChannel`}</span>
-      </a>
-      <a
         href="https://discord.gg/vfHYEXf"
         className={classNames(classes.socialLink, classes.discord, linkClassName)}
         target="_blank"
@@ -62,6 +53,15 @@ const SocialMenu: React.FC<SocialMenuProps> = ({ className, linkClassName, verti
       >
         <DiscordLogo />
         <span className={classes.socialName}>{t`discord`}</span>
+      </a>
+      <a
+        href="https://t.me/etherna_io"
+        className={classNames(classes.socialLink, classes.telegram, linkClassName)}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <TelegramLogo />
+        <span className={classes.socialName}>{t`telegramChannel`}</span>
       </a>
       <a
         href="https://github.com/Etherna"

@@ -2,15 +2,15 @@
   "builtWith": "Built with",
   "ethereumUrl": "https://ethereum.org/",
   "mongodbUrl": "https://www.mongodb.com/",
-  "swarmUrl": "https://swarm.ethereum.org/",
+  "swarmUrl": "https://www.ethswarm.org/",
   "reactUrl": "https://reactjs.org/",
-
+  "dotnetUrl": "https://dotnet.microsoft.com/en-us/",
   "transparency": "Transparency",
   "transparencyDescription": "Your channel, your narrative. We believe in freedom of speech.",
   "transparencyFeatures": {
     "0": {
       "title": "No shadow banning",
-      "description": "Be free to post want you enjoy to do. We won’t ban any content as long as it’s legal."
+      "description": "Be free to post want you enjoy to do. We won't ban any content as long as it's legal."
     },
     "1": {
       "title": "Freedom of Speech",
@@ -25,7 +25,6 @@
       "description": "All our decisions will be shared transparently with the help of users in our social platforms."
     }
   },
-
   "users": "For Creators and Users",
   "usersDescription": "Our vision is a future where the web is clear of invasive banners and where everyone supports content creators.",
   "usersFeatures": {
@@ -46,20 +45,18 @@
       "description": "We pay creators the same amount based on views. The more the users watch your contents, the more you will gain."
     }
   },
-
   "innovative": "Innovative",
   "innovativeDescription": "We use the best and innovative technologies now on the market.",
   "innovativeFeatures": {
     "0": {
       "title": "Decentralized Content",
-      "description": "Every assets on Etherna, from your avatar to your videos, are stored on a decentralized file system call Swarm. We can’t delete anything."
+      "description": "Every assets on Etherna, from your avatar to your videos, are stored on a decentralized file system call Swarm. We can't delete anything."
     },
     "1": {
       "title": "Permanent Data",
-      "description": "Videos cannot be deleted from our decentralized storage. This means that you’ll be responsible for what you upload."
+      "description": "Videos cannot be deleted from our decentralized storage. This means that you'll be responsible for what you upload."
     }
   },
-
   "extendable": "Extendable",
   "extendableDescription": "We provide an indexing protocol that everyone can modify and extend, so users can change the index to their favorite one and enjoy the content they like.",
   "extendableFeatures": {
@@ -72,7 +69,6 @@
       "description": "You can also specify a different Swarm Gateway to download assets and videos."
     }
   },
-
   "contact": "Let's stay in touch!",
   "subcribeNewsletter": "Subscribe to our Newsletter",
   "namePlaceholder": "First name",

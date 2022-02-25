@@ -24,7 +24,7 @@ type BlogPostHeaderProps = {
   image: GatsbyImageData | null
   published: string
   updated: string
-  category: Category
+  category: Category | null
 }
 
 const BlogPostHeader: React.FC<BlogPostHeaderProps> = ({ author, postTitle, image, published, updated, category }) => {
