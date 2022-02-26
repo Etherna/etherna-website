@@ -27,6 +27,7 @@ const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({ milestones, hidePhoto
   useEffect(() => {
     if (listEl) {
       window.addEventListener("resize", onResize)
+      window.addEventListener("fullscreenchange", onResize)
 
       scrollToIndex(currentIndex)
 
@@ -35,11 +36,14 @@ const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({ milestones, hidePhoto
 
     return () => {
       window.removeEventListener("resize", onResize)
+      window.removeEventListener("fullscreenchange", onResize)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [listEl])
 
   const onResize = () => {
+    console.log("RESIZE")
+
     timer.current = setTimeout(() => {
       scrollToIndex(currentIndex)
     }, 500) as unknown as number
