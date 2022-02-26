@@ -81,10 +81,11 @@ module.exports = {
     {
       resolve: "gatsby-plugin-svgr",
       options: {
+        svgo: false,
         svgoConfig: {
           plugins: [
             { name: "removeViewBox", removeViewBox: false },
-            { name: "cleanupIDs", cleanupIDs: true },
+            { name: "cleanupIDs", cleanupIDs: false },
           ],
         },
       },

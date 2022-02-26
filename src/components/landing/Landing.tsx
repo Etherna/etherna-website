@@ -51,7 +51,7 @@ const Landing: React.FC = () => {
 
   return (
     <>
-      <ViewportObserver childrenRef={builtRef} viewportClassName="animation-active" offset={200}>
+      <ViewportObserver childrenRef={builtRef} viewportClassName="animation-active" threshold={0.1}>
         <section className={classNames(classes.builtwith, "fade-in-up", "delay-50")} ref={builtRef}>
           <Container>
             <Row>

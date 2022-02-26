@@ -21,37 +21,37 @@ const LandingMenu: React.FC = () => {
         smooth={true}
         duration={500}
       >
-        {t`transparency`}
+        {t`features`}
       </AnchorLink>
       <AnchorLink
-        to="users"
+        to="roadmap"
         className={classNames(headerLinkClasses.headerMenuLink, headerLinkClasses.landingLink)}
         activeClass={headerLinkClasses.active}
         spy={true}
         smooth={true}
         duration={500}
       >
-        {t`users`}
+        {t`roadmap`}
       </AnchorLink>
       <AnchorLink
-        to="innovative"
+        to="awards"
         className={classNames(headerLinkClasses.headerMenuLink, headerLinkClasses.landingLink)}
         activeClass={headerLinkClasses.active}
         spy={true}
         smooth={true}
         duration={500}
       >
-        {t`innovative`}
+        {t`awards`}
       </AnchorLink>
       <AnchorLink
-        to="extendable"
+        to="contacts"
         className={classNames(headerLinkClasses.headerMenuLink, headerLinkClasses.landingLink)}
         activeClass={headerLinkClasses.active}
         spy={true}
         smooth={true}
         duration={500}
       >
-        {t`extendable`}
+        {t`more`}
       </AnchorLink>
     </>
   )

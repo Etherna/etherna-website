@@ -34,12 +34,12 @@ const LandingSection: React.FC<LandingSectionProps> = ({
       <Container>
         <Row>
           <Col>
-            <ViewportObserver childrenRef={titleRef} viewportClassName="animation-active" offset={50}>
+            <ViewportObserver childrenRef={titleRef} viewportClassName="animation-active" threshold={0.1}>
               <h2 className={classNames(classes.landingTitle, "fade-in-up", "delay-50")} ref={titleRef}>
                 {title}
               </h2>
             </ViewportObserver>
-            <ViewportObserver childrenRef={descriptionRef} viewportClassName="animation-active" offset={50}>
+            <ViewportObserver childrenRef={descriptionRef} viewportClassName="animation-active" threshold={0.1}>
               <p className={classNames(classes.landingDescription, "fade-in-up", "delay-100")} ref={descriptionRef}>
                 {description}
               </p>

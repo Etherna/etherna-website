@@ -27,18 +27,18 @@ const Contacts = () => {
       <Container>
         <Row>
           <Col>
-            <ViewportObserver childrenRef={titleRef} viewportClassName="animation-active" offset={50}>
+            <ViewportObserver childrenRef={titleRef} viewportClassName="animation-active" threshold={0.1}>
               <h2 className={classNames(classes.contactsTitle, "fade-in-up", "delay-50")} ref={titleRef}>
                 {t`helpUsTitle`}
               </h2>
             </ViewportObserver>
-            <ViewportObserver childrenRef={descriptionRef} viewportClassName="animation-active" offset={50}>
+            <ViewportObserver childrenRef={descriptionRef} viewportClassName="animation-active" threshold={0.1}>
               <p className={classNames(classes.contactsDescription, "fade-in-up", "delay-100")} ref={descriptionRef}>
                 {t`helpUsDescription`}
               </p>
             </ViewportObserver>
 
-            <ViewportObserver childrenRef={contentRef} viewportClassName="animation-active" offset={200}>
+            <ViewportObserver childrenRef={contentRef} viewportClassName="animation-active" threshold={0.1}>
               <Row className="fade-in-up delay-150" elRef={contentRef}>
                 <Col className={classNames(classes.contactsCol, "md:w-1/2")}>
                   <h3 className={classes.contactsSubtitle}>{t`forInvestors`}</h3>
