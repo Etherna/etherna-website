@@ -69,11 +69,11 @@ const Roadmap: React.FC = () => {
   const hideRoadmapPhotos = milestones.some(milestone => !milestone.image)
 
   return (
-    <section className={classes.roadmap}>
+    <section className={classes.roadmap} id="roadmap">
       <Container>
         <Row>
           <Col>
-            <ViewportObserver childrenRef={titleEl} viewportClassName="animation-active">
+            <ViewportObserver childrenRef={titleEl} viewportClassName="animation-active" threshold={0.1}>
               <h2 className={classNames(classes.roadmapTitle, "fade-in-up", "delay-50")} ref={titleEl}>
                 {t`roadmap`}
               </h2>

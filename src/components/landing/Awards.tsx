@@ -25,17 +25,17 @@ const Awards: React.FC = () => {
   const listRef = useRef<HTMLUListElement>(null)
 
   return (
-    <section className={classes.awards}>
+    <section className={classes.awards} id="awards">
       <Container>
         <Row>
           <Col>
-            <ViewportObserver childrenRef={titleRef} viewportClassName="animation-active" offset={50}>
+            <ViewportObserver childrenRef={titleRef} viewportClassName="animation-active" threshold={0.1}>
               <h2 className={classNames(classes.awardsTitle, "fade-in-up", "delay-50")} ref={titleRef}>
                 {t`awards`}
               </h2>
             </ViewportObserver>
 
-            <ViewportObserver childrenRef={listRef} viewportClassName="animation-active" offset={400}>
+            <ViewportObserver childrenRef={listRef} viewportClassName="animation-active" threshold={0.1}>
               <ul className={classNames(classes.awardsList, "fade-in-up", "delay-200")} ref={listRef}>
                 {AwardList.map((award, i) => (
                   <li className={classes.awardsItem} key={i}>
