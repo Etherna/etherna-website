@@ -42,8 +42,6 @@ const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({ milestones, hidePhoto
   }, [listEl])
 
   const onResize = () => {
-    console.log("RESIZE")
-
     timer.current = setTimeout(() => {
       scrollToIndex(currentIndex)
     }, 500) as unknown as number
