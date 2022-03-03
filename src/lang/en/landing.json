@@ -5,6 +5,10 @@
   "swarmUrl": "https://www.ethswarm.org/",
   "reactUrl": "https://reactjs.org/",
   "dotnetUrl": "https://dotnet.microsoft.com/en-us/",
+  "requestAlphaPass": "Request Alpha Pass",
+  "weAreLaunching": "We are close to launch the first (limited) release of Etherna.",
+  "firstReleaseLimited": "During the first Alpha phase the number of users will be limited.",
+  "wantToParticipate": "Want to partecipate? Click the button below.",
   "transparency": "Transparency",
   "transparencyDescription": "Your channel, your narrative. We believe in freedom of speech.",
   "transparencyFeatures": {
