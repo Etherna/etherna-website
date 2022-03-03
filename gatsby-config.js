@@ -13,7 +13,7 @@ module.exports = {
     description: `Etherna is a transparent video platform, made for freedom.
       We believe in freedom of speech and we won't ban any content as long as it's legal.
       Join us and let's stop censorship together.`,
-    tagline: `A transparent video platform for content creators.`,
+    tagline: `Eyes Wide Open`,
     author: `Mattia Dalzocchio`,
     siteUrl: process.env.SITE_URL,
   },
