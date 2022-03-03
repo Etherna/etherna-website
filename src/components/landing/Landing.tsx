@@ -13,6 +13,8 @@ import Awards from "./Awards"
 import Contacts from "./Contacts"
 import LandingSection from "./LandingSection"
 import NewsletterForm from "./NewsletterForm"
+import Roadmap from "./Roadmap"
+import AlphaPass from "./AlphaPass"
 import Card from "@components/common/Card"
 import Container from "@components/common/Container"
 import Row from "@components/common/Row"
@@ -23,7 +25,6 @@ import useLocale from "@context/locale-context/hooks/useLocale"
 import useLocaleInfo from "@hooks/useLocaleInfo"
 import { useTranslations } from "@hooks/useTranslations"
 import routes from "@utils/routes"
-import Roadmap from "./Roadmap"
 
 const Landing: React.FC = () => {
   const builtRef = useRef<HTMLDivElement>(null)
@@ -95,6 +96,8 @@ const Landing: React.FC = () => {
           </Container>
         </section>
       </ViewportObserver>
+
+      <AlphaPass />
 
       <LandingSection
         id="transparency"
