@@ -58,19 +58,19 @@ const NewsletterForm: React.FC = () => {
   return (
     <>
       <form className={classes.newsletterForm}>
-        <TextField
+        <input
           type="text"
           className={classes.newsletterFormField}
           placeholder={t`namePlaceholder`}
           value={firstName}
-          onChange={setFirstName}
+          onChange={e => setFirstName(e.target.value)}
         />
-        <TextField
+        <input
           type="email"
           className={classes.newsletterFormField}
           placeholder={t`emailPlaceholder`}
           value={email}
-          onChange={setEmail}
+          onChange={e => setEmail(e.target.value)}
         />
 
         <Button

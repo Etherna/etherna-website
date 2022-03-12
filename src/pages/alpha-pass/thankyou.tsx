@@ -4,23 +4,24 @@ import { PageProps } from "gatsby"
 import Layout from "@components/layout/Layout"
 import HeadMeta from "@components/layout/HeadMeta"
 import StaticPage from "@components/layout/StaticPage"
+import FunnelThankyou from "@components/site/FunnelThankyou"
 import { LocalizedPage } from "@context/locale-context/localized-page"
-import FunnelSuccess from "@components/site/FunnelSuccess"
 
-type SuccessPageProps = PageProps<any, { locale: string }>
+type ThankyouPageProps = PageProps<any, { locale: string }, { email?: string }>
 
-const SuccessPage: React.FC<SuccessPageProps> = ({ pageContext }) => {
+const ThankyouPage: React.FC<ThankyouPageProps> = ({ pageContext, location }) => {
   const { locale } = pageContext
 
   return (
     <LocalizedPage locale={locale}>
       {(_, t) => {
+        const email = location?.state?.email || "n.d."
+
         return (
           <Layout>
-            <HeadMeta title={t`funnel.success`} />
-
-            <StaticPage title={t`funnel.success`}>
-              <FunnelSuccess message={t`funnel.registrationConfirmed`} />
+            <HeadMeta title={t`funnel.thankYou`} />
+            <StaticPage title={t`funnel.thankYou`}>
+              <FunnelThankyou email={email} />
             </StaticPage>
           </Layout>
         )
@@ -29,4 +30,4 @@ const SuccessPage: React.FC<SuccessPageProps> = ({ pageContext }) => {
   )
 }
 
-export default SuccessPage
+export default ThankyouPage

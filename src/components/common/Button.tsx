@@ -7,6 +7,7 @@ type ButtonProps = {
   className?: string
   type?: "primary" | "secondary" | "danger" | "warning" | "info"
   disabled?: boolean
+  large?: boolean
   submit?: boolean
   onClick?(): void
 }
@@ -15,6 +16,7 @@ const Button: React.FC<ButtonProps> = ({
   children,
   className,
   type,
+  large,
   disabled,
   submit,
   onClick
@@ -30,6 +32,7 @@ const Button: React.FC<ButtonProps> = ({
           [classes.btnDanger]: type === "danger",
           [classes.btnWarning]: type === "warning",
           [classes.btnInfo]: type === "info",
+          [classes.large]: large,
         }
       )}
       type={submit ? "submit" : "button"}
