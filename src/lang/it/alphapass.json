@@ -1,0 +1,20 @@
+{
+  "requestAlphaPass": "Richiedi Alpha Pass",
+  "name": "Nome",
+  "email": "Email",
+  "why": "Perché vorresti un Alpha Pass?",
+  "what": "Che tipo di utente sei?",
+  "contentCreator": "Content creator",
+  "contentViewer": "Content viewer",
+  "both": "Entrambi",
+  "social1": "Account social #1",
+  "social2": "Account social #2",
+  "sendRequest": "Invia richiesta",
+  "formErrorName": "Per favore inserisci un nome valido (puoi anche solo specificare un nickname)",
+  "formErrorEmail": "Per favore fornisci un email valida",
+  "formErrorWhy": "Per favore dicci perché vorresti partecipare alla release Alpha",
+  "formErrorWhat": "Per favore dicci che tipo di utente saresti",
+  "formError": "C'è stato un problema con l'invio della richiesta. Riprova più tardi o cantatta l'assistenza.",
+  "formErrorTitle": "Oops!",
+  "registrationConfirmed": "🎉 La tua registrazione è stata completata. Resta in attesa per il codice d'invito."
+}

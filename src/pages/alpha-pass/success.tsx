@@ -20,7 +20,7 @@ const SuccessPage: React.FC<SuccessPageProps> = ({ pageContext }) => {
             <HeadMeta title={t`funnel.success`} />
 
             <StaticPage title={t`funnel.success`}>
-              <FunnelSuccess message={t`funnel.registrationConfirmed`} />
+              <FunnelSuccess message={t`alphapass.registrationConfirmed`} />
             </StaticPage>
           </Layout>
         )

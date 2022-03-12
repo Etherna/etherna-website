@@ -37,11 +37,38 @@ const aboutPath = (locale: string) => {
 }
 
 /**
+ * Alpha pass page path
+ * @param locale About locale
+ * @returns Alpha pass path
+ */
+const alphaPassPath = (locale: string) => {
+  return locale === DEFAULT_LOCALE || locale === ""
+    ? `/alpha-pass`
+    : `/${locale}/alpha-pass`
+}
+
+/**
+ * Alpha pass Thank you page path
+ * @returns Thank you path
+ */
+const alphaPassThankyouPath = () => {
+  return `/thankyou`
+}
+
+/**
+ * Success page path
+ * @returns Success path
+ */
+const asphaPassSuccessPath = () => {
+  return `/alpha-pass/success`
+}
+
+/**
  * Thank you page path
  * @returns Thank you path
  */
 const thankyouPath = () => {
-  return `/thankyou`
+  return `/alpha-pass/thankyou`
 }
 
 /**
@@ -104,6 +131,9 @@ const routes = {
   homePath,
   blogPath,
   aboutPath,
+  alphaPassPath,
+  alphaPassThankyouPath,
+  asphaPassSuccessPath,
   thankyouPath,
   successPath,
   blogPostPath,

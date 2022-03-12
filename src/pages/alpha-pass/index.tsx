@@ -5,11 +5,11 @@ import Layout from "@components/layout/Layout"
 import HeadMeta from "@components/layout/HeadMeta"
 import StaticPage from "@components/layout/StaticPage"
 import { LocalizedPage } from "@context/locale-context/localized-page"
-import FunnelSuccess from "@components/site/FunnelSuccess"
+import AlphaPass from "@components/site/AlphaPass"
 
-type SuccessPageProps = PageProps<any, { locale: string }>
+type AlphaPassPageProps = PageProps<any, { locale: string }>
 
-const SuccessPage: React.FC<SuccessPageProps> = ({ pageContext }) => {
+const AlphaPassPage: React.FC<AlphaPassPageProps> = ({ pageContext }) => {
   const { locale } = pageContext
 
   return (
@@ -17,10 +17,10 @@ const SuccessPage: React.FC<SuccessPageProps> = ({ pageContext }) => {
       {(_, t) => {
         return (
           <Layout>
-            <HeadMeta title={t`funnel.success`} />
+            <HeadMeta title={t`alphapass.requestAlphaPass`} />
 
-            <StaticPage title={t`funnel.success`}>
-              <FunnelSuccess message={t`funnel.registrationConfirmed`} />
+            <StaticPage title={t`alphapass.requestAlphaPass`}>
+              <AlphaPass />
             </StaticPage>
           </Layout>
         )
@@ -29,4 +29,4 @@ const SuccessPage: React.FC<SuccessPageProps> = ({ pageContext }) => {
   )
 }
 
-export default SuccessPage
+export default AlphaPassPage

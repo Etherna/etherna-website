@@ -14,7 +14,7 @@ import Contacts from "./Contacts"
 import LandingSection from "./LandingSection"
 import NewsletterForm from "./NewsletterForm"
 import Roadmap from "./Roadmap"
-import AlphaPass from "./AlphaPass"
+import AlphaPassBanner from "./AlphaPassBanner"
 import Card from "@components/common/Card"
 import Container from "@components/common/Container"
 import Row from "@components/common/Row"
@@ -97,7 +97,7 @@ const Landing: React.FC = () => {
         </section>
       </ViewportObserver>
 
-      <AlphaPass />
+      <AlphaPassBanner />
 
       <LandingSection
         id="transparency"

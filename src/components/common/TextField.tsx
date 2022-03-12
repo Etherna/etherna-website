@@ -5,11 +5,13 @@ import classes from "@styles/components/common/TextField.module.scss"
 
 type TextFieldProps = {
   value: string
+  checked?: boolean
   className?: string
   id?: string
   placeholder?: string
   name?: string
-  type?: "text" | "email" | "url" | "password"
+  error?: string
+  type?: "text" | "email" | "url" | "password" | "radio" | "checkbox"
   autocomplete?: "on" | "off" | "name" | "given-name" | "family-name" | "email" | "tel" | "url" | "current-password"
   multiline?: boolean
   required?: boolean
@@ -23,9 +25,11 @@ type TextFieldProps = {
 
 const TextField: React.FC<TextFieldProps> = ({
   value,
+  checked,
   className,
   id,
   name,
+  error,
   type,
   placeholder,
   autocomplete,
@@ -59,20 +63,29 @@ const TextField: React.FC<TextFieldProps> = ({
   }
 
   return (
-    <Field
-      className={classNames(classes.textField, className)}
-      id={id}
-      value={Number.isNaN(value) ? "" : value}
-      name={name}
-      type={type}
-      placeholder={placeholder}
-      autoComplete={autocomplete}
-      required={required}
-      disabled={disabled}
-      onChange={handleChange}
-      onFocus={onFocus}
-      onBlur={onBlur}
-    />
+    <div className={classes.textFieldWrapper}>
+      <Field
+        className={classNames(classes.textField, className, {
+          [classes.typeText]: multiline || ["text", "password", "email"].includes(type ?? ""),
+          [classes.error]: typeof error === "string",
+        })}
+        id={id}
+        value={Number.isNaN(value) ? "" : value}
+        checked={checked}
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        autoComplete={autocomplete}
+        required={required}
+        disabled={disabled}
+        onChange={handleChange}
+        onFocus={onFocus}
+        onBlur={onBlur}
+      />
+      {error && (
+        <small className={classes.textFieldError}>{error}</small>
+      )}
+    </div>
   )
 }
 

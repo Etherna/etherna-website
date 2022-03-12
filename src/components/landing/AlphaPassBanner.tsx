@@ -9,8 +9,10 @@ import Col from "@components/common/Col"
 import ViewportObserver from "@components/layout/ViewportObserver"
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { useTranslations } from "@hooks/useTranslations"
+import { Link } from "gatsby"
+import routes from "@utils/routes"
 
-const AlphaPass: React.FC = () => {
+const AlphaPassBanner: React.FC = () => {
   const [locale] = useLocale()
   const { t } = useTranslations(locale, "landing")
   const contentEl = useRef<HTMLDivElement>(null)
@@ -21,7 +23,7 @@ const AlphaPass: React.FC = () => {
         <Row>
           <Col>
             <ViewportObserver childrenRef={contentEl} viewportClassName="animation-active" threshold={0.1}>
-              <div className={classNames(classes.alphaPass, "fade-in-up", "delay-50")} ref={contentEl}>
+              <div className={classNames(classes.alphaPassBanner, "fade-in-up", "delay-50")} ref={contentEl}>
                 <h2>{t`requestAlphaPass`}</h2>
                 <p>{t`weAreLaunching`}</p>
                 <br />
@@ -29,14 +31,9 @@ const AlphaPass: React.FC = () => {
                 <p>{t`wantToParticipate`}</p>
 
                 <div className="mt-6">
-                  <a
-                    className={classes.alphaPassLink}
-                    href="https://maillist.etherna.io/require-alpha-pass"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
+                  <Link className={classes.alphaPassLink} to={routes.alphaPassPath(locale)}>
                     {t`requestAlphaPass`}
-                  </a>
+                  </Link>
                 </div>
               </div>
             </ViewportObserver>
@@ -47,4 +44,4 @@ const AlphaPass: React.FC = () => {
   )
 }
 
-export default AlphaPass
+export default AlphaPassBanner

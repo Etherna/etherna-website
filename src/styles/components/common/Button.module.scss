@@ -1,4 +1,5 @@
 .btn {
+  @apply inline-flex items-center;
   @apply px-5 py-2 rounded-lg;
   @apply bg-gray-200;
   @apply text-gray-700 text-sm font-semibold text-center;
@@ -6,6 +7,16 @@
 
   &:disabled {
     @apply cursor-not-allowed opacity-50;
+  }
+
+  &.large {
+    @apply text-base;
+    @apply px-6 py-3.5;
+  }
+
+  svg {
+    @apply w-[1.2em] h-[1.2em];
+    @apply mr-2;
   }
 }
 

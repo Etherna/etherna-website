@@ -6,16 +6,16 @@ import useLocale from "@context/locale-context/hooks/useLocale"
 import { useTranslations } from "@hooks/useTranslations"
 
 type FunnelSuccessProps = {
-
+  message: string
 }
 
-const FunnelSuccess: React.FC<FunnelSuccessProps> = ({ }) => {
+const FunnelSuccess: React.FC<FunnelSuccessProps> = ({ message }) => {
   const [locale] = useLocale()
   const { t } = useTranslations(locale, "funnel")
 
   return (
     <div className={classes.funnelSuccess}>
-      {t`registrationConfirmed`}
+      {message}
     </div>
   )
 }
