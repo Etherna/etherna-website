@@ -5,6 +5,7 @@
   "swarmUrl": "https://www.ethswarm.org/",
   "reactUrl": "https://it.reactjs.org/",
   "dotnetUrl": "https://dotnet.microsoft.com/en-us/",
+  "watchPresentation": "Guarda la nostra presentazione",
   "requestAlphaPass": "Richiedi Alpha Pass",
   "weAreLaunching": "Stiamo per lanciare la prima release di Etherna.",
   "firstReleaseLimited": "Durante la prima fase Alpha il numero di utenti sarà limitato.",
