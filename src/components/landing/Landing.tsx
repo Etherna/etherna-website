@@ -13,6 +13,7 @@ import Awards from "./Awards"
 import Contacts from "./Contacts"
 import LandingSection from "./LandingSection"
 import NewsletterForm from "./NewsletterForm"
+import PresentationVideo from "./PresentationVideo"
 import Roadmap from "./Roadmap"
 import AlphaPassBanner from "./AlphaPassBanner"
 import Card from "@components/common/Card"
@@ -96,6 +97,8 @@ const Landing: React.FC = () => {
           </Container>
         </section>
       </ViewportObserver>
+
+      <PresentationVideo />
 
       <AlphaPassBanner />
 
