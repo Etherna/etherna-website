@@ -50,6 +50,15 @@ module.exports = {
           "\"Segoe UI Symbol\"",
           "\"Noto Color Emoji\"",
         ],
+        serif: [
+          "\"DM Serif Display\"",
+          "ui-serif",
+          "Georgia",
+          "Cambria",
+          "\"Times New Roman\"",
+          "Times",
+          "serif",
+        ]
       },
       fontSize: {},
       maxWidth: ({ theme }) => ({
