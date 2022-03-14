@@ -65,7 +65,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
           <Row>
             <BlogPostSidebarLeft post={post} />
 
-            <Col>
+            <Col className="md:w-auto md:flex-1">
               <article className={classes.postContent}>
                 <h1 className={classes.postTitle}>{post.title}</h1>
 
