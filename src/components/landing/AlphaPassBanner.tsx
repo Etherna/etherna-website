@@ -31,7 +31,7 @@ const AlphaPassBanner: React.FC = () => {
                 <p>{t`wantToParticipate`}</p>
 
                 <div className="mt-6">
-                  <Link className={classes.alphaPassLink} to={routes.alphaPassPath(locale)}>
+                  <Link className={classes.alphaPassLink} to={routes.alphaPassPath()}>
                     {t`requestAlphaPass`}
                   </Link>
                 </div>
