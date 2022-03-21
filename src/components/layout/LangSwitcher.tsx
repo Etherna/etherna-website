@@ -87,6 +87,7 @@ const LinkWrapper: React.FC<LinkWrapperProps> = ({ children, className, to, code
     <Link
       to={to}
       className={className}
+      onClick={e => handleSwitchLocale(code, e)}
       aria-label={`Switch to ${name}`}
     >
       {children}

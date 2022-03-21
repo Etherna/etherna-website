@@ -38,13 +38,10 @@ const aboutPath = (locale: string) => {
 
 /**
  * Alpha pass page path
- * @param locale About locale
  * @returns Alpha pass path
  */
-const alphaPassPath = (locale: string) => {
-  return locale === DEFAULT_LOCALE || locale === ""
-    ? `/alpha-pass`
-    : `/${locale}/alpha-pass`
+const alphaPassPath = () => {
+  return `/alpha-pass`
 }
 
 /**

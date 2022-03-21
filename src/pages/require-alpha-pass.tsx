@@ -17,7 +17,7 @@ const RequireAlphaPassPage: React.FC = () => {
   )
 
   useEffect(() => {
-    const url = `${site.siteMetadata.siteUrl}${routes.alphaPassPath("")}`
+    const url = `${site.siteMetadata.siteUrl}${routes.alphaPassPath()}`
     window.location.href = url
   }, [site.siteMetadata.siteUrl])
 
