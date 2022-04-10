@@ -41,7 +41,7 @@ module.exports = {
       resolve: `gatsby-plugin-runtime-path-prefix`,
       options: {
         prefix: `__PATH_PREFIX__`,
-        pattern: /^(\/bzz:\/[^/]+)/,
+        pattern: /^(\/bzz\/[^/]+)/,
         forceTrailingSlash: true,
         useBasename: true
       },
