@@ -4,6 +4,7 @@ import classNames from "classnames"
 import classes from "@styles/components/common/Row.module.scss"
 
 type RowProps = {
+  children?: React.ReactNode
   className?: string
   elRef?: React.RefObject<HTMLDivElement>
 }

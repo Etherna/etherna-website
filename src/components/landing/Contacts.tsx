@@ -3,12 +3,13 @@ import classNames from "classnames"
 
 import classes from "@styles/components/landing/Contacts.module.scss"
 
+import SectionTitle from "./SectionTitle"
 import Container from "@components/common/Container"
+import Row from "@components/common/Row"
+import Col from "@components/common/Col"
 import ViewportObserver from "@components/layout/ViewportObserver"
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { useTranslations } from "@hooks/useTranslations"
-import Row from "@components/common/Row"
-import Col from "@components/common/Col"
 
 const Contacts = () => {
   const [locale] = useLocale()
@@ -28,9 +29,12 @@ const Contacts = () => {
         <Row>
           <Col>
             <ViewportObserver childrenRef={titleRef} viewportClassName="animation-active" threshold={0.1}>
-              <h2 className={classNames(classes.contactsTitle, "fade-in-up", "delay-50")} ref={titleRef}>
-                {t`helpUsTitle`}
-              </h2>
+              <SectionTitle
+                className={classNames(classes.contactsTitle, "fade-in-up", "delay-50")}
+                title={t`helpUsTitle`}
+                anchorLink="contacts"
+                elRef={titleRef}
+              />
             </ViewportObserver>
             <ViewportObserver childrenRef={descriptionRef} viewportClassName="animation-active" threshold={0.1}>
               <p className={classNames(classes.contactsDescription, "fade-in-up", "delay-100")} ref={descriptionRef}>

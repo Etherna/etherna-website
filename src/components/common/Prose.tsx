@@ -4,6 +4,7 @@ import classNames from "classnames"
 import classes from "@styles/components/common/Prose.module.scss"
 
 type ProseProps = {
+  children?: React.ReactNode
   className?: string
 }
 

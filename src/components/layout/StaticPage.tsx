@@ -7,6 +7,7 @@ import Row from "@components/common/Row"
 import Col from "@components/common/Col"
 
 type StaticPageProps = {
+  children?: React.ReactNode
   title?: string
 }
 

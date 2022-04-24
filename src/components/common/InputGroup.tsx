@@ -4,6 +4,7 @@ import classNames from "classnames"
 import classes from "@styles/components/common/InputGroup.module.scss"
 
 type InputGroupProps = {
+  children?: React.ReactNode
   className?: string
 }
 

@@ -10,6 +10,7 @@ import { useTranslations } from "@hooks/useTranslations"
 import Container from "@components/common/Container"
 import Row from "@components/common/Row"
 import Col from "@components/common/Col"
+import SectionTitle from "./SectionTitle"
 
 const AwardList = [{
   title: "SwarmGrants",
@@ -30,9 +31,12 @@ const Awards: React.FC = () => {
         <Row>
           <Col>
             <ViewportObserver childrenRef={titleRef} viewportClassName="animation-active" threshold={0.1}>
-              <h2 className={classNames(classes.awardsTitle, "fade-in-up", "delay-50")} ref={titleRef}>
-                {t`awards`}
-              </h2>
+              <SectionTitle
+                title={t`awards`}
+                className={classNames(classes.awardsTitle, "fade-in-up", "delay-50")}
+                anchorLink="awards"
+                elRef={titleRef}
+              />
             </ViewportObserver>
 
             <ViewportObserver childrenRef={listRef} viewportClassName="animation-active" threshold={0.1}>

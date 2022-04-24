@@ -8,6 +8,7 @@ import Container from "@components/common/Container"
 import ViewportObserver from "@components/layout/ViewportObserver"
 import Row from "@components/common/Row"
 import Col from "@components/common/Col"
+import SectionTitle from "./SectionTitle"
 
 type LandingSectionProps = {
   id: string
@@ -35,9 +36,12 @@ const LandingSection: React.FC<LandingSectionProps> = ({
         <Row>
           <Col>
             <ViewportObserver childrenRef={titleRef} viewportClassName="animation-active" threshold={0.1}>
-              <h2 className={classNames(classes.landingTitle, "fade-in-up", "delay-50")} ref={titleRef}>
-                {title}
-              </h2>
+              <SectionTitle
+                className={classNames(classes.landingTitle, "fade-in-up", "delay-50")}
+                title={title}
+                anchorLink={id}
+                elRef={titleRef}
+              />
             </ViewportObserver>
             <ViewportObserver childrenRef={descriptionRef} viewportClassName="animation-active" threshold={0.1}>
               <p className={classNames(classes.landingDescription, "fade-in-up", "delay-100")} ref={descriptionRef}>

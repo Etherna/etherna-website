@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 
 import classes from "@styles/components/admin/AdminHeader.module.scss"
 
-const AdminHeader = () => {
+const AdminHeader: React.FC = () => {
   return (
     <header className={classes.adminHeader}>
       <div className={classes.adminHeaderLogo}>

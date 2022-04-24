@@ -3,6 +3,7 @@ import React from "react"
 import { DropdownContext, DropdownContextState } from "."
 
 type DropdownContextProviderProps = {
+  children?: React.ReactNode
   showMenu: boolean
   setShowMenu: (show: boolean) => void
 }

@@ -5,6 +5,7 @@ import classes from "@styles/components/common/Dropdown.module.scss"
 import DropdownContextProvider from "@context/dropdown-context/dropdown-context-provider"
 
 type DropdownProps = {
+  children?: React.ReactNode
   toggleChildren?: React.ReactNode
   toggleClass?: string
   showChevron?: boolean

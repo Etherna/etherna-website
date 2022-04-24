@@ -9,7 +9,7 @@ type BreadcrumbItemProps = {
 }
 
 const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({ title, path }) => {
-  const LinkWrapper: React.FC = ({ children }) => path ? (
+  const LinkWrapper: React.FC<{ children?: React.ReactNode }> = ({ children }) => path ? (
     <Link to={path}>{children}</Link>
   ) : (
     <>{children}</>

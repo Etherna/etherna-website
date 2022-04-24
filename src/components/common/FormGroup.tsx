@@ -4,6 +4,7 @@ import classNames from "classnames"
 import classes from "@styles/components/common/FormGroup.module.scss"
 
 type FormGroupProps = {
+  children?: React.ReactNode
   className?: string
   label?: string
   labelFor?: string

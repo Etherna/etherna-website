@@ -4,6 +4,7 @@ import classNames from "classnames"
 import classes from "@styles/components/common/Col.module.scss"
 
 type ColProps = {
+  children?: React.ReactNode
   as?: React.ElementType
   className?: string
 }

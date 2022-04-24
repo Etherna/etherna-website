@@ -2,7 +2,11 @@ import React from "react"
 
 import classes from "@styles/components/common/Breadcrumb.module.scss"
 
-export const Breadcrumb: React.FC = ({ children }) => {
+type BreadcrumbProps = {
+  children?: React.ReactNode
+}
+
+export const Breadcrumb: React.FC<BreadcrumbProps> = ({ children }) => {
   return (
     <ol className={classes.breadcrumb}>
       {children}
