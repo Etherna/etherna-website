@@ -7,11 +7,11 @@ import BlogHeader from "./BlogHeader"
 import Breadcrumb from "@components/common/Breadcrumb"
 import BreadcrumbItem from "@components/common/BreadcrumbItem"
 import Container from "@components/common/Container"
+import Row from "@components/common/Row"
+import Col from "@components/common/Col"
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { Post } from "@definitions/app"
 import { useTranslations } from "@hooks/useTranslations"
-import Row from "@components/common/Row"
-import Col from "@components/common/Col"
 
 type BlogPostsProps = {
   title: string
@@ -19,7 +19,7 @@ type BlogPostsProps = {
   activeSlug?: string
   breadcrumb: Array<{
     title: string
-    path: string
+    path?: string
   }>
 }
 

@@ -10,6 +10,7 @@ import Container from "./Container"
 import { createPortal } from "@utils/portals"
 
 type ModalProps = {
+  children?: React.ReactNode
   show: boolean
   appearance?: "light" | "dark-blurred"
   compactHeader?: boolean

@@ -1,8 +1,8 @@
 import React from "react"
-import { Link as AnchorLink } from "react-scroll"
 import classNames from "classnames"
 
 import headerLinkClasses from "@styles/components/layout/HeaderMenuLink.module.scss"
+import AnchorLink from "@components/common/AnchorLink"
 
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { useTranslations } from "@hooks/useTranslations"

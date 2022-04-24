@@ -7,6 +7,7 @@ import { CommentNode } from "@definitions/sources"
 import { CommentsState } from "@definitions/comments-context"
 
 type CommentsContextProviderProps = {
+  children?: React.ReactNode
   postId: number
   client: DirectusSDK
   comments: CommentNode[]

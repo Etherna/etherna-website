@@ -12,7 +12,7 @@ import Col from "@components/common/Col"
 import { isLoggedIn, getCurrentUser, logout } from "@utils/admin"
 import gravatar from "@utils/gravatar"
 
-const AdminDashboard = () => {
+const AdminDashboard: React.FC = () => {
   const [isSignedIn, setIsSignedIn] = useState<boolean>()
   const [name, setName] = useState<string | null>(null)
   const [email, setEmail] = useState<string | null>(null)

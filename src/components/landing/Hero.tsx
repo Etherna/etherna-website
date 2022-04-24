@@ -1,14 +1,14 @@
 import React, { useRef } from "react"
-import { Link as AnchorLink } from "react-scroll"
 import classNames from "classnames"
 
 import classes from "@styles/components/landing/Hero.module.scss"
 import { ReactComponent as ArrowDown } from "@images/icons/arrow-down.svg"
 
+import AnchorLink from "@components/common/AnchorLink"
+import Container from "@components/common/Container"
 import ViewportObserver from "@components/layout/ViewportObserver"
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { useTranslations } from "@hooks/useTranslations"
-import Container from "@components/common/Container"
 
 const Hero: React.FC = () => {
   const titleRef = useRef<HTMLHeadingElement>(null)

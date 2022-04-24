@@ -4,6 +4,7 @@ import classNames from "classnames"
 import classes from "@styles/components/common/Alert.module.scss"
 
 type AlertProps = {
+  children?: React.ReactNode
   className?: string
   type?: "success" | "danger" | "warning" | "info"
   title?: string

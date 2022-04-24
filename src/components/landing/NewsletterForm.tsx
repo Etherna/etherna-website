@@ -7,7 +7,6 @@ import { ReactComponent as Spinner } from "@images/animated/spinner-light.svg"
 
 import Alert from "@components/common/Alert"
 import Button from "@components/common/Button"
-import TextField from "@components/common/TextField"
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { useTranslations } from "@hooks/useTranslations"
 import { validateEmail } from "@utils/validation"

@@ -4,6 +4,7 @@ import classNames from "classnames"
 import classes from "@styles/components/common/Container.module.scss"
 
 type ContainerProps = {
+  children?: React.ReactNode
   className?: string
   fluid?: boolean
 }

@@ -4,6 +4,7 @@ import classNames from "classnames"
 import classes from "@styles/components/common/Button.module.scss"
 
 type ButtonProps = {
+  children?: React.ReactNode
   className?: string
   type?: "primary" | "secondary" | "danger" | "warning" | "info"
   disabled?: boolean

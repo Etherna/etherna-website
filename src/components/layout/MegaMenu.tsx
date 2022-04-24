@@ -6,6 +6,7 @@ import classes from "@styles/components/layout/MegaMenu.module.scss"
 import Dropdown from "@components/common/Dropdown"
 
 type MenuProps = {
+  children?: React.ReactNode
   toggleRender: React.ReactNode
   toggleClassName?: string
 }
@@ -24,7 +25,7 @@ const Menu: React.FC<MenuProps> = ({ children, toggleRender, toggleClassName }) 
   )
 }
 
-const Row: React.FC = ({ children }) => {
+const Row: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   return (
     <div className={classes.megaMenuRow}>
       {children}

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react"
 
 type ViewportObserverProps = {
+  children?: React.ReactNode
   childrenRef: React.RefObject<HTMLElement>
   viewportClassName?: string
   rootMargin?: string

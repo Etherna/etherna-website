@@ -8,8 +8,8 @@ import { TransFunction, useTranslations } from "@hooks/useTranslations"
 type LocalizedPageFunc = (localeContext: UseLocale, t: TransFunction) => React.ReactNode
 
 type LocalizedPageProps = {
-  locale?: string
   children: LocalizedPageFunc | React.ReactNode
+  locale?: string
 }
 
 export const LocalizedPage: React.FC<LocalizedPageProps> = ({ children, locale }) => {
@@ -25,17 +25,19 @@ export const LocalizedPage: React.FC<LocalizedPageProps> = ({ children, locale }
   )
 }
 
-const InnerLocalizedPage: React.FC = ({ children }) => {
+const InnerLocalizedPage: React.FC<{ children: LocalizedPageFunc | React.ReactNode }> = ({ children }) => {
   const localeContext = useLocale()
   const [locale] = localeContext
   const { t } = useTranslations(locale)
 
   return (
-    typeof children === "function" ? (
-      children(localeContext, t)
-    ) : (
-      children
-    )
+    <>
+      {typeof children === "function" ? (
+        children(localeContext, t)
+      ) : (
+        children
+      )}
+    </>
   )
 }
 

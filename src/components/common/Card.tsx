@@ -4,6 +4,7 @@ import classNames from "classnames"
 import classes from "@styles/components/common/Card.module.scss"
 
 type CardProps = {
+  children?: React.ReactNode
   className?: string
   size?: "large"
 }

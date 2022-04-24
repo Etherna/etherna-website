@@ -44,7 +44,7 @@ const MegaMenuItem: React.FC<MegaMenuItemProps> = ({
   )
 }
 
-const LinkWrapper: React.FC<{ to?: string }> = ({ children, to }) => to ? (
+const LinkWrapper: React.FC<{ children?: React.ReactNode, to?: string }> = ({ children, to }) => to ? (
   <Link to={to}>{children}</Link>
 ) : (
   <>{children}</>
