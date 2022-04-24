@@ -6,22 +6,20 @@ import { ReactComponent as EthereumLogo } from "@images/logos/ethereum-logo.svg"
 import { ReactComponent as SwarmLogo } from "@images/logos/swarm-logo.svg"
 import { ReactComponent as MongodbLogo } from "@images/logos/mongodb-logo.svg"
 import { ReactComponent as ReactLogo } from "@images/logos/react-logo.svg"
-import { ReactComponent as NewsletterImage } from "@images/newsletter.svg"
 import { ReactComponent as DotNetLogo } from "@images/logos/dotnet-logo.svg"
 
 import Awards from "./Awards"
 import Contacts from "./Contacts"
 import LandingSection from "./LandingSection"
-import NewsletterForm from "./NewsletterForm"
 import PresentationVideo from "./PresentationVideo"
 import Roadmap from "./Roadmap"
+import NewsletterSection from "./NewsletterSection"
 import AlphaPassBanner from "./AlphaPassBanner"
 import Card from "@components/common/Card"
 import Container from "@components/common/Container"
 import Row from "@components/common/Row"
 import Col from "@components/common/Col"
 import ViewportObserver from "@components/layout/ViewportObserver"
-import SocialMenu from "@components/layout/SocialMenu"
 import useLocale from "@context/locale-context/hooks/useLocale"
 import useLocaleInfo from "@hooks/useLocaleInfo"
 import { useTranslations } from "@hooks/useTranslations"
@@ -184,28 +182,7 @@ const Landing: React.FC = () => {
 
       <Contacts />
 
-      <section className="social my-16">
-        <Container>
-          <Row>
-            <Col>
-              <Card className="" size="large">
-                <div className="flex flex-col items-center">
-                  <h4 className="text-4xl leading-tight font-extrabold text-gray-700 text-center">
-                    {t`contact`}
-                  </h4>
-                  <NewsletterImage width="120" />
-                  <NewsletterForm />
-
-                  <hr className="w-24 my-12" />
-
-                  <p className="text-gray-600 mb-4">{t`followUs`}</p>
-                  <SocialMenu vertical={true} buttonStyle={true} />
-                </div>
-              </Card>
-            </Col>
-          </Row>
-        </Container>
-      </section>
+      <NewsletterSection />
 
     </>
   )

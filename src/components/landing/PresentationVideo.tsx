@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react"
 
 import classes from "@styles/components/landing/PresentationVideo.module.scss"
 
+import SectionTitle from "./SectionTitle"
 import Col from "@components/common/Col"
 import Container from "@components/common/Container"
 import Row from "@components/common/Row"
@@ -48,7 +49,10 @@ const PresentationVideo: React.FC = () => {
               onEnterViewport={loadFrameSize}
             >
               <div className={classes.presentationVideo} ref={containerEl}>
-                <h2>{t`watchPresentation`}</h2>
+                <SectionTitle
+                  title={t`watchPresentation`}
+                  anchorLink="wam-presentation"
+                />
                 <iframe
                   src="https://app.etherna.io/embed/6229f4e50a7a47231a0ec7af"
                   width="100%"

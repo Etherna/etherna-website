@@ -9,6 +9,7 @@ import { ReactComponent as ClockIcon } from "@images/icons/clock.svg"
 import { ReactComponent as FlagIcon } from "@images/icons/flag.svg"
 
 import RoadmapCarousel from "./RoadmapCarousel"
+import SectionTitle from "./SectionTitle"
 import Container from "@components/common/Container"
 import Row from "@components/common/Row"
 import Col from "@components/common/Col"
@@ -74,9 +75,12 @@ const Roadmap: React.FC = () => {
         <Row>
           <Col>
             <ViewportObserver childrenRef={titleEl} viewportClassName="animation-active" threshold={0.1}>
-              <h2 className={classNames(classes.roadmapTitle, "fade-in-up", "delay-50")} ref={titleEl}>
-                {t`roadmap`}
-              </h2>
+              <SectionTitle
+                className={classNames(classes.roadmapTitle, "fade-in-up", "delay-50")}
+                title={t`roadmap`}
+                anchorLink="roadmap"
+                elRef={titleEl}
+              />
             </ViewportObserver>
 
             <ViewportObserver childrenRef={roadmapEl} viewportClassName="animation-active">
