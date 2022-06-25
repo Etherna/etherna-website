@@ -29,7 +29,7 @@
 }
 
 .heroCta {
-  @apply inline-flex items-center text-gray-800;
+  @apply inline-flex items-center text-gray-800 whitespace-nowrap;
 
   svg {
     @apply mr-2 h-4;
