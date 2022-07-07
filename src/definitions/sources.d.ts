@@ -157,7 +157,7 @@ export interface LogoNode {
 }
 
 export interface LogoVariantNode {
-  style: "default" | "light" | "dark" | "monochrome" | "compact"
+  style: "default" | "light" | "dark" | "monochrome" | "compact" | "compact-light" | "compact-dark"
   variant_name: string | null
   image: SvgNode
 }
