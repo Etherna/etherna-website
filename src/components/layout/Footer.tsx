@@ -2,7 +2,7 @@ import React from "react"
 import { Link } from "gatsby"
 
 import classes from "@styles/components/layout/Footer.module.scss"
-import { ReactComponent as FooterLogo } from "@images/footer-logo.svg"
+import { ReactComponent as FooterLogo } from "@images/logo-footer.svg"
 
 import SocialMenu from "./SocialMenu"
 import Container from "@components/common/Container"
@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
     <footer className={classes.footer}>
       <Container>
         <div className={classes.footerContainer}>
-          <FooterLogo height={28} />
+          <FooterLogo height={32} />
 
           <SocialMenu className={classes.footerSocialMenu} />
 

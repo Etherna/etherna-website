@@ -2,13 +2,13 @@
   "colors": "Colors",
   "fonts": "Fonts",
   "logos": "Logos",
-
   "details": "Details",
-
   "logoStyle": {
     "default": "Default",
     "monochrome": "Monochrome",
     "compact": "Compact",
+    "compact-light": "Compact Light",
+    "compact-dark": "Compact Dark",
     "light": "Light",
     "dark": "Dark"
   }

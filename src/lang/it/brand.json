@@ -2,13 +2,13 @@
   "colors": "Colori",
   "fonts": "Font",
   "logos": "Loghi",
-
   "details": "Dettagli",
-
   "logoStyle": {
     "default": "Default",
     "monochrome": "Monocromo",
     "compact": "Compatto",
+    "compact-light": "Compatto Chiaro",
+    "compact-dark": "Compatto Scuro",
     "light": "Chiaro",
     "dark": "Scuro"
   }

@@ -102,13 +102,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Etherna`,
+        short_name: `Etherna`,
         start_url: `/`,
         background_color: `#f7fafc`,
-        theme_color: `#37C4A5`,
+        theme_color: `#00AABE`,
         display: `minimal-ui`,
-        icon: `src/images/icon.png`,
+        icon: `src/images/favicon.svg`,
       },
     },
     {
