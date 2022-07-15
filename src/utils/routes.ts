@@ -49,7 +49,7 @@ const alphaPassPath = () => {
  * @returns Thank you path
  */
 const alphaPassThankyouPath = () => {
-  return `/thankyou`
+  return `/alpha-pass/thankyou`
 }
 
 /**
@@ -65,7 +65,7 @@ const asphaPassSuccessPath = () => {
  * @returns Thank you path
  */
 const thankyouPath = () => {
-  return `/alpha-pass/thankyou`
+  return `/thankyou`
 }
 
 /**
