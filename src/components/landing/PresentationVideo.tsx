@@ -54,7 +54,7 @@ const PresentationVideo: React.FC = () => {
                   anchorLink="wam-presentation"
                 />
                 <iframe
-                  src="https://app.etherna.io/embed/6229f4e50a7a47231a0ec7af"
+                  src="https://etherna.io/embed/6229f4e50a7a47231a0ec7af"
                   width="100%"
                   height={height}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
