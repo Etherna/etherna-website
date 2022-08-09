@@ -11,15 +11,26 @@ type LayoutProps = {
 
 const Layout: React.FC<LayoutProps> = ({ children, transparentHeader, showLandingMenu }) => {
   useEffect(() => {
-    if (typeof window === "undefined") return
+    if (process.env.NODE_ENV !== "production") return
+    if (typeof window === "undefined" || typeof URL === "undefined") return
 
-    const wwwPattern = "www."
+    // auto redirect www to non-www && http to https
 
-    if (window.location.origin.includes(wwwPattern)) {
-      const { origin, pathname, search } = window.location
-      const url = `${origin.replace(wwwPattern, "")}${pathname}${search}`
+    const url = new URL(window.location.href)
+    let redirect = false
 
-      window.location.href = url
+    if (url.protocol === "http:") {
+      url.protocol = "https:"
+      redirect = true
+    }
+
+    if (window.location.hostname.startsWith("www.")) {
+      url.hostname = url.hostname.slice(4)
+      redirect = true
+    }
+
+    if (redirect) {
+      window.location.href = url.href
     }
   }, [])
 
