@@ -8,19 +8,22 @@ type HeaderMenuProps = {
   className?: string
   position?: "left" | "right"
   landingMenu?: boolean
+  correctMobile?: boolean
 }
 
 const HeaderMenu: React.FC<HeaderMenuProps> = ({
   children,
   className,
   position,
-  landingMenu
+  landingMenu,
+  correctMobile,
 }) => {
   return (
     <nav className={classNames(classes.headerMenu, className, {
       [classes.menuLanding]: landingMenu,
       [classes.menuLeft]: position === "left",
       [classes.menuRight]: position === "right",
+      [classes.correctMobile]: correctMobile,
     })}>
       {children}
     </nav>
