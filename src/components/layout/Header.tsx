@@ -5,7 +5,6 @@ import { graphql, Link, useStaticQuery } from "gatsby"
 import classes from "@styles/components/layout/Header.module.scss"
 import linkClasses from "@styles/components/layout/HeaderMenuLink.module.scss"
 import { ReactComponent as Logo } from "@images/logo.svg"
-import { ReactComponent as DocIcon } from "@images/icons/document.svg"
 
 import HeaderMenu from "./HeaderMenu"
 import ProjectsMenu from "./ProjectsMenu"
@@ -17,6 +16,7 @@ import Container from "@components/common/Container"
 import useLocale from "@context/locale-context/hooks/useLocale"
 import { useTranslations } from "@hooks/useTranslations"
 import routes from "@utils/routes"
+import WhitepaperLink from "@components/common/WhitepaperLink"
 
 type HeaderProps = {
   transparent?: boolean
@@ -28,17 +28,6 @@ const Header: React.FC<HeaderProps> = ({ transparent }) => {
   const [showContextualMenu, setShowContextualMenu] = useState(false)
   const [locale] = useLocale()
   const { t } = useTranslations(locale, "header")
-
-  const data = useStaticQuery(graphql`query {
-    directusDocument {
-      whitepaper {
-        localFile {
-          publicURL
-        }
-        filename_download
-      }
-    }
-  }`)
 
   useEffect(() => {
     handlePageScroll()
@@ -66,6 +55,8 @@ const Header: React.FC<HeaderProps> = ({ transparent }) => {
             </Link>
           </div>
 
+          <WhitepaperLink className={classNames(linkClasses.headerMenuLink, "hidden sm:flex sm:ml-3")} />
+
           <button className={classes.headerToggle} onClick={() => setShowContextualMenu(!showContextualMenu)}>
             {!showContextualMenu && (
               <span className="mr-2">{t`menu`}</span>
@@ -89,14 +80,7 @@ const Header: React.FC<HeaderProps> = ({ transparent }) => {
               )} */}
 
               <HeaderMenu correctMobile>
-                <a
-                  className={linkClasses.headerMenuLink}
-                  href={data.directusDocument.whitepaper.localFile.publicURL}
-                  download={data.directusDocument.whitepaper.filename_download}
-                >
-                  <DocIcon aria-hidden />
-                  <span>Whitepaper</span>
-                </a>
+                <WhitepaperLink className={classNames(linkClasses.headerMenuLink, "flex sm:hidden")} />
               </HeaderMenu>
 
               <HeaderMenu position="right">

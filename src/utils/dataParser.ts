@@ -98,6 +98,7 @@ export const parseProject = (node: ProjectNode, locale: string): Project => {
     localized_contents,
     coming_soon,
     github_link,
+    external_link,
     image
   } = node
   const localizedCategory = localized_contents.find(lc => lc.locale === locale)
@@ -110,6 +111,7 @@ export const parseProject = (node: ProjectNode, locale: string): Project => {
     ...localizedCategory,
     coming_soon,
     github_link,
+    external_link,
     image,
     allSlugs
   }

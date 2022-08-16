@@ -9,6 +9,7 @@ type MegaMenuItemProps = {
   title: string
   excerpt?: string
   imageUrl?: string
+  isExternal?: boolean
   disabled?: boolean
 }
 
@@ -17,6 +18,7 @@ const MegaMenuItem: React.FC<MegaMenuItemProps> = ({
   title,
   excerpt,
   imageUrl,
+  isExternal,
   disabled
 }) => {
   return (
@@ -27,13 +29,13 @@ const MegaMenuItem: React.FC<MegaMenuItemProps> = ({
     >
       {imageUrl && (
         <div className={classes.megaMenuItemImage}>
-          <LinkWrapper to={to}>
+          <LinkWrapper to={to} external={isExternal}>
             <img src={imageUrl} alt={title} />
           </LinkWrapper>
         </div>
       )}
       <div className={classes.megaMenuItemInfo}>
-        <LinkWrapper to={to}>
+        <LinkWrapper to={to} external={isExternal}>
           <div className={classes.megaMenuItemTitle}>{title}</div>
           {excerpt && (
             <p className={classes.megaMenuItemDescription}>{excerpt}</p>
@@ -44,10 +46,20 @@ const MegaMenuItem: React.FC<MegaMenuItemProps> = ({
   )
 }
 
-const LinkWrapper: React.FC<{ children?: React.ReactNode, to?: string }> = ({ children, to }) => to ? (
-  <Link to={to}>{children}</Link>
-) : (
-  <>{children}</>
-)
+const LinkWrapper: React.FC<{ children?: React.ReactNode, to?: string, external?: boolean }> = ({
+  children,
+  to,
+  external,
+}) => {
+  return to ? (
+    external ? (
+      <a href={to} target="_blank" rel="noreferrer">{children}</a>
+    ) : (
+      <Link to={to}>{children}</Link>
+    )
+  ) : (
+    <>{children}</>
+  )
+}
 
 export default MegaMenuItem
