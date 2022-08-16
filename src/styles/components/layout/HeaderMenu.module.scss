@@ -24,4 +24,8 @@
     @apply hidden;
     @apply xl:flex;
   }
+
+  &.correctMobile {
+    @apply -ml-3.5 lg:ml-0;
+  }
 }

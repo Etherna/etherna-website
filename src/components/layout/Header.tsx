@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react"
 import classNames from "classnames"
-import { Link } from "gatsby"
+import { graphql, Link, useStaticQuery } from "gatsby"
 
 import classes from "@styles/components/layout/Header.module.scss"
 import linkClasses from "@styles/components/layout/HeaderMenuLink.module.scss"
 import { ReactComponent as Logo } from "@images/logo.svg"
+import { ReactComponent as DocIcon } from "@images/icons/document.svg"
 
 import HeaderMenu from "./HeaderMenu"
-import LandingMenu from "./LandingMenu"
 import ProjectsMenu from "./ProjectsMenu"
 import PagesMenu from "./PagesMenu"
 import UserMenu from "./UserMenu"
@@ -23,11 +23,22 @@ type HeaderProps = {
   showLandingMenu?: boolean
 }
 
-const Header: React.FC<HeaderProps> = ({ transparent, showLandingMenu }) => {
+const Header: React.FC<HeaderProps> = ({ transparent }) => {
   const [isActive, setIsActive] = useState(false)
   const [showContextualMenu, setShowContextualMenu] = useState(false)
   const [locale] = useLocale()
   const { t } = useTranslations(locale, "header")
+
+  const data = useStaticQuery(graphql`query {
+    directusDocument {
+      whitepaper {
+        localFile {
+          publicURL
+        }
+        filename_download
+      }
+    }
+  }`)
 
   useEffect(() => {
     handlePageScroll()
@@ -71,11 +82,22 @@ const Header: React.FC<HeaderProps> = ({ transparent, showLandingMenu }) => {
             [classes.active]: showContextualMenu
           })}>
             <div className={classNames(classes.headerMenuRow, classes.rowFill)}>
-              {showLandingMenu && (
+              {/* {showLandingMenu && (
                 <HeaderMenu position="left" landingMenu>
                   <LandingMenu />
                 </HeaderMenu>
-              )}
+              )} */}
+
+              <HeaderMenu correctMobile>
+                <a
+                  className={linkClasses.headerMenuLink}
+                  href={data.directusDocument.whitepaper.localFile.publicURL}
+                  download={data.directusDocument.whitepaper.filename_download}
+                >
+                  <DocIcon aria-hidden />
+                  <span>Whitepaper</span>
+                </a>
+              </HeaderMenu>
 
               <HeaderMenu position="right">
                 <PagesMenu toggleClassName={linkClasses.headerMenuLink} />
