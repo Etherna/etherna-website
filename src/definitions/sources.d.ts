@@ -61,6 +61,7 @@ export interface AuthorNode {
 export interface ProjectNode {
   localized_contents: ProjectLocalizedContentsNode[]
   coming_soon: boolean
+  external_link: string | null
   github_link: string | null
   image: PublicImageNode
 }

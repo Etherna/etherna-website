@@ -38,6 +38,7 @@ export interface Project {
   excerpt: string | null
   coming_soon: boolean
   github_link: string | null
+  external_link: string | null
   meta_description: string | null
   meta_keywords: string | null
   allSlugs: LocaleSlug[]

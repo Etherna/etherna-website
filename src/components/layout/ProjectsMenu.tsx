@@ -17,9 +17,10 @@ type ProjectsMenuProps = {
 const ProjectsMenu: React.FC<ProjectsMenuProps> = ({ toggleClassName }) => {
   const data = useStaticQuery(graphql`
     query {
-      projects: allDirectusProject {
+      projects: allDirectusProject(sort: {fields: sort}) {
         nodes {
           coming_soon
+          external_link
           image {
             localFile {
               publicURL
@@ -46,10 +47,11 @@ const ProjectsMenu: React.FC<ProjectsMenuProps> = ({ toggleClassName }) => {
       <MegaMenu.Row>
         {activeProjects.map((project, i) => (
           <MegaMenuItem
-            to={routes.projectPath(project.slug, locale)}
+            to={project.external_link ?? routes.projectPath(project.slug, locale)}
             title={project.title}
             excerpt={project.excerpt || undefined}
             imageUrl={project.image?.localFile.publicURL}
+            isExternal={!!project.external_link}
             key={i}
           />
         ))}
