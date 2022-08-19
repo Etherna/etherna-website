@@ -82,13 +82,21 @@
 }
 
 .contextualMenu {
+  --menu-height: 0;
   @apply flex flex-wrap w-full origin-top;
-  @apply transition duration-300;
-  @apply opacity-0;
-  @apply lg:flex-nowrap lg:opacity-100;
+  @apply overflow-hidden;
+  @apply lg:flex-nowrap;
+  max-height: 0;
+  transition-property: max-height;
+  @apply duration-300;
+
+  @screen lg {
+    max-height: unset;
+  }
 
   &.active {
     @apply opacity-100;
+    max-height: var(--menu-height);
   }
 }
 
