@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import classNames from "classnames"
-import { graphql, Link, useStaticQuery } from "gatsby"
+import { Link } from "gatsby"
 
 import classes from "@styles/components/layout/Header.module.scss"
 import linkClasses from "@styles/components/layout/HeaderMenuLink.module.scss"
@@ -27,6 +27,7 @@ const Header: React.FC<HeaderProps> = ({ transparent }) => {
   const [isActive, setIsActive] = useState(false)
   const [showContextualMenu, setShowContextualMenu] = useState(false)
   const [locale] = useLocale()
+  const contextualMenu = useRef<HTMLDivElement>(null)
   const { t } = useTranslations(locale, "header")
 
   useEffect(() => {
@@ -69,9 +70,15 @@ const Header: React.FC<HeaderProps> = ({ transparent }) => {
             </div>
           </button>
 
-          <div className={classNames(classes.contextualMenu, {
-            [classes.active]: showContextualMenu
-          })}>
+          <div
+            className={classNames(classes.contextualMenu, {
+              [classes.active]: showContextualMenu
+            })}
+            style={{
+              ["--menu-height"]: `${contextualMenu.current?.scrollHeight}px`
+            } as any}
+            ref={contextualMenu}
+          >
             <div className={classNames(classes.headerMenuRow, classes.rowFill)}>
               {/* {showLandingMenu && (
                 <HeaderMenu position="left" landingMenu>
