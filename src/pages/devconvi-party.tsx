@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 
 const DevconPartyRedirect: React.FC = () => {
   useEffect(() => {
-    window.location.href = "https://www.eventbrite.com/e/biglietti-ethernas-community-party-413257784157"
+    window.location.href = "https://www.eventbrite.it/e/ethernas-community-party-tickets-413257784157"
   }, [])
 
   return (
