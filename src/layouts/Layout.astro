@@ -1,0 +1,26 @@
+---
+import BaseHead from "./BaseHead.astro"
+
+interface Props {
+	title: string
+	description: string
+}
+
+const { title, description, image = '/placeholder-social.jpg' } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title="Etherna" description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Posts</a>
+      <a href="#">Contact</a>
+    </nav>
+    <article>
+      <slot /> <!-- your content is injected here -->
+    </article>
+  </body>
+</html>

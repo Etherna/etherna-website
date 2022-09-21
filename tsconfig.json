@@ -2,20 +2,25 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "lib": ["dom", "es2017"],
+    "lib": ["dom", "esnext"],
     "types": ["node"],
-    "plugins": [
-      { "name": "typescript-plugin-css-modules" }
-    ],
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
     "jsx": "preserve",
     "allowJs": true,
     "alwaysStrict": true,
     "skipLibCheck": false,
     "noEmit": true,
     "noImplicitAny": true,
-    "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
     "isolatedModules": true,
     "esModuleInterop": true,
     "downlevelIteration": true,
@@ -31,11 +36,9 @@
       "@styles/*": ["./src/styles/*"],
       "@pages/*": ["./src/pages/*"],
       "@templates/*": ["./src/templates/*"],
-      "@utils/*": ["./src/utils/*"],
+      "@utils/*": ["./src/utils/*"]
     },
-    "typeRoots": [
-      "typings/"
-    ],
+    "typeRoots": ["typings/"],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true
