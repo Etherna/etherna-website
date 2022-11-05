@@ -14,15 +14,18 @@
 }
 
 .heroTitle {
-  @apply leading-tight text-5xl mt-12 mb-8;
+  @apply text-center;
+  @apply leading-tight text-5xl mt-12 mb-8 font-black;
   @apply lg:mt-16 lg:mb-12;
 }
 
 .heroDescription {
+  @apply text-center;
   @apply text-lg;
 }
 
 .heroTagline {
+  @apply text-center;
   @apply inline-block text-xl border-b-4 border-primary-500 mt-12 mb-20;
   @apply sm:text-2xl;
   @apply md:mt-16 md:mb-32;
