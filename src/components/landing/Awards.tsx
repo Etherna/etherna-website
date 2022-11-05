@@ -3,6 +3,7 @@ import classNames from "classnames"
 
 import classes from "@styles/components/landing/Awards.module.scss"
 import swarmGrantImg from "@images/logos/swarm-grants.svg"
+import devconArchiveImg from "@images/logos/devcon-archive.svg"
 
 import ViewportObserver from "@components/layout/ViewportObserver"
 import useLocale from "@context/locale-context/hooks/useLocale"
@@ -17,6 +18,11 @@ const AwardList = [{
   description: "SwarmGrantsDesc",
   image: swarmGrantImg,
   link: "https://medium.com/ethereum-swarm/buzz-is-in-the-air-swarm-grants-results-are-in-a030ab9178a9"
+}, {
+  title: "DevconArchive",
+  description: "DevconArchiveDesc",
+  image: devconArchiveImg,
+  link: "https://medium.com/ethereum-swarm/through-etherna-the-devcon-video-archive-is-now-available-on-the-swarm-network-66d4583df8c0"
 }]
 
 const Awards: React.FC = () => {
