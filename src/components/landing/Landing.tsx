@@ -148,16 +148,16 @@ const Landing: React.FC = () => {
 
       <LandingSection
         id="innovative"
-        title={t`innovative`}
-        description={t`innovativeDescription`}
+        title={t`web3`}
+        description={t`web3Description`}
         features={[{
           icon: require("@images/icons/feature-decentralized.svg").default,
-          title: t`innovativeFeatures.0.title`,
-          description: t`innovativeFeatures.0.description`
+          title: t`web3Features.0.title`,
+          description: t`web3Features.0.description`
         }, {
           icon: require("@images/icons/feature-permanent.svg").default,
-          title: t`innovativeFeatures.1.title`,
-          description: t`innovativeFeatures.1.description`
+          title: t`web3Features.1.title`,
+          description: t`web3Features.1.description`
         }]}
       />
 

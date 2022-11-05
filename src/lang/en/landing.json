@@ -15,7 +15,7 @@
   "transparencyFeatures": {
     "0": {
       "title": "No shadow banning",
-      "description": "Be free to post want you enjoy to do. We won't ban any content as long as it's legal."
+      "description": "Be free to post whatever you want. We won't ban any content as long as it's legal."
     },
     "1": {
       "title": "Freedom of Speech",
@@ -50,9 +50,9 @@
       "description": "We pay creators the same amount based on views. The more the users watch your contents, the more you will gain."
     }
   },
-  "innovative": "Innovative",
-  "innovativeDescription": "We use the best and innovative technologies now on the market.",
-  "innovativeFeatures": {
+  "web3": "Web3",
+  "web3Description": "Web3 refers to the next generation of the web, where you own your data and you decide how to use it.",
+  "web3Features": {
     "0": {
       "title": "Decentralized Content",
       "description": "Every assets on Etherna, from your avatar to your videos, are stored on a decentralized file system call Swarm. We can't delete anything."
