@@ -3,7 +3,7 @@
 }
 
 .footerContainer {
-  @apply flex flex-col items-center;
+  @apply flex flex-col items-center mx-auto max-w-screen-lg;
 }
 
 .footerSocialMenu {
