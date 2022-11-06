@@ -21,7 +21,8 @@
 
 .heroDescription {
   @apply text-center;
-  @apply text-lg;
+  @apply text-lg shadow-white;
+  text-shadow: 0px 0px 5px var(--tw-shadow-color);
 }
 
 .heroTagline {
