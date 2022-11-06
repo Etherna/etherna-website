@@ -159,7 +159,7 @@ export const parsePages = (nodes: PageNode[], locale: string) => {
  * Parse page node
  */
 export const parsePage = (node: PageNode, locale: string): Page => {
-  const { localized_contents } = node
+  const { localized_contents, show_in_menu } = node
   const localizedContents = localized_contents.find(lc => lc.locale === locale)
     || localized_contents[0]
   const allSlugs = localized_contents.map(lc => ({
@@ -168,6 +168,7 @@ export const parsePage = (node: PageNode, locale: string): Page => {
   }))
   return {
     ...localizedContents,
+    show_in_menu,
     allSlugs
   }
 }

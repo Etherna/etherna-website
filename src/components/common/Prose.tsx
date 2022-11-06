@@ -1,5 +1,5 @@
 import React from "react"
-import classNames from "classnames"
+import classNames from "@utils/classnames"
 
 import classes from "@styles/components/common/Prose.module.scss"
 

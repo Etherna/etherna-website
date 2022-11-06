@@ -1,5 +1,5 @@
 import React, { useRef } from "react"
-import classNames from "classnames"
+import classNames from "@utils/classnames"
 
 import classes from "@styles/components/landing/LandingSectionFeature.module.scss"
 

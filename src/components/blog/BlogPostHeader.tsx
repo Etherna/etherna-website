@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
-import classNames from "classnames"
+import classNames from "@utils/classnames"
 
 import classes from "@styles/components/blog/BlogPostHeader.module.scss"
 

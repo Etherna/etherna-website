@@ -78,6 +78,7 @@ export interface ProjectLocalizedContentsNode {
 
 export interface PageNode {
   localized_contents: PageLocalizedContentsNode[]
+  show_in_menu: boolean
 }
 
 export interface PageLocalizedContentsNode {

@@ -15,7 +15,7 @@
   "transparencyFeatures": {
     "0": {
       "title": "No shadow ban",
-      "description": "Sii libero di postare ciò che preferisci. Non vieteremo alcun contenuto fintanto che sia legale."
+      "description": "Pubblica qualsiasi cosa tu voglia. Non vieteremo alcun contenuto fintanto che sia legale."
     },
     "1": {
       "title": "Libertà di Parola",
@@ -50,9 +50,9 @@
       "description": "Paghiamo ai creatori lo stesso importo in base alle visualizzazioni. Più utenti guardano i tuoi contenuti, più guadagni."
     }
   },
-  "innovative": "Innovativa",
-  "innovativeDescription": "Utilizziamo le tecnologie migliori e innovative ora sul mercato.",
-  "innovativeFeatures": {
+  "web3": "Web3",
+  "web3Description": "Web3 si riferisce alla prossima generazione del web, dove sei te a possedere i tuoi dati ed a decidere come utilizzarli.",
+  "web3Features": {
     "0": {
       "title": "Contenuto Decentralizzato",
       "description": "Tutte le risorse su Etherna, dal tuo avatar ai tuoi video, sono archiviate in un file system decentralizzato chiamato Swarm. Non possiamo eliminare nulla."
@@ -63,7 +63,7 @@
     }
   },
   "extendable": "Espandibile",
-  "extendableDescription": "Forniamo un protocollo di indicizzazione che tutti possono modificare ed estendere, quindi gli utenti saranno in grado di modificare l’indice col loro preferito e godere del contenuto che preferiscono.",
+  "extendableDescription": "Forniamo un protocollo di indicizzazione che tutti possono modificare ed estendere, quindi gli utenti saranno in grado di modificare l'indice col loro preferito e godere del contenuto che preferiscono.",
   "extendableFeatures": {
     "0": {
       "title": "Indice Personalizzato",
