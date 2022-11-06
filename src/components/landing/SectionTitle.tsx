@@ -1,6 +1,6 @@
 import React from "react"
 import { Link } from "gatsby"
-import classNames from "classnames"
+import classNames from "@utils/classnames"
 
 import classes from "@styles/components/landing/SectionTitle.module.scss"
 

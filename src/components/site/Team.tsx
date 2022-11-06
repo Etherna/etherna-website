@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { GatsbyImage } from "gatsby-plugin-image"
-import classNames from "classnames"
+import classNames from "@utils/classnames"
 
 import classes from "@styles/components/site/Team.module.scss"
 

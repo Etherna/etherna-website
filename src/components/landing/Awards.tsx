@@ -1,5 +1,5 @@
 import React, { useRef } from "react"
-import classNames from "classnames"
+import classNames from "@utils/classnames"
 
 import classes from "@styles/components/landing/Awards.module.scss"
 import swarmGrantImg from "@images/logos/swarm-grants.svg"

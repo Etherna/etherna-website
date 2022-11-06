@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react"
-import classNames from "classnames"
+import classNames from "@utils/classnames"
 import { graphql, Link, useStaticQuery } from "gatsby"
 
 import classes from "@styles/components/layout/Header.module.scss"

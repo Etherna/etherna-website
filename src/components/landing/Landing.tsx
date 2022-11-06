@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react"
-import classNames from "classnames"
+import classNames from "@utils/classnames"
 
 import classes from "@styles/components/landing/Landing.module.scss"
 import { ReactComponent as EthereumLogo } from "@images/logos/ethereum-logo.svg"

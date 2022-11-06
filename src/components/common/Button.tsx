@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react"
-import classNames from "classnames"
+import classNames from "@utils/classnames"
 
 import classes from "@styles/components/common/Button.module.scss"
 import { Link } from "gatsby"

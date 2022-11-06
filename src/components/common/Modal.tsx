@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useRef } from "react"
 import { Dialog, Transition } from "@headlessui/react"
-import classNames from "classnames"
+import classNames from "@utils/classnames"
 import { enableBodyScroll, disableBodyScroll } from "body-scroll-lock"
 
 import classes from "@styles/components/common/Modal.module.scss"
