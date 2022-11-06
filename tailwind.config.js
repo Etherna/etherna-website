@@ -1,11 +1,7 @@
 const plugin = require("tailwindcss/plugin")
 
 module.exports = {
-  content: [
-    "./index.html",
-    "./public/**/*.html",
-    "./src/**/*.tsx",
-  ],
+  content: ["./index.html", "./public/**/*.html", "./src/**/*.tsx"],
   darkMode: "class",
   theme: {
     extend: {
@@ -32,7 +28,7 @@ module.exports = {
         },
       },
       spacing: {
-        full: "100%"
+        full: "100%",
       },
       fontFamily: {
         sans: [
@@ -41,32 +37,32 @@ module.exports = {
           "system-ui",
           "-apple-system",
           "BlinkMacSystemFont",
-          "\"Segoe UI\"",
+          '"Segoe UI"',
           "Roboto",
-          "\"Helvetica Neue\"",
+          '"Helvetica Neue"',
           "sans-serif",
-          "\"Apple Color Emoji\"",
-          "\"Segoe UI Emoji\"",
-          "\"Segoe UI Symbol\"",
-          "\"Noto Color Emoji\"",
+          '"Apple Color Emoji"',
+          '"Segoe UI Emoji"',
+          '"Segoe UI Symbol"',
+          '"Noto Color Emoji"',
         ],
         serif: [
-          "\"DM Serif Display\"",
+          '"DM Serif Display"',
           "ui-serif",
           "Georgia",
           "Cambria",
-          "\"Times New Roman\"",
+          '"Times New Roman"',
           "Times",
           "serif",
-        ]
+        ],
       },
       fontSize: {},
       maxWidth: ({ theme }) => ({
-        ...theme('spacing'),
+        ...theme("spacing"),
       }),
       minWidth: {
-        xxs: '12rem',
-        xs: '20rem',
+        xxs: "12rem",
+        xs: "20rem",
       },
       zIndex: {
         "-1": "-1",
@@ -78,11 +74,11 @@ module.exports = {
       typography: {
         DEFAULT: {
           css: {
-            'blockquote p:first-of-type::before': { content: 'none' },
-            'blockquote p:first-of-type::after': { content: 'none' },
+            "blockquote p:first-of-type::before": { content: "none" },
+            "blockquote p:first-of-type::after": { content: "none" },
           },
         },
-      }
+      },
     },
   },
   plugins: [
@@ -90,13 +86,13 @@ module.exports = {
     plugin(function ({ addUtilities }) {
       const utils = {
         ".absolute-center": {
-          "position": "absolute",
-          "left": "50%",
-          "top": "50%",
+          position: "absolute",
+          left: "50%",
+          top: "50%",
           "--tw-translate-x": "-50%",
           "--tw-translate-y": "-50%",
-          "transform": "var(--tw-transform)",
-        }
+          transform: "var(--tw-transform)",
+        },
       }
       addUtilities(utils, ["responsive"])
     }),

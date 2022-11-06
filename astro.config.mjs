@@ -1,13 +1,11 @@
 // @ts-check
-
-import { defineConfig } from "astro/config"
 import mdx from "@astrojs/mdx"
-import turbolinks from "@astrojs/turbolinks"
+import react from "@astrojs/react"
 import sitemap from "@astrojs/sitemap"
+import { defineConfig } from "astro/config"
 
 // https://astro.build/config
 /** @type {import('astro').AstroUserConfig} */
 export default defineConfig({
-  site: "https://info.etherna.io",
-  integrations: [turbolinks(), mdx(), sitemap()],
+  integrations: [react(), mdx(), sitemap()],
 })

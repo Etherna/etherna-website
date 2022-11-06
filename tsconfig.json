@@ -1,48 +1,8 @@
 {
+  "extends": "astro/tsconfigs/strictest",
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "lib": ["dom", "esnext"],
-    "types": ["node"],
-    "plugins": [{ "name": "typescript-plugin-css-modules" }],
-    "jsx": "preserve",
-    "allowJs": true,
-    "alwaysStrict": true,
-    "skipLibCheck": false,
-    "noEmit": true,
-    "noImplicitAny": true,
-    "moduleResolution": "node",
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
-    "allowUnreachableCode": false,
-    "allowUnusedLabels": false,
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "downlevelIteration": true,
-    "baseUrl": "./",
-    "paths": {
-      "@components/*": ["./src/components/*"],
-      "@context/*": ["./src/context/*"],
-      "@images/*": ["./src/images/*"],
-      "@queries/*": ["./src/queries/*"],
-      "@definitions/*": ["./src/definitions/*"],
-      "@lang/*": ["./src/lang/*"],
-      "@hooks/*": ["./src/hooks/*"],
-      "@styles/*": ["./src/styles/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@templates/*": ["./src/templates/*"],
-      "@utils/*": ["./src/utils/*"]
-    },
-    "typeRoots": ["typings/"],
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true
-  },
-  "include": ["./src/**/*"],
-  "exclude": [".cache", "public", "node_modules"]
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "typeRoots": ["typings/"]
+  }
 }
