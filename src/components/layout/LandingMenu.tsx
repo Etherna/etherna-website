@@ -1,5 +1,5 @@
 import React from "react"
-import classNames from "classnames"
+import classNames from "@utils/classnames"
 
 import headerLinkClasses from "@styles/components/layout/HeaderMenuLink.module.scss"
 import AnchorLink from "@components/common/AnchorLink"

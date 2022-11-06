@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useRef } from "react"
-import classNames from "classnames"
-import { Link } from "gatsby"
+import classNames from "@utils/classnames"
+import { graphql, Link, useStaticQuery } from "gatsby"
 
 import classes from "@styles/components/layout/Header.module.scss"
 import linkClasses from "@styles/components/layout/HeaderMenuLink.module.scss"
 import { ReactComponent as Logo } from "@images/logo.svg"
 
 import HeaderMenu from "./HeaderMenu"
-import ProjectsMenu from "./ProjectsMenu"
-import PagesMenu from "./PagesMenu"
 import UserMenu from "./UserMenu"
 import SocialMenu from "./SocialMenu"
 import LangSwitcher from "./LangSwitcher"
@@ -17,6 +15,7 @@ import useLocale from "@context/locale-context/hooks/useLocale"
 import { useTranslations } from "@hooks/useTranslations"
 import routes from "@utils/routes"
 import WhitepaperLink from "@components/common/WhitepaperLink"
+import { parsePages } from "@utils/dataParser"
 
 type HeaderProps = {
   transparent?: boolean
@@ -29,6 +28,24 @@ const Header: React.FC<HeaderProps> = ({ transparent }) => {
   const [locale] = useLocale()
   const contextualMenu = useRef<HTMLDivElement>(null)
   const { t } = useTranslations(locale, "header")
+
+  const data = useStaticQuery(graphql`
+    query {
+      pages: allDirectusPage {
+        nodes {
+          localized_contents {
+            title
+            slug
+            locale
+            excerpt
+          }
+          show_in_menu
+        }
+      }
+    }
+  `)
+  const pages = parsePages(data.pages.nodes, locale)
+    .filter(page => page.locale === locale && page.show_in_menu)
 
   useEffect(() => {
     handlePageScroll()
@@ -91,8 +108,11 @@ const Header: React.FC<HeaderProps> = ({ transparent }) => {
               </HeaderMenu>
 
               <HeaderMenu position="right">
-                <PagesMenu toggleClassName={linkClasses.headerMenuLink} />
-                <ProjectsMenu toggleClassName={linkClasses.headerMenuLink} />
+                {pages.map((page, i) => (
+                  <Link to={routes.pagePath(page.slug, locale)} className={linkClasses.headerMenuLink} key={i}>
+                    {page.title}
+                  </Link>
+                ))}
                 <Link to={routes.aboutPath(locale)} className={linkClasses.headerMenuLink}>{t`about`}</Link>
                 <Link to={routes.blogPath(locale)} className={linkClasses.headerMenuLink}>{t`blog`}</Link>
               </HeaderMenu>

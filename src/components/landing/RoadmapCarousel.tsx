@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react"
 import { GatsbyImage } from "gatsby-plugin-image"
-import classNames from "classnames"
+import classNames from "@utils/classnames"
 
 import classes from "@styles/components/landing/RoadmapCarousel.module.scss"
 import { ReactComponent as ArrowDown } from "@images/icons/arrow-down.svg"

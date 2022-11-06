@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react"
-import classNames from "classnames"
+import classNames from "@utils/classnames"
 
 import classes from "@styles/components/common/Dropdown.module.scss"
 import DropdownContextProvider from "@context/dropdown-context/dropdown-context-provider"

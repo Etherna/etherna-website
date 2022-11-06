@@ -63,6 +63,7 @@ export interface Page {
   excerpt: string | null
   meta_description: string | null
   meta_keywords: string | null
+  show_in_menu: boolean
   locale: string
   allSlugs: LocaleSlug[]
 }

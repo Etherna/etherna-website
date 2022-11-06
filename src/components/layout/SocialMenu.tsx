@@ -1,5 +1,5 @@
 import React from "react"
-import classNames from "classnames"
+import classNames from "@utils/classnames"
 
 import classes from "@styles/components/layout/SocialMenu.module.scss"
 import { ReactComponent as FacebookLogo } from "@images/logos/facebook-logo.svg"

@@ -1,7 +1,8 @@
 {
   "awards": "Awards",
   "moreInfo": "More info",
-
   "SwarmGrants": "Swarm Grants",
-  "SwarmGrantsDesc": "We have been chosen among the best projects to receive a Grant from Swarm"
+  "SwarmGrantsDesc": "We have been chosen among the best projects to receive a Grant from Swarm",
+  "DevconArchive": "Devcon Archive",
+  "DevconArchiveDesc": "The entire Devcon video archive in now hosted on Etherna"
 }

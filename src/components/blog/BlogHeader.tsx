@@ -1,5 +1,5 @@
 import React from "react"
-import classNames from "classnames"
+import classNames from "@utils/classnames"
 import { graphql, useStaticQuery, Link } from "gatsby"
 
 import classes from "@styles/components/blog/BlogHeader.module.scss"

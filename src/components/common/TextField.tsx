@@ -1,5 +1,5 @@
 import React, { useMemo } from "react"
-import classNames from "classnames"
+import classNames from "@utils/classnames"
 
 import classes from "@styles/components/common/TextField.module.scss"
 

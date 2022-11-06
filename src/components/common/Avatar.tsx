@@ -5,7 +5,7 @@ import { useStaticQuery, graphql } from "gatsby"
 import classes from "@styles/components/common/Avatar.module.scss"
 
 import { GatsbyImageData } from "@definitions/sources"
-import classNames from "classnames"
+import classNames from "@utils/classnames"
 
 type AvatarProps = {
   id?: number

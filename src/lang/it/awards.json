@@ -1,7 +1,8 @@
 {
   "awards": "Riconoscimenti",
   "moreInfo": "Maggiori informazioni",
-
   "SwarmGrants": "Swarm Grants",
-  "SwarmGrantsDesc": "Siamo stati scelti tra i migliori progetti per ricevere un Grant da parte di Swarm"
+  "SwarmGrantsDesc": "Siamo stati scelti tra i migliori progetti per ricevere un Grant da parte di Swarm",
+  "DevconArchive": "Archivio Devcon",
+  "DevconArchiveDesc": "L'intero archivio video del Devcon è ora hostato su Etherna"
 }

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
-import classNames from "classnames"
+import classNames from "@utils/classnames"
 
 import classes from "@styles/components/landing/Roadmap.module.scss"
 import { ReactComponent as CheckIcon } from "@images/icons/check.svg"

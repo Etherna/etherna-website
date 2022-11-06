@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import classNames from "classnames"
+import classNames from "@utils/classnames"
 import Tippy from "@tippyjs/react"
 
 import classes from "@styles/components/blog/CommentsList.module.scss"
