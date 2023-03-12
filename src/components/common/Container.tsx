@@ -1,7 +1,6 @@
-import React from "react"
-import classNames from "@utils/classnames"
+import classes from "@/styles/components/common/Container.module.scss"
 
-import classes from "@styles/components/common/Container.module.scss"
+import classNames from "@/utils/classnames"
 
 type ContainerProps = {
   children?: React.ReactNode
@@ -12,11 +11,14 @@ type ContainerProps = {
 const Container: React.FC<ContainerProps> = ({ children, fluid, className }) => {
   return (
     <div
-      className={classNames({
-        [classes.container]: !fluid,
-        [classes.containerFluid]: fluid
-      }, className)
-      }>
+      className={classNames(
+        {
+          [classes.container]: !fluid,
+          [classes.containerFluid]: fluid,
+        },
+        className
+      )}
+    >
       {children}
     </div>
   )

@@ -1,0 +1,25 @@
+---
+import Header from "@/components/layout/Header"
+import fetchNavbar from "@/queries/fetch-navbar"
+
+import type { Lang, LocalizedPaths } from "@/utils/lang"
+
+interface Props {
+  transparent?: boolean
+  localizedPaths?: LocalizedPaths
+  lang: Lang
+}
+
+const { lang, transparent, localizedPaths } = Astro.props
+const { pages, locales } = await fetchNavbar(lang)
+console.log(localizedPaths)
+---
+
+<Header
+  pages={pages}
+  locales={locales}
+  lang={lang}
+  transparent={transparent}
+  localizedPaths={localizedPaths}
+  client:load
+/>

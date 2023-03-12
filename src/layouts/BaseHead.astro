@@ -1,25 +1,26 @@
 ---
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
-import '../styles/global.css'
+import "../styles/global.css"
 
 export interface Props {
-	title?: string
-	description?: string
-	image?: string
+  title?: string
+  description?: string
+  image?: string
 }
 
-const { title, description, image = '/placeholder-social.jpg' } = Astro.props
+const { title, description, image } = Astro.props
 const metaTitle = [title, "Etherna"]
   .filter((comp, i, self) => comp && self.indexOf(comp) === i)
-  .filter(Boolean).join(" | ")
+  .filter(Boolean)
+  .join(" | ")
 ---
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="alternate icon" href="/images/icon-256.png" />
+<!-- <link rel="alternate icon" href="/images/icon-256.png" /> -->
 
 <!-- Primary Meta Tags -->
 <title>{metaTitle}</title>
@@ -31,11 +32,11 @@ const metaTitle = [title, "Etherna"]
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={metaTitle} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
+{image && <meta property="og:image" content={new URL(image, Astro.url)} />}
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={Astro.url} />
 <meta property="twitter:title" content={metaTitle} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.url)} />
+{image && <meta property="twitter:image" content={new URL(image, Astro.url)} />}

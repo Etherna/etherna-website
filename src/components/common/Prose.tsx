@@ -1,7 +1,6 @@
-import React from "react"
-import classNames from "@utils/classnames"
+import classes from "@/styles/components/common/Prose.module.scss"
 
-import classes from "@styles/components/common/Prose.module.scss"
+import classNames from "@/utils/classnames"
 
 type ProseProps = {
   children?: React.ReactNode
@@ -9,11 +8,7 @@ type ProseProps = {
 }
 
 const Prose: React.FC<ProseProps> = ({ children, className }) => {
-  return (
-    <div className={classNames(classes.prosePost, className)}>
-      {children}
-    </div>
-  )
+  return <div className={classNames(classes.prosePost, className)}>{children}</div>
 }
 
 export default Prose

@@ -1,7 +1,6 @@
-import React from "react"
-import classNames from "@utils/classnames"
+import classes from "@/styles/components/common/Row.module.scss"
 
-import classes from "@styles/components/common/Row.module.scss"
+import classNames from "@/utils/classnames"
 
 type RowProps = {
   children?: React.ReactNode

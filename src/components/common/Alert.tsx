@@ -1,7 +1,6 @@
-import React from "react"
-import classNames from "@utils/classnames"
+import classes from "@/styles/components/common/Alert.module.scss"
 
-import classes from "@styles/components/common/Alert.module.scss"
+import classNames from "@/utils/classnames"
 
 type AlertProps = {
   children?: React.ReactNode
@@ -11,13 +10,7 @@ type AlertProps = {
   onClose?(): void
 }
 
-const Alert: React.FC<AlertProps> = ({
-  children,
-  className,
-  type = "success",
-  title,
-  onClose
-}) => {
+const Alert: React.FC<AlertProps> = ({ children, className, type = "success", title, onClose }) => {
   return (
     <div
       className={classNames(classes.alert, className, {
@@ -28,9 +21,7 @@ const Alert: React.FC<AlertProps> = ({
       })}
     >
       <div className={classes.alertHeader}>
-        {title && (
-          <div className={classes.alertTitle}>{title}</div>
-        )}
+        {title && <div className={classes.alertTitle}>{title}</div>}
 
         {onClose && (
           <button className={classes.alertClose} onClick={onClose}>

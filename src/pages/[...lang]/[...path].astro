@@ -1,0 +1,19 @@
+---
+import Layout from "@/layouts/Layout.astro"
+import fetchPage from "@/queries/fetch-page"
+import fetchPaths from "@/queries/fetch-paths"
+
+import type { Lang } from "@/utils/lang"
+
+export async function getStaticPaths() {
+  return await fetchPaths()
+}
+
+const lang = (Astro.params.lang ?? "en") as Lang
+const path = Astro.params.path ?? "/"
+const { title, description, localizedPaths } = await fetchPage(lang, path)
+---
+
+<Layout title={title} description={description} lang={lang} localizedPaths={localizedPaths}>
+  test
+</Layout>

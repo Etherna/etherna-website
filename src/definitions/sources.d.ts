@@ -1,9 +1,15 @@
-import { IGatsbyImageData } from "gatsby-plugin-image"
+import type { Lang } from "@/utils/lang"
+
+export interface LocaleNode {
+  code: string
+  name: string
+  flag: FileNode
+}
 
 export interface ImageNode {
   localFile: {
     childImageSharp: {
-      gatsbyImageData: GatsbyImageData
+      gatsbyImageData: any
     }
   }
 }
@@ -13,8 +19,6 @@ export interface SvgNode {
     publicURL: string
   }
 }
-
-export type GatsbyImageData = IGatsbyImageData
 
 export interface PublicImageNode {
   localFile: {
@@ -33,7 +37,7 @@ export interface PostNode {
 }
 
 export interface PostLocalizedContentsNode {
-  locale: string
+  locale: Lang
   title: string
   slug: string
   content: string
@@ -49,7 +53,7 @@ export interface CategoryNode {
 export interface CategoryLocalizedContentsNode {
   name: string
   slug: string
-  locale: string
+  locale: Lang
 }
 
 export interface AuthorNode {
@@ -73,7 +77,7 @@ export interface ProjectLocalizedContentsNode {
   excerpt: string | null
   meta_description: string | null
   meta_keywords: string | null
-  locale: string
+  locale: Lang
 }
 
 export interface PageNode {
@@ -88,7 +92,7 @@ export interface PageLocalizedContentsNode {
   excerpt: string | null
   meta_description: string | null
   meta_keywords: string | null
-  locale: string
+  locale: Lang
 }
 
 export interface TeamMemberNode {
@@ -100,12 +104,13 @@ export interface TeamMemberNode {
 export interface TeamMemberLocalizedContentsNode {
   bio: string
   role: string
-  locale: string
+  locale: Lang
 }
 
 export interface FileNode {
   title: string
   filename_disk: string
+  private_hash: string
   data: {
     url: string
     full_url: string
@@ -133,7 +138,7 @@ export interface CommentNode {
   email: string
   comment: string
   status: string
-  locale: string | { code: string }
+  locale: Lang | { code: string }
   parent?: CommentNode | number
   post: PostNode | number
   owner?: UserNode | null
@@ -177,5 +182,5 @@ export interface MilestoneLocalizedContentsNode {
   title: string
   subtitle: string
   description: string
-  locale: string
+  locale: Lang
 }

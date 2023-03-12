@@ -1,7 +1,8 @@
 import React, { useMemo } from "react"
-import classNames from "@utils/classnames"
 
-import classes from "@styles/components/common/TextField.module.scss"
+import classes from "@/styles/components/common/TextField.module.scss"
+
+import classNames from "@/utils/classnames"
 
 type TextFieldProps = {
   value: string
@@ -12,7 +13,16 @@ type TextFieldProps = {
   name?: string
   error?: string
   type?: "text" | "email" | "url" | "password" | "radio" | "checkbox"
-  autocomplete?: "on" | "off" | "name" | "given-name" | "family-name" | "email" | "tel" | "url" | "current-password"
+  autocomplete?:
+    | "on"
+    | "off"
+    | "name"
+    | "given-name"
+    | "family-name"
+    | "email"
+    | "tel"
+    | "url"
+    | "current-password"
   multiline?: boolean
   required?: boolean
   disabled?: boolean
@@ -43,15 +53,16 @@ const TextField: React.FC<TextFieldProps> = ({
   onChange,
 }) => {
   const Field: React.FC<React.AllHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>> = useMemo(
-    () => (props: React.AllHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>) => (
-      <>
-        {multiline ? (
-          <textarea {...props} rows={6} ref={elRef} />
-        ) : (
-          <input {...props} ref={elRef} />
-        )}
-      </>
-    ) as any,
+    () => (props: React.AllHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>) =>
+      (
+        <>
+          {multiline ? (
+            <textarea {...props} rows={6} ref={elRef} />
+          ) : (
+            <input {...props} ref={elRef} />
+          )}
+        </>
+      ) as any,
     [elRef, multiline]
   )
 
@@ -82,9 +93,7 @@ const TextField: React.FC<TextFieldProps> = ({
         onFocus={onFocus}
         onBlur={onBlur}
       />
-      {error && (
-        <small className={classes.textFieldError}>{error}</small>
-      )}
+      {error && <small className={classes.textFieldError}>{error}</small>}
     </div>
   )
 }

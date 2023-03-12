@@ -1,4 +1,4 @@
-import { AuthorNode, GatsbyImageData, PublicImageNode } from "./sources"
+import type { AuthorNode, GatsbyImageData, PublicImageNode } from "./sources"
 
 export interface LocaleSlug {
   slug: string

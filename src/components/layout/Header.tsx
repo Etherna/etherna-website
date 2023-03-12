@@ -1,51 +1,34 @@
 import React, { useState, useEffect, useRef } from "react"
-import classNames from "@utils/classnames"
-import { graphql, Link, useStaticQuery } from "gatsby"
+import { useTranslation } from "react-i18next"
 
-import classes from "@styles/components/layout/Header.module.scss"
-import linkClasses from "@styles/components/layout/HeaderMenuLink.module.scss"
-import { ReactComponent as Logo } from "@images/logo.svg"
+import classes from "@/styles/components/layout/Header.module.scss"
+import linkClasses from "@/styles/components/layout/HeaderMenuLink.module.scss"
 
 import HeaderMenu from "./HeaderMenu"
-import UserMenu from "./UserMenu"
-import SocialMenu from "./SocialMenu"
 import LangSwitcher from "./LangSwitcher"
-import Container from "@components/common/Container"
-import useLocale from "@context/locale-context/hooks/useLocale"
-import { useTranslations } from "@hooks/useTranslations"
-import routes from "@utils/routes"
-import WhitepaperLink from "@components/common/WhitepaperLink"
-import { parsePages } from "@utils/dataParser"
+import SocialMenu from "./SocialMenu"
+import Container from "@/components/common/Container"
+import WhitepaperLink from "@/components/common/WhitepaperLink"
+import { ReactComponent as Logo } from "@/images/logo.svg"
+import classNames from "@/utils/classnames"
+import routes from "@/utils/routes"
+
+import type { Lang, LocalizedPaths } from "@/utils/lang"
 
 type HeaderProps = {
   transparent?: boolean
   showLandingMenu?: boolean
+  localizedPaths?: LocalizedPaths
+  pages: { title: string; slug: string }[]
+  locales: { code: string; name: string; flag: string }[]
+  lang: Lang
 }
 
-const Header: React.FC<HeaderProps> = ({ transparent }) => {
+const Header: React.FC<HeaderProps> = ({ transparent, localizedPaths, pages, locales, lang }) => {
   const [isActive, setIsActive] = useState(false)
   const [showContextualMenu, setShowContextualMenu] = useState(false)
-  const [locale] = useLocale()
   const contextualMenu = useRef<HTMLDivElement>(null)
-  const { t } = useTranslations(locale, "header")
-
-  const data = useStaticQuery(graphql`
-    query {
-      pages: allDirectusPage {
-        nodes {
-          localized_contents {
-            title
-            slug
-            locale
-            excerpt
-          }
-          show_in_menu
-        }
-      }
-    }
-  `)
-  const pages = parsePages(data.pages.nodes, locale)
-    .filter(page => page.locale === locale && page.show_in_menu)
+  const { t } = useTranslation("header")
 
   useEffect(() => {
     handlePageScroll()
@@ -61,27 +44,36 @@ const Header: React.FC<HeaderProps> = ({ transparent }) => {
   }
 
   return (
-    <header className={classNames(classes.header, {
-      [classes.transparent]: transparent,
-      [classes.scrolled]: isActive || showContextualMenu,
-    })}>
+    <header
+      className={classNames(classes.header, {
+        [classes.transparent]: transparent,
+        [classes.scrolled]: isActive || showContextualMenu,
+      })}
+    >
       <Container>
         <div className={classes.headerContainer}>
           <div className={classes.headerLogo}>
-            <Link to={routes.homePath(locale)}>
+            <a href={routes.homePath(lang)}>
               <Logo />
-            </Link>
+            </a>
           </div>
 
-          <WhitepaperLink className={classNames(linkClasses.headerMenuLink, "hidden sm:flex sm:ml-3")} />
+          <WhitepaperLink
+            className={classNames(linkClasses.headerMenuLink, "hidden sm:ml-3 sm:flex")}
+            url=""
+            filename="whitepaper.pdf"
+          />
 
-          <button className={classes.headerToggle} onClick={() => setShowContextualMenu(!showContextualMenu)}>
-            {!showContextualMenu && (
-              <span className="mr-2">{t`menu`}</span>
-            )}
-            <div className={classNames(classes.headerToggleIcon, {
-              [classes.open]: showContextualMenu
-            })}>
+          <button
+            className={classes.headerToggle}
+            onClick={() => setShowContextualMenu(!showContextualMenu)}
+          >
+            {!showContextualMenu && <span className="mr-2">{t`menu`}</span>}
+            <div
+              className={classNames(classes.headerToggleIcon, {
+                [classes.open]: showContextualMenu,
+              })}
+            >
               <span className={classes.lineTop}></span>
               <span className={classes.lineBottom}></span>
             </div>
@@ -89,11 +81,13 @@ const Header: React.FC<HeaderProps> = ({ transparent }) => {
 
           <div
             className={classNames(classes.contextualMenu, {
-              [classes.active]: showContextualMenu
+              [classes.active]: showContextualMenu,
             })}
-            style={{
-              ["--menu-height"]: `${contextualMenu.current?.scrollHeight}px`
-            } as any}
+            style={
+              {
+                ["--menu-height"]: `${contextualMenu.current?.scrollHeight}px`,
+              } as any
+            }
             ref={contextualMenu}
           >
             <div className={classNames(classes.headerMenuRow, classes.rowFill)}>
@@ -104,24 +98,43 @@ const Header: React.FC<HeaderProps> = ({ transparent }) => {
               )} */}
 
               <HeaderMenu correctMobile>
-                <WhitepaperLink className={classNames(linkClasses.headerMenuLink, "flex sm:hidden")} />
+                <WhitepaperLink
+                  className={classNames(linkClasses.headerMenuLink, "flex sm:hidden")}
+                  url=""
+                  filename="whitepaper.pdf"
+                />
               </HeaderMenu>
 
               <HeaderMenu position="right">
                 {pages.map((page, i) => (
-                  <Link to={routes.pagePath(page.slug, locale)} className={linkClasses.headerMenuLink} key={i}>
+                  <a
+                    href={routes.pagePath(page.slug, lang)}
+                    className={linkClasses.headerMenuLink}
+                    key={i}
+                  >
                     {page.title}
-                  </Link>
+                  </a>
                 ))}
-                <Link to={routes.aboutPath(locale)} className={linkClasses.headerMenuLink}>{t`about`}</Link>
-                <Link to={routes.blogPath(locale)} className={linkClasses.headerMenuLink}>{t`blog`}</Link>
+                <a
+                  href={routes.aboutPath(lang)}
+                  className={linkClasses.headerMenuLink}
+                >{t`about`}</a>
+                <a href={routes.blogPath(lang)} className={linkClasses.headerMenuLink}>{t`blog`}</a>
               </HeaderMenu>
             </div>
 
             <div className={classes.headerMenuRow}>
               <SocialMenu linkClassName={classes.socialMenuLink} />
-              <LangSwitcher toggleClassName={classes.langMenuToggle} />
-              <UserMenu linkClassName={classes.userMenuLink} avatarClassName={classes.userMenuAvatar} />
+              <LangSwitcher
+                toggleClassName={classes.langMenuToggle}
+                lang={lang}
+                locales={locales}
+                localizedPaths={localizedPaths}
+              />
+              {/* <UserMenu
+                linkClassName={classes.userMenuLink}
+                avatarClassName={classes.userMenuAvatar}
+              /> */}
             </div>
           </div>
         </div>

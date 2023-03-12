@@ -1,15 +1,13 @@
-import React from "react"
-import classNames from "@utils/classnames"
+import { useTranslation } from "react-i18next"
 
-import classes from "@styles/components/layout/SocialMenu.module.scss"
-import { ReactComponent as FacebookLogo } from "@images/logos/facebook-logo.svg"
-import { ReactComponent as TwitterLogo } from "@images/logos/twitter-logo.svg"
-import { ReactComponent as TelegramLogo } from "@images/logos/telegram-logo.svg"
-import { ReactComponent as DiscordLogo } from "@images/logos/discord-logo.svg"
-import { ReactComponent as GithubLogo } from "@images/logos/github-logo.svg"
+import classes from "@/styles/components/layout/SocialMenu.module.scss"
 
-import useLocale from "@context/locale-context/hooks/useLocale"
-import { useTranslations } from "@hooks/useTranslations"
+import { ReactComponent as DiscordLogo } from "@/images/logos/discord-logo.svg"
+import { ReactComponent as FacebookLogo } from "@/images/logos/facebook-logo.svg"
+import { ReactComponent as GithubLogo } from "@/images/logos/github-logo.svg"
+import { ReactComponent as TelegramLogo } from "@/images/logos/telegram-logo.svg"
+import { ReactComponent as TwitterLogo } from "@/images/logos/twitter-logo.svg"
+import classNames from "@/utils/classnames"
 
 type SocialMenuProps = {
   className?: string
@@ -18,15 +16,21 @@ type SocialMenuProps = {
   buttonStyle?: boolean
 }
 
-const SocialMenu: React.FC<SocialMenuProps> = ({ className, linkClassName, vertical, buttonStyle }) => {
-  const [locale] = useLocale()
-  const { t } = useTranslations(locale, "common")
+const SocialMenu: React.FC<SocialMenuProps> = ({
+  className,
+  linkClassName,
+  vertical,
+  buttonStyle,
+}) => {
+  const { t } = useTranslation("common")
 
   return (
-    <nav className={classNames(classes.socialMenu, className, {
-      [classes.vertical]: vertical,
-      [classes.buttonStyle]: buttonStyle
-    })}>
+    <nav
+      className={classNames(classes.socialMenu, className, {
+        [classes.vertical]: vertical,
+        [classes.buttonStyle]: buttonStyle,
+      })}
+    >
       <a
         href="https://www.facebook.com/Etherna.io/"
         className={classNames(classes.socialLink, classes.facebook, linkClassName)}
@@ -34,7 +38,7 @@ const SocialMenu: React.FC<SocialMenuProps> = ({ className, linkClassName, verti
         rel="noopener noreferrer"
       >
         <FacebookLogo />
-        <span className={classes.socialName}>{t`facebookPage`}</span>
+        <span className={classes.socialName}>{t("facebookPage")}</span>
       </a>
       <a
         href="https://twitter.com/Etherna_io"
@@ -43,7 +47,7 @@ const SocialMenu: React.FC<SocialMenuProps> = ({ className, linkClassName, verti
         rel="noopener noreferrer"
       >
         <TwitterLogo />
-        <span className={classes.socialName}>{t`twitter`}</span>
+        <span className={classes.socialName}>{t("twitter")}</span>
       </a>
       <a
         href="https://discord.gg/vfHYEXf"
@@ -52,7 +56,7 @@ const SocialMenu: React.FC<SocialMenuProps> = ({ className, linkClassName, verti
         rel="noopener noreferrer"
       >
         <DiscordLogo />
-        <span className={classes.socialName}>{t`discord`}</span>
+        <span className={classes.socialName}>{t("discord")}</span>
       </a>
       <a
         href="https://t.me/etherna_io"
@@ -61,7 +65,7 @@ const SocialMenu: React.FC<SocialMenuProps> = ({ className, linkClassName, verti
         rel="noopener noreferrer"
       >
         <TelegramLogo />
-        <span className={classes.socialName}>{t`telegramChannel`}</span>
+        <span className={classes.socialName}>{t("telegramChannel")}</span>
       </a>
       <a
         href="https://github.com/Etherna"
@@ -70,7 +74,7 @@ const SocialMenu: React.FC<SocialMenuProps> = ({ className, linkClassName, verti
         rel="noopener noreferrer"
       >
         <GithubLogo />
-        <span className={classes.socialName}>{t`github`}</span>
+        <span className={classes.socialName}>{t("github")}</span>
       </a>
     </nav>
   )

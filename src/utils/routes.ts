@@ -1,14 +1,14 @@
 import { DEFAULT_LOCALE } from "./lang"
 
+import type { Lang } from "./lang"
+
 /**
  * Home path
  * @param locale Home locale
  * @returns Home path
  */
-const homePath = (locale: string) => {
-  return locale === DEFAULT_LOCALE || locale === ""
-    ? `/`
-    : `/${locale}`
+const homePath = (locale: Lang) => {
+  return locale === DEFAULT_LOCALE ? `/` : `/${locale}`
 }
 
 /**
@@ -16,10 +16,8 @@ const homePath = (locale: string) => {
  * @param locale Blog locale
  * @returns Blog path
  */
-const blogPath = (locale: string) => {
-  return locale === DEFAULT_LOCALE || locale === ""
-    ? `/blog`
-    : `/${locale}/blog`
+const blogPath = (locale: Lang) => {
+  return locale === DEFAULT_LOCALE ? `/blog` : `/${locale}/blog`
 }
 
 /**
@@ -27,37 +25,22 @@ const blogPath = (locale: string) => {
  * @param locale About locale
  * @returns About path
  */
-const aboutPath = (locale: string) => {
-  const aboutPaths: Record<string, string> = {
-    it: "chi-siamo"
+const aboutPath = (locale: Lang) => {
+  const localizedSegment = {
+    en: "about",
+    it: "chi-siamo",
   }
-  return locale === DEFAULT_LOCALE || locale === ""
-    ? `/about`
-    : `/${locale}/${aboutPaths[locale] ?? "about"}`
+  const segment = localizedSegment[locale] ?? localizedSegment.en
+  return locale === DEFAULT_LOCALE ? `/about` : `/${locale}/${segment}`
 }
 
 /**
- * Alpha pass page path
- * @returns Alpha pass path
+ * Brand kit path
+ * @param locale Brand kit locale
+ * @returns Brand kit path
  */
-const alphaPassPath = () => {
-  return `/alpha-pass`
-}
-
-/**
- * Alpha pass Thank you page path
- * @returns Thank you path
- */
-const alphaPassThankyouPath = () => {
-  return `/alpha-pass/thankyou`
-}
-
-/**
- * Success page path
- * @returns Success path
- */
-const asphaPassSuccessPath = () => {
-  return `/alpha-pass/success`
+const brandKitPath = (locale: Lang) => {
+  return locale === DEFAULT_LOCALE ? `/brand-kit` : `/${locale}/brand-kit`
 }
 
 /**
@@ -82,10 +65,8 @@ const successPath = () => {
  * @param locale Category locale
  * @returns Post path
  */
-const blogPostPath = (slug: string, locale = DEFAULT_LOCALE) => {
-  return locale === DEFAULT_LOCALE || locale === ""
-    ? `/blog/${slug}`
-    : `/${locale}/blog/${slug}`
+const blogPostPath = (slug: string, locale: Lang = DEFAULT_LOCALE) => {
+  return locale === DEFAULT_LOCALE ? `/blog/${slug}` : `/${locale}/blog/${slug}`
 }
 
 /**
@@ -94,10 +75,15 @@ const blogPostPath = (slug: string, locale = DEFAULT_LOCALE) => {
  * @param locale Category locale
  * @returns Category path
  */
-const blogCategoryPath = (slug: string, locale = DEFAULT_LOCALE) => {
-  return locale === DEFAULT_LOCALE || locale === ""
-    ? `/blog/category/${slug}`
-    : `/${locale}/blog/category/${slug}`
+const blogCategoryPath = (slug: string, locale: Lang = DEFAULT_LOCALE) => {
+  const localizedSegment = {
+    en: "categories",
+    it: "categorie",
+  }
+  const segment = localizedSegment[locale] ?? localizedSegment.en
+  return locale === DEFAULT_LOCALE
+    ? `/blog/${segment}/${slug}`
+    : `/${locale}/blog/${segment}/${slug}`
 }
 
 /**
@@ -106,10 +92,13 @@ const blogCategoryPath = (slug: string, locale = DEFAULT_LOCALE) => {
  * @param locale Category locale
  * @returns Project path
  */
-const projectPath = (slug: string, locale = DEFAULT_LOCALE) => {
-  return locale === DEFAULT_LOCALE || locale === ""
-    ? `/project/${slug}`
-    : `/${locale}/project/${slug}`
+const projectPath = (slug: string, locale: Lang = DEFAULT_LOCALE) => {
+  const localizedSegment = {
+    en: "projects",
+    it: "progetti",
+  }
+  const segment = localizedSegment[locale] ?? localizedSegment.en
+  return locale === DEFAULT_LOCALE ? `/${segment}/${slug}` : `/${locale}/${segment}/${slug}`
 }
 
 /**
@@ -118,25 +107,21 @@ const projectPath = (slug: string, locale = DEFAULT_LOCALE) => {
  * @param locale Category locale
  * @returns Page path
  */
-const pagePath = (slug: string, locale = DEFAULT_LOCALE) => {
-  return locale === DEFAULT_LOCALE || locale === ""
-    ? `/${slug}`
-    : `/${locale}/${slug}`
+const pagePath = (slug: string, locale: Lang = DEFAULT_LOCALE) => {
+  return locale === DEFAULT_LOCALE ? `/${slug}` : `/${locale}/${slug}`
 }
 
 const routes = {
   homePath,
   blogPath,
   aboutPath,
-  alphaPassPath,
-  alphaPassThankyouPath,
-  asphaPassSuccessPath,
+  brandKitPath,
   thankyouPath,
   successPath,
   blogPostPath,
   blogCategoryPath,
   projectPath,
-  pagePath
+  pagePath,
 }
 
 export default routes

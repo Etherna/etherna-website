@@ -1,7 +1,6 @@
-import React from "react"
-import classNames from "@utils/classnames"
+import classes from "@/styles/components/layout/HeaderMenu.module.scss"
 
-import classes from "@styles/components/layout/HeaderMenu.module.scss"
+import classNames from "@/utils/classnames"
 
 type HeaderMenuProps = {
   children?: React.ReactNode
@@ -19,12 +18,14 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
   correctMobile,
 }) => {
   return (
-    <nav className={classNames(classes.headerMenu, className, {
-      [classes.menuLanding]: landingMenu,
-      [classes.menuLeft]: position === "left",
-      [classes.menuRight]: position === "right",
-      [classes.correctMobile]: correctMobile,
-    })}>
+    <nav
+      className={classNames(classes.headerMenu, className, {
+        [classes.menuLanding]: landingMenu,
+        [classes.menuLeft]: position === "left",
+        [classes.menuRight]: position === "right",
+        [classes.correctMobile]: correctMobile,
+      })}
+    >
       {children}
     </nav>
   )

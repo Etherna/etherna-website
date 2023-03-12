@@ -1,32 +1,14 @@
-import React from "react"
-import { graphql, useStaticQuery } from "gatsby"
-
-import { ReactComponent as DocIcon } from "@images/icons/document.svg"
+import { ReactComponent as DocIcon } from "@/images/icons/document.svg"
 
 type WhitepaperLinkProps = {
   className?: string
+  url: string
+  filename: string
 }
 
-const WhitepaperLink: React.FC<WhitepaperLinkProps> = ({ className }) => {
-  const data = useStaticQuery(graphql`query {
-    directusDocument {
-      whitepaper {
-        filename_download
-        localFile {
-          url
-        }
-      }
-    }
-  }`)
-
+const WhitepaperLink: React.FC<WhitepaperLinkProps> = ({ className, url, filename }) => {
   return (
-    <a
-      className={className}
-      href={data.directusDocument.whitepaper.localFile.url}
-      download={data.directusDocument.whitepaper.filename_download}
-      target="_blank"
-      rel="noreferrer"
-    >
+    <a className={className} href={url} download={filename} target="_blank" rel="noreferrer">
       <DocIcon aria-hidden />
       <span>Whitepaper</span>
     </a>

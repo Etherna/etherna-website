@@ -1,13 +1,13 @@
 import React, { Fragment, useEffect, useRef } from "react"
 import { Dialog, Transition } from "@headlessui/react"
-import classNames from "@utils/classnames"
 import { enableBodyScroll, disableBodyScroll } from "body-scroll-lock"
 
-import classes from "@styles/components/common/Modal.module.scss"
-import { ReactComponent as CrossIcon } from "@images/icons/cross-icon.svg"
+import classes from "@/styles/components/common/Modal.module.scss"
 
 import Container from "./Container"
-import { createPortal } from "@utils/portals"
+import { ReactComponent as CrossIcon } from "@/images/icons/cross-icon.svg"
+import classNames from "@/utils/classnames"
+import { createPortal } from "@/utils/portals"
 
 type ModalProps = {
   children?: React.ReactNode
@@ -22,7 +22,7 @@ const Modal: React.FC<ModalProps> = ({
   show,
   appearance = "dark-blurred",
   compactHeader,
-  onClose
+  onClose,
 }) => {
   const modalContentEl = useRef<HTMLDivElement>(null)
   const modalEl = useRef<HTMLDivElement>(null)
@@ -32,7 +32,7 @@ const Modal: React.FC<ModalProps> = ({
 
     if (show) {
       disableBodyScroll(modalEl.current, {
-        reserveScrollBarGap: true
+        reserveScrollBarGap: true,
       })
     } else {
       enableBodyScroll(modalEl.current)
@@ -73,9 +73,11 @@ const Modal: React.FC<ModalProps> = ({
           leaveTo="opacity-0 scale-95"
         >
           <div className={classes.modalDialog}>
-            <div className={classNames(classes.modalHeader, {
-              compact: compactHeader
-            })}>
+            <div
+              className={classNames(classes.modalHeader, {
+                compact: compactHeader,
+              })}
+            >
               <Container>
                 <button className={classes.modalClose} aria-label="Close" onClick={onClose}>
                   <CrossIcon aria-hidden="true" />
@@ -84,9 +86,7 @@ const Modal: React.FC<ModalProps> = ({
             </div>
 
             <div className={classes.modalContent} ref={modalContentEl}>
-              <Container>
-                {children}
-              </Container>
+              <Container>{children}</Container>
             </div>
           </div>
         </Transition.Child>

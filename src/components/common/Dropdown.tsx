@@ -1,8 +1,9 @@
 import React, { useState, useRef } from "react"
-import classNames from "@utils/classnames"
 
-import classes from "@styles/components/common/Dropdown.module.scss"
-import DropdownContextProvider from "@context/dropdown-context/dropdown-context-provider"
+import classes from "@/styles/components/common/Dropdown.module.scss"
+
+import DropdownContextProvider from "@/context/dropdown-context/dropdown-context-provider"
+import classNames from "@/utils/classnames"
 
 type DropdownProps = {
   children?: React.ReactNode
@@ -15,7 +16,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   children,
   toggleChildren,
   toggleClass,
-  showChevron
+  showChevron,
 }) => {
   const toggleRef = useRef<HTMLButtonElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
@@ -35,9 +36,9 @@ const Dropdown: React.FC<DropdownProps> = ({
       const clientWidth = document.documentElement.clientWidth
       const rightMargin = 20
 
-      const toggleCenter = toggleBounds.x + (toggleBounds.width / 2)
+      const toggleCenter = toggleBounds.x + toggleBounds.width / 2
 
-      let left = toggleCenter - (menuBounds.width / 2)
+      let left = toggleCenter - menuBounds.width / 2
       if (left + menuBounds.width + rightMargin > clientWidth) {
         left = clientWidth - menuBounds.width - rightMargin
       }
@@ -47,7 +48,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 
       setPosition({
         top: `${toggleBounds.bottom}px`,
-        left: `${left}px`
+        left: `${left}px`,
       })
     }
 
@@ -69,14 +70,10 @@ const Dropdown: React.FC<DropdownProps> = ({
 
       <button
         ref={toggleRef}
-        className={classNames(
-          classes.dropdownToggle,
-          toggleClass,
-          {
-            [classes.dropdownToggleChevron]: showChevron,
-            [classes.active]: showMenu,
-          }
-        )}
+        className={classNames(classes.dropdownToggle, toggleClass, {
+          [classes.dropdownToggleChevron]: showChevron,
+          [classes.active]: showMenu,
+        })}
         onClick={handleMenuToggle}
         onKeyDown={handleMenuToggle}
       >
@@ -85,7 +82,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 
       <div
         className={classNames(classes.dropdownMenu, {
-          [classes.active]: showMenu
+          [classes.active]: showMenu,
         })}
         style={{ ...position }}
         ref={menuRef}

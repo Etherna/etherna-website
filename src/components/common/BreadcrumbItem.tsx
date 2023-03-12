@@ -1,7 +1,4 @@
-import React from "react"
-import { Link } from "gatsby"
-
-import classes from "@styles/components/common/BreadcrumbItem.module.scss"
+import classes from "@/styles/components/common/BreadcrumbItem.module.scss"
 
 type BreadcrumbItemProps = {
   title: string
@@ -9,11 +6,8 @@ type BreadcrumbItemProps = {
 }
 
 const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({ title, path }) => {
-  const LinkWrapper: React.FC<{ children?: React.ReactNode }> = ({ children }) => path ? (
-    <Link to={path}>{children}</Link>
-  ) : (
-    <>{children}</>
-  )
+  const LinkWrapper: React.FC<{ children?: React.ReactNode }> = ({ children }) =>
+    path ? <a href={path}>{children}</a> : <>{children}</>
 
   return (
     <li className={classes.breadcrumbItem}>

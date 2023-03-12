@@ -1,15 +1,8 @@
-import React, { useEffect } from "react"
+import { useEffect } from "react"
 
-import Header from "./Header"
-import Footer from "./Footer"
+type UrlRedirectProps = {}
 
-type LayoutProps = {
-  children?: React.ReactNode
-  transparentHeader?: boolean
-  showLandingMenu?: boolean
-}
-
-const Layout: React.FC<LayoutProps> = ({ children, transparentHeader, showLandingMenu }) => {
+const UrlRedirect: React.FC<UrlRedirectProps> = ({}) => {
   useEffect(() => {
     if (process.env.NODE_ENV !== "production") return
     if (typeof window === "undefined" || typeof URL === "undefined") return
@@ -34,22 +27,7 @@ const Layout: React.FC<LayoutProps> = ({ children, transparentHeader, showLandin
     }
   }, [])
 
-  return (
-    <>
-      <Header
-        transparent={transparentHeader}
-        showLandingMenu={showLandingMenu}
-      />
-
-      <main>
-        {children}
-      </main>
-
-      <Footer />
-
-      <section id="modals"></section>
-    </>
-  )
+  return null
 }
 
-export default Layout
+export default UrlRedirect
