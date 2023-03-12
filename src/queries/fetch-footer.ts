@@ -18,8 +18,6 @@ export default async function fetchFooter(lang: string) {
     }),
   ])
 
-  console.log(pages, projects, lang)
-
   const footerPages = pages
     .filter(p => p.show_in_menu)
     .map(p => p.localized_contents.find(lc => lc.locale === lang))

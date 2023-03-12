@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef } from "react"
-import { GatsbyImage } from "gatsby-plugin-image"
-import classNames from "@utils/classnames"
+import { useTranslation } from "react-i18next"
 
-import classes from "@styles/components/landing/RoadmapCarousel.module.scss"
-import { ReactComponent as ArrowDown } from "@images/icons/arrow-down.svg"
+import classes from "@/styles/components/landing/RoadmapCarousel.module.scss"
 
 import RoadmapNav from "./RoadmapNav"
-import { Milestone } from "@definitions/app"
-import useLocale from "@context/locale-context/hooks/useLocale"
-import { useTranslations } from "@hooks/useTranslations"
-import { smoothScrollBy } from "@utils/scroll"
+import { ReactComponent as ArrowDown } from "@/images/icons/arrow-down.svg"
+import classNames from "@/utils/classnames"
+import { smoothScrollBy } from "@/utils/scroll"
+
+import type { Milestone } from "@/utils/schemas"
 
 type RoadmapCarouselProps = {
   milestones: Milestone[]
@@ -17,10 +16,15 @@ type RoadmapCarouselProps = {
   onSelectMilestone?(milestone: Milestone): void
 }
 
-const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({ milestones, hidePhotos, onSelectMilestone }) => {
-  const [locale] = useLocale()
-  const { t } = useTranslations(locale, "roadmap")
-  const [currentIndex, setCurrentIndex] = useState(milestones.findIndex(m => m.completion === "ongoing") ?? 0)
+const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({
+  milestones,
+  hidePhotos,
+  onSelectMilestone,
+}) => {
+  const { t } = useTranslation("roadmap")
+  const [currentIndex, setCurrentIndex] = useState(
+    milestones.findIndex(m => m.completion === "ongoing") ?? 0
+  )
   const [listEl, setListEl] = useState<HTMLOListElement>()
   const timer = useRef<number>()
 
@@ -65,7 +69,7 @@ const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({ milestones, hidePhoto
     const scroll = index * itemSize
     smoothScrollBy(container, {
       top: scroll - container.scrollTop,
-      duration: 500
+      duration: 500,
     })
   }
 
@@ -73,9 +77,9 @@ const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({ milestones, hidePhoto
     <div className={classes.roadmapCarousel}>
       <div className={classes.roadmapCarouselMap}>
         <RoadmapNav
-          latitude={milestones[currentIndex].latitude}
-          longitude={milestones[currentIndex].longitude}
-          startLongitude={milestones[0].longitude}
+          latitude={milestones[currentIndex]!.latitude}
+          longitude={milestones[currentIndex]!.longitude}
+          startLongitude={milestones[0]!.longitude}
         />
       </div>
       <div className={classes.roadmapCarouselWrapper}>
@@ -93,22 +97,29 @@ const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({ milestones, hidePhoto
             >
               {hidePhotos !== true && (
                 <div className={classes.roadmapCarouselItemPhoto}>
-                  {milestone.image && (
-                    <GatsbyImage image={milestone.image} objectFit="cover" alt={milestone.title} />
-                  )}
+                  {milestone.image && <img {...milestone.image} />}
                 </div>
               )}
               <div className={classes.roadmapCarouselItemDetails}>
                 <span className={classes.roadmapCarouselItemInfo}>
-                  <span className={classes.roadmapCarouselItemPhase}>{t`phase`} {i + 1}</span>
-                  <span className={classes.roadmapCarouselItemQuarter}>{milestone.completion_quarter}</span>
+                  <span className={classes.roadmapCarouselItemPhase}>
+                    {t`phase`} {i + 1}
+                  </span>
+                  <span className={classes.roadmapCarouselItemQuarter}>
+                    {milestone.completion_quarter}
+                  </span>
                   <span className={classes.roadmapCarouselItemBadge}>
-                    {t(milestone.completion_quarter === "n.d." ? "unscheduled" : milestone.completion)}
+                    {t(
+                      milestone.completion_quarter === "n.d." ? "unscheduled" : milestone.completion
+                    )}
                   </span>
                 </span>
                 <span className={classes.roadmapCarouselItemTitle}>{milestone.title}</span>
                 <span className={classes.roadmapCarouselItemSubtitle}>{milestone.subtitle}</span>
-                <button className={classes.roadmapCarouselItemLink} onClick={() => onSelectMilestone?.(milestone)}>
+                <button
+                  className={classes.roadmapCarouselItemLink}
+                  onClick={() => onSelectMilestone?.(milestone)}
+                >
                   {t`details`}
                 </button>
               </div>

@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect, useMemo } from "react"
 
-import classes from "@styles/components/landing/RoadmapNav.module.scss"
-import { quadraticBezier } from "@utils/bezier"
-import { solarLongitudeScroll } from "@utils/meridians"
+import classes from "@/styles/components/landing/RoadmapNav.module.scss"
+
+import { quadraticBezier } from "@/utils/bezier"
+import { solarLongitudeScroll } from "@/utils/meridians"
 
 type RoadmapNavProps = {
   latitude: number
@@ -33,12 +34,7 @@ const RoadmapNav: React.FC<RoadmapNavProps> = ({ latitude, longitude, startLongi
 
   const [scrollX, location] = useMemo(() => {
     const latitudePercent = (latitude * 0.8 + 50) / (50 + 85) // [85,-50] are the image latitude boundaries
-    const location = quadraticBezier(
-      1 - latitudePercent,
-      50, 0,
-      65, 50,
-      50, 100
-    )
+    const location = quadraticBezier(1 - latitudePercent, 50, 0, 65, 50, 50, 100)
 
     const scrollX = solarLongitudeScroll(longitude, startLongitude, globeSize) + (location.x - 50)
 
@@ -54,13 +50,13 @@ const RoadmapNav: React.FC<RoadmapNavProps> = ({ latitude, longitude, startLongi
       />
       <div className={classes.roadmapNavMeridian}>
         <svg strokeWidth="1.5" viewBox="0 0 100 100">
-          <path id="meridian_path" className={classes.meridian} d="M 50 0 Q 65 50, 50 100" fill="none" />
-          <circle
-            className={classes.meridianLoc}
-            cx={location.x}
-            cy={location.y}
-            r="4"
+          <path
+            id="meridian_path"
+            className={classes.meridian}
+            d="M 50 0 Q 65 50, 50 100"
+            fill="none"
           />
+          <circle className={classes.meridianLoc} cx={location.x} cy={location.y} r="4" />
         </svg>
       </div>
     </div>

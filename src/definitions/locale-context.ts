@@ -1,6 +1,5 @@
-import { Dispatch } from "react"
-
-import { LocaleContextActions } from "@context/locale-context"
+import type { Dispatch } from "react"
+import type { LocaleContextActions } from "@/context/locale-context"
 
 export type LocaleContext = [state: LocaleState, dispatch: Dispatch<LocaleContextActions>]
 

@@ -1,8 +1,6 @@
-import React from "react"
-import { Link } from "gatsby"
-import classNames from "@utils/classnames"
+import classes from "@/styles/components/landing/SectionTitle.module.scss"
 
-import classes from "@styles/components/landing/SectionTitle.module.scss"
+import classNames from "@/utils/classnames"
 
 type SectionTitleProps = {
   title: string
@@ -11,21 +9,16 @@ type SectionTitleProps = {
   elRef?: React.LegacyRef<HTMLHeadingElement>
 }
 
-const SectionTitle: React.FC<SectionTitleProps> = ({
-  className,
-  title,
-  anchorLink,
-  elRef,
-}) => {
+const SectionTitle: React.FC<SectionTitleProps> = ({ className, title, anchorLink, elRef }) => {
   return (
     <h2 className={classNames(classes.sectionTitle, className)} ref={elRef}>
       {anchorLink ? (
-        <Link
+        <a
           className="text-gray-800 hover:text-gray-800 hover:opacity-80"
-          to={anchorLink.replace(/^#?/, "#")}
+          href={anchorLink.replace(/^#?/, "#")}
         >
           {title}
-        </Link>
+        </a>
       ) : (
         title
       )}

@@ -12,7 +12,7 @@ interface Props {
   description?: string
   image?: string
   localizedPaths?: LocalizedPaths
-  lang?: Lang
+  lang: Lang
 }
 
 const { title, description, image, localizedPaths, lang } = Astro.props
@@ -26,7 +26,11 @@ const { title, description, image, localizedPaths, lang } = Astro.props
     <UrlRedirect client:load />
     <I18nConfig lang={lang} client:load />
 
-    <Navbar lang={lang} transparent={Astro.params.path === "/"} localizedPaths={localizedPaths} />
+    <Navbar
+      lang={lang}
+      transparent={Astro.params.path === undefined}
+      localizedPaths={localizedPaths}
+    />
 
     <main>
       <slot />

@@ -1,0 +1,201 @@
+---
+import { z } from "zod"
+
+import Card from "@/components/common/Card"
+import Col from "@/components/common/Col"
+import Container from "@/components/common/Container"
+import Row from "@/components/common/Row"
+import AlphaPassBanner from "@/components/landing/AlphaPassBanner"
+import Awards from "@/components/landing/Awards"
+import Contacts from "@/components/landing/Contacts"
+import Hero from "@/components/landing/Hero"
+import LandingSection from "@/components/landing/LandingSection"
+import NewsletterSection from "@/components/landing/NewsletterSection"
+import PresentationVideo from "@/components/landing/PresentationVideo"
+import Roadmap from "@/components/landing/Roadmap"
+import { ReactComponent as FeatureCommunityIcon } from "@/images/icons/feature-community.svg"
+import { ReactComponent as FeatureCreativityIcon } from "@/images/icons/feature-creativity.svg"
+import { ReactComponent as FeatureDecentralizedIcon } from "@/images/icons/feature-decentralized.svg"
+import { ReactComponent as FeatureGatewayIcon } from "@/images/icons/feature-gateway.svg"
+import { ReactComponent as FeatureIndexIcon } from "@/images/icons/feature-index.svg"
+import { ReactComponent as FeatureNoAdsIcon } from "@/images/icons/feature-no-ads.svg"
+import { ReactComponent as FeatureOpenSourceIcon } from "@/images/icons/feature-open-source.svg"
+import { ReactComponent as FeaturePermanentIcon } from "@/images/icons/feature-permanent.svg"
+import { ReactComponent as FeatureRevenueIcon } from "@/images/icons/feature-revenue.svg"
+import { ReactComponent as FeatureShadowBanIcon } from "@/images/icons/feature-shadow-ban.svg"
+import { ReactComponent as FeatureSpeechFreedomIcon } from "@/images/icons/feature-speech-freedom.svg"
+import { ReactComponent as FeatureViewersIcon } from "@/images/icons/feature-viewers.svg"
+import { ReactComponent as DotNetLogo } from "@/images/logos/dotnet-logo.svg"
+import { ReactComponent as EthereumLogo } from "@/images/logos/ethereum-logo.svg"
+import { ReactComponent as MongodbLogo } from "@/images/logos/mongodb-logo.svg"
+import { ReactComponent as ReactLogo } from "@/images/logos/react-logo.svg"
+import { ReactComponent as SwarmLogo } from "@/images/logos/swarm-logo.svg"
+import { t } from "@/utils/lang"
+import { milestoneSchema } from "@/utils/schemas"
+
+import type { Lang } from "@/utils/lang"
+
+interface Props {
+  data: z.infer<typeof landingSchema>
+  lang: Lang
+}
+
+const landingSchema = z.object({
+  milestones: z.array(milestoneSchema),
+})
+
+const { data } = Astro.props
+---
+
+<Hero />
+
+<section class="pb-24">
+  <Container>
+    <Row>
+      <Col>
+        <Card className="py-8">
+          <div class="flex flex-col items-center">
+            <div class="text-xs font-semibold uppercase text-gray-600">
+              {t("landing:builtWith")}
+            </div>
+            <Container
+              className="mt-8 @apply [&_svg]:max-w-full [&_svg]:mx-auto [&_svg]:max-height-[65px]"
+            >
+              <Row className="items-center justify-evenly">
+                <Col className="w-1/2 sm:w-1/3 md:w-1/5 mb-6">
+                  <a href={t("landing:ethereumUrl")} target="_blank" rel="noreferrer noopener">
+                    <EthereumLogo />
+                  </a>
+                </Col>
+                <Col className="w-1/2 sm:w-1/3 md:w-1/5 mb-6">
+                  <a href={t("landing:swarmUrl")} target="_blank" rel="noreferrer noopener">
+                    <SwarmLogo />
+                  </a>
+                </Col>
+                <Col className="w-1/2 sm:w-1/3 md:w-1/5 mb-6">
+                  <a href={t("landing:mongodbUrl")} target="_blank" rel="noreferrer noopener">
+                    <MongodbLogo />
+                  </a>
+                </Col>
+                <Col className="w-1/2 sm:w-1/3 md:w-1/5 mb-6">
+                  <a href={t("landing:reactUrl")} target="_blank" rel="noreferrer noopener">
+                    <ReactLogo />
+                  </a>
+                </Col>
+                <Col className="w-1/2 sm:w-1/3 md:w-1/5 mb-6">
+                  <a href={t("landing:dotnetUrl")} target="_blank" rel="noreferrer noopener">
+                    <DotNetLogo />
+                  </a>
+                </Col>
+              </Row>
+            </Container>
+          </div>
+        </Card>
+      </Col>
+    </Row>
+  </Container>
+</section>
+
+<PresentationVideo />
+
+<AlphaPassBanner />
+
+<LandingSection
+  id="transparency"
+  title={t("landing:transparency")}
+  description={t("landing:transparencyDescription")}
+  features={[
+    {
+      icon: FeatureShadowBanIcon,
+      title: t("landing:transparencyFeatures.0.title"),
+      description: t("landing:transparencyFeatures.0.description"),
+    },
+    {
+      icon: FeatureSpeechFreedomIcon,
+      title: t("landing:transparencyFeatures.1.title"),
+      description: t("landing:transparencyFeatures.1.description"),
+    },
+    {
+      icon: FeatureOpenSourceIcon,
+      title: t("landing:transparencyFeatures.2.title"),
+      description: t("landing:transparencyFeatures.2.description"),
+    },
+    {
+      icon: FeatureCommunityIcon,
+      title: t("landing:transparencyFeatures.3.title"),
+      description: t("landing:transparencyFeatures.3.description"),
+    },
+  ]}
+/>
+
+<LandingSection
+  id="users"
+  title={t("landing:users")}
+  description={t("landing:usersDescription")}
+  features={[
+    {
+      icon: FeatureNoAdsIcon,
+      title: t("landing:usersFeatures.0.title"),
+      description: t("landing:usersFeatures.0.description"),
+    },
+    {
+      icon: FeatureCreativityIcon,
+      title: t("landing:usersFeatures.1.title"),
+      description: t("landing:usersFeatures.1.description"),
+    },
+    {
+      icon: FeatureViewersIcon,
+      title: t("landing:usersFeatures.2.title"),
+      description: t("landing:usersFeatures.2.description"),
+    },
+    {
+      icon: FeatureRevenueIcon,
+      title: t("landing:usersFeatures.3.title"),
+      description: t("landing:usersFeatures.3.description"),
+    },
+  ]}
+/>
+
+<LandingSection
+  id="innovative"
+  title={t("landing:web3")}
+  description={t("landing:web3Description")}
+  features={[
+    {
+      icon: FeatureDecentralizedIcon,
+      title: t("landing:web3Features.0.title"),
+      description: t("landing:web3Features.0.description"),
+    },
+    {
+      icon: FeaturePermanentIcon,
+      title: t("landing:web3Features.1.title"),
+      description: t("landing:web3Features.1.description"),
+    },
+  ]}
+/>
+
+<LandingSection
+  id="extendable"
+  title={t("landing:extendable")}
+  description={t("landing:extendableDescription")}
+  features={[
+    {
+      icon: FeatureIndexIcon,
+      title: t("landing:extendableFeatures.0.title"),
+      description: t("landing:extendableFeatures.0.description"),
+    },
+    {
+      icon: FeatureGatewayIcon,
+      title: t("landing:extendableFeatures.1.title"),
+      description: t("landing:extendableFeatures.1.description"),
+    },
+  ]}
+/>
+
+<Roadmap milestones={data.milestones} client:load />
+
+<Awards />
+
+<Contacts />
+
+<NewsletterSection client:load />

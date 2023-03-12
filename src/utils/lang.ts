@@ -39,6 +39,8 @@ export const LOCALES = {
   it: "Italiano",
 }
 
+export const Languages = Object.keys(LOCALES) as Lang[]
+
 export type Lang = keyof typeof LOCALES
 
 export type LocalizedPaths = Partial<Record<Lang, string>>

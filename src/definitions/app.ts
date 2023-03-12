@@ -1,4 +1,4 @@
-import type { AuthorNode, GatsbyImageData, PublicImageNode } from "./sources"
+import type { AuthorNode } from "./sources"
 
 export interface LocaleSlug {
   slug: string
@@ -15,7 +15,7 @@ export interface Post {
   meta_keywords: string | null
   author: AuthorNode
   category: Category | null
-  image: GatsbyImageData | null
+  image: astroHTML.JSX.ImgHTMLAttributes | null
   locale: string
   allSlugs: LocaleSlug[]
   published_on: string
@@ -33,7 +33,7 @@ export interface Project {
   locale: string
   title: string
   slug: string
-  image: PublicImageNode
+  image: astroHTML.JSX.ImgHTMLAttributes | null
   content: string
   excerpt: string | null
   coming_soon: boolean
@@ -48,7 +48,7 @@ export interface Milestone {
   title: string
   subtitle: string
   description: string
-  image: GatsbyImageData | null
+  image: astroHTML.JSX.ImgHTMLAttributes | null
   completion: "done" | "ongoing" | "todo"
   completion_quarter: string
   latitude: number
@@ -72,7 +72,7 @@ export interface TeamMember {
   name: string
   role: string
   bio: string
-  photo: GatsbyImageData
+  photo: astroHTML.JSX.ImgHTMLAttributes
   locale: string
 }
 

@@ -12,7 +12,6 @@ interface Props {
 
 const { lang, transparent, localizedPaths } = Astro.props
 const { pages, locales } = await fetchNavbar(lang)
-console.log(localizedPaths)
 ---
 
 <Header

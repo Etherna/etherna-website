@@ -1,24 +1,21 @@
 import React, { useState } from "react"
+import { useTranslation } from "react-i18next"
 import axios from "axios"
-import { navigate } from "gatsby"
 
-import classes from "@styles/components/landing/NewsletterForm.module.scss"
-import { ReactComponent as Spinner } from "@images/animated/spinner-light.svg"
+import classes from "@/styles/components/landing/NewsletterForm.module.scss"
 
-import Alert from "@components/common/Alert"
-import Button from "@components/common/Button"
-import useLocale from "@context/locale-context/hooks/useLocale"
-import { useTranslations } from "@hooks/useTranslations"
-import { validateEmail } from "@utils/validation"
-import routes from "@utils/routes"
+import Alert from "@/components/common/Alert"
+import Button from "@/components/common/Button"
+import { ReactComponent as Spinner } from "@/images/animated/spinner-light.svg"
+import routes from "@/utils/routes"
+import { validateEmail } from "@/utils/validation"
 
 const NewsletterForm: React.FC = () => {
-  const [locale] = useLocale()
-  const { t } = useTranslations(locale, "landing")
   const [firstName, setFirstName] = useState("")
   const [email, setEmail] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string>()
+  const { t } = useTranslation("landing")
 
   const sendFormRequest = async () => {
     setIsSubmitting(true)
@@ -27,29 +24,30 @@ const NewsletterForm: React.FC = () => {
       // fields validation
       if (firstName.length < 2) {
         setIsSubmitting(false)
-        setError(t`subcribeErrorName`)
+        setError(t("subcribeErrorName"))
         return
       }
       if (email.length === 0 || !validateEmail(email)) {
         setIsSubmitting(false)
-        setError(t`subcribeErrorEmail`)
+        setError(t("subcribeErrorEmail"))
         return
       }
 
       const apiEndpoint = `${process.env.DIRECTUS_URL}/${process.env.DIRECTUS_PROJECT}/custom/newsletter`
       await axios.post(apiEndpoint, {
-        email, firstName
+        email,
+        firstName,
       })
+
+      sessionStorage.setItem("subscriber:email", email)
 
       setError(undefined)
       setIsSubmitting(false)
-      navigate(routes.thankyouPath(), {
-        state: { email }
-      })
-      setEmail("")
+
+      window.location.href = routes.thankyouPath()
     } catch (error) {
       console.error(error)
-      setError(t`subcribeErrorDescription`)
+      setError(t("subcribeErrorDescription"))
       setIsSubmitting(false)
     }
   }
@@ -60,14 +58,14 @@ const NewsletterForm: React.FC = () => {
         <input
           type="text"
           className={classes.newsletterFormField}
-          placeholder={t`namePlaceholder`}
+          placeholder={t("namePlaceholder")}
           value={firstName}
           onChange={e => setFirstName(e.target.value)}
         />
         <input
           type="email"
           className={classes.newsletterFormField}
-          placeholder={t`emailPlaceholder`}
+          placeholder={t("emailPlaceholder")}
           value={email}
           onChange={e => setEmail(e.target.value)}
         />
@@ -78,16 +76,16 @@ const NewsletterForm: React.FC = () => {
           disabled={isSubmitting}
           onClick={sendFormRequest}
         >
-          {isSubmitting && (
-            <Spinner />
-          )}
-          {t`subcribeNewsletter`}
+          {isSubmitting && <Spinner />}
+          {t("subcribeNewsletter")}
         </Button>
       </form>
 
       {error && (
-        <div className="w-full my-4 max-w-4xl">
-          <Alert type="danger" title={t`subcribeErrorTitle`} onClose={() => setError(undefined)}>{error}</Alert>
+        <div className="my-4 w-full max-w-4xl">
+          <Alert type="danger" title={t("subcribeErrorTitle")} onClose={() => setError(undefined)}>
+            {error}
+          </Alert>
         </div>
       )}
     </>

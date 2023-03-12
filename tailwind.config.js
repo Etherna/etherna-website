@@ -1,7 +1,7 @@
 const plugin = require("tailwindcss/plugin")
 
 module.exports = {
-  content: ["./index.html", "./public/**/*.html", "./src/**/*.tsx"],
+  content: ["./index.html", "./public/**/*.html", "./src/**/*.tsx", , "./src/**/*.astro"],
   darkMode: "class",
   theme: {
     extend: {

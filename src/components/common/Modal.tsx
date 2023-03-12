@@ -1,6 +1,5 @@
-import React, { Fragment, useEffect, useRef } from "react"
+import React, { Fragment, useRef } from "react"
 import { Dialog, Transition } from "@headlessui/react"
-import { enableBodyScroll, disableBodyScroll } from "body-scroll-lock"
 
 import classes from "@/styles/components/common/Modal.module.scss"
 
@@ -25,20 +24,6 @@ const Modal: React.FC<ModalProps> = ({
   onClose,
 }) => {
   const modalContentEl = useRef<HTMLDivElement>(null)
-  const modalEl = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!modalEl.current) return
-
-    if (show) {
-      disableBodyScroll(modalEl.current, {
-        reserveScrollBarGap: true,
-      })
-    } else {
-      enableBodyScroll(modalEl.current)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [show])
 
   return createPortal(
     <Transition appear show={show} as={Fragment}>

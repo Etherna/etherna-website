@@ -1,0 +1,17 @@
+---
+import { whichRoute } from "@/utils/routes"
+import HomeView from "@/views/HomeView.astro"
+
+import type { Lang } from "@/utils/lang"
+
+interface Props {
+  data: unknown
+  lang: Lang
+  path: string
+}
+
+const { data, lang, path } = Astro.props
+const routeIdentifier = whichRoute(path, lang)
+---
+
+{routeIdentifier === "home" && <HomeView data={data} lang={lang} />}

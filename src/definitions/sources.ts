@@ -6,21 +6,7 @@ export interface LocaleNode {
   flag: FileNode
 }
 
-export interface ImageNode {
-  localFile: {
-    childImageSharp: {
-      gatsbyImageData: any
-    }
-  }
-}
-
 export interface SvgNode {
-  localFile: {
-    publicURL: string
-  }
-}
-
-export interface PublicImageNode {
   localFile: {
     publicURL: string
   }
@@ -31,7 +17,7 @@ export interface PostNode {
   author: AuthorNode
   category: CategoryNode
   directusId: number
-  image: ImageNode | null
+  image: FileNode | null
   published_on: string
   updated_on: string
 }
@@ -67,7 +53,7 @@ export interface ProjectNode {
   coming_soon: boolean
   external_link: string | null
   github_link: string | null
-  image: PublicImageNode
+  image: FileNode
 }
 
 export interface ProjectLocalizedContentsNode {
@@ -97,7 +83,7 @@ export interface PageLocalizedContentsNode {
 
 export interface TeamMemberNode {
   name: string
-  photo: ImageNode
+  photo: FileNode
   localized_contents: TeamMemberLocalizedContentsNode[]
 }
 
@@ -109,8 +95,11 @@ export interface TeamMemberLocalizedContentsNode {
 
 export interface FileNode {
   title: string
+  description: string
   filename_disk: string
   private_hash: string
+  width: number
+  height: number
   data: {
     url: string
     full_url: string
@@ -171,7 +160,7 @@ export interface LogoVariantNode {
 
 export interface MilestoneNode {
   localized_contents: MilestoneLocalizedContentsNode[]
-  image: ImageNode | null
+  image: FileNode | null
   completion: "done" | "ongoing" | "todo"
   completion_quarter: string
   latitude: number

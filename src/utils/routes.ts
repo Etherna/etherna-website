@@ -1,4 +1,5 @@
-import { DEFAULT_LOCALE } from "./lang"
+import { DEFAULT_LOCALE, Languages } from "./lang"
+import { withoutLocale } from "@/queries/fetch-paths"
 
 import type { Lang } from "./lang"
 
@@ -45,6 +46,7 @@ const brandKitPath = (locale: Lang) => {
 
 /**
  * Thank you page path
+ * @param locale Brand kit locale
  * @returns Thank you path
  */
 const thankyouPath = () => {
@@ -53,6 +55,7 @@ const thankyouPath = () => {
 
 /**
  * Success page path
+ * @param locale Brand kit locale
  * @returns Success path
  */
 const successPath = () => {
@@ -122,6 +125,74 @@ const routes = {
   blogCategoryPath,
   projectPath,
   pagePath,
+}
+
+const parseSlug = (path: string) => {
+  const slug = path.split("/").pop()
+  return slug || null
+}
+
+/**
+ * Get route identifier from path and lang
+ * @param path Path to decode
+ * @param lang Locale code
+ */
+export const whichRoute = (path: string, lang: Lang) => {
+  const routesIdentifiers = {
+    unlocalized: {
+      "thank-you": thankyouPath,
+      success: successPath,
+    },
+    localized: {
+      home: homePath,
+      blog: blogPath,
+      about: aboutPath,
+      "brand-kit": brandKitPath,
+    },
+    dynamicLocalized: {
+      post: blogPostPath,
+      category: blogCategoryPath,
+      project: projectPath,
+      page: pagePath,
+    },
+  } as const
+
+  const routesGroups = Object.keys(routesIdentifiers) as (keyof typeof routesIdentifiers)[]
+
+  for (const code of Languages) {
+    for (const group of routesGroups) {
+      const identifiers = Object.keys(routesIdentifiers[group])
+
+      for (const identifier of identifiers) {
+        let route: string
+        const slug = parseSlug(path)
+
+        switch (group) {
+          case "unlocalized":
+            route =
+              routesIdentifiers.unlocalized[
+                identifier as keyof typeof routesIdentifiers.unlocalized
+              ]()
+            break
+          case "localized":
+            route =
+              routesIdentifiers.localized[identifier as keyof typeof routesIdentifiers.localized](
+                code
+              )
+            break
+          case "dynamicLocalized":
+            route = routesIdentifiers.dynamicLocalized[
+              identifier as keyof typeof routesIdentifiers.dynamicLocalized
+            ](slug, code)
+            break
+        }
+
+        if (path === withoutLocale(route, lang)) return identifier
+      }
+    }
+  }
+
+  throw new Error("Route not found")
 }
 
 export default routes

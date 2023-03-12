@@ -1,7 +1,7 @@
 ---
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
-import "../styles/global.css"
+import "../styles/global.scss"
 
 export interface Props {
   title?: string
@@ -13,6 +13,7 @@ const { title, description, image } = Astro.props
 const metaTitle = [title, "Etherna"]
   .filter((comp, i, self) => comp && self.indexOf(comp) === i)
   .filter(Boolean)
+  .concat(title === "Etherna" ? ["Eyes wide open"] : [])
   .join(" | ")
 ---
 

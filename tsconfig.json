@@ -1,9 +1,10 @@
 {
   "extends": "astro/tsconfigs/strictest",
   "compilerOptions": {
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
     "jsx": "react-jsx",
     "jsxImportSource": "react",
-    "strictNullChecks": false,
+    "strictNullChecks": true,
     "exactOptionalPropertyTypes": false,
     "baseUrl": ".",
     "paths": {

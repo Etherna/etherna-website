@@ -5,6 +5,16 @@ import type { AxiosCacheInstance } from "axios-cache-interceptor"
 
 interface DirectusGetRequest {
   fields?: string[]
+  limit?: number
+  offset?: number
+  single?: boolean
+  sort?: { key: string; order?: "asc" | "desc" }[]
+  filter?: Record<string, unknown>
+  query?: string
+}
+
+interface DirectusGetSingleRequest {
+  fields?: string[]
 }
 
 export default class DirectusClient {
@@ -34,6 +44,12 @@ export default class DirectusClient {
     const { data } = await this.http.get<{ data: T[] }>(`/items/${collection}`, {
       params: {
         fields: opts?.fields,
+        limit: opts?.limit,
+        offset: opts?.offset,
+        single: opts?.single,
+        sort: opts?.sort?.map(s => (s.order === "desc" ? `-${s.key}` : s.key)).join(","),
+        filter: opts?.filter,
+        q: opts?.query,
       },
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -46,7 +62,7 @@ export default class DirectusClient {
     return data.data
   }
 
-  async getItem<T = unknown>(collection: string, id: string, opts?: DirectusGetRequest) {
+  async getItem<T = unknown>(collection: string, id: string, opts?: DirectusGetSingleRequest) {
     const { data } = await this.http.get<{ data: T }>(`/items/${collection}/${id}`, {
       params: {
         fields: opts?.fields,
