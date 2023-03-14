@@ -8,7 +8,7 @@
   "watchPresentation": "Watch our presentation",
   "requestAlphaPass": "Request Alpha Pass",
   "weAreLaunching": "We are close to launch the first release of Etherna.",
-  "firstReleaseLimited": "During the first Alpha phase the number of users will be limited.",
+  "firstReleaseLimited": "During the initial Alpha phase the number of users will be limited.",
   "wantToParticipate": "Want to partecipate? Click the button below.",
   "transparency": "Transparency",
   "transparencyDescription": "Your channel, your narrative. We believe in freedom of speech.",
@@ -19,11 +19,11 @@
     },
     "1": {
       "title": "Freedom of Speech",
-      "description": "Upload what you enjoy to do. No videos will be censored. Everyone should be entitled to its own idea."
+      "description": "Upload what you enjoy to do. No videos will be censored. Everyone should be entitled to their own idea."
     },
     "2": {
       "title": "Open Source",
-      "description": "All codes of our platform will be published on GitHub, and will be available and visible to anyone."
+      "description": "All source code from our platform will be published on GitHub, and will be available and visible to anyone."
     },
     "3": {
       "title": "Community Based",
@@ -47,7 +47,7 @@
     },
     "3": {
       "title": "Scalable Revenue",
-      "description": "We pay creators the same amount based on views. The more the users watch your contents, the more you will gain."
+      "description": "Thanks to a pay per use model users can expect to have reasonable costs while at the same time generating revenue to support further development and our content creators as well."
     }
   },
   "web3": "Web3",
