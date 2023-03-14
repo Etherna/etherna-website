@@ -1,6 +1,7 @@
 ---
 import { whichRoute } from "@/utils/routes"
-import HomeView from "@/views/HomeView.astro"
+import HomeView, { landingSchema } from "@/views/HomeView.astro"
+import PageView, { pageSchema } from "@/views/PageView.astro"
 
 import type { Lang } from "@/utils/lang"
 
@@ -14,4 +15,5 @@ const { data, lang, path } = Astro.props
 const routeIdentifier = whichRoute(path, lang)
 ---
 
-{routeIdentifier === "home" && <HomeView data={data} lang={lang} />}
+{routeIdentifier === "home" && <HomeView data={landingSchema.parse(data)} lang={lang} />}
+{routeIdentifier === "page" && <PageView data={pageSchema.parse(data)} lang={lang} />}

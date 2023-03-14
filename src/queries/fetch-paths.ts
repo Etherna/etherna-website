@@ -3,6 +3,7 @@ import { DEFAULT_LOCALE } from "@/utils/lang"
 import routes from "@/utils/routes"
 
 import type { PageNode } from "@/definitions/sources"
+import type { Lang } from "@/utils/lang"
 
 export const StaticPaths = [
   // home
@@ -23,7 +24,7 @@ export const withoutLocale = (path: string, locale: string) => {
   return path.replace(new RegExp(`^/?${locale}/`), "/")
 }
 
-export default async function fetchPaths() {
+export default async function fetchPaths(locales?: Lang[]) {
   const client = new DirectusClient()
   const [pages, projects, posts, categories] = await Promise.all([
     client.getItems<PageNode>("pages", {
@@ -82,12 +83,15 @@ export default async function fetchPaths() {
       })),
   ]
 
-  const paths = StaticPaths.concat(dynamicPaths).map(({ params: { lang, path } }) => ({
-    params: {
-      path: path !== "/" ? path : undefined,
-      lang: lang !== DEFAULT_LOCALE ? lang : undefined,
-    },
-  }))
-
+  const paths = StaticPaths.concat(dynamicPaths)
+    .filter(({ params }) => locales?.includes(params.lang as Lang) ?? true)
+    .map(({ params }) => ({
+      params: {
+        // ...omitUndefined({
+        // }),
+        lang: params.lang === DEFAULT_LOCALE ? undefined : params.lang,
+        path: params.path === "/" ? undefined : params.path.replace(/^\//, ""),
+      },
+    }))
   return paths
 }

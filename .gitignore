@@ -75,3 +75,5 @@ yarn-error.log
 
 # Other
 deploy*
+
+test*.ts

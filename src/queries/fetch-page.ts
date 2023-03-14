@@ -1,4 +1,5 @@
 import fetchHomeData from "./fetch-home-data"
+import fetchPageData from "./fetch-page-data"
 import { t } from "@/utils/lang"
 import routes, { whichRoute } from "@/utils/routes"
 
@@ -59,6 +60,15 @@ export default async function fetchPage(lang: Lang, path: string): Promise<PageD
           en: routes.blogPath("en"),
           it: routes.blogPath("it"),
         },
+      }
+    case "page":
+      const pageData = await fetchPageData(lang, path)
+      return {
+        data: pageData,
+        title: pageData.page.title,
+        description: pageData.page.meta_description ?? "",
+        lang,
+        localizedPaths: pageData.localizedPaths,
       }
 
     default:

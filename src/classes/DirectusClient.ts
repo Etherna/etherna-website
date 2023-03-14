@@ -3,17 +3,17 @@ import { setupCache } from "axios-cache-interceptor"
 
 import type { AxiosCacheInstance } from "axios-cache-interceptor"
 
-interface DirectusGetRequest {
+type DirectusGetRequest<S extends boolean> = {
   fields?: string[]
   limit?: number
   offset?: number
-  single?: boolean
+  single?: S
   sort?: { key: string; order?: "asc" | "desc" }[]
   filter?: Record<string, unknown>
   query?: string
 }
 
-interface DirectusGetSingleRequest {
+type DirectusGetSingleRequest = {
   fields?: string[]
 }
 
@@ -40,16 +40,19 @@ export default class DirectusClient {
     })
   }
 
-  async getItems<T = unknown>(collection: string, opts?: DirectusGetRequest) {
+  async getItems<T = unknown, S extends boolean = false>(
+    collection: string,
+    opts: DirectusGetRequest<S> = {}
+  ): Promise<T[]> {
     const { data } = await this.http.get<{ data: T[] }>(`/items/${collection}`, {
       params: {
-        fields: opts?.fields,
-        limit: opts?.limit,
-        offset: opts?.offset,
-        single: opts?.single,
-        sort: opts?.sort?.map(s => (s.order === "desc" ? `-${s.key}` : s.key)).join(","),
-        filter: opts?.filter,
-        q: opts?.query,
+        fields: opts.fields,
+        limit: opts.limit,
+        offset: opts.offset,
+        single: opts.single,
+        sort: opts.sort?.map(s => (s.order === "desc" ? `-${s.key}` : s.key)).join(","),
+        filter: opts.filter,
+        q: opts.query,
       },
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -59,13 +62,14 @@ export default class DirectusClient {
         ttl: this.cacheTtl,
       },
     })
+
     return data.data
   }
 
-  async getItem<T = unknown>(collection: string, id: string, opts?: DirectusGetSingleRequest) {
+  async getItem<T = unknown>(collection: string, id: string, opts: DirectusGetSingleRequest = {}) {
     const { data } = await this.http.get<{ data: T }>(`/items/${collection}/${id}`, {
       params: {
-        fields: opts?.fields,
+        fields: opts.fields,
       },
       headers: {
         Authorization: `Bearer ${this.token}`,

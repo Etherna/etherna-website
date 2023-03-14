@@ -4,8 +4,7 @@ import Footer from "./Footer.astro"
 import Navbar from "./Navbar.astro"
 import I18nConfig from "@/components/layout/I18nConfig"
 import UrlRedirect from "@/components/layout/UrlRedirect"
-
-import type { Lang, LocalizedPaths } from "@/utils/lang"
+import { configLang, Lang, LocalizedPaths } from "@/utils/lang"
 
 interface Props {
   title: string
@@ -16,6 +15,8 @@ interface Props {
 }
 
 const { title, description, image, localizedPaths, lang } = Astro.props
+
+configLang(lang)
 ---
 
 <html lang={lang}>
@@ -32,7 +33,7 @@ const { title, description, image, localizedPaths, lang } = Astro.props
       localizedPaths={localizedPaths}
     />
 
-    <main>
+    <main class="pt-16">
       <slot />
       <!-- your content is injected here -->
     </main>

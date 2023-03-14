@@ -6,26 +6,15 @@ import SectionTitle from "./SectionTitle"
 import Col from "@/components/common/Col"
 import Container from "@/components/common/Container"
 import Row from "@/components/common/Row"
-import devconArchiveImg from "@/images/logos/devcon-archive.svg"
-import swarmGrantImg from "@/images/logos/swarm-grants.svg"
 import classNames from "@/utils/classnames"
 
-const AwardList = [
-  {
-    title: "SwarmGrants",
-    description: "SwarmGrantsDesc",
-    image: swarmGrantImg,
-    link: "https://medium.com/ethereum-swarm/buzz-is-in-the-air-swarm-grants-results-are-in-a030ab9178a9",
-  },
-  {
-    title: "DevconArchive",
-    description: "DevconArchiveDesc",
-    image: devconArchiveImg,
-    link: "https://medium.com/ethereum-swarm/through-etherna-the-devcon-video-archive-is-now-available-on-the-swarm-network-66d4583df8c0",
-  },
-]
+import type { Award } from "@/utils/schemas"
 
-const Awards: React.FC = () => {
+type AwardsProps = {
+  awards: Award[]
+}
+
+const Awards: React.FC<AwardsProps> = ({ awards }) => {
   const { t } = useTranslation("awards")
 
   return (
@@ -40,11 +29,11 @@ const Awards: React.FC = () => {
             />
 
             <ul className={classNames(classes.awardsList)}>
-              {AwardList.map((award, i) => (
+              {awards.map((award, i) => (
                 <li className={classes.awardsItem} key={i}>
                   <div
                     className={classes.awardsItemImage}
-                    style={{ backgroundImage: `url(${award.image})` }}
+                    style={{ backgroundImage: `url(${award.image.src})` }}
                   />
                   <h3 className={classes.awardsTitle}>{t(award.title as any)}</h3>
                   <p className={classes.awardsItemDescription}>{t(award.description as any)}</p>

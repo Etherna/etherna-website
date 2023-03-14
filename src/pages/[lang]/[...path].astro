@@ -7,7 +7,7 @@ import fetchPaths from "@/queries/fetch-paths"
 import type { Lang } from "@/utils/lang"
 
 export async function getStaticPaths() {
-  return await fetchPaths()
+  return await fetchPaths(["it"])
 }
 
 const lang = (Astro.params.lang ?? "en") as Lang

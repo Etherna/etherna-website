@@ -1,13 +1,9 @@
 .header {
-  @apply fixed top-0 inset-x-0 z-10 transition duration-300;
+  @apply fixed inset-x-0 top-0 z-10 transition duration-300;
 
   &:not(.transparent),
   &.scrolled {
     @apply bg-white shadow-sm;
-  }
-
-  & + main {
-    @apply pt-16;
   }
 }
 
@@ -23,13 +19,13 @@
 }
 
 .headerToggle {
-  @apply flex items-center ml-auto;
-  @apply text-xs uppercase text-gray-800 font-semibold;
+  @apply ml-auto flex items-center;
+  @apply text-xs font-semibold uppercase text-gray-800;
   @apply lg:hidden;
 
   &:focus,
   &:active {
-    @apply shadow-none bg-transparent;
+    @apply bg-transparent shadow-none;
   }
 }
 
@@ -40,12 +36,12 @@
 
   .lineTop,
   .lineBottom {
-    @apply absolute left-0 top-0 w-full h-full transition duration-300;
+    @apply absolute left-0 top-0 h-full w-full transition duration-300;
     transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
 
     &::after {
       content: "";
-      @apply block absolute bg-gray-900;
+      @apply absolute block bg-gray-900;
       width: 22px;
       height: 2px;
       border-radius: 1px;
@@ -83,7 +79,7 @@
 
 .contextualMenu {
   --menu-height: 0;
-  @apply flex flex-wrap w-full origin-top;
+  @apply flex w-full origin-top flex-wrap;
   @apply overflow-hidden;
   @apply lg:flex-nowrap;
   max-height: 0;
@@ -101,7 +97,7 @@
 }
 
 .headerMenuRow {
-  @apply w-full flex items-center flex-nowrap overflow-x-auto py-2;
+  @apply flex w-full flex-nowrap items-center overflow-x-auto py-2;
   @apply lg:w-auto lg:overflow-x-visible lg:py-0;
 
   &.rowFill {
@@ -126,5 +122,5 @@
 }
 
 .userMenuAvatar {
-  @apply block w-5 h-5 rounded-full overflow-hidden;
+  @apply block h-5 w-5 overflow-hidden rounded-full;
 }

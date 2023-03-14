@@ -1,18 +1,25 @@
 import React from "react"
-import { graphql, PageProps } from "gatsby"
+import type { PageProps , PageProps } from "gatsby"
+import { graphql } from "gatsby"
 
 import Layout from "@components/layout/Layout"
 import HeadMeta from "@components/layout/HeadMeta"
-import Page from "@components/site/Page"
+import Layout from "@components/layout/Layout"
 import { LocalizedPage } from "@context/locale-context/localized-page"
-import { PageNode } from "@definitions/sources"
+import type { PageNode } from "@definitions/sources"
 import { parsePage } from "@utils/dataParser"
+import { graphql } from "gatsby"
 
-type PageTemplateProps = PageProps<{
-  page: PageNode
-}, {
-  locale: string
-}>
+import Page from "@/components/site/Page"
+
+type PageTemplateProps = PageProps<
+  {
+    page: PageNode
+  },
+  {
+    locale: string
+  }
+>
 
 const PageTemplate: React.FC<PageTemplateProps> = ({ data, pageContext }) => {
   const { locale } = pageContext
@@ -27,9 +34,7 @@ const PageTemplate: React.FC<PageTemplateProps> = ({ data, pageContext }) => {
       />
 
       <Layout>
-        <Page
-          page={page}
-        />
+        <Page page={page} />
       </Layout>
     </LocalizedPage>
   )
@@ -38,7 +43,7 @@ const PageTemplate: React.FC<PageTemplateProps> = ({ data, pageContext }) => {
 export const query = graphql`
   query ($slug: String!, $locale: String!) {
     page: directusPage(
-      localized_contents: {elemMatch: {slug: {eq: $slug}, locale: {eq: $locale}}}
+      localized_contents: { elemMatch: { slug: { eq: $slug }, locale: { eq: $locale } } }
     ) {
       localized_contents {
         meta_description

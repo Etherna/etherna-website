@@ -127,7 +127,7 @@ const routes = {
   pagePath,
 }
 
-const parseSlug = (path: string) => {
+export const parseSlug = (path: string) => {
   const slug = path.split("/").pop()
   return slug || null
 }
@@ -183,11 +183,15 @@ export const whichRoute = (path: string, lang: Lang) => {
           case "dynamicLocalized":
             route = routesIdentifiers.dynamicLocalized[
               identifier as keyof typeof routesIdentifiers.dynamicLocalized
-            ](slug, code)
+            ](slug ?? "", code)
             break
         }
 
-        if (path === withoutLocale(route, lang)) return identifier
+        const normalizedPath = path.replace(/^\/?/, "/").replace(/\/?$/, "") || "/"
+        if (normalizedPath === withoutLocale(route, lang))
+          return identifier as keyof (typeof routesIdentifiers.localized &
+            typeof routesIdentifiers.dynamicLocalized &
+            typeof routesIdentifiers.unlocalized)
       }
     }
   }

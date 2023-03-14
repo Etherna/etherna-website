@@ -12,4 +12,12 @@ export const milestoneSchema = z.object({
   locale: z.string(),
 })
 
+export const awardSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  image: z.any().nullable(),
+  link: z.string().optional(),
+})
+
 export type Milestone = z.infer<typeof milestoneSchema>
+export type Award = z.infer<typeof awardSchema>

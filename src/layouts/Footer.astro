@@ -31,7 +31,7 @@ const { pages, projects } = await fetchFooter(lang)
           <FooterColumn title={t("footer:projects")} className="md:order-2">
             {
               projects.map(project => (
-                <FooterColumn.Link href={routes.pagePath(project.slug, lang)}>
+                <FooterColumn.Link href={routes.projectPath(project.slug, lang)}>
                   {project.title}
                 </FooterColumn.Link>
               ))
