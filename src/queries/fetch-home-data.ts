@@ -11,6 +11,7 @@ export default async function fetchHomeData(lang: Lang) {
   const milestones = await client.getItems<MilestoneNode>("milestones", {
     fields: [
       "image.private_hash",
+      "image.filename_disk",
       "image.width",
       "image.height",
       "image.description",

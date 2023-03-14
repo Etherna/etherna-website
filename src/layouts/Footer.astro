@@ -1,6 +1,4 @@
 ---
-import classes from "@/styles/components/layout/Footer.module.scss"
-
 import Container from "@/components/common/Container"
 import FooterColumn from "@/components/layout/FooterColumn"
 import SocialMenu from "@/components/layout/SocialMenu"
@@ -18,9 +16,9 @@ const { lang } = Astro.props
 const { pages, projects } = await fetchFooter(lang)
 ---
 
-<footer class={classes.footer}>
+<footer class="border-t border-gray-300 bg-gray-200 pt-16 pb-10">
   <Container>
-    <div class={classes.footerContainer}>
+    <div class="mx-auto flex max-w-screen-lg flex-col items-center">
       <div class="flex w-full flex-col space-y-4 md:flex-row md:space-y-0">
         <div
           class={classNames(
@@ -31,7 +29,10 @@ const { pages, projects } = await fetchFooter(lang)
           <FooterColumn title={t("footer:projects")} className="md:order-2">
             {
               projects.map(project => (
-                <FooterColumn.Link href={routes.projectPath(project.slug, lang)}>
+                <FooterColumn.Link
+                  href={project.external_link ?? routes.projectPath(project.slug, lang)}
+                  target={project.external_link ? "_blank" : undefined}
+                >
                   {project.title}
                 </FooterColumn.Link>
               ))

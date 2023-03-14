@@ -1,5 +1,6 @@
 import fetchHomeData from "./fetch-home-data"
 import fetchPageData from "./fetch-page-data"
+import fetchProjectData from "./fetch-project-data"
 import { t } from "@/utils/lang"
 import routes, { whichRoute } from "@/utils/routes"
 
@@ -13,7 +14,7 @@ type PageData = {
   localizedPaths: LocalizedPaths
 }
 
-export default async function fetchPage(lang: Lang, path: string): Promise<PageData> {
+export default async function fetchProps(lang: Lang, path: string): Promise<PageData> {
   const routeIdentifier = whichRoute(path, lang)
 
   switch (routeIdentifier) {
@@ -70,7 +71,15 @@ export default async function fetchPage(lang: Lang, path: string): Promise<PageD
         lang,
         localizedPaths: pageData.localizedPaths,
       }
-
+    case "project":
+      const projectData = await fetchProjectData(lang, path)
+      return {
+        data: projectData,
+        title: projectData.project.title,
+        description: projectData.project.meta_description ?? "",
+        lang,
+        localizedPaths: projectData.localizedPaths,
+      }
     default:
       throw new Error("Page not found. Update `/src/queries/fetch-page.ts`")
   }

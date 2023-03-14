@@ -14,7 +14,12 @@ export default async function fetchFooter(lang: string) {
       ],
     }),
     client.getItems<ProjectNode>("projects", {
-      fields: ["localized_contents.title", "localized_contents.slug", "localized_contents.locale"],
+      fields: [
+        "external_link",
+        "localized_contents.title",
+        "localized_contents.slug",
+        "localized_contents.locale",
+      ],
     }),
   ])
 
@@ -27,11 +32,15 @@ export default async function fetchFooter(lang: string) {
       slug: p.slug,
     }))
   const footerProjects = projects
-    .map(p => p.localized_contents.find(lc => lc.locale === lang))
+    .map(p => ({
+      external_link: p.external_link,
+      ...p.localized_contents.find(lc => lc.locale === lang)!,
+    }))
     .filter(Boolean)
     .map(p => ({
       title: p.title,
       slug: p.slug,
+      external_link: p.external_link,
     }))
 
   return {

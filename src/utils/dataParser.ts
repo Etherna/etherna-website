@@ -224,13 +224,15 @@ export const parseComment = async (node: CommentNode, nodes: CommentNode[]): Pro
  * Parse image node to  fluid image
  */
 export const parseFluidImage = async (node: FileNode | null, alt?: string) => {
+  const mimeType = node?.filename_disk?.split(".").pop() ?? "jpeg"
+  const format = mimeType === "png" ? "png" : mimeType === "svg" ? "svg" : "jpeg"
   return node
     ? await getImage({
         src: new DirectusClient().getFileUrl(node.private_hash),
         alt: alt ?? node.description,
-        width: node.width,
-        height: node.height,
-        format: "jpeg",
+        width: node.width || 1000,
+        height: node.height || 1000,
+        format,
       })
     : null
 }
