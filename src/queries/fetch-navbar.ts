@@ -1,3 +1,5 @@
+import { getImage } from "@astrojs/image"
+
 import DirectusClient from "@/classes/DirectusClient"
 
 import type { LocaleNode, PageNode } from "@/definitions/sources"
@@ -18,11 +20,19 @@ export default async function fetchNavbar(lang: string) {
     }),
   ])
 
-  const navbarLocales = locales.map(l => ({
-    code: l.code,
-    name: l.name,
-    flag: client.getFileUrl(l.flag.private_hash),
-  }))
+  const navbarLocales = await Promise.all(
+    locales.map(async l => ({
+      code: l.code,
+      name: l.name,
+      flag: await getImage({
+        src: client.getFileUrl(l.flag.private_hash),
+        width: 100,
+        height: 100,
+        alt: l.name,
+        format: "svg",
+      }),
+    }))
+  )
 
   const navbarPages = pages
     .filter(p => p.show_in_menu)

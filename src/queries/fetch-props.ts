@@ -1,3 +1,4 @@
+import fetchAboutData from "./fetch-about-data"
 import fetchHomeData from "./fetch-home-data"
 import fetchPageData from "./fetch-page-data"
 import fetchProjectData from "./fetch-project-data"
@@ -31,7 +32,7 @@ export default async function fetchProps(lang: Lang, path: string): Promise<Page
       }
     case "about":
       return {
-        data: {},
+        data: await fetchAboutData(lang),
         title: t("seo:aboutTitle", { lng: lang }),
         description: t("seo:aboutDescription", { lng: lang }),
         lang,

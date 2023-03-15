@@ -8,7 +8,7 @@ import type { LocalizedPaths, Lang } from "@/utils/lang"
 type LangSwitcherProps = {
   toggleClassName?: string
   lang: string
-  locales: { code: string; name: string; flag: string }[]
+  locales: { code: string; name: string; flag: astroHTML.JSX.ImgHTMLAttributes }[]
   localizedPaths?: LocalizedPaths
 }
 
@@ -22,9 +22,7 @@ const LangSwitcher: React.FC<LangSwitcherProps> = ({
   return (
     <Dropdown
       toggleClass={classNames(classes.langMenuToggle, toggleClassName)}
-      toggleChildren={
-        <div className={classes.langImage}>{<img src={currentLocaleFlag} alt="" />}</div>
-      }
+      toggleChildren={<div className={classes.langImage}>{<img {...currentLocaleFlag!} />}</div>}
     >
       <nav className={classes.langSwitcherMenu}>
         {locales.map(({ code, name, flag }) => {
@@ -40,7 +38,7 @@ const LangSwitcher: React.FC<LangSwitcherProps> = ({
               key={code}
             >
               <div className={classes.langImage}>
-                <img src={flag} alt={name} />
+                <img {...flag} alt={name} />
               </div>
               <span>{name}</span>
             </a>

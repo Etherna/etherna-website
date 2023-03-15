@@ -77,7 +77,7 @@ const Modal: React.FC<ModalProps> = ({
         </Transition.Child>
       </Dialog>
     </Transition>,
-    "#___gatsby"
+    "#modals"
   )
 }
 

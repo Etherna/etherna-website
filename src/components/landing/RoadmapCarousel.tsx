@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next"
 import classes from "@/styles/components/landing/RoadmapCarousel.module.scss"
 
 import RoadmapNav from "./RoadmapNav"
+import Image from "@/components/common/Image"
 import { ReactComponent as ArrowDown } from "@/images/icons/arrow-down.svg"
 import classNames from "@/utils/classnames"
 import { smoothScrollBy } from "@/utils/scroll"
@@ -97,7 +98,7 @@ const RoadmapCarousel: React.FC<RoadmapCarouselProps> = ({
             >
               {hidePhotos !== true && (
                 <div className={classes.roadmapCarouselItemPhoto}>
-                  {milestone.image && <img {...milestone.image} />}
+                  {milestone.image && <Image data={milestone.image} />}
                 </div>
               )}
               <div className={classes.roadmapCarouselItemDetails}>

@@ -5,6 +5,11 @@ export interface LocaleSlug {
   locale: string
 }
 
+export interface AstroImg {
+  blurhash: string
+  attributes: astroHTML.JSX.ImgHTMLAttributes
+}
+
 export interface Post {
   id: number
   title: string
@@ -15,7 +20,7 @@ export interface Post {
   meta_keywords: string | null
   author: AuthorNode
   category: Category | null
-  image: astroHTML.JSX.ImgHTMLAttributes | null
+  image: AstroImg | null
   locale: string
   allSlugs: LocaleSlug[]
   published_on: string
@@ -33,7 +38,7 @@ export interface Project {
   locale: string
   title: string
   slug: string
-  image: astroHTML.JSX.ImgHTMLAttributes | null
+  image: AstroImg | null
   content: string
   excerpt: string | null
   coming_soon: boolean
@@ -48,7 +53,7 @@ export interface Milestone {
   title: string
   subtitle: string
   description: string
-  image: astroHTML.JSX.ImgHTMLAttributes | null
+  image: AstroImg | null
   completion: "done" | "ongoing" | "todo"
   completion_quarter: string
   latitude: number
@@ -71,8 +76,8 @@ export interface Page {
 export interface TeamMember {
   name: string
   role: string
-  bio: string
-  photo: astroHTML.JSX.ImgHTMLAttributes
+  bio: string | null
+  photo: AstroImg | null
   locale: string
 }
 

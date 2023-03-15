@@ -1,0 +1,35 @@
+---
+import { z } from "zod"
+
+import StaticPage from "@/components/layout/StaticPage"
+import Team from "@/components/site/Team"
+import { Lang, t } from "@/utils/lang"
+
+interface Props {
+  data: z.infer<typeof aboutSchema>
+  lang: Lang
+}
+
+export const aboutSchema = z.object({
+  team: z.array(
+    z.object({
+      name: z.string(),
+      role: z.string(),
+      bio: z.string().nullable(),
+      photo: z
+        .object({
+          attributes: z.record(z.any()),
+          blurhash: z.string(),
+        })
+        .nullable(),
+      locale: z.string(),
+    })
+  ),
+})
+
+const { data } = Astro.props
+---
+
+<StaticPage title={t("seo:aboutTitle")}>
+  <Team team={data.team} client:load />
+</StaticPage>

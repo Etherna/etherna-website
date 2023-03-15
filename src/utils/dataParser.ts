@@ -1,5 +1,6 @@
 import { getImage } from "@astrojs/image"
 
+import { serverImageToBlurhash } from "./blurhash"
 import DirectusClient from "@/classes/DirectusClient"
 
 import type {
@@ -11,6 +12,7 @@ import type {
   Comment,
   CommentOwner,
   Milestone,
+  AstroImg,
 } from "@/definitions/app"
 import type {
   CategoryNode,
@@ -223,16 +225,35 @@ export const parseComment = async (node: CommentNode, nodes: CommentNode[]): Pro
 /**
  * Parse image node to  fluid image
  */
-export const parseFluidImage = async (node: FileNode | null, alt?: string) => {
-  const mimeType = node?.filename_disk?.split(".").pop() ?? "jpeg"
+export const parseFluidImage = async (
+  node: FileNode | null,
+  alt?: string
+): Promise<AstroImg | null> => {
+  if (!node) return null
+
+  const mimeType = node.filename_disk?.split(".").pop() ?? "jpeg"
   const format = mimeType === "png" ? "png" : mimeType === "svg" ? "svg" : "jpeg"
-  return node
-    ? await getImage({
-        src: new DirectusClient().getFileUrl(node.private_hash),
-        alt: alt ?? node.description,
-        width: node.width || 1000,
-        height: node.height || 1000,
-        format,
-      })
-    : null
+
+  const width = node.width || 1000
+  const height = node.height || 1000
+
+  const src = new DirectusClient().getFileUrl(node.private_hash)
+  const attributes = await getImage({
+    src,
+    alt: alt ?? node.description,
+    width,
+    height,
+    format,
+  })
+  const blurhash = await serverImageToBlurhash({
+    src,
+    width,
+    height,
+    format,
+  })
+
+  return {
+    attributes,
+    blurhash,
+  }
 }

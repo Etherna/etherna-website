@@ -20,7 +20,7 @@ type HeaderProps = {
   showLandingMenu?: boolean
   localizedPaths?: LocalizedPaths
   pages: { title: string; slug: string }[]
-  locales: { code: string; name: string; flag: string }[]
+  locales: { code: string; name: string; flag: astroHTML.JSX.ImgHTMLAttributes }[]
   lang: Lang
 }
 

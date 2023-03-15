@@ -7,6 +7,7 @@ import RoadmapCarousel from "./RoadmapCarousel"
 import SectionTitle from "./SectionTitle"
 import Col from "@/components/common/Col"
 import Container from "@/components/common/Container"
+import Image from "@/components/common/Image"
 import Markdown from "@/components/common/Markdown"
 import Modal from "@/components/common/Modal"
 import Prose from "@/components/common/Prose"
@@ -61,7 +62,7 @@ const Roadmap: React.FC<RoadmapProps> = ({ milestones }) => {
           >
             <div className={classes.roadmapModalPhoto}>
               {!hideRoadmapPhotos && selectedMilestone.image && (
-                <img {...selectedMilestone.image} />
+                <Image data={selectedMilestone.image} />
               )}
 
               <span className={classes.roadmapModalStatus}>
