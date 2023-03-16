@@ -1,0 +1,29 @@
+---
+import { z } from "zod"
+
+import StaticPage from "@/components/layout/StaticPage"
+import { Lang, t } from "@/utils/lang"
+import BrandKit from "@/components/site/BrandKit"
+
+interface Props {
+  data: z.infer<typeof brandKitSchema>
+  lang: Lang
+}
+
+export const brandKitSchema = z.object({
+  colors: z.array(z.any()),
+  fonts: z.array(z.any()),
+  logos: z.array(z.any()),
+})
+
+const { data } = Astro.props
+---
+
+<StaticPage title={t("seo:brandKitTitle")}>
+  <BrandKit
+    colors={data.colors}
+    fonts={data.fonts}
+    logos={data.logos}
+    client:load
+  />
+</StaticPage>

@@ -49,7 +49,7 @@ const { pages, projects } = await fetchFooter(lang)
             <FooterColumn.Link href={routes.aboutPath(lang)}>{t("footer:about")}</FooterColumn.Link>
           </FooterColumn>
           <FooterColumn title={t("footer:legal")} className="md:order-2">
-            <FooterColumn.Link href={"/brand-kit"}>{t("footer:brandKit")}</FooterColumn.Link>
+            <FooterColumn.Link href={routes.brandKitPath(lang)}>{t("footer:brandKit")}</FooterColumn.Link>
             <FooterColumn.Link href="/privacy">{t("footer:privacyPolicy")}</FooterColumn.Link>
           </FooterColumn>
         </div>

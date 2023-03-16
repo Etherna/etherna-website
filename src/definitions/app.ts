@@ -1,3 +1,4 @@
+import type { ColorNode, FontNode } from "./sources"
 import type { Lang } from "@/utils/lang"
 
 export interface LocaleSlug {
@@ -106,4 +107,21 @@ export interface User {
   last_name: string
   email: string
   avatar: AstroImg | null
+}
+
+export interface Brand {
+  colors: ColorNode[]
+  fonts: FontNode[]
+  logos: Logo[]
+}
+
+export interface Logo {
+  name: string
+  logo_variants: LogoVariant[]
+}
+
+export interface LogoVariant {
+  style: "default" | "light" | "dark" | "monochrome" | "compact" | "compact-light" | "compact-dark"
+  variant_name: string | null
+  image: AstroImg
 }

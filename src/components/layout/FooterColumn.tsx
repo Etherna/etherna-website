@@ -19,7 +19,7 @@ const FooterColumnLink: React.FC<FooterColumnLinkProps> = ({
   children,
   className,
   href,
-  target = "_blank",
+  target,
 }) => {
   return (
     <li className={classNames(className)}>

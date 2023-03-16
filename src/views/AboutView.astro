@@ -3,7 +3,7 @@ import { z } from "zod"
 
 import StaticPage from "@/components/layout/StaticPage"
 import Team from "@/components/site/Team"
-import { Lang, t } from "@/utils/lang"
+import { Lang, LangSchema, t } from "@/utils/lang"
 
 interface Props {
   data: z.infer<typeof aboutSchema>
@@ -22,7 +22,7 @@ export const aboutSchema = z.object({
           blurhash: z.string(),
         })
         .nullable(),
-      locale: z.string(),
+      locale: LangSchema,
     })
   ),
 })

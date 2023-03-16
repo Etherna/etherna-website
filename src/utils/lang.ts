@@ -1,5 +1,6 @@
 import { initReactI18next } from "react-i18next"
 import i18n from "i18next"
+import { z } from "zod"
 
 import en_about from "@/lang/en/about.json"
 import en_awards from "@/lang/en/awards.json"
@@ -40,6 +41,8 @@ export const LOCALES = {
 }
 
 export const Languages = Object.keys(LOCALES) as Lang[]
+
+export const LangSchema = z.enum(["en", "it"])
 
 export type Lang = keyof typeof LOCALES
 

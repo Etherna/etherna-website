@@ -131,6 +131,12 @@ export interface CommentNode {
   created_on: string
 }
 
+export interface BrandNode {
+  colors: ColorNode[]
+  fonts: FontNode[]
+  logos: LogoNode[]
+}
+
 export interface ColorNode {
   color: string
   name: string
@@ -152,7 +158,7 @@ export interface LogoNode {
 export interface LogoVariantNode {
   style: "default" | "light" | "dark" | "monochrome" | "compact" | "compact-light" | "compact-dark"
   variant_name: string | null
-  image: SvgNode
+  image: FileNode
 }
 
 export interface MilestoneNode {

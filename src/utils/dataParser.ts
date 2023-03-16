@@ -15,8 +15,10 @@ import type {
   Milestone,
   AstroImg,
   User,
+  Brand,
 } from "@/definitions/app"
 import type {
+  BrandNode,
   CategoryNode,
   CommentNode,
   FileNode,
@@ -235,6 +237,29 @@ export const parseUser = async (node: UserNode): Promise<User> => {
   return {
     ...node,
     avatar: typeof node.avatar === "object" ? await parseFluidImage(node.avatar) : null,
+  }
+}
+
+/**
+ * Parse brand node
+ */
+export const parseBrand = async (node: BrandNode): Promise<Brand> => {
+  const { colors, fonts } = node
+  const logos = await Promise.all(
+    node.logos.map(async logo => ({
+      ...logo,
+      logo_variants: await Promise.all(
+        logo.logo_variants.map(async variant => ({
+          ...variant,
+          image: (await parseFluidImage(variant.image))!,
+        }))
+      ),
+    }))
+  )
+  return {
+    colors,
+    fonts,
+    logos,
   }
 }
 

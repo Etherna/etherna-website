@@ -1,24 +1,30 @@
 import React, { useMemo } from "react"
-import classNames from "@utils/classnames"
-
-import classes from "@styles/components/site/FontPalette.module.scss"
+import { useTranslation } from "react-i18next"
 
 import FontPreview from "./FontPreview"
-import useLocale from "@context/locale-context/hooks/useLocale"
-import { useTranslations } from "@hooks/useTranslations"
 
 const weightName = (name: string | number) => {
   switch (name.toString()) {
-    case "100": return "thin"
-    case "200": return "ultralight"
-    case "300": return "light"
-    case "400": return "regular"
-    case "500": return "medium"
-    case "600": return "semibold"
-    case "700": return "bold"
-    case "800": return "extrabold"
-    case "900": return "black"
-    default: return ""
+    case "100":
+      return "thin"
+    case "200":
+      return "ultralight"
+    case "300":
+      return "light"
+    case "400":
+      return "regular"
+    case "500":
+      return "medium"
+    case "600":
+      return "semibold"
+    case "700":
+      return "bold"
+    case "800":
+      return "extrabold"
+    case "900":
+      return "black"
+    default:
+      return ""
   }
 }
 
@@ -30,9 +36,14 @@ type FontPaletteProps = {
   importUrl?: string | null
 }
 
-const FontPalette: React.FC<FontPaletteProps> = ({ name, fontFamily, fontWeight, link, importUrl }) => {
-  const [locale] = useLocale()
-  const { t } = useTranslations(locale, "brand")
+const FontPalette: React.FC<FontPaletteProps> = ({
+  name,
+  fontFamily,
+  fontWeight,
+  link,
+  importUrl,
+}) => {
+  const { t } = useTranslation("brand")
 
   const fontFamilies = useMemo(() => {
     if (!fontWeight) return fontFamily
@@ -51,23 +62,27 @@ const FontPalette: React.FC<FontPaletteProps> = ({ name, fontFamily, fontWeight,
   }, [fontFamily, fontWeight])
 
   return (
-    <div className={classes.fontPalette}>
-      <div className={classNames(classes.fontPalettePreview, { undefined: !importUrl })} style={{}}>
+    <div className="flex w-full flex-col overflow-hidden rounded border border-gray-300 p-3">
+      <div className="relative -mx-3 -mt-3 bg-gray-200 px-5 pb-24">
         {importUrl && (
-          <FontPreview
-            fontFamily={fontFamily}
-            fontWeight={fontWeight}
-            importUrl={importUrl}
-          />
+          <FontPreview fontFamily={fontFamily} fontWeight={fontWeight} importUrl={importUrl} />
+        )}
+        {!importUrl && (
+          <span className="w-full text-center text-4xl font-semibold text-gray-400 absolute-center">
+            ND
+          </span>
         )}
       </div>
-      {name && (
-        <h3 className={classes.fontPaletteName}>{name}</h3>
-      )}
-      <span className={classes.fontPaletteFontName}>{fontFamilies}</span>
+      {name && <h3 className="mt-3 mb-0 text-base font-semibold">{name}</h3>}
+      <span className="mb-4 text-xs font-semibold text-gray-600">{fontFamilies}</span>
 
       {link && (
-        <a className={classes.fontPaletteLink} href={link} target="_blank" rel="noopener noreferrer">
+        <a
+          className="mt-auto ml-auto text-sm font-semibold"
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           {t`details`} ↗
         </a>
       )}

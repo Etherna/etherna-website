@@ -1,5 +1,6 @@
 import fetchAboutData from "./fetch-about-data"
 import fetchBlogData from "./fetch-blog-data"
+import fetchBrandKitData from "./fetch-brand-kit-data"
 import fetchHomeData from "./fetch-home-data"
 import fetchPageData from "./fetch-page-data"
 import fetchProjectData from "./fetch-project-data"
@@ -44,7 +45,7 @@ export default async function fetchProps(lang: Lang, path: string): Promise<Page
       }
     case "brand-kit":
       return {
-        data: {},
+        data: await fetchBrandKitData(),
         title: t("seo:brandKitTitle", { lng: lang }),
         description: t("seo:brandKitDescription", { lng: lang }),
         lang,
