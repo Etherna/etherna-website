@@ -1,16 +1,11 @@
 ---
 import StaticPage from "@/components/layout/StaticPage"
+import PrivacyPolicyRenderer from "@/components/site/PrivacyPolicyRenderer"
 import Layout from "@/layouts/Layout.astro"
 ---
 
 <Layout title="Privacy Policy" description="Read the privacy policy of Etherna" lang="en">
   <StaticPage title={`Privacy Policy`}>
-    <a
-      href="https://www.iubenda.com/privacy-policy/57423156"
-      class="iubenda-white no-brand iubenda-embed iub-body-embed"
-      title="Privacy Policy"
-    >
-      Privacy Policy
-    </a>
+    <PrivacyPolicyRenderer client:load />
   </StaticPage>
 </Layout>

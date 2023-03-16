@@ -1,7 +1,6 @@
 import React, { useMemo } from "react"
 import { useTranslation } from "react-i18next"
 
-import Col from "@/components/common/Col"
 import Image from "@/components/common/Image"
 
 import type { AstroImg, LogoVariant } from "@/definitions/app"
