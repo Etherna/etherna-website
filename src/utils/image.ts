@@ -12,7 +12,7 @@ export async function getImagePixels(imageData: ArrayBuffer, format: OutputForma
     case "jpeg":
       return await getJPEGPixels(imageData)
     default:
-      throw new Error("Unsupported file type: " + format)
+      return null
   }
 }
 

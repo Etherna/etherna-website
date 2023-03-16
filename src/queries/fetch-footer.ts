@@ -4,7 +4,7 @@ import type { PageNode, ProjectNode } from "@/definitions/sources"
 
 export default async function fetchFooter(lang: string) {
   const client = new DirectusClient()
-  const [pages, projects] = await Promise.all([
+  const [{ data: pages }, { data: projects }] = await Promise.all([
     client.getItems<PageNode>("pages", {
       fields: [
         "show_in_menu",

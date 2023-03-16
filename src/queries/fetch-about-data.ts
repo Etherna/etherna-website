@@ -6,7 +6,7 @@ import type { Lang } from "@/utils/lang"
 
 export default async function fetchAboutData(lang: Lang) {
   const client = new DirectusClient()
-  const teamMembers = await client.getItems<TeamMemberNode>("team", {
+  const { data: teamMembers } = await client.getItems<TeamMemberNode>("team", {
     fields: [
       "name",
       "status",

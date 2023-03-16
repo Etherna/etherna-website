@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 import { blurHashToDataURL } from "@/utils/blurhash"
 import classNames from "@/utils/classnames"
@@ -19,17 +19,13 @@ const Image: React.FC<ImageProps> = ({ className, data, ...attr }) => {
     }
   }, [])
 
-  const onImgLoad = useCallback(() => {
-    setHasLoaded(true)
-  }, [])
-
   return (
     <div className="relative">
       <img
         {...(data.attributes as any)}
         {...attr}
         className={className}
-        onLoad={onImgLoad}
+        onLoad={() => setHasLoaded(true)}
         loading="lazy"
         ref={imgRef}
       />

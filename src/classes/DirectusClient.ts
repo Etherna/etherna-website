@@ -3,18 +3,26 @@ import { setupCache } from "axios-cache-interceptor"
 
 import type { AxiosCacheInstance } from "axios-cache-interceptor"
 
-type DirectusGetRequest<S extends boolean> = {
+type DirectusGetRequest = {
   fields?: string[]
   limit?: number
   offset?: number
-  single?: S
+  single?: boolean
   sort?: { key: string; order?: "asc" | "desc" }[]
   filter?: Record<string, unknown>
   query?: string
+  meta?: ("filter_count" | "result_count" | "total_count" | "status_count")[]
 }
 
 type DirectusGetSingleRequest = {
   fields?: string[]
+}
+
+type DirectusGetRequestMeta = {
+  filter_count: number
+  result_count: number
+  total_count: number
+  status_count: Record<string, number>
 }
 
 export default class DirectusClient {
@@ -40,30 +48,34 @@ export default class DirectusClient {
     })
   }
 
-  async getItems<T = unknown, S extends boolean = false>(
+  async getItems<T = unknown>(
     collection: string,
-    opts: DirectusGetRequest<S> = {}
-  ): Promise<T[]> {
-    const { data } = await this.http.get<{ data: T[] }>(`/items/${collection}`, {
-      params: {
-        fields: opts.fields,
-        limit: opts.limit,
-        offset: opts.offset,
-        single: opts.single,
-        sort: opts.sort?.map(s => (s.order === "desc" ? `-${s.key}` : s.key)).join(","),
-        filter: opts.filter,
-        q: opts.query,
-      },
-      headers: {
-        Authorization: `Bearer ${this.token}`,
-      },
-      httpsAgent: await this.getHttpsAgent(),
-      cache: {
-        ttl: this.cacheTtl,
-      },
-    })
+    opts: DirectusGetRequest = {}
+  ): Promise<{ data: T[]; meta: DirectusGetRequestMeta }> {
+    const { data } = await this.http.get<{ data: T[]; meta: DirectusGetRequestMeta }>(
+      `/items/${collection}`,
+      {
+        params: {
+          fields: opts.fields,
+          limit: opts.limit,
+          offset: opts.offset,
+          single: opts.single,
+          sort: opts.sort?.map(s => (s.order === "desc" ? `-${s.key}` : s.key)).join(","),
+          filter: opts.filter,
+          q: opts.query,
+          meta: opts.meta?.join(","),
+        },
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+        },
+        httpsAgent: await this.getHttpsAgent(),
+        cache: {
+          ttl: this.cacheTtl,
+        },
+      }
+    )
 
-    return data.data
+    return data
   }
 
   async getItem<T = unknown>(collection: string, id: string, opts: DirectusGetSingleRequest = {}) {

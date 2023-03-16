@@ -8,7 +8,7 @@ import type { Lang } from "@/utils/lang"
 
 export default async function fetchHomeData(lang: Lang) {
   const client = new DirectusClient()
-  const milestones = await client.getItems<MilestoneNode>("milestones", {
+  const { data: milestones } = await client.getItems<MilestoneNode>("milestones", {
     fields: [
       "image.private_hash",
       "image.filename_disk",

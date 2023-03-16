@@ -13,6 +13,7 @@ import { ReactComponent as Logo } from "@/images/logo.svg"
 import classNames from "@/utils/classnames"
 import routes from "@/utils/routes"
 
+import type { AstroImg } from "@/definitions/app"
 import type { Lang, LocalizedPaths } from "@/utils/lang"
 
 type HeaderProps = {
@@ -20,7 +21,7 @@ type HeaderProps = {
   showLandingMenu?: boolean
   localizedPaths?: LocalizedPaths
   pages: { title: string; slug: string }[]
-  locales: { code: string; name: string; flag: astroHTML.JSX.ImgHTMLAttributes }[]
+  locales: { code: string; name: string; flag: AstroImg }[]
   lang: Lang
 }
 

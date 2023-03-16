@@ -1,8 +1,8 @@
-import type { AuthorNode } from "./sources"
+import type { Lang } from "@/utils/lang"
 
 export interface LocaleSlug {
   slug: string
-  locale: string
+  locale: Lang
 }
 
 export interface AstroImg {
@@ -18,24 +18,26 @@ export interface Post {
   excerpt: string | null
   meta_description: string | null
   meta_keywords: string | null
-  author: AuthorNode
+  author: User
   category: Category | null
   image: AstroImg | null
-  locale: string
+  locale: Lang
   allSlugs: LocaleSlug[]
   published_on: string
   updated_on: string
 }
 
 export interface Category {
+  id: number
   name: string
   slug: string
-  locale: string
+  color: string | null
+  locale: Lang
   allSlugs: LocaleSlug[]
 }
 
 export interface Project {
-  locale: string
+  locale: Lang
   title: string
   slug: string
   image: AstroImg | null
@@ -58,7 +60,7 @@ export interface Milestone {
   completion_quarter: string
   latitude: number
   longitude: number
-  locale: string
+  locale: Lang
 }
 
 export interface Page {
@@ -69,7 +71,7 @@ export interface Page {
   meta_description: string | null
   meta_keywords: string | null
   show_in_menu: boolean
-  locale: string
+  locale: Lang
   allSlugs: LocaleSlug[]
 }
 
@@ -78,7 +80,7 @@ export interface TeamMember {
   role: string
   bio: string | null
   photo: AstroImg | null
-  locale: string
+  locale: Lang
 }
 
 export interface CommentOwner {
@@ -95,12 +97,13 @@ export interface Comment {
   comment: string
   owner: CommentOwner | null
   replies: Comment[]
-  locale: string
+  locale: Lang
   created_on: string
 }
 
-export interface CurrentUser {
-  name: string
+export interface User {
+  first_name: string
+  last_name: string
   email: string
-  avatar: string
+  avatar: AstroImg | null
 }

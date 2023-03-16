@@ -1,18 +1,23 @@
-import classes from "@/styles/components/common/Avatar.module.scss"
-
+import Image from "./Image"
 import classNames from "@/utils/classnames"
+
+import type { AstroImg } from "@/definitions/app"
 
 type AvatarProps = {
   id?: number
-  src: string
+  src: string | AstroImg
   alt?: string
   className?: string
 }
 
-const Avatar: React.FC<AvatarProps> = ({ id, src, alt, className }) => {
+const Avatar: React.FC<AvatarProps> = ({ src, alt, className }) => {
   return (
-    <div className={classNames(classes.avatar, className)}>
-      <img src={src} alt={alt} />
+    <div className={classNames("overflow-hidden rounded-full", className)}>
+      {typeof src === "string" ? (
+        <img src={src} className="rounded-full" />
+      ) : (
+        <Image data={src} className="rounded-full" />
+      )}
     </div>
   )
 }

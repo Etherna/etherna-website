@@ -3,6 +3,7 @@ import { getImage } from "@astrojs/image"
 import { serverImageToBlurhash } from "./blurhash"
 import DirectusClient from "@/classes/DirectusClient"
 
+import type { Lang } from "./lang"
 import type {
   Category,
   Page,
@@ -13,6 +14,7 @@ import type {
   CommentOwner,
   Milestone,
   AstroImg,
+  User,
 } from "@/definitions/app"
 import type {
   CategoryNode,
@@ -23,19 +25,20 @@ import type {
   PostNode,
   ProjectNode,
   TeamMemberNode,
+  UserNode,
 } from "@/definitions/sources"
 
 /**
  * Parse post nodes
  */
-export const parsePosts = async (nodes: PostNode[], locale: string) => {
+export const parsePosts = async (nodes: PostNode[], locale: Lang) => {
   return await Promise.all(nodes.map(post => parsePost(post, locale)))
 }
 
 /**
  * Parse a post node
  */
-export const parsePost = async (node: PostNode, locale: string): Promise<Post> => {
+export const parsePost = async (node: PostNode, locale: Lang): Promise<Post> => {
   const { localized_contents, directusId, author, category, published_on, updated_on, image } = node
   const localizedPost =
     localized_contents.find(lc => lc.locale === locale) || localized_contents[0]!
@@ -46,7 +49,7 @@ export const parsePost = async (node: PostNode, locale: string): Promise<Post> =
   return {
     ...localizedPost,
     id: directusId,
-    author,
+    author: await parseUser(author),
     category: category ? await parseCategory(category, locale) : null,
     published_on,
     updated_on,
@@ -58,22 +61,28 @@ export const parsePost = async (node: PostNode, locale: string): Promise<Post> =
 /**
  * Parse a list of category nodes
  */
-export const parseCategories = async (nodes: CategoryNode[], locale: string) => {
+export const parseCategories = async (nodes: CategoryNode[], locale: Lang) => {
   return await Promise.all(nodes.map(node => parseCategory(node, locale)))
 }
 
 /**
  * Parse category node
  */
-export const parseCategory = async (node: CategoryNode, locale: string): Promise<Category> => {
-  const { localized_contents } = node
-  const localizedCategory =
-    localized_contents.find(lc => lc.locale === locale) || localized_contents[0]!
-  const allSlugs = localized_contents.map(lc => ({
+export const parseCategory = async (node: CategoryNode, locale: Lang): Promise<Category> => {
+  const { id, localized_contents, color } = node
+  const localizedCategory = (localized_contents?.find(lc => lc.locale === locale) ||
+    localized_contents?.[0]) ?? {
+    name: "",
+    slug: "",
+    locale,
+  }
+  const allSlugs = localized_contents?.map(lc => ({
     slug: lc.slug,
     locale: lc.locale,
   }))
   return {
+    id,
+    color,
     ...localizedCategory,
     allSlugs,
   }
@@ -82,14 +91,14 @@ export const parseCategory = async (node: CategoryNode, locale: string): Promise
 /**
  * Parse a list of project nodes
  */
-export const parseProjects = async (nodes: ProjectNode[], locale: string) => {
+export const parseProjects = async (nodes: ProjectNode[], locale: Lang) => {
   return await Promise.all(nodes.map(node => parseProject(node, locale)))
 }
 
 /**
  * Parse project node
  */
-export const parseProject = async (node: ProjectNode, locale: string): Promise<Project> => {
+export const parseProject = async (node: ProjectNode, locale: Lang): Promise<Project> => {
   const { localized_contents, coming_soon, github_link, external_link, image } = node
   const localizedCategory =
     localized_contents.find(lc => lc.locale === locale) || localized_contents[0]!
@@ -110,14 +119,14 @@ export const parseProject = async (node: ProjectNode, locale: string): Promise<P
 /**
  * Parse a list of milestone nodes
  */
-export const parseMilestones = async (nodes: MilestoneNode[], locale: string) => {
+export const parseMilestones = async (nodes: MilestoneNode[], locale: Lang) => {
   return await Promise.all(nodes.map(node => parseMilestone(node, locale)))
 }
 
 /**
  * Parse milestone node
  */
-export const parseMilestone = async (node: MilestoneNode, locale: string): Promise<Milestone> => {
+export const parseMilestone = async (node: MilestoneNode, locale: Lang): Promise<Milestone> => {
   const { localized_contents, image, completion, completion_quarter, latitude, longitude } = node
   const localizedCategory =
     localized_contents.find(lc => lc.locale === locale) || localized_contents[0]!
@@ -134,14 +143,14 @@ export const parseMilestone = async (node: MilestoneNode, locale: string): Promi
 /**
  * Parse a list of page nodes
  */
-export const parsePages = async (nodes: PageNode[], locale: string) => {
+export const parsePages = async (nodes: PageNode[], locale: Lang) => {
   return await Promise.all(nodes.map(node => parsePage(node, locale)))
 }
 
 /**
  * Parse page node
  */
-export const parsePage = async (node: PageNode, locale: string): Promise<Page> => {
+export const parsePage = async (node: PageNode, locale: Lang): Promise<Page> => {
   const { localized_contents, show_in_menu } = node
   const localizedContents =
     localized_contents.find(lc => lc.locale === locale) || localized_contents[0]!
@@ -159,17 +168,14 @@ export const parsePage = async (node: PageNode, locale: string): Promise<Page> =
 /**
  * Parse a list of team members nodes
  */
-export const parseTeam = async (nodes: TeamMemberNode[], locale: string) => {
+export const parseTeam = async (nodes: TeamMemberNode[], locale: Lang) => {
   return await Promise.all(nodes.map(node => parseTeamMember(node, locale)))
 }
 
 /**
  * Parse team member node
  */
-export const parseTeamMember = async (
-  node: TeamMemberNode,
-  locale: string
-): Promise<TeamMember> => {
+export const parseTeamMember = async (node: TeamMemberNode, locale: Lang): Promise<TeamMember> => {
   const { localized_contents, name, photo } = node
   const localizedContents =
     localized_contents.find(lc => lc.locale === locale) || localized_contents[0]!
@@ -219,6 +225,16 @@ export const parseComment = async (node: CommentNode, nodes: CommentNode[]): Pro
     locale: typeof node.locale === "string" ? node.locale : node.locale.code,
     owner,
     replies,
+  }
+}
+
+/**
+ * Parse user node
+ */
+export const parseUser = async (node: UserNode): Promise<User> => {
+  return {
+    ...node,
+    avatar: typeof node.avatar === "object" ? await parseFluidImage(node.avatar) : null,
   }
 }
 

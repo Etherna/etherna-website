@@ -8,7 +8,7 @@ import type { Lang, LocalizedPaths } from "@/utils/lang"
 export default async function fetchPageData(lang: Lang, path: string) {
   const slug = parseSlug(path)
   const client = new DirectusClient()
-  const pages = await client.getItems<PageNode>("pages", {
+  const { data: pages } = await client.getItems<PageNode>("pages", {
     fields: [
       "show_in_menu",
       "localized_contents.title",

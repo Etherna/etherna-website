@@ -8,7 +8,7 @@ import type { Lang, LocalizedPaths } from "@/utils/lang"
 export default async function fetchProjectData(lang: Lang, path: string) {
   const slug = parseSlug(path)
   const client = new DirectusClient()
-  const projects = await client.getItems<ProjectNode>("projects", {
+  const { data: projects } = await client.getItems<ProjectNode>("projects", {
     fields: [
       "github_link",
       "external_link",

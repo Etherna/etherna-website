@@ -30,7 +30,13 @@ export async function serverImageToBlurhash(transform: TransformOptions) {
     height,
   })
 
-  const pixels = await getImagePixels(data, transform.format ?? "jpeg")
+  const pixels =
+    (await getImagePixels(data, transform.format ?? "jpeg")) ??
+    new Uint8ClampedArray(
+      Array.from({ length: width * height * 4 }, () => {
+        return Math.floor(155 + Math.random() * 100)
+      })
+    )
 
   return encode(pixels, width, height, 4, 4)
 }

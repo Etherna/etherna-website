@@ -1,4 +1,5 @@
 import fetchAboutData from "./fetch-about-data"
+import fetchBlogData from "./fetch-blog-data"
 import fetchHomeData from "./fetch-home-data"
 import fetchPageData from "./fetch-page-data"
 import fetchProjectData from "./fetch-project-data"
@@ -53,15 +54,22 @@ export default async function fetchProps(lang: Lang, path: string): Promise<Page
         },
       }
     case "blog":
+      const blogData = await fetchBlogData(lang, path)
       return {
-        data: {},
+        data: blogData,
         title: t("seo:blogTitle", { lng: lang }),
         description: t("seo:blogDescription", { lng: lang }),
         lang,
-        localizedPaths: {
-          en: routes.blogPath("en"),
-          it: routes.blogPath("it"),
-        },
+        localizedPaths: blogData.localizedPaths,
+      }
+    case "category":
+      const categoryData = await fetchBlogData(lang, path)
+      return {
+        data: categoryData,
+        title: categoryData.currentCategory?.name ?? "Blog",
+        description: "",
+        lang,
+        localizedPaths: categoryData.localizedPaths,
       }
     case "page":
       const pageData = await fetchPageData(lang, path)

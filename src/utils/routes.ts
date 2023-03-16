@@ -127,9 +127,26 @@ const routes = {
   pagePath,
 }
 
+export const withPagination = (path: string, page: number) => {
+  return page === 1 ? path : `${path}/p/${page}`
+}
+
+export const withoutPagination = (path: string) => {
+  return path.replace(/\/?$/, "").replace(/(\/p\/(\d+))?$/, "")
+}
+
 export const parseSlug = (path: string) => {
-  const slug = path.split("/").pop()
+  const slug = path
+    .replace(/\/?$/, "")
+    .replace(/(\/p\/(\d+))?$/, "")
+    .split("/")
+    .pop()
   return slug || null
+}
+
+export const parsePage = (path: string) => {
+  const pageSegment = path.replace(/\/?$/, "").match(/\/p\/(\d+)$/)?.[1]
+  return pageSegment ? parseInt(pageSegment) : null
 }
 
 /**
@@ -187,7 +204,8 @@ export const whichRoute = (path: string, lang: Lang) => {
             break
         }
 
-        const normalizedPath = path.replace(/^\/?/, "/").replace(/\/?$/, "") || "/"
+        const normalizedPath =
+          withoutPagination(path).replace(/^\/?/, "/").replace(/\/?$/, "") || "/"
         if (normalizedPath === withoutLocale(route, lang))
           return identifier as keyof (typeof routesIdentifiers.localized &
             typeof routesIdentifiers.dynamicLocalized &

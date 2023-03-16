@@ -14,8 +14,8 @@ export interface SvgNode {
 
 export interface PostNode {
   localized_contents: PostLocalizedContentsNode[]
-  author: AuthorNode
-  category: CategoryNode
+  author: UserNode
+  category: CategoryNode | null
   directusId: number
   image: FileNode | null
   published_on: string
@@ -33,6 +33,9 @@ export interface PostLocalizedContentsNode {
 }
 
 export interface CategoryNode {
+  id: number
+  color: string | null
+  posts: PostNode[]
   localized_contents: CategoryLocalizedContentsNode[]
 }
 
@@ -40,12 +43,6 @@ export interface CategoryLocalizedContentsNode {
   name: string
   slug: string
   locale: Lang
-}
-
-export interface AuthorNode {
-  first_name: string
-  last_name: string
-  avatar: number
 }
 
 export interface ProjectNode {
@@ -127,7 +124,7 @@ export interface CommentNode {
   email: string
   comment: string
   status: string
-  locale: Lang | { code: string }
+  locale: Lang | { code: Lang }
   parent?: CommentNode | number
   post: PostNode | number
   owner?: UserNode | null

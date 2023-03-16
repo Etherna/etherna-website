@@ -1,14 +1,21 @@
-import { getImage } from "@astrojs/image"
-
 import DirectusClient from "@/classes/DirectusClient"
+import { parseFluidImage } from "@/utils/dataParser"
 
 import type { LocaleNode, PageNode } from "@/definitions/sources"
 
 export default async function fetchNavbar(lang: string) {
   const client = new DirectusClient()
-  const [locales, pages] = await Promise.all([
+  const [{ data: locales }, { data: pages }] = await Promise.all([
     client.getItems<LocaleNode>("locales", {
-      fields: ["code", "name", "flag.private_hash"],
+      fields: [
+        "code",
+        "name",
+        "flag.private_hash",
+        "flag.filename_disk",
+        "flag.width",
+        "flag.height",
+        "flag.description",
+      ],
     }),
     client.getItems<PageNode>("pages", {
       fields: [
@@ -24,13 +31,7 @@ export default async function fetchNavbar(lang: string) {
     locales.map(async l => ({
       code: l.code,
       name: l.name,
-      flag: await getImage({
-        src: client.getFileUrl(l.flag.private_hash),
-        width: 100,
-        height: 100,
-        alt: l.name,
-        format: "svg",
-      }),
+      flag: (await parseFluidImage(l.flag, l.name))!,
     }))
   )
 
