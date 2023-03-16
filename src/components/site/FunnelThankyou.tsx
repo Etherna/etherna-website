@@ -1,31 +1,27 @@
 import React, { useEffect, useState } from "react"
-import useLocale from "@context/locale-context/hooks/useLocale"
-import { useTranslations } from "@hooks/useTranslations"
+import { useTranslation } from "react-i18next"
 
-import classes from "@styles/components/site/FunnelThankyou.module.scss"
+type FunnelThankYouProps = {}
 
-type FunnelThankyouProps = {}
-
-const FunnelThankyou: React.FC<FunnelThankyouProps> = () => {
-  const [locale] = useLocale()
-  const { t } = useTranslations(locale, "funnel")
+const FunnelThankYou: React.FC<FunnelThankYouProps> = () => {
+  const { t } = useTranslation("funnel")
   const [email, setEmail] = useState("")
 
   useEffect(() => {
-    const email = sessionStorage.getItem("subscriber:email")
+    const email = sessionStorage.getItem("subscriber:email") ?? "..@.."
     setEmail(email)
   }, [])
 
   return (
-    <div className={classes.funnelThankyou}>
-      <p className={classes.funnelThankyouTitle}>{t`checkInbox`}</p>
-      <ul className={classes.funnelThankyouList}>
-        <li dangerouslySetInnerHTML={{ __html: "⚠️ " + t`checkSpam` }} />
-        <li dangerouslySetInnerHTML={{ __html: "⚠️ " + t(`checkCorrectEmail`, { email }) }} />
-        <li dangerouslySetInnerHTML={{ __html: "⚠️ " + t`writeUs` }} />
+    <div className="max-w-screen-md text-lg">
+      <p className="text-xl font-semibold">{t("checkInbox")}</p>
+      <ul className="mt-6">
+        <li dangerouslySetInnerHTML={{ __html: "⚠️ " + t("checkSpam") }} />
+        <li dangerouslySetInnerHTML={{ __html: "⚠️ " + t("checkCorrectEmail", { email }) }} />
+        <li dangerouslySetInnerHTML={{ __html: "⚠️ " + t("writeUs") }} />
       </ul>
     </div>
   )
 }
 
-export default FunnelThankyou
+export default FunnelThankYou
