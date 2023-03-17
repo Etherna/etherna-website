@@ -1,7 +1,7 @@
 import DirectusClient from "@/classes/DirectusClient"
 import { parseBrand } from "@/utils/dataParser"
 
-import type { BrandNode } from "@/definitions/sources"
+import type { BrandNode } from "@/schema/cms"
 
 export default async function fetchBrandKitData() {
   const client = new DirectusClient()

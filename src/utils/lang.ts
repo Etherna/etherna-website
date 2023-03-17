@@ -33,6 +33,8 @@ import it_project from "@/lang/it/project.json"
 import it_roadmap from "@/lang/it/roadmap.json"
 import it_seo from "@/lang/it/seo.json"
 
+import type { AstroImg } from "@/schema/app"
+
 export const DEFAULT_LOCALE = "en"
 
 export const LOCALES = {
@@ -42,11 +44,17 @@ export const LOCALES = {
 
 export const Languages = Object.keys(LOCALES) as Lang[]
 
-export const LangSchema = z.enum(["en", "it"])
+export const langSchema = z.enum(["en", "it"])
 
 export type Lang = keyof typeof LOCALES
 
 export type LocalizedPaths = Partial<Record<Lang, string>>
+
+export type LocaleInfo = {
+  code: string
+  name: string
+  flag: AstroImg
+}
 
 export const resources = {
   en: {
@@ -107,6 +115,22 @@ export const configLang = (lang: string) => {
     ],
     resources,
   })
+}
+
+let serverLocales: LocaleInfo[] = []
+export const configLocales = (locales: LocaleInfo[]) => {
+  if (typeof window !== "undefined") {
+    window.LOCALES = locales
+  } else {
+    serverLocales = locales
+  }
+}
+
+export const localeInfo = (locale: Lang): LocaleInfo | null => {
+  if (typeof window !== "undefined") {
+    return window.LOCALES?.find(l => l.code === locale) ?? null
+  }
+  return serverLocales.find(l => l.code === locale) ?? null
 }
 
 export const t = i18n.t

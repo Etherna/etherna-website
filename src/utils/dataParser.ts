@@ -16,7 +16,7 @@ import type {
   AstroImg,
   User,
   Brand,
-} from "@/definitions/app"
+} from "@/schema/app"
 import type {
   BrandNode,
   CategoryNode,
@@ -28,7 +28,7 @@ import type {
   ProjectNode,
   TeamMemberNode,
   UserNode,
-} from "@/definitions/sources"
+} from "@/schema/cms"
 
 /**
  * Parse post nodes
@@ -41,7 +41,7 @@ export const parsePosts = async (nodes: PostNode[], locale: Lang) => {
  * Parse a post node
  */
 export const parsePost = async (node: PostNode, locale: Lang): Promise<Post> => {
-  const { localized_contents, directusId, author, category, published_on, updated_on, image } = node
+  const { localized_contents, id, author, category, published_on, updated_on, image } = node
   const localizedPost =
     localized_contents.find(lc => lc.locale === locale) || localized_contents[0]!
   const allSlugs = localized_contents.map(lc => ({
@@ -50,7 +50,7 @@ export const parsePost = async (node: PostNode, locale: Lang): Promise<Post> => 
   }))
   return {
     ...localizedPost,
-    id: directusId,
+    id,
     author: await parseUser(author),
     category: category ? await parseCategory(category, locale) : null,
     published_on,
@@ -206,15 +206,18 @@ export const parseComment = async (node: CommentNode, nodes: CommentNode[]): Pro
   )
   const replies = await Promise.all(childNodes.map(childNode => parseComment(childNode, nodes)))
 
-  const avatarData = node.owner?.avatar as FileNode | undefined
-  const ownerAvatar = avatarData?.data.thumbnails.find(t => t.key === "directus-medium-crop")
+  const avatarData = node.owner?.avatar as FileNode | null
+  const ownerAvatar = await parseFluidImage(avatarData, node.owner?.first_name, {
+    width: 50,
+    height: 50,
+  })
 
   const owner = node.owner
     ? ({
         id: node.owner.id,
-        name: `${node.owner.first_name} ${node.owner.last_name}`.trim(),
+        name: `${node.owner.first_name} ${node.owner.last_name}`,
         email: node.owner.email,
-        avatar: ownerAvatar && ownerAvatar.url,
+        avatar: ownerAvatar,
       } as CommentOwner)
     : null
 
@@ -224,7 +227,7 @@ export const parseComment = async (node: CommentNode, nodes: CommentNode[]): Pro
     email: node.email,
     comment: node.comment,
     created_on: node.created_on,
-    locale: typeof node.locale === "string" ? node.locale : node.locale.code,
+    locale: node.locale,
     owner,
     replies,
   }
@@ -268,15 +271,16 @@ export const parseBrand = async (node: BrandNode): Promise<Brand> => {
  */
 export const parseFluidImage = async (
   node: FileNode | null,
-  alt?: string
+  alt?: string,
+  size?: { width: number; height: number }
 ): Promise<AstroImg | null> => {
   if (!node) return null
 
   const mimeType = node.filename_disk?.split(".").pop() ?? "jpeg"
   const format = mimeType === "png" ? "png" : mimeType === "svg" ? "svg" : "jpeg"
 
-  const width = node.width || 1000
-  const height = node.height || 1000
+  const width = size?.width ?? node.width ?? 1000
+  const height = size?.height ?? node.height ?? 1000
 
   const src = new DirectusClient().getFileUrl(node.private_hash)
   const attributes = await getImage({

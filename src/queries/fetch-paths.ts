@@ -2,7 +2,7 @@ import DirectusClient from "@/classes/DirectusClient"
 import { DEFAULT_LOCALE } from "@/utils/lang"
 import routes, { withPagination } from "@/utils/routes"
 
-import type { CategoryNode, PageNode, PostNode, ProjectNode } from "@/definitions/sources"
+import type { CategoryNode, PageNode, PostNode, ProjectNode } from "@/schema/cms"
 import type { Lang } from "@/utils/lang"
 
 export const PAGINATION_LIMIT = import.meta.env.DEV ? 2 : 20
@@ -151,11 +151,11 @@ export default async function fetchPaths(locales: Lang[]) {
       },
     }))
 
-  console.log()
-  console.log("========================================")
-  console.log(paths)
-  console.log("========================================")
-  console.log()
+  // console.log()
+  // console.log("========================================")
+  // console.log(paths)
+  // console.log("========================================")
+  // console.log()
 
   return paths
 }

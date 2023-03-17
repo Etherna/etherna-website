@@ -4,7 +4,7 @@ type UrlRedirectProps = {}
 
 const UrlRedirect: React.FC<UrlRedirectProps> = ({}) => {
   useEffect(() => {
-    if (process.env.NODE_ENV !== "production") return
+    if (import.meta.env.NODE_ENV !== "production") return
     if (typeof window === "undefined" || typeof URL === "undefined") return
 
     // auto redirect www to non-www && http to https

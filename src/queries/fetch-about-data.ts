@@ -1,7 +1,7 @@
 import DirectusClient from "@/classes/DirectusClient"
 import { parseTeam } from "@/utils/dataParser"
 
-import type { TeamMemberNode } from "@/definitions/sources"
+import type { TeamMemberNode } from "@/schema/cms"
 import type { Lang } from "@/utils/lang"
 
 export default async function fetchAboutData(lang: Lang) {
@@ -19,7 +19,6 @@ export default async function fetchAboutData(lang: Lang) {
       "localized_contents.bio",
       "localized_contents.locale",
     ],
-    sort: [{ key: "sort", order: "asc" }],
   })
 
   const team = await parseTeam(teamMembers, lang)

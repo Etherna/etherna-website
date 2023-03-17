@@ -1,11 +1,13 @@
-import React from "react"
 import removeMd from "remove-markdown"
 
-import { AuthorNode } from "@definitions/sources"
-import dayjs from "@utils/dayjs"
+import ethernaLogo from "@/images/logo-etherna.png"
+
+import dayjs from "@/utils/dayjs"
+
+import type { User } from "@/schema/app"
 
 type BlogPostSchemaProps = {
-  author: AuthorNode
+  author: User
   title?: string | null
   image?: string | null
   url?: string | null
@@ -27,24 +29,24 @@ const BlogPostSchema: React.FC<BlogPostSchemaProps> = ({
   keywords,
   lang,
   publishDate,
-  updateDate
+  updateDate,
 }) => {
   const schema: any = {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": title,
-    "publisher": {
+    headline: title,
+    publisher: {
       "@type": "Organization",
-      "name": "Etherna Sagl",
-      "email": "info(at)etherna.io",
-      "logo": {
+      name: "Etherna Sagl",
+      email: "info(at)etherna.io",
+      logo: {
         "@type": "ImageObject",
-        "url": process.env.SITE_URL + require("@images/logo-etherna.png"),
+        url: import.meta.env.SITE_URL + ethernaLogo,
       },
     },
-    "mainEntityOfPage": {
+    mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": process.env.SITE_URL + url
+      "@id": import.meta.env.SITE_URL + url,
     },
   }
 
@@ -83,11 +85,7 @@ const BlogPostSchema: React.FC<BlogPostSchemaProps> = ({
     schema["dateModified"] = dayjs(updateDate).format("YYYY-MM-DD")
   }
 
-  return (
-    <script type="application/ld+json">
-      {JSON.stringify(schema)}
-    </script>
-  )
+  return <script type="application/ld+json">{JSON.stringify(schema)}</script>
 }
 
 export default BlogPostSchema

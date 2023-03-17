@@ -2,7 +2,7 @@ import DirectusClient from "@/classes/DirectusClient"
 import { parsePage } from "@/utils/dataParser"
 import routes, { parseSlug } from "@/utils/routes"
 
-import type { PageNode } from "@/definitions/sources"
+import type { PageNode } from "@/schema/cms"
 import type { Lang, LocalizedPaths } from "@/utils/lang"
 
 export default async function fetchPageData(lang: Lang, path: string) {
@@ -16,6 +16,7 @@ export default async function fetchPageData(lang: Lang, path: string) {
       "localized_contents.content",
       "localized_contents.excerpt",
       "localized_contents.meta_description",
+      "localized_contents.meta_keywords",
       "localized_contents.locale",
     ],
     filter: {

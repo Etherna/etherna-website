@@ -7,6 +7,7 @@ import Markdown from "@/components/common/Markdown"
 import Prose from "@/components/common/Prose"
 import Row from "@/components/common/Row"
 import PageCTA from "@/components/site/PageCTA"
+import { pageSchema as page } from "@/schema/app"
 
 import type { Lang } from "@/utils/lang"
 
@@ -16,11 +17,7 @@ interface Props {
 }
 
 export const pageSchema = z.object({
-  page: z.object({
-    title: z.string(),
-    excerpt: z.string(),
-    content: z.string(),
-  }),
+  page: page,
 })
 
 const { data, lang } = Astro.props

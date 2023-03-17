@@ -4,7 +4,7 @@ import Image from "./Image"
 import Markdown from "./Markdown"
 import classNames from "@/utils/classnames"
 
-import type { TeamMember as TeamMemberType } from "@/definitions/app"
+import type { TeamMember as TeamMemberType } from "@/schema/app"
 
 type TeamMemberProps = {
   member: TeamMemberType | undefined

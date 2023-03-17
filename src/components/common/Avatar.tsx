@@ -1,7 +1,7 @@
 import Image from "./Image"
 import classNames from "@/utils/classnames"
 
-import type { AstroImg } from "@/definitions/app"
+import type { AstroImg } from "@/schema/app"
 
 type AvatarProps = {
   id?: number

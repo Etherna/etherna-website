@@ -1,13 +1,14 @@
 import axios from "axios"
 import { setupCache } from "axios-cache-interceptor"
 
+import type { UserNode } from "@/schema/cms"
 import type { AxiosCacheInstance } from "axios-cache-interceptor"
 
-type DirectusGetRequest = {
+type DirectusGetRequest<S extends boolean> = {
   fields?: string[]
   limit?: number
   offset?: number
-  single?: boolean
+  single?: S
   sort?: { key: string; order?: "asc" | "desc" }[]
   filter?: Record<string, unknown>
   query?: string
@@ -26,9 +27,9 @@ type DirectusGetRequestMeta = {
 }
 
 export default class DirectusClient {
-  url = import.meta.env.PUBLIC_DIRECTUS_URL
-  project = import.meta.env.DIRECTUS_PROJECT
-  token = import.meta.env.DIRECTUS_TOKEN
+  public url = import.meta.env.PUBLIC_DIRECTUS_URL
+  public project = import.meta.env.PUBLIC_DIRECTUS_PROJECT
+  public token = import.meta.env.DIRECTUS_TOKEN || undefined
   private http: AxiosCacheInstance
   private cacheTtl = 1000 * 60 // 1 minute.
 
@@ -50,8 +51,16 @@ export default class DirectusClient {
 
   async getItems<T = unknown>(
     collection: string,
-    opts: DirectusGetRequest = {}
-  ): Promise<{ data: T[]; meta: DirectusGetRequestMeta }> {
+    opts: DirectusGetRequest<true> & { single: true }
+  ): Promise<{ data: T; meta: DirectusGetRequestMeta }>
+  async getItems<T = unknown>(
+    collection: string,
+    opts?: DirectusGetRequest<false>
+  ): Promise<{ data: T[]; meta: DirectusGetRequestMeta }>
+  async getItems<T = unknown>(
+    collection: string,
+    opts: DirectusGetRequest<boolean> = {}
+  ): Promise<{ data: T | T[]; meta: DirectusGetRequestMeta }> {
     const { data } = await this.http.get<{ data: T[]; meta: DirectusGetRequestMeta }>(
       `/items/${collection}`,
       {
@@ -78,8 +87,37 @@ export default class DirectusClient {
     return data
   }
 
-  async getItem<T = unknown>(collection: string, id: string, opts: DirectusGetSingleRequest = {}) {
+  async getItem<T = unknown>(collection: string, id: number, opts: DirectusGetSingleRequest = {}) {
     const { data } = await this.http.get<{ data: T }>(`/items/${collection}/${id}`, {
+      params: {
+        fields: opts.fields,
+      },
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+      httpsAgent: await this.getHttpsAgent(),
+      cache: {
+        ttl: this.cacheTtl,
+      },
+    })
+    return data.data
+  }
+
+  async createItem<T = unknown>(collection: string, input: Record<string, any>) {
+    const { data } = await this.http.post<{ data: T }>(`/items/${collection}`, input, {
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+      httpsAgent: await this.getHttpsAgent(),
+      cache: {
+        ttl: this.cacheTtl,
+      },
+    })
+    return data.data
+  }
+
+  async getUser(id: number, opts: DirectusGetSingleRequest = {}) {
+    const { data } = await this.http.get<{ data: UserNode }>(`/users/${id}`, {
       params: {
         fields: opts.fields,
       },

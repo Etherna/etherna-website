@@ -8,6 +8,7 @@ import Col from "@/components/common/Col"
 import Container from "@/components/common/Container"
 import Pagination from "@/components/common/Pagination"
 import Row from "@/components/common/Row"
+import { categorySchema, postSchema } from "@/schema/app"
 import routes, { withPagination } from "@/utils/routes"
 
 import type { Lang } from "@/utils/lang"
@@ -18,9 +19,15 @@ interface Props {
 }
 
 export const blogSchema = z.object({
-  posts: z.array(z.any()),
-  categories: z.array(z.any()),
-  currentCategory: z.any().nullable(),
+  posts: z.array(
+    postSchema.omit({
+      content: true,
+      meta_description: true,
+      meta_keywords: true,
+    })
+  ),
+  categories: z.array(categorySchema),
+  currentCategory: categorySchema.optional(),
   page: z.number().min(1),
   pagesCount: z.number(),
 })

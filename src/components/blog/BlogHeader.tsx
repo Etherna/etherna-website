@@ -1,11 +1,12 @@
+import { ReactComponent as HeaderPattern } from "@/images/header-pattern.svg"
+
 import Col from "@/components/common/Col"
 import Container from "@/components/common/Container"
 import Row from "@/components/common/Row"
-import { ReactComponent as HeaderPattern } from "@/images/header-pattern.svg"
 import classNames from "@/utils/classnames"
 import routes from "@/utils/routes"
 
-import type { Category } from "@/definitions/app"
+import type { Category } from "@/schema/app"
 import type { Lang } from "@/utils/lang"
 
 type BlogHeaderProps = {

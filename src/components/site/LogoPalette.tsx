@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next"
 
 import Image from "@/components/common/Image"
 
-import type { AstroImg, LogoVariant } from "@/definitions/app"
+import type { AstroImg, LogoVariant } from "@/schema/app"
 
 type LogoPaletteProps = {
   name: string

@@ -3,7 +3,7 @@ import { getImage } from "@astrojs/image"
 import DirectusClient from "@/classes/DirectusClient"
 import { parseMilestones } from "@/utils/dataParser"
 
-import type { MilestoneNode } from "@/definitions/sources"
+import type { MilestoneNode } from "@/schema/cms"
 import type { Lang } from "@/utils/lang"
 
 export default async function fetchHomeData(lang: Lang) {

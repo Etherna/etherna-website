@@ -3,7 +3,7 @@ import React, { useState } from "react"
 import Modal from "@/components/common/Modal"
 import TeamMember from "@/components/common/TeamMember"
 
-import type { TeamMember as TeamMemberType } from "@/definitions/app"
+import type { TeamMember as TeamMemberType } from "@/schema/app"
 
 type TeamProps = {
   team: TeamMemberType[]

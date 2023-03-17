@@ -3,7 +3,8 @@ import { z } from "zod"
 
 import StaticPage from "@/components/layout/StaticPage"
 import Team from "@/components/site/Team"
-import { Lang, LangSchema, t } from "@/utils/lang"
+import { teamMemberSchema } from "@/schema/app"
+import { Lang, t } from "@/utils/lang"
 
 interface Props {
   data: z.infer<typeof aboutSchema>
@@ -11,20 +12,7 @@ interface Props {
 }
 
 export const aboutSchema = z.object({
-  team: z.array(
-    z.object({
-      name: z.string(),
-      role: z.string(),
-      bio: z.string().nullable(),
-      photo: z
-        .object({
-          attributes: z.record(z.any()),
-          blurhash: z.string(),
-        })
-        .nullable(),
-      locale: LangSchema,
-    })
-  ),
+  team: z.array(teamMemberSchema),
 })
 
 const { data } = Astro.props

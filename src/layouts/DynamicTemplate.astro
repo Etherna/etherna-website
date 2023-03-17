@@ -1,8 +1,9 @@
 ---
 import { whichRoute } from "@/utils/routes"
 import AboutView, { aboutSchema } from "@/views/AboutView.astro"
-import BrandKitView, { brandKitSchema } from "@/views/BrandKitView.astro"
+import BlogPostView, { postSchema } from "@/views/BlogPostView.astro"
 import BlogView, { blogSchema } from "@/views/BlogView.astro"
+import BrandKitView, { brandKitSchema } from "@/views/BrandKitView.astro"
 import HomeView, { landingSchema } from "@/views/HomeView.astro"
 import PageView, { pageSchema } from "@/views/PageView.astro"
 import ProjectView, { projectSchema } from "@/views/ProjectView.astro"
@@ -25,4 +26,5 @@ const routeIdentifier = whichRoute(path, lang)
 {routeIdentifier === "page" && <PageView data={pageSchema.parse(data)} lang={lang} />}
 {routeIdentifier === "project" && <ProjectView data={projectSchema.parse(data)} lang={lang} />}
 {routeIdentifier === "blog" && <BlogView data={blogSchema.parse(data)} lang={lang} />}
+{routeIdentifier === "post" && <BlogPostView data={postSchema.parse(data)} lang={lang} />}
 {routeIdentifier === "category" && <BlogView data={blogSchema.parse(data)} lang={lang} />}

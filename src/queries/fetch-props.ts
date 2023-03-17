@@ -3,6 +3,7 @@ import fetchBlogData from "./fetch-blog-data"
 import fetchBrandKitData from "./fetch-brand-kit-data"
 import fetchHomeData from "./fetch-home-data"
 import fetchPageData from "./fetch-page-data"
+import fetchPostData from "./fetch-post-data"
 import fetchProjectData from "./fetch-project-data"
 import { t } from "@/utils/lang"
 import routes, { whichRoute } from "@/utils/routes"
@@ -62,6 +63,15 @@ export default async function fetchProps(lang: Lang, path: string): Promise<Page
         description: t("seo:blogDescription", { lng: lang }),
         lang,
         localizedPaths: blogData.localizedPaths,
+      }
+    case "post":
+      const postData = await fetchPostData(lang, path)
+      return {
+        data: postData,
+        title: postData.post.title,
+        description: postData.post.meta_description ?? "",
+        lang,
+        localizedPaths: postData.localizedPaths,
       }
     case "category":
       const categoryData = await fetchBlogData(lang, path)

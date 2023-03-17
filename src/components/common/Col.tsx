@@ -1,5 +1,3 @@
-import classes from "@/styles/components/common/Col.module.scss"
-
 import classNames from "@/utils/classnames"
 
 type ColProps = {
@@ -9,7 +7,7 @@ type ColProps = {
 }
 
 const Col: React.FC<ColProps> = ({ children, as: As = "div", className }) => {
-  return <As className={classNames(classes.col, "w-full", className)}>{children}</As>
+  return <As className={classNames("px-5", "w-full", className)}>{children}</As>
 }
 
 export default Col

@@ -1,6 +1,6 @@
 import DirectusClient from "@/classes/DirectusClient"
 
-import type { PageNode, ProjectNode } from "@/definitions/sources"
+import type { PageNode, ProjectNode } from "@/schema/cms"
 
 export default async function fetchFooter(lang: string) {
   const client = new DirectusClient()

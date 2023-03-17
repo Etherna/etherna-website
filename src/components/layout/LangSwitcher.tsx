@@ -2,7 +2,7 @@ import Dropdown from "@/components/common/Dropdown"
 import Image from "@/components/common/Image"
 import classNames from "@/utils/classnames"
 
-import type { AstroImg } from "@/definitions/app"
+import type { AstroImg } from "@/schema/app"
 import type { LocalizedPaths, Lang } from "@/utils/lang"
 
 type LangSwitcherProps = {

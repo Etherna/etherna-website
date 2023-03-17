@@ -1,12 +1,14 @@
 ---
 import { z } from "zod"
 
+import { ReactComponent as GitHubLogo } from "@/images/logos/github-logo.svg"
+
 import Col from "@/components/common/Col"
 import Container from "@/components/common/Container"
 import Markdown from "@/components/common/Markdown"
 import Prose from "@/components/common/Prose"
 import Row from "@/components/common/Row"
-import { ReactComponent as GitHubLogo } from "@/images/logos/github-logo.svg"
+import { projectSchema as project } from "@/schema/app"
 import { Lang, t } from "@/utils/lang"
 
 interface Props {
@@ -15,13 +17,7 @@ interface Props {
 }
 
 export const projectSchema = z.object({
-  project: z.object({
-    title: z.string(),
-    content: z.string(),
-    external_link: z.string().nullish(),
-    github_link: z.string().nullish(),
-    image: z.any().nullish(),
-  }),
+  project: project,
 })
 
 const { data, lang } = Astro.props

@@ -4,7 +4,7 @@ import ColorPalette from "./ColorPalette"
 import FontPalette from "./FontPalette"
 import LogoPalette from "./LogoPalette"
 
-import type { Brand } from "@/definitions/app"
+import type { Brand } from "@/schema/app"
 
 type BrandKitProps = {
   colors: Brand["colors"]

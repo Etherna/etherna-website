@@ -1,14 +1,15 @@
+import CategoryBadge from "./CategoryBadge"
 import Avatar from "@/components/common/Avatar"
 import Image from "@/components/common/Image"
 import classNames from "@/utils/classnames"
 import dayjs from "@/utils/dayjs"
 import routes from "@/utils/routes"
 
-import type { Post } from "@/definitions/app"
+import type { Post } from "@/schema/app"
 import type { Lang } from "@/utils/lang"
 
 type BlogPostPreviewProps = {
-  post: Post
+  post: Omit<Post, "content" | "meta_description" | "meta_keywords">
   featured?: boolean
   lang: Lang
 }
@@ -28,20 +29,7 @@ const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({ post, featured, lang 
         })}
       >
         <header className="w-full">
-          {post.category && (
-            <a href={routes.blogCategoryPath(post.category.slug, lang)}>
-              <div
-                className={classNames(
-                  "mb-3 inline-block rounded-full px-2",
-                  "border border-gray-600/50 text-xs font-medium text-white hover:bg-gray-200",
-                  "transition-colors duration-500"
-                )}
-                style={{ backgroundColor: post.category.color ?? undefined }}
-              >
-                {post.category.name}
-              </div>
-            </a>
-          )}
+          {post.category && <CategoryBadge category={post.category} lang={lang} />}
         </header>
 
         <a href={routes.blogPostPath(post.slug, post.locale)}>

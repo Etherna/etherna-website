@@ -1,60 +1,58 @@
-import React from "react"
-import { Link } from "gatsby"
-import classNames from "@utils/classnames"
+import { Fragment } from "react"
+import { useTranslation } from "react-i18next"
 
-import classes from "@styles/components/blog/BlogPostSidebar.module.scss"
-
+import BlogPostSidebar from "./BlogPostSidebar"
 import ShareButtons from "./ShareButtons"
-import Col from "@components/common/Col"
-import useLocale from "@context/locale-context/hooks/useLocale"
-import { Post } from "@definitions/app"
-import { useTranslations } from "@hooks/useTranslations"
-import useLocaleInfo from "@hooks/useLocaleInfo"
-import routes from "@utils/routes"
+import Image from "@/components/common/Image"
+import classNames from "@/utils/classnames"
+import { localeInfo } from "@/utils/lang"
+import routes from "@/utils/routes"
+
+import type { Post } from "@/schema/app"
+import type { Lang } from "@/utils/lang"
 
 type BlogPostSidebarLeftProps = {
   post: Post
+  lang: Lang
 }
 
 const BlogPostSidebarLeft: React.FC<BlogPostSidebarLeftProps> = ({ post }) => {
-  const [locale] = useLocale()
-  const { t } = useTranslations(locale, "blog")
-  const [localeInfo] = useLocaleInfo()
+  const { t } = useTranslation("blog")
   const otherLangs = post.allSlugs.filter(s => s.locale !== post.locale)
 
   return (
-    <Col as="aside" className={classNames(classes.blogSidebar, classes.blogSidebarLeft)}>
-      {otherLangs.length > 0 && (
-        <h6 className={classes.blogSidebarTitle}>{t`moreLanguages`}</h6>
-      )}
+    <BlogPostSidebar position="left" className="mt-16 lg:mt-0">
+      {otherLangs.length > 0 && <h6 className="mt-0 mb-4">{t("moreLanguages")}</h6>}
       {otherLangs.map((slugInfo, i) => (
-        <React.Fragment key={i}>
-          <Link
-            to={routes.blogPostPath(slugInfo.slug, slugInfo.locale)}
-            className={classes.sidebarReadInBtn}
+        <Fragment key={i}>
+          <a
+            href={routes.blogPostPath(slugInfo.slug, slugInfo.locale)}
+            className={classNames(
+              "inline-flex items-center rounded px-3 py-2 text-xs text-gray-600",
+              "border border-gray-400 hover:border-blue-500 hover:bg-gray-200",
+              "transition-colors duration-500"
+            )}
           >
-            <img
-              src={localeInfo(slugInfo.locale).flag.localFile.publicURL}
-              className={classes.sidebarReadInFlag}
-              alt=""
-            />
-            <span className={classes.sidebarReadInName}>
-              {t("readIn", undefined, slugInfo.locale)} {localeInfo(slugInfo.locale).name}
+            <div className="mr-2 h-5 w-5 overflow-hidden rounded-full">
+              <Image data={localeInfo(slugInfo.locale)?.flag} />
+            </div>
+            <span className="leading-none">
+              {t("readIn", { lng: slugInfo.locale })} {localeInfo(slugInfo.locale)?.name}
             </span>
-          </Link>
+          </a>
 
           <hr className="my-8" />
-        </React.Fragment>
+        </Fragment>
       ))}
 
-      <h6 className={classes.blogSidebarTitle}>{t`sharePost`}</h6>
+      <h6 className="mt-0 mb-4">{t`sharePost`}</h6>
       <ShareButtons
         className="mb-16"
-        url={typeof window !== "undefined" ? window.location.href : ""}
+        url={routes.blogPostPath(post.slug, post.locale)}
         title={post.title}
         vertical={true}
       />
-    </Col>
+    </BlogPostSidebar>
   )
 }
 

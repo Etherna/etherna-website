@@ -3,25 +3,24 @@ import { useTranslation } from "react-i18next"
 
 import classes from "@/styles/components/layout/Header.module.scss"
 import linkClasses from "@/styles/components/layout/HeaderMenuLink.module.scss"
+import { ReactComponent as Logo } from "@/images/logo.svg"
 
 import HeaderMenu from "./HeaderMenu"
 import LangSwitcher from "./LangSwitcher"
 import SocialMenu from "./SocialMenu"
 import Container from "@/components/common/Container"
 import WhitepaperLink from "@/components/common/WhitepaperLink"
-import { ReactComponent as Logo } from "@/images/logo.svg"
 import classNames from "@/utils/classnames"
 import routes from "@/utils/routes"
 
-import type { AstroImg } from "@/definitions/app"
-import type { Lang, LocalizedPaths } from "@/utils/lang"
+import type { Lang, LocaleInfo, LocalizedPaths } from "@/utils/lang"
 
 type HeaderProps = {
   transparent?: boolean
   showLandingMenu?: boolean
   localizedPaths?: LocalizedPaths
   pages: { title: string; slug: string }[]
-  locales: { code: string; name: string; flag: AstroImg }[]
+  locales: LocaleInfo[]
   lang: Lang
 }
 

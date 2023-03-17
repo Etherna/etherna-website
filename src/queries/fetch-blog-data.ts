@@ -4,7 +4,7 @@ import { parseCategory, parsePost } from "@/utils/dataParser"
 import { Languages } from "@/utils/lang"
 import routes, { parsePage, parseSlug, whichRoute } from "@/utils/routes"
 
-import type { CategoryNode, PostNode } from "@/definitions/sources"
+import type { CategoryNode, PostNode } from "@/schema/cms"
 import type { Lang, LocalizedPaths } from "@/utils/lang"
 
 export default async function fetchBlogData(lang: Lang, path: string) {
@@ -73,7 +73,7 @@ export default async function fetchBlogData(lang: Lang, path: string) {
 
   const pagesCount = Math.ceil(meta.filter_count / PAGINATION_LIMIT)
   const parsedCategories = await Promise.all(
-    categories.filter(c => c.posts.length > 0).map(category => parseCategory(category, lang))
+    categories.filter(c => c.posts!.length > 0).map(category => parseCategory(category, lang))
   )
   const currentCategory = parsedCategories.find(c => c.slug === categorySlug)
   const parsedPosts = (await Promise.all(posts.map(post => parsePost(post, lang)))).map(post => ({

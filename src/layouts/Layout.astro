@@ -4,6 +4,7 @@ import Footer from "./Footer.astro"
 import Navbar from "./Navbar.astro"
 import I18nConfig from "@/components/layout/I18nConfig"
 import UrlRedirect from "@/components/layout/UrlRedirect"
+import fetchLocales from "@/queries/fetch-locales"
 import { configLang, Lang, LocalizedPaths } from "@/utils/lang"
 
 interface Props {
@@ -15,6 +16,7 @@ interface Props {
 }
 
 const { title, description, image, localizedPaths, lang } = Astro.props
+const { locales } = await fetchLocales()
 
 configLang(lang)
 ---
@@ -25,7 +27,7 @@ configLang(lang)
   </head>
   <body>
     <UrlRedirect client:load />
-    <I18nConfig lang={lang} client:load />
+    <I18nConfig lang={lang} locales={locales} client:load />
 
     <Navbar
       lang={lang}

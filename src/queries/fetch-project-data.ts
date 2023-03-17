@@ -2,13 +2,15 @@ import DirectusClient from "@/classes/DirectusClient"
 import { parseProject } from "@/utils/dataParser"
 import routes, { parseSlug } from "@/utils/routes"
 
-import type { ProjectNode } from "@/definitions/sources"
+import type { ProjectNode } from "@/schema/cms"
 import type { Lang, LocalizedPaths } from "@/utils/lang"
 
 export default async function fetchProjectData(lang: Lang, path: string) {
   const slug = parseSlug(path)
   const client = new DirectusClient()
-  const { data: projects } = await client.getItems<ProjectNode>("projects", {
+  const {
+    data: [project],
+  } = await client.getItems<ProjectNode>("projects", {
     fields: [
       "github_link",
       "external_link",
@@ -32,17 +34,13 @@ export default async function fetchProjectData(lang: Lang, path: string) {
     },
   })
 
-  const projectLangs = projects
-    .map(project => project.localized_contents.map(lc => lc.locale))
-    .flat()
-  const parsedProjects = await Promise.all(
-    projectLangs.map(lang => parseProject(projects[0]!, lang))
-  )
-  const project = parsedProjects.find(project => project.locale === lang)
-
   if (!project) {
     throw new Error("Project not found")
   }
+
+  const projectLangs = project.localized_contents.map(lc => lc.locale)
+  const parsedProjects = await Promise.all(projectLangs.map(lang => parseProject(project, lang)))
+  const parsedProject = parsedProjects.find(project => project.locale === lang)!
 
   const localizedPaths: LocalizedPaths = parsedProjects
     .filter(p => p.locale !== lang)
@@ -55,7 +53,7 @@ export default async function fetchProjectData(lang: Lang, path: string) {
     )
 
   return {
-    project,
+    project: parsedProject,
     localizedPaths,
   }
 }

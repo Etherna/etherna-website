@@ -33,7 +33,9 @@ const NewsletterForm: React.FC = () => {
         return
       }
 
-      const apiEndpoint = `${process.env.DIRECTUS_URL}/${process.env.DIRECTUS_PROJECT}/custom/newsletter`
+      const apiEndpoint = `${import.meta.env.DIRECTUS_URL}/${
+        import.meta.env.DIRECTUS_PROJECT
+      }/custom/newsletter`
       await axios.post(apiEndpoint, {
         email,
         firstName,

@@ -32,6 +32,7 @@ module.exports = {
     ".s?css$",
     "^@heroicons",
     "^@/assets",
+    "^@/images",
     "",
     "^[./]",
     "^@/",
