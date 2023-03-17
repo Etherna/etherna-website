@@ -1,5 +1,4 @@
-import { CurrentUser } from "@definitions/app"
-import DirectusClient from "@directus/sdk-js"
+import DirectusClient from "@/classes/DirectusClient"
 
 export const StorageKeys = {
   token: "auth:token",
@@ -11,12 +10,8 @@ export const StorageKeys = {
 const token =
   typeof window !== "undefined" ? window.localStorage.getItem(StorageKeys.token) ?? "" : undefined
 
-const directusClient = new DirectusClient({
-  url: import.meta.env.DIRECTUS_URL,
-  project: import.meta.env.DIRECTUS_PROJECT,
-  mode: "jwt",
-  token,
-})
+const directusClient = new DirectusClient()
+directusClient.token = token
 
 export const getCurrentUser = () => {
   if (typeof window === "undefined") return null
@@ -24,7 +19,7 @@ export const getCurrentUser = () => {
   const token = window.localStorage.getItem(StorageKeys.token)
   if (token == null) return null
 
-  const user: CurrentUser = {
+  const user = {
     name: window.localStorage.getItem(StorageKeys.name) ?? "",
     email: window.localStorage.getItem(StorageKeys.email) ?? "",
     avatar: window.localStorage.getItem(StorageKeys.avatar) ?? "",
@@ -52,18 +47,13 @@ export const isLoggedIn = async () => {
 }
 
 export const authenticate = async (email: string, password: string) => {
-  await directusClient.login({
-    email,
-    password,
-    url: import.meta.env.DIRECTUS_URL,
-    project: import.meta.env.DIRECTUS_PROJECT,
-  })
+  await directusClient.login(email, password, "jwt")
 
-  const { data: user } = await directusClient.getMe()
-  directusClient.config.token = user.token
+  const user = await directusClient.getMe()
+  directusClient.token = user.token
 
   // save current auth token
-  window.localStorage.setItem(StorageKeys.token, user.token)
+  window.localStorage.setItem(StorageKeys.token, user.token ?? "")
 
   // save user basic info
   window.localStorage.setItem(
@@ -73,7 +63,7 @@ export const authenticate = async (email: string, password: string) => {
   window.localStorage.setItem(StorageKeys.email, user.email)
 
   if (user.avatar) {
-    const thumb = await getThumbUrl(user.avatar)
+    const thumb = await getThumbUrl(user.avatar as unknown as number)
     thumb && window.localStorage.setItem(StorageKeys.avatar, thumb)
     !thumb && window.localStorage.removeItem(StorageKeys.avatar)
   }

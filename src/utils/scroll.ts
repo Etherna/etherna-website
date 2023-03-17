@@ -17,7 +17,7 @@ export const smoothScrollBy = (el: HTMLElement, opts: SmoothScrollOptions) => {
     return el.scrollBy({
       left: opts.left,
       top: opts.top,
-      behavior: "smooth"
+      behavior: "smooth",
     })
   }
 
@@ -29,7 +29,7 @@ export const smoothScrollBy = (el: HTMLElement, opts: SmoothScrollOptions) => {
 
   let currentFrame = 1
 
-  const frames = 60 * (opts.duration ?? 1000) / 1000
+  const frames = (60 * (opts.duration ?? 1000)) / 1000
   const leftFrame = (opts.left ?? 0) / frames
   const topFrame = (opts.top ?? 0) / frames
   const leftTarget = el.scrollLeft + (opts.left ?? 0)
@@ -41,9 +41,9 @@ export const smoothScrollBy = (el: HTMLElement, opts: SmoothScrollOptions) => {
   return new Promise<void>(res => {
     const step = () => {
       el.scrollTo({
-        left: elInitialLeft + (currentFrame * leftFrame),
-        top: elInitialTop + (currentFrame * topFrame),
-        behavior: "smooth"
+        left: elInitialLeft + currentFrame * leftFrame,
+        top: elInitialTop + currentFrame * topFrame,
+        behavior: "smooth",
       })
 
       currentFrame++
@@ -54,7 +54,7 @@ export const smoothScrollBy = (el: HTMLElement, opts: SmoothScrollOptions) => {
         // fix eventual shifted position
         el.scrollTo({
           left: leftTarget,
-          top: topTarget
+          top: topTarget,
         })
 
         res()

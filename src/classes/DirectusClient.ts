@@ -132,6 +132,47 @@ export default class DirectusClient {
     return data.data
   }
 
+  async getMe(opts: DirectusGetSingleRequest = {}) {
+    const { data } = await this.http.get<{ data: UserNode & { token: string | undefined } }>(
+      `/users/me`,
+      {
+        params: {
+          fields: opts.fields,
+        },
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+        },
+        httpsAgent: await this.getHttpsAgent(),
+        cache: false,
+      }
+    )
+    return data.data
+  }
+
+  async isLoggedIn() {
+    try {
+      await this.getMe()
+      return true
+    } catch {
+      return false
+    }
+  }
+
+  async login(email: string, password: string, mode: "jwt" | "cookie" = "jwt") {
+    const { data } = await this.http.post<{ data: { token: string } }>(`/auth/authenticate`, {
+      email,
+      password,
+      mode,
+    })
+    this.token = data.data.token
+    return this.token
+  }
+
+  async logout() {
+    await this.http.post(`/auth/logout`)
+    this.token = undefined
+  }
+
   getFileUrl(filename: string) {
     return `${this.url}/${this.project}/assets/${filename}`
   }

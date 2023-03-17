@@ -1,4 +1,4 @@
-import MD5 from "crypto-js/md5"
+import md5 from "md5"
 
 /**
  * Gravatar image user
@@ -7,7 +7,7 @@ import MD5 from "crypto-js/md5"
  * @returns Gravatar url
  */
 const gravatarImage = (email: string) => {
-  const hash = MD5(email || "")
+  const hash = md5(email || "")
   return `https://www.gravatar.com/avatar/${hash}?d=identicon&s=128`
 }
 

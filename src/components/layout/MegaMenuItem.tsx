@@ -1,62 +1,59 @@
-import React from "react"
-import { Link } from "gatsby"
-import classNames from "@utils/classnames"
+import classes from "@/styles/components/layout/MegaMenuItem.module.scss"
 
-import classes from "@styles/components/layout/MegaMenuItem.module.scss"
+import Image from "@/components/common/Image"
+import classNames from "@/utils/classnames"
+
+import type { AstroImg } from "@/schema/app"
 
 type MegaMenuItemProps = {
-  to?: string
+  href?: string
   title: string
   excerpt?: string
-  imageUrl?: string
+  image?: AstroImg | null
   isExternal?: boolean
   disabled?: boolean
 }
 
 const MegaMenuItem: React.FC<MegaMenuItemProps> = ({
-  to,
+  href,
   title,
   excerpt,
-  imageUrl,
+  image,
   isExternal,
-  disabled
+  disabled,
 }) => {
   return (
     <div
       className={classNames(classes.megaMenuItem, {
-        [classes.disabled]: disabled
+        [classes.disabled]: disabled,
       })}
     >
-      {imageUrl && (
+      {image && (
         <div className={classes.megaMenuItemImage}>
-          <LinkWrapper to={to} external={isExternal}>
-            <img src={imageUrl} alt={title} />
+          <LinkWrapper href={href} external={isExternal}>
+            <Image data={image} alt={title} />
           </LinkWrapper>
         </div>
       )}
       <div className={classes.megaMenuItemInfo}>
-        <LinkWrapper to={to} external={isExternal}>
+        <LinkWrapper href={href} external={isExternal}>
           <div className={classes.megaMenuItemTitle}>{title}</div>
-          {excerpt && (
-            <p className={classes.megaMenuItemDescription}>{excerpt}</p>
-          )}
+          {excerpt && <p className={classes.megaMenuItemDescription}>{excerpt}</p>}
         </LinkWrapper>
       </div>
     </div>
   )
 }
 
-const LinkWrapper: React.FC<{ children?: React.ReactNode, to?: string, external?: boolean }> = ({
+const LinkWrapper: React.FC<{ children?: React.ReactNode; href?: string; external?: boolean }> = ({
   children,
-  to,
+  href,
   external,
 }) => {
-  return to ? (
-    external ? (
-      <a href={to} target="_blank" rel="noreferrer">{children}</a>
-    ) : (
-      <Link to={to}>{children}</Link>
-    )
+  return href ? (
+    <a href={href} target={external ? "_blank" : undefined} rel="noreferrer">
+      {children}
+    </a>
   ) : (
     <>{children}</>
   )

@@ -1,5 +1,4 @@
 import { DEFAULT_LOCALE, Languages } from "./lang"
-import { withoutLocale } from "@/queries/fetch-paths"
 
 import type { Lang } from "./lang"
 
@@ -18,7 +17,7 @@ const homePath = (locale: Lang) => {
  * @returns Blog path
  */
 const blogPath = (locale: Lang) => {
-  return locale === DEFAULT_LOCALE ? `/blog` : `/${locale}/blog`
+  return withLocale(`/blog`, locale)
 }
 
 /**
@@ -32,7 +31,7 @@ const aboutPath = (locale: Lang) => {
     it: "chi-siamo",
   }
   const segment = localizedSegment[locale] ?? localizedSegment.en
-  return locale === DEFAULT_LOCALE ? `/about` : `/${locale}/${segment}`
+  return withLocale(`/${segment}`, locale)
 }
 
 /**
@@ -41,7 +40,7 @@ const aboutPath = (locale: Lang) => {
  * @returns Brand kit path
  */
 const brandKitPath = (locale: Lang) => {
-  return locale === DEFAULT_LOCALE ? `/brand-kit` : `/${locale}/brand-kit`
+  return withLocale(`/brand-kit`, locale)
 }
 
 /**
@@ -69,7 +68,7 @@ const successPath = () => {
  * @returns Post path
  */
 const blogPostPath = (slug: string, locale: Lang = DEFAULT_LOCALE) => {
-  return locale === DEFAULT_LOCALE ? `/blog/${slug}` : `/${locale}/blog/${slug}`
+  return withLocale(`/blog/${slug}`, locale)
 }
 
 /**
@@ -84,9 +83,7 @@ const blogCategoryPath = (slug: string, locale: Lang = DEFAULT_LOCALE) => {
     it: "categorie",
   }
   const segment = localizedSegment[locale] ?? localizedSegment.en
-  return locale === DEFAULT_LOCALE
-    ? `/blog/${segment}/${slug}`
-    : `/${locale}/blog/${segment}/${slug}`
+  return withLocale(`/blog/${segment}/${slug}`, locale)
 }
 
 /**
@@ -101,7 +98,7 @@ const projectPath = (slug: string, locale: Lang = DEFAULT_LOCALE) => {
     it: "progetti",
   }
   const segment = localizedSegment[locale] ?? localizedSegment.en
-  return locale === DEFAULT_LOCALE ? `/${segment}/${slug}` : `/${locale}/${segment}/${slug}`
+  return withLocale(`/${segment}/${slug}`, locale)
 }
 
 /**
@@ -111,8 +108,27 @@ const projectPath = (slug: string, locale: Lang = DEFAULT_LOCALE) => {
  * @returns Page path
  */
 const pagePath = (slug: string, locale: Lang = DEFAULT_LOCALE) => {
-  return locale === DEFAULT_LOCALE ? `/${slug}` : `/${locale}/${slug}`
+  return withLocale(`/${slug}`, locale)
 }
+
+const routesIdentifiers = {
+  unlocalized: {
+    "thank-you": thankyouPath,
+    success: successPath,
+  },
+  localized: {
+    home: homePath,
+    blog: blogPath,
+    about: aboutPath,
+    "brand-kit": brandKitPath,
+  },
+  dynamicLocalized: {
+    post: blogPostPath,
+    category: blogCategoryPath,
+    project: projectPath,
+    page: pagePath,
+  },
+} as const
 
 const routes = {
   homePath,
@@ -125,6 +141,11 @@ const routes = {
   blogCategoryPath,
   projectPath,
   pagePath,
+}
+
+export const withLocale = (path: string, locale: Lang) => {
+  path = path.replace(/^\/?$/, "/")
+  return locale === DEFAULT_LOCALE ? path : `/${locale}${path}`
 }
 
 export const withPagination = (path: string, page: number) => {
@@ -155,26 +176,11 @@ export const parsePage = (path: string) => {
  * @param lang Locale code
  */
 export const whichRoute = (path: string, lang: Lang) => {
-  const routesIdentifiers = {
-    unlocalized: {
-      "thank-you": thankyouPath,
-      success: successPath,
-    },
-    localized: {
-      home: homePath,
-      blog: blogPath,
-      about: aboutPath,
-      "brand-kit": brandKitPath,
-    },
-    dynamicLocalized: {
-      post: blogPostPath,
-      category: blogCategoryPath,
-      project: projectPath,
-      page: pagePath,
-    },
-  } as const
-
   const routesGroups = Object.keys(routesIdentifiers) as (keyof typeof routesIdentifiers)[]
+  const normalizedPath = withLocale(
+    withoutPagination(path).replace(/^\/?/, "/").replace(/\/?$/, "") || "/",
+    lang
+  )
 
   for (const code of Languages) {
     for (const group of routesGroups) {
@@ -204,12 +210,11 @@ export const whichRoute = (path: string, lang: Lang) => {
             break
         }
 
-        const normalizedPath =
-          withoutPagination(path).replace(/^\/?/, "/").replace(/\/?$/, "") || "/"
-        if (normalizedPath === withoutLocale(route, lang))
+        if (normalizedPath === route) {
           return identifier as keyof (typeof routesIdentifiers.localized &
             typeof routesIdentifiers.dynamicLocalized &
             typeof routesIdentifiers.unlocalized)
+        }
       }
     }
   }

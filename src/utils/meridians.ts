@@ -51,8 +51,8 @@ export const solarLongitudeScroll = (longitude: number, startLongitude: number, 
   const longitudePercent = normalizedLongitude / 360
   const startLongitudePercent = extendedLongitude(startLongitude) / 360
 
-  const startScrollX = -centerSize - (worldSize * startLongitudePercent)
-  const fixedScrollX = startScrollX + (longitudePercent * worldSize)
+  const startScrollX = -centerSize - worldSize * startLongitudePercent
+  const fixedScrollX = startScrollX + longitudePercent * worldSize
 
   return fixedScrollX
 }

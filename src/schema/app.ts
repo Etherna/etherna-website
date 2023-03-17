@@ -124,7 +124,7 @@ export const logoVariantSchema = z.object({
     "compact-dark",
   ]),
   variant_name: z.string().nullable(),
-  image: astroImgSchema,
+  image: astroImgSchema.nullable(),
 })
 
 export const logoSchema = z.object({

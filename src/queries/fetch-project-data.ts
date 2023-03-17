@@ -14,6 +14,7 @@ export default async function fetchProjectData(lang: Lang, path: string) {
     fields: [
       "github_link",
       "external_link",
+      "coming_soon",
       "status",
       "image.private_hash",
       "image.filename_disk",
@@ -25,6 +26,7 @@ export default async function fetchProjectData(lang: Lang, path: string) {
       "localized_contents.content",
       "localized_contents.excerpt",
       "localized_contents.meta_description",
+      "localized_contents.meta_keywords",
       "localized_contents.locale",
     ],
     filter: {

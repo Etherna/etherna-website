@@ -31,7 +31,7 @@ export default async function fetchPageData(lang: Lang, path: string) {
   const page = parsedPages.find(page => page.locale === lang)
 
   if (!page) {
-    throw new Error("Page not found")
+    throw new Error(`Page not found, path: '${path}', lang: '${lang}'`)
   }
 
   const localizedPaths: LocalizedPaths = parsedPages

@@ -1,56 +1,34 @@
-import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
+import { useTranslation } from "react-i18next"
 
-import classes from "@styles/components/layout/ProjectsMenu.module.scss"
+import classes from "@/styles/components/layout/ProjectsMenu.module.scss"
 
 import MegaMenu from "./MegaMenu"
 import MegaMenuItem from "./MegaMenuItem"
-import useLocale from "@context/locale-context/hooks/useLocale"
-import { useTranslations } from "@hooks/useTranslations"
-import { parseProjects } from "@utils/dataParser"
-import routes from "@utils/routes"
+import routes from "@/utils/routes"
+
+import type { Project } from "@/schema/app"
+import type { Lang } from "@/utils/lang"
 
 type ProjectsMenuProps = {
+  projects: Project[]
   toggleClassName?: string
+  lang: Lang
 }
 
-const ProjectsMenu: React.FC<ProjectsMenuProps> = ({ toggleClassName }) => {
-  const data = useStaticQuery(graphql`
-    query {
-      projects: allDirectusProject(sort: {fields: sort}) {
-        nodes {
-          coming_soon
-          external_link
-          image {
-            localFile {
-              publicURL
-            }
-          }
-          localized_contents {
-            title
-            slug
-            locale
-            excerpt
-          }
-        }
-      }
-    }
-  `)
-  const [locale] = useLocale()
-  const { t } = useTranslations(locale, "header")
-  const projects = parseProjects(data.projects.nodes, locale)
+const ProjectsMenu: React.FC<ProjectsMenuProps> = ({ projects, toggleClassName, lang }) => {
+  const { t } = useTranslation("header")
   const activeProjects = projects.filter(p => !p.coming_soon)
   const comingSoonProjects = projects.filter(p => p.coming_soon)
 
   return (
-    <MegaMenu.Menu toggleRender={t`projects`} toggleClassName={toggleClassName}>
+    <MegaMenu.Menu toggleRender={t("projects")} toggleClassName={toggleClassName}>
       <MegaMenu.Row>
         {activeProjects.map((project, i) => (
           <MegaMenuItem
-            to={project.external_link ?? routes.projectPath(project.slug, locale)}
+            href={project.external_link ?? routes.projectPath(project.slug, lang)}
             title={project.title}
             excerpt={project.excerpt || undefined}
-            imageUrl={project.image?.localFile.publicURL}
+            image={project.image}
             isExternal={!!project.external_link}
             key={i}
           />
@@ -60,14 +38,17 @@ const ProjectsMenu: React.FC<ProjectsMenuProps> = ({ toggleClassName }) => {
       {comingSoonProjects.length > 0 && (
         <>
           <h6 className={classes.soonLabel}>
-            {t`comingLater`} <span role="img" aria-label="waiting for launch">🚀</span>
+            {t`comingLater`}{" "}
+            <span role="img" aria-label="waiting for launch">
+              🚀
+            </span>
           </h6>
           <MegaMenu.Row>
             {comingSoonProjects.map((project, i) => (
               <MegaMenuItem
                 title={project.title}
                 excerpt={project.excerpt || undefined}
-                imageUrl={project.image?.localFile.publicURL}
+                image={project.image}
                 disabled
                 key={i}
               />

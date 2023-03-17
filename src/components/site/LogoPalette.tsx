@@ -29,6 +29,8 @@ const LogoPalette: React.FC<LogoPaletteProps> = ({ name, variants, gridClassName
     variants.forEach(variant => {
       const { style, image, variant_name } = variant
 
+      if (!image) return
+
       let groupIndex = groupedVariants.findIndex(v => v.style === style)
       if (groupIndex === -1) {
         groupedVariants.push({
