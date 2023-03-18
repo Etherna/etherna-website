@@ -33,7 +33,7 @@ export default async function fetchHomeData(lang: Lang) {
       title: "SwarmGrants",
       description: "SwarmGrantsDesc",
       image: await getImage({
-        src: import("@/images/logos/swarm-grants.svg"),
+        src: import("@/assets/logos/swarm-grants.svg"),
         aspectRatio: 1,
         format: "svg",
         alt: "Swarm Grants",
@@ -44,7 +44,7 @@ export default async function fetchHomeData(lang: Lang) {
       title: "DevconArchive",
       description: "DevconArchiveDesc",
       image: await getImage({
-        src: import("@/images/logos/devcon-archive.svg"),
+        src: import("@/assets/logos/devcon-archive.svg"),
         aspectRatio: 1,
         format: "svg",
         alt: "Devcon Archive",

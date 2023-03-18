@@ -13,7 +13,20 @@ import svgr from "vite-plugin-svgr"
 // https://astro.build/config
 /** @type {import('astro').AstroUserConfig} */
 export default defineConfig({
-  integrations: [react(), sitemap(), image()],
+  site: "https://info.etherna.io",
+  integrations: [
+    react(),
+    image(),
+    sitemap({
+      i18n: {
+        defaultLocale: "en",
+        locales: {
+          en: "en",
+          it: "it",
+        },
+      },
+    }),
+  ],
   vite: {
     resolve: {
       alias: [{ find: "@", replacement: resolve(dirname(fileURLToPath(import.meta.url)), "src") }],
