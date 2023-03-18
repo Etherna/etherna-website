@@ -1,14 +1,13 @@
-import classes from "@styles/components/common/InputGroup.module.scss"
-
 import classNames from "@/utils/classnames"
 
-type InputGroupProps = {
-  children?: React.ReactNode
+import type { PropsWithChildren } from "react"
+
+type InputGroupProps = PropsWithChildren<{
   className?: string
-}
+}>
 
 const InputGroup: React.FC<InputGroupProps> = ({ children, className }) => {
-  return <div className={classNames(classes.inputGroup, className)}>{children}</div>
+  return <div className={classNames("mb-6 flex flex-col", className)}>{children}</div>
 }
 
 export default InputGroup

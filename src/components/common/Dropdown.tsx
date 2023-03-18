@@ -1,16 +1,17 @@
 import React, { useState, useRef } from "react"
 
-import classes from "@/styles/components/common/Dropdown.module.scss"
+import { ReactComponent as ChevronDown } from "@/images/icons/chevron-down.svg"
 
 import DropdownContextProvider from "@/context/dropdown-context/dropdown-context-provider"
 import classNames from "@/utils/classnames"
 
-type DropdownProps = {
-  children?: React.ReactNode
+import type { PropsWithChildren } from "react"
+
+type DropdownProps = PropsWithChildren<{
   toggleChildren?: React.ReactNode
   toggleClass?: string
   showChevron?: boolean
-}
+}>
 
 const Dropdown: React.FC<DropdownProps> = ({
   children,
@@ -59,7 +60,7 @@ const Dropdown: React.FC<DropdownProps> = ({
     <>
       {showMenu && (
         <div
-          className={classes.dropdownBackdrop}
+          className="fixed left-0 top-0 z-20 h-full w-full bg-transparent focus:outline-0"
           role="button"
           tabIndex={0}
           onClick={handleMenuToggle}
@@ -70,19 +71,27 @@ const Dropdown: React.FC<DropdownProps> = ({
 
       <button
         ref={toggleRef}
-        className={classNames(classes.dropdownToggle, toggleClass, {
-          [classes.dropdownToggleChevron]: showChevron,
-          [classes.active]: showMenu,
-        })}
+        className={classNames("whitespace-nowrap", toggleClass)}
         onClick={handleMenuToggle}
         onKeyDown={handleMenuToggle}
       >
         {toggleChildren}
+
+        {showChevron && (
+          <ChevronDown
+            className={classNames(
+              "ml-1 inline-block h-2 w-2 align-middle transition duration-500 hover:opacity-50",
+              {
+                "rotate-180 transform duration-200": showMenu,
+              }
+            )}
+          />
+        )}
       </button>
 
       <div
-        className={classNames(classes.dropdownMenu, {
-          [classes.active]: showMenu,
+        className={classNames("fixed z-20 origin-top scale-y-0 transform transition duration-200", {
+          "scale-y-100": showMenu,
         })}
         style={{ ...position }}
         ref={menuRef}

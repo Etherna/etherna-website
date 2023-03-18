@@ -1,9 +1,5 @@
-import React from "react"
-import classNames from "@utils/classnames"
-
-import classes from "@styles/components/layout/MegaMenu.module.scss"
-
-import Dropdown from "@components/common/Dropdown"
+import Dropdown from "@/components/common/Dropdown"
+import classNames from "@/utils/classnames"
 
 type MenuProps = {
   children?: React.ReactNode
@@ -14,11 +10,15 @@ type MenuProps = {
 const Menu: React.FC<MenuProps> = ({ children, toggleRender, toggleClassName }) => {
   return (
     <Dropdown
-      toggleClass={classNames(classes.megaMenuToggle, toggleClassName)}
+      toggleClass={classNames("focus:shadow-transparent", toggleClassName)}
       toggleChildren={toggleRender}
       showChevron={true}
     >
-      <nav className={classes.megaMenu}>
+      <nav
+        className={classNames(
+          "my-3 w-screen max-w-screen-md rounded-lg border border-gray-100 bg-white p-6 shadow-lg md:w-auto md:min-w-min"
+        )}
+      >
         {children}
       </nav>
     </Dropdown>
@@ -26,16 +26,12 @@ const Menu: React.FC<MenuProps> = ({ children, toggleRender, toggleClassName }) 
 }
 
 const Row: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
-  return (
-    <div className={classes.megaMenuRow}>
-      {children}
-    </div>
-  )
+  return <div className="flex w-full flex-wrap">{children}</div>
 }
 
 const MegaMenu = {
   Menu,
-  Row
+  Row,
 }
 
 export default MegaMenu

@@ -1,24 +1,26 @@
 import { useTranslation } from "react-i18next"
 
-import classes from "@/styles/components/landing/Hero.module.scss"
+import { ReactComponent as HeroBg } from "@/images/hero-bg.svg"
+import { ReactComponent as HeroMask } from "@/images/hero-mask.svg"
 
 import Button from "@/components/common/Button"
 import Container from "@/components/common/Container"
-import classNames from "@/utils/classnames"
 
 const Hero: React.FC = () => {
   const { t } = useTranslation("hero")
 
   return (
-    <section className={classes.hero}>
-      <Container className="flex flex-col items-center">
+    <section className="relative w-full">
+      <HeroBg className="absolute -z-[1] h-full w-full" />
+      <HeroMask className="absolute top-0 -z-[2] h-[calc(100%+150px)] w-full" />
+      <Container className="flex flex-col items-center py-8 lg:py-16">
         <h1
-          className={classNames(classes.heroTitle)}
+          className="mt-12 mb-8 text-center text-5xl font-black leading-tight lg:mt-16 lg:mb-12 lg:text-6xl"
           dangerouslySetInnerHTML={{ __html: t("heading") }}
         />
 
         <p
-          className={classNames(classes.heroDescription)}
+          className="text-center text-lg shadow-white drop-shadow-md"
           dangerouslySetInnerHTML={{ __html: t("subheading") }}
         />
 

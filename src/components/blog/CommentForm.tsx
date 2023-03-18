@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next"
 
 import { ReactComponent as SpinnerIcon } from "@/images/animated/spinner-light.svg"
 
-import Image from "../common/Image"
 import CommentThreadMessage from "./CommentThreadMessage"
 import Alert from "@/components/common/Alert"
 import Button from "@/components/common/Button"
@@ -13,7 +12,7 @@ import { getCurrentUser, currentUserToken } from "@/utils/admin"
 import classNames from "@/utils/classnames"
 import { parseComment } from "@/utils/dataParser"
 
-import type { Comment, User } from "@/schema/app"
+import type { Comment } from "@/schema/app"
 import type { CommentNode } from "@/schema/cms"
 import type { Lang } from "@/utils/lang"
 
@@ -30,7 +29,7 @@ const CommentForm: React.FC<CommentFormProps> & {
   const { t } = useTranslation(["common", "blog"])
 
   const [isOpen, setIsOpen] = useState(false)
-  const [currentUser, setCurrentUser] = useState<User>()
+  const [currentUser, setCurrentUser] = useState<ReturnType<typeof getCurrentUser>>()
   const [comment, setComment] = useState("")
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
@@ -198,8 +197,8 @@ const CommentForm: React.FC<CommentFormProps> & {
             {currentUser && (
               <a href="/admin" className="my-1 flex items-center text-sm">
                 <span className="mr-2 pl-1 text-gray-600">{t("blog:authAs")}:</span>
-                <Image data={currentUser.avatar} alt="" className="mr-2 h-5 w-5 rounded-full" />
-                <span className="font-semibold text-gray-700">{currentUser.first_name}</span>
+                <img src={currentUser.avatar} alt="" className="mr-2 h-5 w-5 rounded-full" />
+                <span className="font-semibold text-gray-700">{currentUser.name}</span>
               </a>
             )}
             <Button

@@ -1,8 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 
-import classes from "@/styles/components/landing/PresentationVideo.module.scss"
-
 import SectionTitle from "./SectionTitle"
 import Col from "@/components/common/Col"
 import Container from "@/components/common/Container"
@@ -46,8 +44,12 @@ const PresentationVideo: React.FC = () => {
               threshold={0.1}
               onEnterViewport={loadFrameSize}
             >
-              <div className={classes.presentationVideo} ref={containerEl}>
-                <SectionTitle title={t("watchPresentation")} anchorLink="wam-presentation" />
+              <div className="mx-auto flex max-w-2xl flex-col items-center" ref={containerEl}>
+                <SectionTitle
+                  title={t("watchPresentation")}
+                  anchorLink="wam-presentation"
+                  className="text-center"
+                />
                 <iframe
                   src="https://etherna.io/embed/8bf67c54ec7cdbfdcc2d77b8e357cf7d64d846e9870a767f25d2ac1cea5fa3e4"
                   width="100%"

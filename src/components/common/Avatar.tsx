@@ -14,9 +14,9 @@ const Avatar: React.FC<AvatarProps> = ({ src, alt, className }) => {
   return (
     <div className={classNames("overflow-hidden rounded-full", className)}>
       {typeof src === "string" ? (
-        <img src={src} className="rounded-full" />
+        <img src={src} className="rounded-full" alt={alt} />
       ) : (
-        <Image data={src} className="rounded-full" />
+        <Image data={src} className="rounded-full" alt={alt} />
       )}
     </div>
   )

@@ -1,20 +1,20 @@
 import React, { Fragment, useRef } from "react"
 import { Dialog, Transition } from "@headlessui/react"
 
-import classes from "@/styles/components/common/Modal.module.scss"
+import { ReactComponent as CrossIcon } from "@/images/icons/cross-icon.svg"
 
 import Container from "./Container"
-import { ReactComponent as CrossIcon } from "@/images/icons/cross-icon.svg"
 import classNames from "@/utils/classnames"
 import { createPortal } from "@/utils/portals"
 
-type ModalProps = {
-  children?: React.ReactNode
+import type { PropsWithChildren } from "react"
+
+type ModalProps = PropsWithChildren<{
   show: boolean
   appearance?: "light" | "dark-blurred"
   compactHeader?: boolean
   onClose?(): void
-}
+}>
 
 const Modal: React.FC<ModalProps> = ({
   children,
@@ -28,10 +28,7 @@ const Modal: React.FC<ModalProps> = ({
   return createPortal(
     <Transition appear show={show} as={Fragment}>
       <Dialog
-        className={classNames(classes.modal, {
-          [classes.darkBlurred]: appearance === "dark-blurred",
-          [classes.light]: appearance === "light",
-        })}
+        className="fixed inset-0 z-10"
         initialFocus={modalContentEl}
         open={show}
         onClose={() => onClose?.()}
@@ -45,7 +42,13 @@ const Modal: React.FC<ModalProps> = ({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Dialog.Overlay className={classes.modalBackdrop} />
+          <Dialog.Overlay
+            className={classNames("absolute inset-0", {
+              "bg-black/95 supports-[backdrop-filter:blur(4px)]:bg-black/80 supports-[backdrop-filter:blur(4px)]:backdrop-blur-md":
+                appearance === "dark-blurred",
+              "bg-white": appearance === "light",
+            })}
+          />
         </Transition.Child>
 
         <Transition.Child
@@ -57,21 +60,31 @@ const Modal: React.FC<ModalProps> = ({
           leaveFrom="opacity-100 scale-100"
           leaveTo="opacity-0 scale-95"
         >
-          <div className={classes.modalDialog}>
+          <div className="absolute inset-0 flex flex-col">
             <div
-              className={classNames(classes.modalHeader, {
-                compact: compactHeader,
+              className={classNames("flex flex-shrink-0 py-4 md:py-8 xl:py-12", {
+                "py-3 md:py-6 xl:py-8": compactHeader,
               })}
             >
               <Container>
-                <button className={classes.modalClose} aria-label="Close" onClick={onClose}>
-                  <CrossIcon aria-hidden="true" />
+                <button
+                  className={classNames(
+                    "ml-auto flex h-10 w-10 rounded-full p-2 transition-colors duration-75 active:bg-gray-500/20",
+                    {
+                      "text-white": appearance === "dark-blurred",
+                      "text-black": appearance === "light",
+                    }
+                  )}
+                  aria-label="Close"
+                  onClick={onClose}
+                >
+                  <CrossIcon className="h-full w-full" aria-hidden="true" />
                 </button>
               </Container>
             </div>
 
-            <div className={classes.modalContent} ref={modalContentEl}>
-              <Container>{children}</Container>
+            <div className="flex flex-grow flex-col overflow-y-auto" ref={modalContentEl}>
+              <Container className="flex-shrink-0">{children}</Container>
             </div>
           </div>
         </Transition.Child>

@@ -151,11 +151,11 @@ export default async function fetchPaths(locales: Lang[]) {
       },
     }))
 
-  console.log()
-  console.log("========================================")
-  console.log(paths)
-  console.log("========================================")
-  console.log()
+  // console.log()
+  // console.log("========================================")
+  // console.log(paths)
+  // console.log("========================================")
+  // console.log()
 
   return paths
 }

@@ -1,4 +1,4 @@
-import classes from "@/styles/components/landing/LandingSectionFeature.module.scss"
+import { ReactComponent as FeatureBg } from "@/images/feature-bg.svg"
 
 import Col from "@/components/common/Col"
 import classNames from "@/utils/classnames"
@@ -22,14 +22,15 @@ const LandingSectionFeature: React.FC<LandingSectionFeatureProps> = ({ feature, 
         "mx-auto sm:w-1/3": count === 4,
       })}
     >
-      <div className={classes.landingFeature}>
+      <div className="mb-8 px-6">
         {feature.icon && (
-          <div className={classNames(classes.landingFeatureIcon)}>
-            {feature.icon && <feature.icon />}
+          <div className="relative mx-auto flex h-36 w-36 justify-around">
+            <FeatureBg className="absolute inset-0 drop-shadow-light" />
+            {feature.icon && <feature.icon className="z-1" />}
           </div>
         )}
-        <h3 className={classNames(classes.landingFeatureTitle)}>{feature.title}</h3>
-        <p className={classNames(classes.landingFeatureDescription)}>{feature.description}</p>
+        <h3 className="mx-auto mb-2 max-w-sm font-semibold text-gray-800">{feature.title}</h3>
+        <p className="mx-auto max-w-sm text-gray-600">{feature.description}</p>
       </div>
     </Col>
   )

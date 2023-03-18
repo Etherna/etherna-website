@@ -1,7 +1,5 @@
 import React, { useMemo } from "react"
 
-import classes from "@/styles/components/common/TextField.module.scss"
-
 import classNames from "@/utils/classnames"
 
 type TextFieldProps = {
@@ -73,12 +71,16 @@ const TextField: React.FC<TextFieldProps> = ({
     onChange(formattedValue)
   }
 
+  const isTypeText = ["text", "password", "email"].includes(type ?? "") || multiline
+
   return (
-    <div className={classes.textFieldWrapper}>
+    <div className="flex flex-col">
       <Field
-        className={classNames(classes.textField, className, {
-          [classes.typeText]: multiline || ["text", "password", "email"].includes(type ?? ""),
-          [classes.error]: typeof error === "string",
+        className={classNames("disabled:pointer-events-none disabled:opacity-50", className, {
+          "w-full rounded-lg border-2 border-gray-300 bg-transparent px-4 py-3 transition duration-500":
+            isTypeText,
+          "placeholder:text-sm placeholder:text-gray-500": isTypeText,
+          "border-red-500": typeof error === "string",
         })}
         id={id}
         value={Number.isNaN(value) ? "" : value}
@@ -93,7 +95,7 @@ const TextField: React.FC<TextFieldProps> = ({
         onFocus={onFocus}
         onBlur={onBlur}
       />
-      {error && <small className={classes.textFieldError}>{error}</small>}
+      {error && <small className="mt-1 text-xs font-medium text-red-500">{error}</small>}
     </div>
   )
 }

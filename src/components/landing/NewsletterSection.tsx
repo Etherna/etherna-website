@@ -1,5 +1,7 @@
 import { useTranslation } from "react-i18next"
 
+import { ReactComponent as NewsletterImage } from "@/images/newsletter.svg"
+
 import NewsletterForm from "./NewsletterForm"
 import SectionTitle from "./SectionTitle"
 import Card from "@/components/common/Card"
@@ -7,7 +9,6 @@ import Col from "@/components/common/Col"
 import Container from "@/components/common/Container"
 import Row from "@/components/common/Row"
 import SocialMenu from "@/components/layout/SocialMenu"
-import { ReactComponent as NewsletterImage } from "@/images/newsletter.svg"
 
 const NewsletterSection: React.FC = () => {
   const { t } = useTranslation("landing")

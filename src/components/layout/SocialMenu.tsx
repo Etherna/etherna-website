@@ -1,13 +1,14 @@
 import { useTranslation } from "react-i18next"
 
-import classes from "@/styles/components/layout/SocialMenu.module.scss"
-
 import { ReactComponent as DiscordLogo } from "@/images/logos/discord-logo.svg"
 import { ReactComponent as FacebookLogo } from "@/images/logos/facebook-logo.svg"
 import { ReactComponent as GithubLogo } from "@/images/logos/github-logo.svg"
 import { ReactComponent as TelegramLogo } from "@/images/logos/telegram-logo.svg"
 import { ReactComponent as TwitterLogo } from "@/images/logos/twitter-logo.svg"
+
 import classNames from "@/utils/classnames"
+
+import type { AnchorHTMLAttributes } from "react"
 
 type SocialMenuProps = {
   className?: string
@@ -26,57 +27,117 @@ const SocialMenu: React.FC<SocialMenuProps> = ({
 
   return (
     <nav
-      className={classNames(classes.socialMenu, className, {
-        [classes.vertical]: vertical,
-        [classes.buttonStyle]: buttonStyle,
-      })}
+      className={classNames(
+        "flex items-center justify-between",
+        {
+          "flex-col": vertical,
+          "items-center sm:mx-auto sm:flex-row sm:flex-wrap sm:justify-evenly": buttonStyle,
+        },
+        className
+      )}
     >
-      <a
+      <SocialMenuLink
         href="https://www.facebook.com/Etherna.io/"
-        className={classNames(classes.socialLink, classes.facebook, linkClassName)}
-        target="_blank"
-        rel="noopener noreferrer"
+        name={t("facebookPage")}
+        className={classNames(
+          "hover:text-facebook",
+          {
+            "text-facebook": buttonStyle,
+          },
+          linkClassName
+        )}
+        buttonStyle={buttonStyle}
       >
         <FacebookLogo />
-        <span className={classes.socialName}>{t("facebookPage")}</span>
-      </a>
-      <a
+      </SocialMenuLink>
+      <SocialMenuLink
         href="https://twitter.com/Etherna_io"
-        className={classNames(classes.socialLink, classes.twitter, linkClassName)}
-        target="_blank"
-        rel="noopener noreferrer"
+        name={t("twitter")}
+        className={classNames(
+          "hover:text-twitter",
+          {
+            "text-twitter": buttonStyle,
+          },
+          linkClassName
+        )}
+        buttonStyle={buttonStyle}
       >
         <TwitterLogo />
-        <span className={classes.socialName}>{t("twitter")}</span>
-      </a>
-      <a
+      </SocialMenuLink>
+      <SocialMenuLink
         href="https://discord.gg/vfHYEXf"
-        className={classNames(classes.socialLink, classes.discord, linkClassName)}
-        target="_blank"
-        rel="noopener noreferrer"
+        name={t("discord")}
+        className={classNames(
+          "hover:text-discord",
+          {
+            "text-discord": buttonStyle,
+          },
+          linkClassName
+        )}
+        buttonStyle={buttonStyle}
       >
         <DiscordLogo />
-        <span className={classes.socialName}>{t("discord")}</span>
-      </a>
-      <a
+      </SocialMenuLink>
+      <SocialMenuLink
         href="https://t.me/etherna_io"
-        className={classNames(classes.socialLink, classes.telegram, linkClassName)}
-        target="_blank"
-        rel="noopener noreferrer"
+        name={t("telegramChannel")}
+        className={classNames(
+          "hover:text-telegram",
+          {
+            "text-telegram": buttonStyle,
+          },
+          linkClassName
+        )}
+        buttonStyle={buttonStyle}
       >
         <TelegramLogo />
-        <span className={classes.socialName}>{t("telegramChannel")}</span>
-      </a>
-      <a
+      </SocialMenuLink>
+      <SocialMenuLink
         href="https://github.com/Etherna"
-        className={classNames(classes.socialLink, classes.github, linkClassName)}
-        target="_blank"
-        rel="noopener noreferrer"
+        name={t("github")}
+        className={classNames(
+          "hover:text-github",
+          {
+            "text-github": buttonStyle,
+          },
+          linkClassName
+        )}
+        buttonStyle={buttonStyle}
       >
         <GithubLogo />
-        <span className={classes.socialName}>{t("github")}</span>
-      </a>
+      </SocialMenuLink>
     </nav>
+  )
+}
+
+const SocialMenuLink: React.FC<
+  AnchorHTMLAttributes<HTMLAnchorElement> & { name: string; buttonStyle?: boolean }
+> = ({ className, children, name, buttonStyle, ...props }) => {
+  return (
+    <a
+      {...props}
+      className={classNames(
+        "p-2 text-slate-400",
+        "[&_svg]:h-4 [&_svg]:transition-[fill] [&_svg]:duration-500",
+        buttonStyle && [
+          "mx-4 mb-2 flex items-center whitespace-nowrap rounded",
+          "bg-gray-200 px-4 text-gray-600 hover:bg-gray-100",
+        ],
+        className
+      )}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {children}
+      <span
+        className={classNames({
+          "ml-2 text-sm font-semibold text-gray-600": buttonStyle,
+          "sr-only": !buttonStyle,
+        })}
+      >
+        {name}
+      </span>
+    </a>
   )
 }
 

@@ -1,7 +1,5 @@
 import { useTranslation } from "react-i18next"
 
-import classes from "@/styles/components/site/PageCta.module.scss"
-
 import routes from "@/utils/routes"
 
 import type { Lang } from "@/utils/lang"
@@ -14,11 +12,11 @@ const PageCTA: React.FC<PageCTAProps> = ({ lang }) => {
   const { t } = useTranslation("page")
 
   return (
-    <div className={classes.pageCta}>
-      <div className={classes.pageCtaContent}>
+    <div className="mx-auto mb-8 max-w-prose rounded-lg bg-white p-4 shadow-xl md:mb-16 md:p-8 lg:text-lg">
+      <div className="space-y-3 lg:text-base">
         <h3>{t("becomePartOfCommunity")}</h3>
 
-        <div className={classes.pageCtaItem}>
+        <div className="text-gray-600">
           {t("followTheDevelopment") + " "}
           <a
             href="https://t.me/etherna_io"
@@ -29,7 +27,7 @@ const PageCTA: React.FC<PageCTAProps> = ({ lang }) => {
             {t("telegramChannel")} →
           </a>
         </div>
-        <div className={classes.pageCtaItem}>
+        <div className="text-gray-600">
           {t("helpTheDevelopment") + " "}
           <a href={routes.homePath(lang) + "#contacts"}>{t("findHow")} →</a>
         </div>

@@ -52,7 +52,7 @@ const FontPreview: React.FC<FontPreviewProps> = ({ fontFamily, fontWeight, impor
 
   return (
     <div
-      className="w-full w-[calc(100%-theme('spacing.10'))] cursor-default select-none overflow-hidden text-center text-4xl absolute-center"
+      className="w-[calc(100%-theme('spacing.10'))] cursor-default select-none overflow-hidden text-center text-4xl absolute-center"
       style={{
         fontFamily,
         fontWeight: (fontWeight?.length && +fontWeight[0]!) ?? undefined,

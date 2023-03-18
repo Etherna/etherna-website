@@ -1,11 +1,10 @@
-import React, { forwardRef } from "react"
-
-import classes from "@/styles/components/common/Button.module.scss"
+import { forwardRef } from "react"
 
 import classNames from "@/utils/classnames"
 
-type ButtonProps = {
-  children?: React.ReactNode
+import type { PropsWithChildren } from "react"
+
+type ButtonProps = PropsWithChildren<{
   className?: string
   type?: "primary" | "secondary" | "danger" | "warning" | "info"
   href?: string
@@ -14,18 +13,24 @@ type ButtonProps = {
   large?: boolean
   submit?: boolean
   onClick?(): void
-}
+}>
 
 const Button = forwardRef<HTMLElement, ButtonProps>(
   ({ children, className, href, target, type, large, disabled, submit, onClick }, ref) => {
-    const btnClassName = classNames(classes.btn, className, {
-      [classes.btnPrimary]: type === "primary",
-      [classes.btnSecondary]: type === "secondary",
-      [classes.btnDanger]: type === "danger",
-      [classes.btnWarning]: type === "warning",
-      [classes.btnInfo]: type === "info",
-      [classes.large]: large,
-    })
+    const btnClassName = classNames(
+      "inline-flex items-center px-5 py-2 rounded-lg bg-gray-200 transition-colors duration-500",
+      "text-gray-700 text-sm hover:text-white font-semibold text-center",
+      "disabled:cursor-not-allowed disabled:opacity-50",
+      {
+        "bg-primary-500 text-white hover:bg-primary-300": type === "primary",
+        "bg-gray-600 text-white hover:bg-opacity-75": type === "secondary",
+        "bg-red-500 text-white hover:bg-opacity-75": type === "danger",
+        "bg-yellow-500 text-white hover:bg-opacity-75": type === "warning",
+        "bg-blue-400 text-white hover:bg-opacity-75": type === "info",
+        "text-base px-6 py-3 [&_svg]:w-[1.2em] [&_svg]:h-[1.2em] [&_svg]:mr-2": large,
+      },
+      className
+    )
 
     if (href) {
       return (

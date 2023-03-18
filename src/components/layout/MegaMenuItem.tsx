@@ -1,5 +1,3 @@
-import classes from "@/styles/components/layout/MegaMenuItem.module.scss"
-
 import Image from "@/components/common/Image"
 import classNames from "@/utils/classnames"
 
@@ -24,21 +22,26 @@ const MegaMenuItem: React.FC<MegaMenuItemProps> = ({
 }) => {
   return (
     <div
-      className={classNames(classes.megaMenuItem, {
-        [classes.disabled]: disabled,
-      })}
+      className={classNames(
+        "mb-3 flex min-h-[5.5rem] w-full max-w-96 items-center rounded-lg px-3 py-2 md:flex-1",
+        "transition-colors duration-500",
+        {
+          "hover:bg-gray-100": !disabled,
+          "opacity-50": disabled,
+        }
+      )}
     >
       {image && (
-        <div className={classes.megaMenuItemImage}>
+        <div className="w-1/3 pr-4">
           <LinkWrapper href={href} external={isExternal}>
             <Image data={image} alt={title} />
           </LinkWrapper>
         </div>
       )}
-      <div className={classes.megaMenuItemInfo}>
+      <div className="flex-1 text-sm font-semibold">
         <LinkWrapper href={href} external={isExternal}>
-          <div className={classes.megaMenuItemTitle}>{title}</div>
-          {excerpt && <p className={classes.megaMenuItemDescription}>{excerpt}</p>}
+          <div className="text-gray-900">{title}</div>
+          {excerpt && <p className="text-xs font-normal text-gray-500">{excerpt}</p>}
         </LinkWrapper>
       </div>
     </div>

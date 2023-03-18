@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 
-import classes from "@/styles/components/blog/Comments.module.scss"
 import { ReactComponent as SpinnerIcon } from "@/images/animated/spinner.svg"
 
 import CommentForm from "./CommentForm"
@@ -67,9 +66,9 @@ const Comments: React.FC<CommentsProps> = ({ postId, lang }) => {
   return (
     <ViewportObserver childrenRef={containerRef} onEnterViewport={onEnterViewport}>
       <CommentsContextProvider postId={postId} client={directusClient} comments={comments ?? []}>
-        <div className={classes.comments} ref={containerRef}>
+        <div className="mt-24" ref={containerRef}>
           <div className="my-4 flex items-center">
-            <h4 className={classes.commentsHeading}>{t`comments`}</h4>
+            <h4 className="!my-0 mr-3">{t`comments`}</h4>
             <button
               className="ml-auto text-sm text-gray-700"
               onClick={() => setShowAllLang(!showAllLang)}

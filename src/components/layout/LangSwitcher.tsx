@@ -23,7 +23,7 @@ const LangSwitcher: React.FC<LangSwitcherProps> = ({
     <Dropdown
       toggleClass={classNames(
         "border-4 border-transparent rounded-full transition duration-500",
-        "hover:bg-gray-400 focus:outline-none",
+        "hover:bg-gray-400 focus:outline-0",
         toggleClassName
       )}
       toggleChildren={<LangFlag flag={currentLocaleFlag!} />}

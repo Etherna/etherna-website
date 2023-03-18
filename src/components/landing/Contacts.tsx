@@ -1,12 +1,12 @@
 import { useTranslation } from "react-i18next"
 
-import classes from "@/styles/components/landing/Contacts.module.scss"
-
 import SectionTitle from "./SectionTitle"
 import Col from "@/components/common/Col"
 import Container from "@/components/common/Container"
 import Row from "@/components/common/Row"
 import classNames from "@/utils/classnames"
+
+import type { PropsWithChildren } from "react"
 
 const Contacts = () => {
   const { t } = useTranslation("contacts")
@@ -17,40 +17,48 @@ const Contacts = () => {
   }
 
   return (
-    <section className={classes.contacts} id="contacts">
+    <section className="py-16" id="contacts">
       <Container>
         <Row>
           <Col>
             <SectionTitle
-              className={classNames(classes.contactsTitle)}
+              className="mb-4 w-full text-center text-4xl"
               title={t("helpUsTitle")}
               anchorLink="contacts"
             />
-            <p className={classNames(classes.contactsDescription)}>{t("helpUsDescription")}</p>
+            <p className="mx-auto max-w-2xl pb-6 text-center text-gray-600">
+              {t("helpUsDescription")}
+            </p>
             <Row className="">
-              <Col className={classNames(classes.contactsCol, "md:w-1/2")}>
-                <h3 className={classes.contactsSubtitle}>{t("forInvestors")}</h3>
-                <div className={classes.contactsText}>
+              <Col className={classNames("flex flex-col items-center py-6", "md:w-1/2")}>
+                <h3 className="text-gray-700">{t("forInvestors")}</h3>
+                <div className="text-center text-gray-600">
                   <p>{t("forInvestorsDescription")}</p>
                   <p>{t("forInvestorsCTADescription")}</p>
                 </div>
-                <a className={classes.contactsBtn} href={mailto(t("investorMailSubject"))}>
+                <ContactsBtn href={mailto(t("investorMailSubject"))}>
                   {t("forInvestorsCTALabel")}
-                </a>
+                </ContactsBtn>
               </Col>
-              <Col className={classNames(classes.contactsCol, "md:w-1/2")}>
-                <h3 className={classes.contactsSubtitle}>{t("forDevelopers")}</h3>
-                <div className={classes.contactsText}>
+              <Col
+                className={classNames(
+                  "flex flex-col items-center py-6",
+                  "border-t border-gray-300 md:border-t-0 md:border-l",
+                  "md:w-1/2"
+                )}
+              >
+                <h3 className="text-gray-700">{t("forDevelopers")}</h3>
+                <div className="text-center text-gray-600">
                   <p>{t("forDevelopersDescription")}</p>
                   <p>{t("forDevelopersCTADescription")}</p>
                 </div>
-                <a className={classes.contactsBtn} href={mailto(t("developerMailSubject"))}>
+                <ContactsBtn href={mailto(t("developerMailSubject"))}>
                   {t("forDevelopersCTALabel")}
-                </a>
+                </ContactsBtn>
               </Col>
               <Col className="mt-12">
                 <div
-                  className={classes.contactsText}
+                  className="text-center text-gray-600"
                   dangerouslySetInnerHTML={{ __html: t("informationText") }}
                 />
               </Col>
@@ -59,6 +67,21 @@ const Contacts = () => {
         </Row>
       </Container>
     </section>
+  )
+}
+
+const ContactsBtn: React.FC<PropsWithChildren<{ href: string }>> = ({ children, href }) => {
+  return (
+    <a
+      href={href}
+      className={classNames(
+        "mt-6 min-w-xxs whitespace-nowrap rounded-md border-0 px-6 py-2 shadow-none outline-none",
+        "bg-blue-600 text-center text-sm font-semibold text-white hover:bg-blue-400 hover:text-white",
+        "transition-colors duration-300"
+      )}
+    >
+      {children}
+    </a>
   )
 }
 

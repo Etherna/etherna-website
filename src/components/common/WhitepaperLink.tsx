@@ -1,5 +1,7 @@
 import { ReactComponent as DocIcon } from "@/images/icons/document.svg"
 
+import HeaderMenu from "@/components/layout/HeaderMenu"
+
 type WhitepaperLinkProps = {
   className?: string
   url: string
@@ -8,10 +10,16 @@ type WhitepaperLinkProps = {
 
 const WhitepaperLink: React.FC<WhitepaperLinkProps> = ({ className, url, filename }) => {
   return (
-    <a className={className} href={url} download={filename} target="_blank" rel="noreferrer">
+    <HeaderMenu.Link
+      className={className}
+      href={url}
+      download={filename}
+      target="_blank"
+      rel="noreferrer"
+    >
       <DocIcon aria-hidden />
       <span>Whitepaper</span>
-    </a>
+    </HeaderMenu.Link>
   )
 }
 

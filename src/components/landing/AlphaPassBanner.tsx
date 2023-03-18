@@ -1,7 +1,5 @@
 import { useTranslation } from "react-i18next"
 
-import classes from "@/styles/components/landing/AlphaPass.module.scss"
-
 import Col from "@/components/common/Col"
 import Container from "@/components/common/Container"
 import Row from "@/components/common/Row"
@@ -15,7 +13,13 @@ const AlphaPassBanner: React.FC = () => {
       <Container>
         <Row>
           <Col>
-            <div className={classNames(classes.alphaPassBanner)}>
+            <div
+              className={classNames(
+                "my-8 mx-auto max-w-2xl rounded-lg px-8 py-12 md:my-16",
+                "bg-white text-white shadow-xl shadow-indigo-600/20",
+                "bg-gradient-to-tr from-indigo-600 to-pink-600"
+              )}
+            >
               <h2>{t("requestAlphaPass")}</h2>
               <p>{t("weAreLaunching")}</p>
               <br />
@@ -24,7 +28,11 @@ const AlphaPassBanner: React.FC = () => {
 
               <div className="mt-6">
                 <a
-                  className={classes.alphaPassLink}
+                  className={classNames(
+                    "inline-flex items-center rounded border border-white bg-transparent px-3 py-2 hover:bg-white",
+                    "font-semibold text-white hover:text-indigo-600",
+                    "transition-colors duration-300 ease-out"
+                  )}
                   href="https://sso.etherna.io/AlphaPass"
                   target="_blank"
                   rel="noreferrer"

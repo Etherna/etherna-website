@@ -1,7 +1,5 @@
 import { useTranslation } from "react-i18next"
 
-import classes from "@/styles/components/layout/ProjectsMenu.module.scss"
-
 import MegaMenu from "./MegaMenu"
 import MegaMenuItem from "./MegaMenuItem"
 import routes from "@/utils/routes"
@@ -37,7 +35,7 @@ const ProjectsMenu: React.FC<ProjectsMenuProps> = ({ projects, toggleClassName, 
 
       {comingSoonProjects.length > 0 && (
         <>
-          <h6 className={classes.soonLabel}>
+          <h6 className="mt-6 pl-3 text-sm font-semibold text-gray-700 opacity-50">
             {t`comingLater`}{" "}
             <span role="img" aria-label="waiting for launch">
               🚀

@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
 
-import classes from "@/styles/components/layout/Header.module.scss"
-import linkClasses from "@/styles/components/layout/HeaderMenuLink.module.scss"
 import { ReactComponent as Logo } from "@/images/logo.svg"
 
 import HeaderMenu from "./HeaderMenu"
@@ -17,7 +15,6 @@ import type { Lang, LocaleInfo, LocalizedPaths } from "@/utils/lang"
 
 type HeaderProps = {
   transparent?: boolean
-  showLandingMenu?: boolean
   localizedPaths?: LocalizedPaths
   pages: { title: string; slug: string }[]
   locales: LocaleInfo[]
@@ -43,97 +40,115 @@ const Header: React.FC<HeaderProps> = ({ transparent, localizedPaths, pages, loc
     setIsActive(active)
   }
 
+  const isScrolled = isActive || showContextualMenu
+
   return (
     <header
-      className={classNames(classes.header, {
-        [classes.transparent]: transparent,
-        [classes.scrolled]: isActive || showContextualMenu,
+      className={classNames("fixed inset-x-0 top-0 z-10 transition duration-300", {
+        "bg-white shadow-sm": !transparent || isScrolled,
       })}
     >
       <Container>
-        <div className={classes.headerContainer}>
-          <div className={classes.headerLogo}>
+        <div className="flex flex-wrap items-center py-4 lg:flex-nowrap">
+          <div>
             <a href={routes.homePath(lang)}>
-              <Logo />
+              <Logo className="h-[30px]" />
             </a>
           </div>
 
           <WhitepaperLink
-            className={classNames(linkClasses.headerMenuLink, "hidden sm:ml-3 sm:flex")}
-            url=""
+            className="hidden sm:ml-3 sm:flex"
+            url="todo!!!"
             filename="whitepaper.pdf"
           />
 
           <button
-            className={classes.headerToggle}
+            className="ml-auto flex items-center text-xs font-semibold uppercase text-gray-800 focus:shadow-transparent lg:hidden"
             onClick={() => setShowContextualMenu(!showContextualMenu)}
           >
             {!showContextualMenu && <span className="mr-2">{t`menu`}</span>}
-            <div
-              className={classNames(classes.headerToggleIcon, {
-                [classes.open]: showContextualMenu,
-              })}
-            >
-              <span className={classes.lineTop}></span>
-              <span className={classes.lineBottom}></span>
+            <div className="relative h-[30px] w-[30px]">
+              <span
+                className={classNames(
+                  "absolute left-0 top-0 h-full w-full transition duration-300 ease-in-out",
+                  {
+                    "rotate-45": showContextualMenu,
+                  }
+                )}
+              >
+                <div
+                  className={classNames(
+                    "absolute left-1 top-2.5 h-0.5 w-[22px] rounded-[1px] bg-gray-900",
+                    {
+                      "top-3 left-1": showContextualMenu,
+                    }
+                  )}
+                />
+              </span>
+              <span
+                className={classNames(
+                  "absolute left-0 top-0 h-full w-full transition duration-300 ease-in-out",
+                  {
+                    "-rotate-45": showContextualMenu,
+                  }
+                )}
+              >
+                <div
+                  className={classNames(
+                    "absolute left-1 bottom-2.5 h-0.5 w-[22px] rounded-[1px] bg-gray-900",
+                    {
+                      "top-3.5 left-1.5": showContextualMenu,
+                    }
+                  )}
+                />
+              </span>
             </div>
           </button>
 
           <div
-            className={classNames(classes.contextualMenu, {
-              [classes.active]: showContextualMenu,
-            })}
-            style={
+            className={classNames(
+              "flex w-full origin-top flex-wrap overflow-hidden lg:flex-nowrap",
+              "h-0 transition-[height] duration-300 ease-in-out lg:!h-auto",
               {
-                ["--menu-height"]: `${contextualMenu.current?.scrollHeight}px`,
-              } as any
-            }
+                "opacity-100": showContextualMenu,
+              }
+            )}
+            style={{
+              height: `${showContextualMenu ? contextualMenu.current?.scrollHeight : 0}px`,
+            }}
             ref={contextualMenu}
           >
-            <div className={classNames(classes.headerMenuRow, classes.rowFill)}>
-              {/* {showLandingMenu && (
-                <HeaderMenu position="left" landingMenu>
-                  <LandingMenu />
-                </HeaderMenu>
-              )} */}
-
+            <div className="flex w-full flex-nowrap items-center overflow-x-auto py-2 lg:w-auto lg:flex-1 lg:overflow-x-visible lg:py-0">
               <HeaderMenu correctMobile>
                 <WhitepaperLink
-                  className={classNames(linkClasses.headerMenuLink, "flex sm:hidden")}
-                  url=""
+                  url="todo!!!"
                   filename="whitepaper.pdf"
+                  className="flex sm:hidden"
                 />
               </HeaderMenu>
 
               <HeaderMenu position="right">
                 {pages.map((page, i) => (
-                  <a
-                    href={routes.pagePath(page.slug, lang)}
-                    className={linkClasses.headerMenuLink}
-                    key={i}
-                  >
+                  <HeaderMenu.Link href={routes.pagePath(page.slug, lang)} key={i}>
                     {page.title}
-                  </a>
+                  </HeaderMenu.Link>
                 ))}
-                <a
-                  href={routes.aboutPath(lang)}
-                  className={linkClasses.headerMenuLink}
-                >{t`about`}</a>
-                <a href={routes.blogPath(lang)} className={linkClasses.headerMenuLink}>{t`blog`}</a>
+                <HeaderMenu.Link href={routes.aboutPath(lang)}>{t`about`}</HeaderMenu.Link>
+                <HeaderMenu.Link href={routes.blogPath(lang)}>{t`blog`}</HeaderMenu.Link>
               </HeaderMenu>
             </div>
 
-            <div className={classes.headerMenuRow}>
-              <SocialMenu linkClassName={classes.socialMenuLink} />
+            <div className="flex w-full flex-nowrap items-center overflow-x-auto py-2 lg:w-auto lg:overflow-x-visible lg:py-0">
+              <SocialMenu linkClassName="first-of-type:pl-0" />
               <LangSwitcher
-                toggleClassName={classes.langMenuToggle}
+                toggleClassName="ml-4"
                 lang={lang}
                 locales={locales}
                 localizedPaths={localizedPaths}
               />
               {/* <UserMenu
-                linkClassName={classes.userMenuLink}
-                avatarClassName={classes.userMenuAvatar}
+                linkClassName="ml-4"
+                avatarClassName="block h-5 w-5 overflow-hidden rounded-full"
               /> */}
             </div>
           </div>

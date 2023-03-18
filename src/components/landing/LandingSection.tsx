@@ -1,11 +1,8 @@
-import classes from "@/styles/components/landing/LandingSection.module.scss"
-
 import LandingSectionFeature from "./LandingSectionFeature"
 import SectionTitle from "./SectionTitle"
 import Col from "@/components/common/Col"
 import Container from "@/components/common/Container"
 import Row from "@/components/common/Row"
-import classNames from "@/utils/classnames"
 
 type LandingSectionProps = {
   id: string
@@ -20,16 +17,16 @@ type LandingSectionProps = {
 
 const LandingSection: React.FC<LandingSectionProps> = ({ id, title, description, features }) => {
   return (
-    <section id={id} className={classes.landingSection}>
+    <section id={id} className="py-24 text-center">
       <Container>
         <Row>
           <Col>
             <SectionTitle
-              className={classNames(classes.landingTitle)}
+              className="mb-4 break-words text-5xl leading-tight text-gray-800"
               title={title}
               anchorLink={id}
             />
-            <p className={classNames(classes.landingDescription)}>{description}</p>
+            <p className="mx-auto max-w-2xl pb-6 text-gray-600">{description}</p>
           </Col>
           {features.map((feature, i) => (
             <LandingSectionFeature feature={feature} count={features.length} key={i} />
