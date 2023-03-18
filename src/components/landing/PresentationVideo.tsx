@@ -51,12 +51,10 @@ const PresentationVideo: React.FC = () => {
                   className="text-center"
                 />
                 <iframe
-                  src="https://etherna.io/watch/f29a0bca92bae1be59a09d0a228b56374dd33af619ba13be2e901aa9ac6c5764"
-                  width="100%"
-                  height={height}
+                  src="https://etherna.io/embed/f29a0bca92bae1be59a09d0a228b56374dd33af619ba13be2e901aa9ac6c5764"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
-                />
+                ></iframe>
               </div>
             </ViewportObserver>
           </Col>
