@@ -1,12 +1,12 @@
 import React, { useState } from "react"
 
-import { ReactComponent as SpinnerIcon } from "@images/animated/spinner-light.svg"
+import { ReactComponent as SpinnerIcon } from "@/assets/animated/spinner-light.svg"
 
-import Button from "@components/common/Button"
-import Alert from "@components/common/Alert"
-import TextField from "@components/common/TextField"
-import InputGroup from "@components/common/InputGroup"
-import { authenticate } from "@utils/admin"
+import Alert from "@/components/common/Alert"
+import Button from "@/components/common/Button"
+import InputGroup from "@/components/common/InputGroup"
+import TextField from "@/components/common/TextField"
+import { authenticate } from "@/utils/admin"
 
 type AdminLoginFormProps = {
   onLogin?(): void
@@ -61,15 +61,8 @@ const AdminLoginForm: React.FC<AdminLoginFormProps> = ({ onLogin }) => {
           required
         />
       </InputGroup>
-      <Button
-        type="primary"
-        className="w-full"
-        disabled={isLogginIn}
-        onClick={login}
-      >
-        {isLogginIn && (
-          <SpinnerIcon width="16" height="16" className="inline-block mr-2" />
-        )}
+      <Button type="primary" className="w-full" disabled={isLogginIn} onClick={login}>
+        {isLogginIn && <SpinnerIcon width="16" height="16" className="mr-2 inline-block" />}
         Login
       </Button>
     </form>

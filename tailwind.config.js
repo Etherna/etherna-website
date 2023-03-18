@@ -1,11 +1,8 @@
 const plugin = require("tailwindcss/plugin")
 
+/** @type {import('tailwindcss/types').Config} */
 module.exports = {
-  content: [
-    "./index.html",
-    "./public/**/*.html",
-    "./src/**/*.tsx",
-  ],
+  content: ["./index.html", "./public/**/*.html", "./src/**/*.tsx", , "./src/**/*.astro"],
   darkMode: "class",
   theme: {
     extend: {
@@ -30,9 +27,15 @@ module.exports = {
           800: "#004B54",
           900: "#003238",
         },
+        facebook: "#1877f2",
+        twitter: "#1da1f2",
+        linkedin: "#0b78b7",
+        telegram: "#1392d1",
+        discord: "#6378c5",
+        github: "#333333",
       },
       spacing: {
-        full: "100%"
+        full: "100%",
       },
       fontFamily: {
         sans: [
@@ -41,32 +44,48 @@ module.exports = {
           "system-ui",
           "-apple-system",
           "BlinkMacSystemFont",
-          "\"Segoe UI\"",
+          '"Segoe UI"',
           "Roboto",
-          "\"Helvetica Neue\"",
+          '"Helvetica Neue"',
           "sans-serif",
-          "\"Apple Color Emoji\"",
-          "\"Segoe UI Emoji\"",
-          "\"Segoe UI Symbol\"",
-          "\"Noto Color Emoji\"",
+          '"Apple Color Emoji"',
+          '"Segoe UI Emoji"',
+          '"Segoe UI Symbol"',
+          '"Noto Color Emoji"',
         ],
         serif: [
-          "\"DM Serif Display\"",
+          '"DM Serif Display"',
           "ui-serif",
           "Georgia",
           "Cambria",
-          "\"Times New Roman\"",
+          '"Times New Roman"',
           "Times",
           "serif",
-        ]
+        ],
       },
       fontSize: {},
       maxWidth: ({ theme }) => ({
-        ...theme('spacing'),
+        ...theme("spacing"),
       }),
       minWidth: {
-        xxs: '12rem',
-        xs: '20rem',
+        xxs: "12rem",
+        xs: "20rem",
+      },
+      dropShadow: {
+        light: ["0 16px 10px rgba(200, 200, 200, 0.20)", "0 8px 4px rgba(200, 200, 200, 0.10)"],
+      },
+      animation: {
+        "color-image": "color-image 0.5s ease-in-out forwards",
+        "uncolor-image": "uncolor-image 0.5s ease-in-out forwards",
+      },
+      keyframes: {
+        "color-image": {
+          "0%": { filter: "brightness(0)" },
+          "100%": { filter: "brightness(1)" },
+        },
+        "uncolor-image": {
+          "100%": { filter: "brightness(0)" },
+        },
       },
       zIndex: {
         "-1": "-1",
@@ -74,15 +93,15 @@ module.exports = {
         100: "100",
         200: "200",
       },
-      // Plusings
+      // Plugins
       typography: {
         DEFAULT: {
           css: {
-            'blockquote p:first-of-type::before': { content: 'none' },
-            'blockquote p:first-of-type::after': { content: 'none' },
+            "blockquote p:first-of-type::before": { content: "none" },
+            "blockquote p:first-of-type::after": { content: "none" },
           },
         },
-      }
+      },
     },
   },
   plugins: [
@@ -90,13 +109,13 @@ module.exports = {
     plugin(function ({ addUtilities }) {
       const utils = {
         ".absolute-center": {
-          "position": "absolute",
-          "left": "50%",
-          "top": "50%",
+          position: "absolute",
+          left: "50%",
+          top: "50%",
           "--tw-translate-x": "-50%",
           "--tw-translate-y": "-50%",
-          "transform": "var(--tw-transform)",
-        }
+          transform: "var(--tw-transform)",
+        },
       }
       addUtilities(utils, ["responsive"])
     }),

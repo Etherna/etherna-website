@@ -1,7 +1,6 @@
 import React, { useMemo } from "react"
-import classNames from "@utils/classnames"
 
-import classes from "@styles/components/common/TextField.module.scss"
+import classNames from "@/utils/classnames"
 
 type TextFieldProps = {
   value: string
@@ -12,7 +11,16 @@ type TextFieldProps = {
   name?: string
   error?: string
   type?: "text" | "email" | "url" | "password" | "radio" | "checkbox"
-  autocomplete?: "on" | "off" | "name" | "given-name" | "family-name" | "email" | "tel" | "url" | "current-password"
+  autocomplete?:
+    | "on"
+    | "off"
+    | "name"
+    | "given-name"
+    | "family-name"
+    | "email"
+    | "tel"
+    | "url"
+    | "current-password"
   multiline?: boolean
   required?: boolean
   disabled?: boolean
@@ -43,15 +51,16 @@ const TextField: React.FC<TextFieldProps> = ({
   onChange,
 }) => {
   const Field: React.FC<React.AllHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>> = useMemo(
-    () => (props: React.AllHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>) => (
-      <>
-        {multiline ? (
-          <textarea {...props} rows={6} ref={elRef} />
-        ) : (
-          <input {...props} ref={elRef} />
-        )}
-      </>
-    ) as any,
+    () => (props: React.AllHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>) =>
+      (
+        <>
+          {multiline ? (
+            <textarea {...props} rows={6} ref={elRef} />
+          ) : (
+            <input {...props} ref={elRef} />
+          )}
+        </>
+      ) as any,
     [elRef, multiline]
   )
 
@@ -62,12 +71,16 @@ const TextField: React.FC<TextFieldProps> = ({
     onChange(formattedValue)
   }
 
+  const isTypeText = ["text", "password", "email"].includes(type ?? "") || multiline
+
   return (
-    <div className={classes.textFieldWrapper}>
+    <div className="flex flex-col">
       <Field
-        className={classNames(classes.textField, className, {
-          [classes.typeText]: multiline || ["text", "password", "email"].includes(type ?? ""),
-          [classes.error]: typeof error === "string",
+        className={classNames("disabled:pointer-events-none disabled:opacity-50", className, {
+          "w-full rounded-lg border-2 border-gray-300 bg-transparent px-4 py-3 transition duration-500":
+            isTypeText,
+          "placeholder:text-sm placeholder:text-gray-500": isTypeText,
+          "border-red-500": typeof error === "string",
         })}
         id={id}
         value={Number.isNaN(value) ? "" : value}
@@ -82,9 +95,7 @@ const TextField: React.FC<TextFieldProps> = ({
         onFocus={onFocus}
         onBlur={onBlur}
       />
-      {error && (
-        <small className={classes.textFieldError}>{error}</small>
-      )}
+      {error && <small className="mt-1 text-xs font-medium text-red-500">{error}</small>}
     </div>
   )
 }

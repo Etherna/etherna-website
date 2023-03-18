@@ -1,0 +1,43 @@
+<svg viewBox="0 0 1801 917" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  preserveAspectRatio="xMidYMax slice">
+  <defs>
+    <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="mask-grad-1">
+      <stop stop-color="#FFFFFF" stop-opacity="0" offset="0%"></stop>
+      <stop stop-color="#DADEEB" stop-opacity="0.7" offset="100%"></stop>
+    </linearGradient>
+    <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="mask-grad-2">
+      <stop stop-color="#FFFFFF" stop-opacity="0" offset="0%"></stop>
+      <stop stop-color="#DADEEB" stop-opacity="0.8" offset="100%"></stop>
+    </linearGradient>
+    <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="mask-grad-3">
+      <stop stop-color="#FFFFFF" stop-opacity="0" offset="0%"></stop>
+      <stop stop-color="#DADEEB" stop-opacity="0.9" offset="100%"></stop>
+    </linearGradient>
+    <path
+      d="M1,0 L1801,0 L1801,770.937618 C1502.31891,812.979206 1202.64887,834 901.989886,834 C601.330901,834 300.667605,812.979206 0,770.937618 L1,0 Z"
+      id="mask-path-4"></path>
+    <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="mask-grad-6">
+      <stop stop-color="#D9DEEA" stop-opacity="0" offset="0%"></stop>
+      <stop stop-color="#DADEEB" offset="100%"></stop>
+    </linearGradient>
+    <path
+      d="M1,646.10311 L1801,646.10311 L1801,727.491493 C1502.31891,767.163831 1202.64887,787 901.989886,787 C601.330901,787 300.667605,767.163831 3.06954462e-12,727.491493 L1,646.10311 Z"
+      id="mask-path-7"></path>
+  </defs>
+  <g id="hero-mask" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <path
+      d="M1,0 L1801,0 L1801,847.661626 C1502.31891,893.887209 1202.64887,917 901.989886,917 C601.330901,917 300.667605,893.887209 0,847.661626 L1,0 Z"
+      id="mask" fill="url(#mask-grad-1)"></path>
+    <path
+      d="M1,0 L1801,0 L1801,812.534972 C1502.31891,856.844991 1202.64887,879 901.989886,879 C601.330901,879 300.667605,856.844991 0,812.534972 L1,0 Z"
+      id="mask" fill="url(#mask-grad-2)"></path>
+    <mask id="mask-5" fill="white">
+      <use xlink:href="#mask-path-4"></use>
+    </mask>
+    <use id="mask" fill="url(#mask-grad-3)" xlink:href="#mask-path-4"></use>
+    <mask id="mask-8" fill="white">
+      <use xlink:href="#mask-path-7"></use>
+    </mask>
+    <use id="mask" fill="url(#mask-grad-6)" xlink:href="#mask-path-7"></use>
+  </g>
+</svg>

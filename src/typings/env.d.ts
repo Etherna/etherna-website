@@ -1,12 +1,13 @@
-export { }
-
+export {}
 declare global {
-  namespace NodeJS {
-    interface ProcessEnv {
-      DIRECTUS_URL: string
-      DIRECTUS_PROJECT: string
-      DIRECTUS_TOKEN: string
-      SITE_URL: string
-    }
+  interface ImportMetaEnv {
+    readonly PUBLIC_DIRECTUS_URL: string
+    readonly PUBLIC_DIRECTUS_PROJECT: string
+    readonly DIRECTUS_TOKEN: string
+    readonly SITE_URL: string
+  }
+
+  interface ImportMeta {
+    readonly env: ImportMetaEnv
   }
 }

@@ -1,0 +1,47 @@
+---
+import BaseHead from "./BaseHead.astro"
+import Footer from "./Footer.astro"
+import Navbar from "./Navbar.astro"
+import I18nConfig from "@/components/layout/I18nConfig"
+import UrlRedirect from "@/components/layout/UrlRedirect"
+import fetchLocales from "@/queries/fetch-locales"
+import { configLang, Lang, LocalizedPaths } from "@/utils/lang"
+
+interface Props {
+  title: string
+  description?: string
+  image?: string
+  localizedPaths?: LocalizedPaths
+  lang: Lang
+}
+
+const { title, description, image, localizedPaths, lang } = Astro.props
+const { locales } = await fetchLocales()
+
+configLang(lang)
+---
+
+<html lang={lang}>
+  <head>
+    <BaseHead title={title} description={description} image={image} />
+  </head>
+  <body>
+    <UrlRedirect client:load />
+    <I18nConfig lang={lang} locales={locales} client:load />
+
+    <Navbar
+      lang={lang}
+      transparent={Astro.params.path === undefined}
+      localizedPaths={localizedPaths}
+    />
+
+    <main class="pt-16">
+      <slot />
+      <!-- your content is injected here -->
+    </main>
+
+    <Footer lang={lang} />
+
+    <section id="modals"></section>
+  </body>
+</html>

@@ -1,19 +1,23 @@
-import React from "react"
-import classNames from "@utils/classnames"
+import classNames from "@/utils/classnames"
 
-import classes from "@styles/components/common/Card.module.scss"
+import type { PropsWithChildren } from "react"
 
-type CardProps = {
-  children?: React.ReactNode
+type CardProps = PropsWithChildren<{
   className?: string
   size?: "large"
-}
+}>
 
 const Card: React.FC<CardProps> = ({ children, className, size }) => {
   return (
-    <div className={classNames(classes.card, className, {
-      [classes.cardLg]: size === "large"
-    })}>
+    <div
+      className={classNames(
+        "mx-auto max-w-3xl rounded-xl bg-white p-6",
+        {
+          "max-w-5xl": size === "large",
+        },
+        className
+      )}
+    >
       {children}
     </div>
   )

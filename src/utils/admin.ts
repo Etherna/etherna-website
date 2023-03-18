@@ -1,5 +1,4 @@
-import { CurrentUser } from "@definitions/app"
-import DirectusClient from "@directus/sdk-js"
+import DirectusClient from "@/classes/DirectusClient"
 
 export const StorageKeys = {
   token: "auth:token",
@@ -8,16 +7,11 @@ export const StorageKeys = {
   avatar: "user:avatar",
 }
 
-const token = typeof window !== "undefined"
-  ? window.localStorage.getItem(StorageKeys.token) ?? ""
-  : undefined
+const token =
+  typeof window !== "undefined" ? window.localStorage.getItem(StorageKeys.token) ?? "" : undefined
 
-const directusClient = new DirectusClient({
-  url: process.env.DIRECTUS_URL,
-  project: process.env.DIRECTUS_PROJECT,
-  mode: "jwt",
-  token,
-})
+const directusClient = new DirectusClient()
+directusClient.token = token
 
 export const getCurrentUser = () => {
   if (typeof window === "undefined") return null
@@ -25,7 +19,7 @@ export const getCurrentUser = () => {
   const token = window.localStorage.getItem(StorageKeys.token)
   if (token == null) return null
 
-  const user: CurrentUser = {
+  const user = {
     name: window.localStorage.getItem(StorageKeys.name) ?? "",
     email: window.localStorage.getItem(StorageKeys.email) ?? "",
     avatar: window.localStorage.getItem(StorageKeys.avatar) ?? "",
@@ -34,13 +28,12 @@ export const getCurrentUser = () => {
   return user
 }
 
-export const currentUserToken = () =>
-  window.localStorage.getItem(StorageKeys.token)
+export const currentUserToken = () => window.localStorage.getItem(StorageKeys.token)
 
 export const getThumbUrl = async (fileId: number) => {
   try {
     const file = await directusClient.getItem<{ data: any }>("directus_files", fileId)
-    const thumbs = file.data.data.thumbnails as Array<{ key: string, url: string }>
+    const thumbs = file.data.data.thumbnails as Array<{ key: string; url: string }>
     const mediumThumb = thumbs.find(t => t.key === "directus-medium-crop")
     const thumb = (mediumThumb && mediumThumb.url) || file.data.data.full_url
     return thumb as string
@@ -50,29 +43,27 @@ export const getThumbUrl = async (fileId: number) => {
 }
 
 export const isLoggedIn = async () => {
-  return (await directusClient.isLoggedIn())
+  return await directusClient.isLoggedIn()
 }
 
 export const authenticate = async (email: string, password: string) => {
-  await directusClient.login({
-    email,
-    password,
-    url: process.env.DIRECTUS_URL,
-    project: process.env.DIRECTUS_PROJECT,
-  })
+  await directusClient.login(email, password, "jwt")
 
-  const { data: user } = await directusClient.getMe()
-  directusClient.config.token = user.token
+  const user = await directusClient.getMe()
+  directusClient.token = user.token
 
   // save current auth token
-  window.localStorage.setItem(StorageKeys.token, user.token)
+  window.localStorage.setItem(StorageKeys.token, user.token ?? "")
 
   // save user basic info
-  window.localStorage.setItem(StorageKeys.name, `${user.first_name || ""} ${user.last_name || ""}`.trim())
+  window.localStorage.setItem(
+    StorageKeys.name,
+    `${user.first_name || ""} ${user.last_name || ""}`.trim()
+  )
   window.localStorage.setItem(StorageKeys.email, user.email)
 
   if (user.avatar) {
-    const thumb = await getThumbUrl(user.avatar)
+    const thumb = await getThumbUrl(user.avatar as unknown as number)
     thumb && window.localStorage.setItem(StorageKeys.avatar, thumb)
     !thumb && window.localStorage.removeItem(StorageKeys.avatar)
   }

@@ -1,62 +1,62 @@
-import React from "react"
-import { Link } from "gatsby"
-import classNames from "@utils/classnames"
+import Image from "@/components/common/Image"
+import classNames from "@/utils/classnames"
 
-import classes from "@styles/components/layout/MegaMenuItem.module.scss"
+import type { AstroImg } from "@/schema/app"
 
 type MegaMenuItemProps = {
-  to?: string
+  href?: string
   title: string
   excerpt?: string
-  imageUrl?: string
+  image?: AstroImg | null
   isExternal?: boolean
   disabled?: boolean
 }
 
 const MegaMenuItem: React.FC<MegaMenuItemProps> = ({
-  to,
+  href,
   title,
   excerpt,
-  imageUrl,
+  image,
   isExternal,
-  disabled
+  disabled,
 }) => {
   return (
     <div
-      className={classNames(classes.megaMenuItem, {
-        [classes.disabled]: disabled
-      })}
+      className={classNames(
+        "mb-3 flex min-h-[5.5rem] w-full max-w-96 items-center rounded-lg px-3 py-2 md:flex-1",
+        "transition-colors duration-500",
+        {
+          "hover:bg-gray-100": !disabled,
+          "opacity-50": disabled,
+        }
+      )}
     >
-      {imageUrl && (
-        <div className={classes.megaMenuItemImage}>
-          <LinkWrapper to={to} external={isExternal}>
-            <img src={imageUrl} alt={title} />
+      {image && (
+        <div className="w-1/3 pr-4">
+          <LinkWrapper href={href} external={isExternal}>
+            <Image data={image} alt={title} />
           </LinkWrapper>
         </div>
       )}
-      <div className={classes.megaMenuItemInfo}>
-        <LinkWrapper to={to} external={isExternal}>
-          <div className={classes.megaMenuItemTitle}>{title}</div>
-          {excerpt && (
-            <p className={classes.megaMenuItemDescription}>{excerpt}</p>
-          )}
+      <div className="flex-1 text-sm font-semibold">
+        <LinkWrapper href={href} external={isExternal}>
+          <div className="text-gray-900">{title}</div>
+          {excerpt && <p className="text-xs font-normal text-gray-500">{excerpt}</p>}
         </LinkWrapper>
       </div>
     </div>
   )
 }
 
-const LinkWrapper: React.FC<{ children?: React.ReactNode, to?: string, external?: boolean }> = ({
+const LinkWrapper: React.FC<{ children?: React.ReactNode; href?: string; external?: boolean }> = ({
   children,
-  to,
+  href,
   external,
 }) => {
-  return to ? (
-    external ? (
-      <a href={to} target="_blank" rel="noreferrer">{children}</a>
-    ) : (
-      <Link to={to}>{children}</Link>
-    )
+  return href ? (
+    <a href={href} target={external ? "_blank" : undefined} rel="noreferrer">
+      {children}
+    </a>
   ) : (
     <>{children}</>
   )

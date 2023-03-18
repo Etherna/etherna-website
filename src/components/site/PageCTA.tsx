@@ -1,35 +1,35 @@
-import React from "react"
-import { Link } from "gatsby"
+import { useTranslation } from "react-i18next"
 
-import classes from "@styles/components/site/PageCta.module.scss"
+import routes from "@/utils/routes"
 
-import useLocale from "@context/locale-context/hooks/useLocale"
-import { useTranslations } from "@hooks/useTranslations"
-import routes from "@utils/routes"
+import type { Lang } from "@/utils/lang"
 
-const PageCTA: React.FC = () => {
-  const [locale] = useLocale()
-  const { t } = useTranslations(locale, "page")
+type PageCTAProps = {
+  lang: Lang
+}
+
+const PageCTA: React.FC<PageCTAProps> = ({ lang }) => {
+  const { t } = useTranslation("page")
 
   return (
-    <div className={classes.pageCta}>
-      <div className={classes.pageCtaContent}>
-        <h3>{t`becomePartOfCommunity`}</h3>
+    <div className="mx-auto mb-8 max-w-prose rounded-lg bg-white p-4 shadow-xl md:mb-16 md:p-8 lg:text-lg">
+      <div className="space-y-3 lg:text-base">
+        <h3>{t("becomePartOfCommunity")}</h3>
 
-        <div className={classes.pageCtaItem}>
-          {t`followTheDevelopment` + " "}
+        <div className="text-gray-600">
+          {t("followTheDevelopment") + " "}
           <a
             href="https://t.me/etherna_io"
             className="social-link telegram"
             target="_blank"
             rel="noopener noreferrer"
           >
-            {t`telegramChannel`} →
+            {t("telegramChannel")} →
           </a>
         </div>
-        <div className={classes.pageCtaItem}>
-          {t`helpTheDevelopment` + " "}
-          <Link to={routes.homePath(locale) + "#contacts"}>{t`findHow`} →</Link>
+        <div className="text-gray-600">
+          {t("helpTheDevelopment") + " "}
+          <a href={routes.homePath(lang) + "#contacts"}>{t("findHow")} →</a>
         </div>
       </div>
     </div>

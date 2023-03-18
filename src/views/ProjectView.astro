@@ -1,0 +1,63 @@
+---
+import { z } from "zod"
+
+import { ReactComponent as GitHubLogo } from "@/assets/logos/github-logo.svg"
+
+import Col from "@/components/common/Col"
+import Container from "@/components/common/Container"
+import Markdown from "@/components/common/Markdown"
+import Prose from "@/components/common/Prose"
+import Row from "@/components/common/Row"
+import { projectSchema as project } from "@/schema/app"
+import { Lang, t } from "@/utils/lang"
+
+interface Props {
+  data: z.infer<typeof projectSchema>
+  lang: Lang
+}
+
+export const projectSchema = z.object({
+  project: project,
+})
+
+const { data, lang } = Astro.props
+---
+
+<Container className="py-8">
+  <Row>
+    <Col>
+      <Prose className="mt-4">
+        <article>
+          <header class="flex flex-wrap md:flex-nowrap">
+            <div class="my-3 ml-auto w-full text-right md:order-2 md:w-auto">
+              {
+                data.project.github_link && (
+                  <a
+                    href={data.project.github_link}
+                    class="ml-auto text-sm text-gray-800 hover:text-black"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <GitHubLogo className="inline-block" height="16" />
+                    {t("project:viewOnGithub", { lng: lang })}
+                  </a>
+                )
+              }
+            </div>
+            <div class="my-3 w-full md:order-1 md:w-auto md:flex-1">
+              {
+                data.project.image && (
+                  <img class="h-12 max-w-full object-contain object-left" {...data.project.image} />
+                )
+              }
+            </div>
+          </header>
+
+          <h1 class="font-sans">{data.project.title}</h1>
+
+          <Markdown rawMarkdown={data.project.content} />
+        </article>
+      </Prose>
+    </Col>
+  </Row>
+</Container>

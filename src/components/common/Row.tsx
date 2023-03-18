@@ -1,17 +1,15 @@
-import React from "react"
-import classNames from "@utils/classnames"
+import classNames from "@/utils/classnames"
 
-import classes from "@styles/components/common/Row.module.scss"
+import type { PropsWithChildren } from "react"
 
-type RowProps = {
-  children?: React.ReactNode
+type RowProps = PropsWithChildren<{
   className?: string
   elRef?: React.RefObject<HTMLDivElement>
-}
+}>
 
 const Row: React.FC<RowProps> = ({ children, className, elRef }) => {
   return (
-    <div className={classNames(classes.row, className)} ref={elRef}>
+    <div className={classNames("-mx-5 flex flex-wrap", className)} ref={elRef}>
       {children}
     </div>
   )

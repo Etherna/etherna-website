@@ -38,8 +38,9 @@ bower_components
 # node-waf configuration
 .lock-wscript
 
-# Compiled binary addons (http://nodejs.org/api/addons.html)
-build/Release
+# Compiled
+build
+dist
 
 # Dependency directories
 node_modules/
@@ -61,10 +62,6 @@ jspm_packages/
 .env*
 !.env.example
 
-# gatsby files
-.cache/
-public
-
 # Mac files
 .DS_Store
 
@@ -78,3 +75,5 @@ yarn-error.log
 
 # Other
 deploy*
+
+test*.ts

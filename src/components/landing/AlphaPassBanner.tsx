@@ -1,42 +1,46 @@
-import React, { useRef } from "react"
-import classNames from "@utils/classnames"
+import { useTranslation } from "react-i18next"
 
-import classes from "@styles/components/landing/AlphaPass.module.scss"
-
-import Container from "@components/common/Container"
-import Row from "@components/common/Row"
-import Col from "@components/common/Col"
-import ViewportObserver from "@components/layout/ViewportObserver"
-import useLocale from "@context/locale-context/hooks/useLocale"
-import { useTranslations } from "@hooks/useTranslations"
-import { Link } from "gatsby"
-import routes from "@utils/routes"
+import Col from "@/components/common/Col"
+import Container from "@/components/common/Container"
+import Row from "@/components/common/Row"
+import classNames from "@/utils/classnames"
 
 const AlphaPassBanner: React.FC = () => {
-  const [locale] = useLocale()
-  const { t } = useTranslations(locale, "landing")
-  const contentEl = useRef<HTMLDivElement>(null)
+  const { t } = useTranslation("landing")
 
   return (
     <section id="alpha-pass">
       <Container>
         <Row>
           <Col>
-            <ViewportObserver childrenRef={contentEl} viewportClassName="animation-active" threshold={0.1}>
-              <div className={classNames(classes.alphaPassBanner, "fade-in-up", "delay-50")} ref={contentEl}>
-                <h2>{t`requestAlphaPass`}</h2>
-                <p>{t`weAreLaunching`}</p>
-                <br />
-                <p>{t`firstReleaseLimited`}</p>
-                <p>{t`wantToParticipate`}</p>
+            <div
+              className={classNames(
+                "my-8 mx-auto max-w-2xl rounded-lg px-8 py-12 md:my-16",
+                "bg-white text-white shadow-xl shadow-indigo-600/20",
+                "bg-gradient-to-tr from-indigo-600 to-pink-600"
+              )}
+            >
+              <h2>{t("requestAlphaPass")}</h2>
+              <p>{t("weAreLaunching")}</p>
+              <br />
+              <p>{t("firstReleaseLimited")}</p>
+              <p>{t("wantToParticipate")}</p>
 
-                <div className="mt-6">
-                  <Link className={classes.alphaPassLink} to={routes.alphaPassPath()}>
-                    {t`requestAlphaPass`}
-                  </Link>
-                </div>
+              <div className="mt-6">
+                <a
+                  className={classNames(
+                    "inline-flex items-center rounded border border-white bg-transparent px-3 py-2 hover:bg-white",
+                    "font-semibold text-white hover:text-indigo-600",
+                    "transition-colors duration-300 ease-out"
+                  )}
+                  href="https://sso.etherna.io/AlphaPass"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {t("requestAlphaPass")}
+                </a>
               </div>
-            </ViewportObserver>
+            </div>
           </Col>
         </Row>
       </Container>

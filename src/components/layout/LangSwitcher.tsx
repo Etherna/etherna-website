@@ -1,107 +1,79 @@
-import React from "react"
-import { Link } from "gatsby"
-import classNames from "@utils/classnames"
+import Dropdown from "@/components/common/Dropdown"
+import Image from "@/components/common/Image"
+import classNames from "@/utils/classnames"
 
-import classes from "@styles/components/layout/LangSwitcher.module.scss"
-
-import Dropdown from "@components/common/Dropdown"
-import useLocaleInfo, { LocaleInfo } from "@hooks/useLocaleInfo"
-import useLocale from "@context/locale-context/hooks/useLocale"
-import { useDropdownContext } from "@context/dropdown-context"
+import type { AstroImg } from "@/schema/app"
+import type { LocalizedPaths, Lang } from "@/utils/lang"
 
 type LangSwitcherProps = {
   toggleClassName?: string
+  lang: string
+  locales: { code: string; name: string; flag: AstroImg }[]
+  localizedPaths?: LocalizedPaths
 }
 
-const LangSwitcher: React.FC<LangSwitcherProps> = ({ toggleClassName }) => {
-  const [localeInfo, locales] = useLocaleInfo()
-  const [locale] = useLocale()
-  const currentLocaleFlag = localeInfo(locale).flag.localFile.publicURL
-
+const LangSwitcher: React.FC<LangSwitcherProps> = ({
+  toggleClassName,
+  lang,
+  locales,
+  localizedPaths,
+}) => {
+  const currentLocaleFlag = locales.find(({ code }) => code === lang)?.flag
   return (
     <Dropdown
-      toggleClass={classNames(classes.langMenuToggle, toggleClassName)}
-      toggleChildren={
-        <div className={classes.langImage}>
-          <img src={currentLocaleFlag} alt="" />
-        </div>
-      }
+      toggleClass={classNames(
+        "border-4 border-transparent rounded-full transition duration-500",
+        "hover:bg-gray-400 focus:outline-0",
+        toggleClassName
+      )}
+      toggleChildren={<LangFlag flag={currentLocaleFlag!} />}
     >
-      <LangSwitcherMenu locales={locales} />
+      <nav className="mt-2 flex-col rounded border-gray-300 bg-white py-1 shadow">
+        {locales.map(({ code, name, flag }) => {
+          const url = localizedPaths?.[code as Lang]
+          return (
+            <a
+              href={url}
+              className={classNames(
+                "m-1 flex cursor-pointer rounded-sm px-5 py-2",
+                "text-sm font-semibold text-gray-600 hover:bg-gray-200 hover:text-gray-800",
+                {
+                  "border-blue-400 text-gray-800": code === lang,
+                  "pointer-events-none cursor-default opacity-40": !url,
+                }
+              )}
+              aria-label={`Switch to ${name}`}
+              key={code}
+            >
+              <LangFlag
+                flag={flag}
+                className={classNames("mr-3 opacity-40", {
+                  "opacity-100": code === lang,
+                })}
+                name={name}
+              />
+              <span>{name}</span>
+            </a>
+          )
+        })}
+      </nav>
     </Dropdown>
   )
 }
 
-const LangSwitcherMenu: React.FC<{ locales: LocaleInfo[] }> = ({ locales }) => {
-  const [locale, { getLocalePath }] = useLocale()
-
+const LangFlag: React.FC<{ flag: AstroImg; name?: string; className?: string }> = ({
+  flag,
+  className,
+  name,
+}) => {
   return (
-    <nav className={classes.langSwitcherMenu}>
-      {locales.map((loc, i) => {
-        const { code, name, flag } = loc
-        const localePath = getLocalePath(code)
-
-        return (
-          <LinkWrapper
-            to={localePath}
-            className={classNames(classes.langSwitcherMenuItem, {
-              [classes.active]: code === locale
-            })}
-            code={code}
-            name={name}
-            key={i}
-          >
-            <div className={classes.langImage}>
-              <img src={flag.localFile.publicURL} alt={name} />
-            </div>
-            <span>{name}</span>
-          </LinkWrapper>
-        )
-      })}
-    </nav>
-  )
-}
-
-type LinkWrapperProps = {
-  className?: string
-  to?: string
-  code: string
-  name: string
-}
-
-const LinkWrapper: React.FC<LinkWrapperProps> = ({ children, className, to, code, name }) => {
-  const [, { switchLocale }] = useLocale()
-  const [, setShowMenu] = useDropdownContext()
-
-  const handleSwitchLocale = (locale: string, e: React.KeyboardEvent | React.MouseEvent) => {
-    if ("key" in e && e.key !== "Enter") {
-      // Trigger only with ENTER
-      return
-    }
-
-    switchLocale(locale)
-    setShowMenu(false)
-  }
-
-  return to ? (
-    <Link
-      to={to}
-      className={className}
-      onClick={e => handleSwitchLocale(code, e)}
-      aria-label={`Switch to ${name}`}
-    >
-      {children}
-    </Link>
-  ) : (
     <div
-      className={className}
-      role="button"
-      tabIndex={0}
-      aria-label={`Switch to ${name}`}
-      onClick={e => handleSwitchLocale(code, e)}
-      onKeyDown={e => handleSwitchLocale(code, e)}
+      className={classNames(
+        "block h-5 w-5 overflow-hidden rounded-full border border-gray-200",
+        className
+      )}
     >
-      {children}
+      <Image data={flag} className="h-full w-full" alt={name} />
     </div>
   )
 }

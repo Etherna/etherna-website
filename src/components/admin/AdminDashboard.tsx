@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react"
 
-import classes from "@styles/components/admin/AdminDashboard.module.scss"
-import { ReactComponent as SpinnerIcon } from "@images/animated/spinner.svg"
+import { ReactComponent as SpinnerIcon } from "@/assets/animated/spinner.svg"
 
-import AdminLoginForm from "./AdminLoginForm"
 import AdminHeader from "./AdminHeader"
-import Button from "@components/common/Button"
-import Container from "@components/common/Container"
-import Row from "@components/common/Row"
-import Col from "@components/common/Col"
-import { isLoggedIn, getCurrentUser, logout } from "@utils/admin"
-import gravatar from "@utils/gravatar"
+import AdminLoginForm from "./AdminLoginForm"
+import Button from "@/components/common/Button"
+import Col from "@/components/common/Col"
+import Container from "@/components/common/Container"
+import Row from "@/components/common/Row"
+import { isLoggedIn, getCurrentUser, logout } from "@/utils/admin"
+import gravatar from "@/utils/gravatar"
 
 const AdminDashboard: React.FC = () => {
   const [isSignedIn, setIsSignedIn] = useState<boolean>()
@@ -60,10 +59,14 @@ const AdminDashboard: React.FC = () => {
           <AdminHeader />
 
           {isSignedIn && (
-            <div className={classes.adminDashboard}>
-              <img src={avatar ?? ""} alt={name ?? ""} className={classes.adminProfileAvatar} />
-              <h1 className={classes.adminProfileName}>{name}</h1>
-              <p className={classes.adminProfileEmail}>{email}</p>
+            <div className="mx-auto max-w-md px-10">
+              <img
+                src={avatar ?? ""}
+                alt={name ?? ""}
+                className="h-16 w-16 overflow-hidden rounded-full"
+              />
+              <h1 className="mb-4 text-gray-900">{name}</h1>
+              <p className="text-gray-600">{email}</p>
 
               <Button type="danger" onClick={signout} className="mt-12">
                 Sign out
@@ -71,13 +74,9 @@ const AdminDashboard: React.FC = () => {
             </div>
           )}
 
-          <div className={classes.adminDashboard}>
-            {isSignedIn === null && (
-              <SpinnerIcon className="mx-auto" width="30" />
-            )}
-            {isSignedIn === false && (
-              <AdminLoginForm onLogin={checkAuth} />
-            )}
+          <div className="mx-auto max-w-md px-10">
+            {isSignedIn === null && <SpinnerIcon className="mx-auto" width="30" />}
+            {isSignedIn === false && <AdminLoginForm onLogin={checkAuth} />}
           </div>
         </Col>
       </Row>

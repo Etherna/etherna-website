@@ -1,66 +1,65 @@
-import React, { useRef } from "react"
-import classNames from "@utils/classnames"
+import { useTranslation } from "react-i18next"
 
-import classes from "@styles/components/landing/Awards.module.scss"
-import swarmGrantImg from "@images/logos/swarm-grants.svg"
-import devconArchiveImg from "@images/logos/devcon-archive.svg"
+import { ReactComponent as AwardImg } from "@/assets/award.svg"
 
-import ViewportObserver from "@components/layout/ViewportObserver"
-import useLocale from "@context/locale-context/hooks/useLocale"
-import { useTranslations } from "@hooks/useTranslations"
-import Container from "@components/common/Container"
-import Row from "@components/common/Row"
-import Col from "@components/common/Col"
 import SectionTitle from "./SectionTitle"
+import Col from "@/components/common/Col"
+import Container from "@/components/common/Container"
+import Row from "@/components/common/Row"
+import classNames from "@/utils/classnames"
 
-const AwardList = [{
-  title: "SwarmGrants",
-  description: "SwarmGrantsDesc",
-  image: swarmGrantImg,
-  link: "https://medium.com/ethereum-swarm/buzz-is-in-the-air-swarm-grants-results-are-in-a030ab9178a9"
-}, {
-  title: "DevconArchive",
-  description: "DevconArchiveDesc",
-  image: devconArchiveImg,
-  link: "https://medium.com/ethereum-swarm/through-etherna-the-devcon-video-archive-is-now-available-on-the-swarm-network-66d4583df8c0"
-}]
+import type { Award } from "@/schema/app"
 
-const Awards: React.FC = () => {
-  const [locale] = useLocale()
-  const { t } = useTranslations(locale, "awards")
-  const titleRef = useRef<HTMLHeadingElement>(null)
-  const listRef = useRef<HTMLUListElement>(null)
+type AwardsProps = {
+  awards: Award[]
+}
+
+const Awards: React.FC<AwardsProps> = ({ awards }) => {
+  const { t } = useTranslation("awards")
 
   return (
-    <section className={classes.awards} id="awards">
+    <section className="py-16" id="awards">
       <Container>
         <Row>
           <Col>
-            <ViewportObserver childrenRef={titleRef} viewportClassName="animation-active" threshold={0.1}>
-              <SectionTitle
-                title={t`awards`}
-                className={classNames(classes.awardsTitle, "fade-in-up", "delay-50")}
-                anchorLink="awards"
-                elRef={titleRef}
-              />
-            </ViewportObserver>
+            <SectionTitle
+              title={t("awards")}
+              className="mb-4 w-full text-center text-4xl"
+              anchorLink="awards"
+            />
 
-            <ViewportObserver childrenRef={listRef} viewportClassName="animation-active" threshold={0.1}>
-              <ul className={classNames(classes.awardsList, "fade-in-up", "delay-200")} ref={listRef}>
-                {AwardList.map((award, i) => (
-                  <li className={classes.awardsItem} key={i}>
-                    <div className={classes.awardsItemImage} style={{ backgroundImage: `url(${award.image})` }} />
-                    <h3 className={classes.awardsTitle}>{t(award.title)}</h3>
-                    <p className={classes.awardsItemDescription}>{t(award.description)}</p>
-                    {award.link && (
-                      <a href={award.link} target="_blank" rel="noopener noreferrer" className={classes.awardsItemLink}>
-                        {t`moreInfo`}
-                      </a>
+            <ul className="flex flex-col items-center sm:flex-row sm:justify-evenly">
+              {awards.map((award, i) => (
+                <li
+                  className={classNames(
+                    "group relative w-full max-w-64 rounded-lg p-6 text-center transition-all duration-500",
+                    "hover:bg-white hover:shadow-lg"
+                  )}
+                  key={i}
+                >
+                  <div
+                    className={classNames(
+                      "relative w-full animate-uncolor-image bg-contain bg-center bg-no-repeat pb-full group-hover:animate-color-image"
                     )}
-                  </li>
-                ))}
-              </ul>
-            </ViewportObserver>
+                    style={{ backgroundImage: `url(${award.image.src})` }}
+                  >
+                    <AwardImg className="absolute inset-0" />
+                  </div>
+                  <h3 className="mb-4 text-center text-4xl">{t(award.title as any)}</h3>
+                  <p className="text-sm text-gray-800">{t(award.description as any)}</p>
+                  {award.link && (
+                    <a
+                      href={award.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-6 block text-sm after:absolute after:inset-0"
+                    >
+                      {t("moreInfo")}
+                    </a>
+                  )}
+                </li>
+              ))}
+            </ul>
           </Col>
         </Row>
       </Container>

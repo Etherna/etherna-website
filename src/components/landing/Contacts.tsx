@@ -1,22 +1,15 @@
-import React, { useRef } from "react"
-import classNames from "@utils/classnames"
-
-import classes from "@styles/components/landing/Contacts.module.scss"
+import { useTranslation } from "react-i18next"
 
 import SectionTitle from "./SectionTitle"
-import Container from "@components/common/Container"
-import Row from "@components/common/Row"
-import Col from "@components/common/Col"
-import ViewportObserver from "@components/layout/ViewportObserver"
-import useLocale from "@context/locale-context/hooks/useLocale"
-import { useTranslations } from "@hooks/useTranslations"
+import Col from "@/components/common/Col"
+import Container from "@/components/common/Container"
+import Row from "@/components/common/Row"
+import classNames from "@/utils/classnames"
+
+import type { PropsWithChildren } from "react"
 
 const Contacts = () => {
-  const [locale] = useLocale()
-  const { t } = useTranslations(locale, "contacts")
-  const titleRef = useRef<HTMLHeadingElement>(null)
-  const descriptionRef = useRef<HTMLParagraphElement>(null)
-  const contentRef = useRef<HTMLDivElement>(null)
+  const { t } = useTranslation("contacts")
 
   const mailto = (subject: string) => {
     const subjectQuery = subject ? `?subject=${subject}` : ""
@@ -24,55 +17,71 @@ const Contacts = () => {
   }
 
   return (
-    <section className={classes.contacts} id="contacts">
+    <section className="py-16" id="contacts">
       <Container>
         <Row>
           <Col>
-            <ViewportObserver childrenRef={titleRef} viewportClassName="animation-active" threshold={0.1}>
-              <SectionTitle
-                className={classNames(classes.contactsTitle, "fade-in-up", "delay-50")}
-                title={t`helpUsTitle`}
-                anchorLink="contacts"
-                elRef={titleRef}
-              />
-            </ViewportObserver>
-            <ViewportObserver childrenRef={descriptionRef} viewportClassName="animation-active" threshold={0.1}>
-              <p className={classNames(classes.contactsDescription, "fade-in-up", "delay-100")} ref={descriptionRef}>
-                {t`helpUsDescription`}
-              </p>
-            </ViewportObserver>
-
-            <ViewportObserver childrenRef={contentRef} viewportClassName="animation-active" threshold={0.1}>
-              <Row className="fade-in-up delay-150" elRef={contentRef}>
-                <Col className={classNames(classes.contactsCol, "md:w-1/2")}>
-                  <h3 className={classes.contactsSubtitle}>{t`forInvestors`}</h3>
-                  <div className={classes.contactsText}>
-                    <p>{t`forInvestorsDescription`}</p>
-                    <p>{t`forInvestorsCTADescription`}</p>
-                  </div>
-                  <a className={classes.contactsBtn} href={mailto(t`investorMailSubject`)}>
-                    {t`forInvestorsCTALabel`}
-                  </a>
-                </Col>
-                <Col className={classNames(classes.contactsCol, "md:w-1/2")}>
-                  <h3 className={classes.contactsSubtitle}>{t`forDevelopers`}</h3>
-                  <div className={classes.contactsText}>
-                    <p>{t`forDevelopersDescription`}</p>
-                    <p>{t`forDevelopersCTADescription`}</p>
-                  </div>
-                  <a className={classes.contactsBtn} href={mailto(t`developerMailSubject`)}>
-                    {t`forDevelopersCTALabel`}
-                  </a>
-                </Col>
-                <Col className="mt-12">
-                  <div className={classes.contactsText} dangerouslySetInnerHTML={{ __html: t`informationText` }} />
-                </Col>
-              </Row>
-            </ViewportObserver>
+            <SectionTitle
+              className="mb-4 w-full text-center text-4xl"
+              title={t("helpUsTitle")}
+              anchorLink="contacts"
+            />
+            <p className="mx-auto max-w-2xl pb-6 text-center text-gray-600">
+              {t("helpUsDescription")}
+            </p>
+            <Row className="">
+              <Col className={classNames("flex flex-col items-center py-6", "md:w-1/2")}>
+                <h3 className="text-gray-700">{t("forInvestors")}</h3>
+                <div className="text-center text-gray-600">
+                  <p>{t("forInvestorsDescription")}</p>
+                  <p>{t("forInvestorsCTADescription")}</p>
+                </div>
+                <ContactsBtn href={mailto(t("investorMailSubject"))}>
+                  {t("forInvestorsCTALabel")}
+                </ContactsBtn>
+              </Col>
+              <Col
+                className={classNames(
+                  "flex flex-col items-center py-6",
+                  "border-t border-gray-300 md:border-t-0 md:border-l",
+                  "md:w-1/2"
+                )}
+              >
+                <h3 className="text-gray-700">{t("forDevelopers")}</h3>
+                <div className="text-center text-gray-600">
+                  <p>{t("forDevelopersDescription")}</p>
+                  <p>{t("forDevelopersCTADescription")}</p>
+                </div>
+                <ContactsBtn href={mailto(t("developerMailSubject"))}>
+                  {t("forDevelopersCTALabel")}
+                </ContactsBtn>
+              </Col>
+              <Col className="mt-12">
+                <div
+                  className="text-center text-gray-600"
+                  dangerouslySetInnerHTML={{ __html: t("informationText") }}
+                />
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Container>
     </section>
+  )
+}
+
+const ContactsBtn: React.FC<PropsWithChildren<{ href: string }>> = ({ children, href }) => {
+  return (
+    <a
+      href={href}
+      className={classNames(
+        "mt-6 min-w-xxs whitespace-nowrap rounded-md border-0 px-6 py-2 shadow-none outline-none",
+        "bg-blue-600 text-center text-sm font-semibold text-white hover:bg-blue-400 hover:text-white",
+        "transition-colors duration-300"
+      )}
+    >
+      {children}
+    </a>
   )
 }
 

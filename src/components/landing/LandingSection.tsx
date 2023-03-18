@@ -1,14 +1,8 @@
-import React, { useRef } from "react"
-import classNames from "@utils/classnames"
-
-import classes from "@styles/components/landing/LandingSection.module.scss"
-
 import LandingSectionFeature from "./LandingSectionFeature"
-import Container from "@components/common/Container"
-import ViewportObserver from "@components/layout/ViewportObserver"
-import Row from "@components/common/Row"
-import Col from "@components/common/Col"
 import SectionTitle from "./SectionTitle"
+import Col from "@/components/common/Col"
+import Container from "@/components/common/Container"
+import Row from "@/components/common/Row"
 
 type LandingSectionProps = {
   id: string
@@ -17,37 +11,22 @@ type LandingSectionProps = {
   features: Array<{
     title: string
     description: string
-    icon?: string
+    icon?: React.FunctionComponent<React.SVGAttributes<SVGElement>>
   }>
 }
 
-const LandingSection: React.FC<LandingSectionProps> = ({
-  id,
-  title,
-  description,
-  features
-}) => {
-  const titleRef = useRef<HTMLHeadingElement>(null)
-  const descriptionRef = useRef<HTMLParagraphElement>(null)
-
+const LandingSection: React.FC<LandingSectionProps> = ({ id, title, description, features }) => {
   return (
-    <section id={id} className={classes.landingSection}>
+    <section id={id} className="py-24 text-center">
       <Container>
         <Row>
           <Col>
-            <ViewportObserver childrenRef={titleRef} viewportClassName="animation-active" threshold={0.1}>
-              <SectionTitle
-                className={classNames(classes.landingTitle, "fade-in-up", "delay-50")}
-                title={title}
-                anchorLink={id}
-                elRef={titleRef}
-              />
-            </ViewportObserver>
-            <ViewportObserver childrenRef={descriptionRef} viewportClassName="animation-active" threshold={0.1}>
-              <p className={classNames(classes.landingDescription, "fade-in-up", "delay-100")} ref={descriptionRef}>
-                {description}
-              </p>
-            </ViewportObserver>
+            <SectionTitle
+              className="mb-4 break-words text-5xl leading-tight text-gray-800"
+              title={title}
+              anchorLink={id}
+            />
+            <p className="mx-auto max-w-2xl pb-6 text-gray-600">{description}</p>
           </Col>
           {features.map((feature, i) => (
             <LandingSectionFeature feature={feature} count={features.length} key={i} />

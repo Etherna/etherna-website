@@ -1,0 +1,57 @@
+---
+import { z } from "zod"
+
+import Col from "@/components/common/Col"
+import Container from "@/components/common/Container"
+import Markdown from "@/components/common/Markdown"
+import Prose from "@/components/common/Prose"
+import Row from "@/components/common/Row"
+import PageCTA from "@/components/site/PageCTA"
+import { pageSchema as page } from "@/schema/app"
+
+import type { Lang } from "@/utils/lang"
+
+interface Props {
+  data: z.infer<typeof pageSchema>
+  lang: Lang
+}
+
+export const pageSchema = z.object({
+  page: page,
+})
+
+const { data, lang } = Astro.props
+---
+
+<Container fluid>
+  <Row className="py-12 bg-white">
+    <Col>
+      <Container>
+        <Row>
+          <Col>
+            <header class="mx-auto max-w-prose lg:text-lg">
+              <h1 class="mb-2">{data.page.title}</h1>
+              <p class="max-w-prose font-medium text-gray-600">{data.page.excerpt}</p>
+            </header>
+          </Col>
+        </Row>
+      </Container>
+    </Col>
+  </Row>
+
+  <Row>
+    <Col>
+      <Prose className="pt-8">
+        <article>
+          <Markdown rawMarkdown={data.page.content} />
+        </article>
+      </Prose>
+    </Col>
+  </Row>
+
+  <Row>
+    <Col>
+      <PageCTA lang={lang} />
+    </Col>
+  </Row>
+</Container>

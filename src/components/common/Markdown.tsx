@@ -1,6 +1,4 @@
-import React from "react"
-
-import microdownEnhanced from "@utils/microdown"
+import microdownEnhanced from "@/utils/microdown"
 
 type MarkdownProps = {
   rawMarkdown: string
@@ -22,9 +20,7 @@ const Markdown: React.FC<MarkdownProps> = ({
   onClick,
 }) => {
   const safeMarkdown = rawMarkdown ?? ""
-  const formattedMarkdown = forceNewLine
-    ? safeMarkdown.replace(/\n/g, "<br />")
-    : safeMarkdown
+  const formattedMarkdown = forceNewLine ? safeMarkdown.replace(/\n/g, "<br />") : safeMarkdown
   const markdown = microdownEnhanced(formattedMarkdown)
 
   return (

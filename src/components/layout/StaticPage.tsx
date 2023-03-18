@@ -1,19 +1,16 @@
-import React from "react"
+import Col from "@/components/common/Col"
+import Container from "@/components/common/Container"
+import Row from "@/components/common/Row"
 
-import classes from "@styles/components/layout/StaticPage.module.scss"
+import type { PropsWithChildren } from "react"
 
-import Container from "@components/common/Container"
-import Row from "@components/common/Row"
-import Col from "@components/common/Col"
-
-type StaticPageProps = {
-  children?: React.ReactNode
+type StaticPageProps = PropsWithChildren<{
   title?: string
-}
+}>
 
 const StaticPage: React.FC<StaticPageProps> = ({ title, children }) => {
   return (
-    <div className={classes.staticPage}>
+    <div className="pt-10 pb-20 md:pt-20 md:pb-40">
       <Container>
         <Row>
           {title && (
@@ -21,9 +18,7 @@ const StaticPage: React.FC<StaticPageProps> = ({ title, children }) => {
               <h1>{title}</h1>
             </Col>
           )}
-          <Col>
-            {children}
-          </Col>
+          <Col>{children}</Col>
         </Row>
       </Container>
     </div>

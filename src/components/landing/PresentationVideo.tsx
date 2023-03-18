@@ -1,18 +1,14 @@
 import React, { useEffect, useMemo, useRef, useState } from "react"
-
-import classes from "@styles/components/landing/PresentationVideo.module.scss"
+import { useTranslation } from "react-i18next"
 
 import SectionTitle from "./SectionTitle"
-import Col from "@components/common/Col"
-import Container from "@components/common/Container"
-import Row from "@components/common/Row"
-import ViewportObserver from "@components/layout/ViewportObserver"
-import useLocale from "@context/locale-context/hooks/useLocale"
-import { useTranslations } from "@hooks/useTranslations"
+import Col from "@/components/common/Col"
+import Container from "@/components/common/Container"
+import Row from "@/components/common/Row"
+import ViewportObserver from "@/components/layout/ViewportObserver"
 
 const PresentationVideo: React.FC = () => {
-  const [locale] = useLocale()
-  const { t } = useTranslations(locale, "landing")
+  const { t } = useTranslation("landing")
   const videoRatio = 0.56
   const containerEl = useRef<HTMLIFrameElement>(null)
   const [width, setWidth] = useState(576)
@@ -48,13 +44,14 @@ const PresentationVideo: React.FC = () => {
               threshold={0.1}
               onEnterViewport={loadFrameSize}
             >
-              <div className={classes.presentationVideo} ref={containerEl}>
+              <div className="mx-auto flex max-w-2xl flex-col items-center" ref={containerEl}>
                 <SectionTitle
-                  title={t`watchPresentation`}
+                  title={t("watchPresentation")}
                   anchorLink="wam-presentation"
+                  className="text-center"
                 />
                 <iframe
-                  src="https://etherna.io/embed/9e7f8fc6358dd286c096e350364e36515db694d689ebf49eababac1b1cd838ca"
+                  src="https://etherna.io/embed/8bf67c54ec7cdbfdcc2d77b8e357cf7d64d846e9870a767f25d2ac1cea5fa3e4"
                   width="100%"
                   height={height}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

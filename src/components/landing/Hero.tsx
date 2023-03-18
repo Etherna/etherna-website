@@ -1,45 +1,32 @@
-import React, { useRef } from "react"
-import classNames from "@utils/classnames"
+import { useTranslation } from "react-i18next"
 
-import classes from "@styles/components/landing/Hero.module.scss"
+import { ReactComponent as HeroBg } from "@/assets/hero-bg.svg"
+import { ReactComponent as HeroMask } from "@/assets/hero-mask.svg"
 
-import Container from "@components/common/Container"
-import ViewportObserver from "@components/layout/ViewportObserver"
-import useLocale from "@context/locale-context/hooks/useLocale"
-import { useTranslations } from "@hooks/useTranslations"
-import Button from "@components/common/Button"
+import Button from "@/components/common/Button"
+import Container from "@/components/common/Container"
 
 const Hero: React.FC = () => {
-  const titleRef = useRef<HTMLHeadingElement>(null)
-  const subheadingRef = useRef<HTMLParagraphElement>(null)
-  const ctaRef = useRef<HTMLButtonElement>(null)
-  const [locale] = useLocale()
-  const { t } = useTranslations(locale, "hero")
+  const { t } = useTranslation("hero")
 
   return (
-    <section className={classes.hero}>
-      <Container className="flex flex-col items-center">
-        <ViewportObserver childrenRef={titleRef} viewportClassName="animation-active">
-          <h1
-            className={classNames(classes.heroTitle, "fade-in-up")}
-            dangerouslySetInnerHTML={{ __html: t`heading` }}
-            ref={titleRef}
-          />
-        </ViewportObserver>
+    <section className="relative w-full">
+      <HeroBg className="absolute -z-[1] h-full w-full" />
+      <HeroMask className="absolute top-0 -z-[2] h-[calc(100%+150px)] w-full" />
+      <Container className="flex flex-col items-center py-8 lg:py-16">
+        <h1
+          className="mt-12 mb-8 text-center text-5xl font-black leading-tight lg:mt-16 lg:mb-12 lg:text-6xl"
+          dangerouslySetInnerHTML={{ __html: t("heading") }}
+        />
 
-        <ViewportObserver childrenRef={subheadingRef} viewportClassName="animation-active">
-          <p
-            className={classNames(classes.heroDescription, "fade-in-up", "delay-100")}
-            dangerouslySetInnerHTML={{ __html: t`subheading` }}
-            ref={subheadingRef}
-          />
-        </ViewportObserver>
+        <p
+          className="text-center text-lg shadow-white drop-shadow-md"
+          dangerouslySetInnerHTML={{ __html: t("subheading") }}
+        />
 
-        <ViewportObserver childrenRef={ctaRef} viewportClassName="animation-active">
-          <Button className="mt-8" type="primary" href="https://etherna.io" target="_blank" ref={ctaRef} large>
-            {t`visitOurDapp`}
-          </Button>
-        </ViewportObserver>
+        <Button className="mt-8" type="primary" href="https://etherna.io" target="_blank" large>
+          {t("visitOurDapp")}
+        </Button>
       </Container>
     </section>
   )

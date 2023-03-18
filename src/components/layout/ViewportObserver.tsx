@@ -51,7 +51,7 @@ const ViewportObserver: React.FC<ViewportObserverProps> = ({
   }, [childrenRef.current])
 
   const observerCallback = (entries: IntersectionObserverEntry[]) => {
-    const entry = entries[0]
+    const entry = entries[0]!
     if (entry.isIntersecting) {
       triggerEvent()
       intersectionObserver.current?.disconnect()
@@ -69,11 +69,7 @@ const ViewportObserver: React.FC<ViewportObserverProps> = ({
     }
   }
 
-  return (
-    <>
-      {children}
-    </>
-  )
+  return <>{children}</>
 }
 
 export default ViewportObserver

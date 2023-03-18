@@ -13,7 +13,8 @@ jobs:
     environment:
       name: ${{ endsWith(github.ref, '/main') && 'production' || 'development' }}
     env:
-      DIRECTUS_URL: ${{ secrets.DIRECTUS_URL }}
+      PUBLIC_DIRECTUS_URL: ${{ secrets.PUBLIC_DIRECTUS_URL }}
+      PUBLIC_DIRECTUS_PROJECT: ${{ secrets.PUBLIC_DIRECTUS_PROJECT }}
       DIRECTUS_PROJECT: "etherna"
       DIRECTUS_TOKEN: ${{ secrets.DIRECTUS_TOKEN }}
       DISABLE_SOURCEMAP: "true"
@@ -38,6 +39,6 @@ jobs:
           host: ${{ secrets.FTP_HOST }}
           user: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          localDir: "public"
+          localDir: "dist"
           remoteDir: ${{ secrets.FTP_REMOTE_DIR }}
           options: "--delete -X cgi-bin/ -X .well-known/"

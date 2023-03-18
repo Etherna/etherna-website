@@ -1,0 +1,74 @@
+---
+import { z } from "zod"
+
+import BlogPostFooter from "@/components/blog/BlogPostFooter"
+import BlogPostHeader from "@/components/blog/BlogPostHeader"
+import BlogPostSchema from "@/components/blog/BlogPostSchema"
+import BlogPostSidebarLeft from "@/components/blog/BlogPostSidebarLeft"
+import BlogPostSidebarRight from "@/components/blog/BlogPostSidebarRight"
+import Col from "@/components/common/Col"
+import Container from "@/components/common/Container"
+import Markdown from "@/components/common/Markdown"
+import Prose from "@/components/common/Prose"
+import Row from "@/components/common/Row"
+import { postSchema as post } from "@/schema/app"
+import routes from "@/utils/routes"
+
+import type { Lang } from "@/utils/lang"
+
+interface Props {
+  data: z.infer<typeof postSchema>
+  lang: Lang
+}
+
+export const postSchema = z.object({
+  post: post,
+})
+
+const { data, lang } = Astro.props
+---
+
+<BlogPostHeader
+  author={data.post.author}
+  postTitle={data.post.title}
+  category={data.post.category}
+  image={data.post.image}
+  published={data.post.published_on}
+  updated={data.post.updated_on}
+  lang={lang}
+  client:load
+/>
+
+<Prose className="pt-20 pb-32">
+  <Container larger>
+    <Row>
+      <BlogPostSidebarLeft post={data.post} lang={lang} client:load />
+
+      <Col className="lg:w-auto lg:flex-1 order-2">
+        <article class="lg:max-w-xl lg:px-0">
+          <h1 class="font-serif text-5xl leading-none">{data.post.title}</h1>
+
+          <Markdown rawMarkdown={data.post.content} />
+
+          <BlogPostSchema
+            author={data.post.author}
+            title={data.post.title}
+            image={data.post.image?.attributes.src}
+            url={routes.blogPostPath(data.post.slug, data.post.locale)}
+            excerpt={data.post.excerpt}
+            content={data.post.content}
+            keywords={data.post.meta_keywords}
+            lang={data.post.locale}
+            publishDate={data.post.published_on}
+            updateDate={data.post.updated_on}
+          />
+        </article>
+
+        <BlogPostFooter className="mx-auto max-w-prose lg:text-lg" />
+        {/* <Comments postId={data.post.id} lang={lang} client:load /> */}
+      </Col>
+
+      <BlogPostSidebarRight />
+    </Row>
+  </Container>
+</Prose>

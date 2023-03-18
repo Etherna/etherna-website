@@ -1,55 +1,20 @@
 {
-  "scss.validate": false,
-  "css.validate": false,
   "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
   "path-autocomplete.pathMappings": {
-    "@components": "${folder}/src/components",
-    "@context": "${folder}/src/context",
-    "@images": "${folder}/src/images",
-    "@queries": "${folder}/src/queries",
-    "@definitions": "${folder}/src/definitions",
-    "@lang": "${folder}/src/lang",
-    "@hooks": "${folder}/src/hooks",
-    "@styles": "${folder}/src/styles",
-    "@pages": "${folder}/src/pages",
-    "@templates": "${folder}/src/templates",
-    "@utils": "${folder}/src/utils",
+    "@/": "${folder}/src"
   },
-  "eslint.validate": [
-    "javascript",
-    "typescript",
-    "typescriptreact"
-  ],
-  "[javascript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
+  "eslint.validate": ["typescript", "typescriptreact"],
+  "[astro]": {
+    "editor.defaultFormatter": "astro-build.astro-vscode"
   },
   "[typescript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[typescriptreact]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "tailwindCSS.validate": true
-  },
-  "license-header-manager.excludeFolders": [
-    "node_modules",
-    "build",
-    "images",
-    "config"
-  ],
-  "license-header-manager.excludeExtensions": [
-    ".js"
-  ],
-  "license-header-manager.additionalCommentStyles": [
-    {
-      "extension": ".tsx",
-      "commentStart": "/*",
-      "commentMiddle": " * ",
-      "commentEnd": " */"
-    }
-  ]
+  }
 }

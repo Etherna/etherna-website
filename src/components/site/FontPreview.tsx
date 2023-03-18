@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
 
-import classes from "@styles/components/site/FontPreview.module.scss"
-
 type FontPreviewProps = {
   fontFamily: string
   fontWeight: string[]
@@ -25,8 +23,8 @@ const FontPreview: React.FC<FontPreviewProps> = ({ fontFamily, fontWeight, impor
     if (window.FontFace) {
       try {
         const font = new FontFace(fontFamily, `url(${importUrl})`)
-        await font.load();
-        (document.fonts as any).add(font)
+        await font.load()
+        ;(document.fonts as any).add(font)
 
         fontFaceLoaded = true
       } catch (error) {
@@ -53,13 +51,16 @@ const FontPreview: React.FC<FontPreviewProps> = ({ fontFamily, fontWeight, impor
   if (!loaded) return null
 
   return (
-    <div className={classes.fontPreviewText} style={{
-      fontFamily,
-      fontWeight: (fontWeight?.length && +fontWeight[0]) ?? undefined
-    }}>
-      {new Array(26).fill(0).map((_, i) => (
-        String.fromCharCode(65 + i) + String.fromCharCode(97 + i)
-      ))}
+    <div
+      className="w-[calc(100%-theme('spacing.10'))] cursor-default select-none overflow-hidden text-center text-4xl absolute-center"
+      style={{
+        fontFamily,
+        fontWeight: (fontWeight?.length && +fontWeight[0]!) ?? undefined,
+      }}
+    >
+      {new Array(26)
+        .fill(0)
+        .map((_, i) => String.fromCharCode(65 + i) + String.fromCharCode(97 + i))}
     </div>
   )
 }

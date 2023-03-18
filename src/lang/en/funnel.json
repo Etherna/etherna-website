@@ -2,7 +2,7 @@
   "thankYou": "Thank you for your subscription 🙏",
   "checkInbox": "To complete the registration you have to click on the confirmation link that we sent you to your email.",
   "checkSpam": "Check the SPAM folder",
-  "checkCorrectEmail": "Make sure you provided the correct email (<strong>:email</strong>). If this is not the case repeat the registration process in homepage.",
+  "checkCorrectEmail": "Make sure you provided the correct email (<strong>{{email}}</strong>). If this is not the case repeat the registration process in homepage.",
   "writeUs": "If after these checks you still haven't received the email contact us at <a href='mailto:info@etherna.io'>info@etherna.io</a>",
   "success": "Registration completed",
   "registrationConfirmed": "🎉 Your registration is completed, you will receive our newsletter containing updates on the developments of the Etherna project."

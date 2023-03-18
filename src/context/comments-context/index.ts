@@ -1,22 +1,25 @@
-import { createContext, Reducer } from "react"
+import { createContext } from "react"
 
-import { parseComments } from "@utils/dataParser"
-import { CommentsContextValue, CommentsState } from "@definitions/comments-context"
-import { CommentNode } from "@definitions/sources"
+import type { Reducer } from "react"
+import type { CommentsContextValue, CommentsState } from "@/definitions/comments-context"
+import type { Comment } from "@/schema/app"
 
 export const CommentsContext = createContext<CommentsContextValue | undefined>(undefined)
 
-export type CommentsContextActions = {
-  type: "REPLY_TO"
-  replyTo: CommentNode | undefined
-} | {
-  type: "ADD_COMMENT"
-  comment: CommentNode
-} | {
-  type: "REFRESH_COMMENTS"
-  comments: CommentNode[]
-  multiLang: boolean
-}
+export type CommentsContextActions =
+  | {
+      type: "REPLY_TO"
+      replyTo: Comment | undefined
+    }
+  | {
+      type: "ADD_COMMENT"
+      comment: Comment
+    }
+  | {
+      type: "REFRESH_COMMENTS"
+      comments: Comment[]
+      multiLang: boolean
+    }
 
 export const reducer: Reducer<CommentsState, CommentsContextActions> = (state, action) => {
   switch (action.type) {
@@ -25,16 +28,15 @@ export const reducer: Reducer<CommentsState, CommentsContextActions> = (state, a
       return { ...state, replyTo }
     }
     case "ADD_COMMENT": {
-      const commentNodes = [...state.commentNodes].concat([action.comment])
-      const comments = parseComments(commentNodes)
-      return { ...state, commentNodes, comments } as CommentsState
+      const comments = [...state.comments, action.comment]
+      return { ...state, comments } as CommentsState
     }
     case "REFRESH_COMMENTS": {
-      const commentNodes = action.comments
+      const comments = action.comments
       const multiLang = action.multiLang
-      const comments = parseComments(commentNodes)
-      return { ...state, commentNodes, comments, multiLang } as CommentsState
+      return { ...state, comments, multiLang } as CommentsState
     }
-    default: return state
+    default:
+      return state
   }
 }

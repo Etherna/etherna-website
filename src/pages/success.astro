@@ -1,0 +1,13 @@
+---
+import StaticPage from "@/components/layout/StaticPage"
+import Layout from "@/layouts/Layout.astro"
+import { t } from "@/utils/lang"
+
+Astro.params.path = "success"
+---
+
+<Layout title={t("funnel:success")} lang="en">
+  <StaticPage title={t("funnel:success")}>
+    <div class="max-w-screen-md text-lg">{t("funnel:registrationConfirmed")}</div>
+  </StaticPage>
+</Layout>
