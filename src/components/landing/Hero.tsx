@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next"
 
-import { ReactComponent as HeroBg } from "@/images/hero-bg.svg"
-import { ReactComponent as HeroMask } from "@/images/hero-mask.svg"
+import { ReactComponent as HeroBg } from "@/assets/hero-bg.svg"
+import { ReactComponent as HeroMask } from "@/assets/hero-mask.svg"
 
 import Button from "@/components/common/Button"
 import Container from "@/components/common/Container"

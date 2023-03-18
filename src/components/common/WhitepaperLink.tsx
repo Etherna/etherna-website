@@ -1,4 +1,4 @@
-import { ReactComponent as DocIcon } from "@/images/icons/document.svg"
+import { ReactComponent as DocIcon } from "@/assets/icons/document.svg"
 
 import HeaderMenu from "@/components/layout/HeaderMenu"
 

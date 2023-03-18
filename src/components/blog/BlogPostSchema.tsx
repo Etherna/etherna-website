@@ -1,6 +1,6 @@
 import removeMd from "remove-markdown"
 
-import ethernaLogo from "@/images/logo-etherna.png"
+import ethernaLogo from "@/assets/logo-etherna.png"
 
 import dayjs from "@/utils/dayjs"
 

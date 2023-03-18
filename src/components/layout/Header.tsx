@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
 
-import { ReactComponent as Logo } from "@/images/logo.svg"
+import { ReactComponent as Logo } from "@/assets/logo.svg"
 
 import HeaderMenu from "./HeaderMenu"
 import LangSwitcher from "./LangSwitcher"

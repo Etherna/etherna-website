@@ -1,10 +1,10 @@
 import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 
-import { ReactComponent as CheckIcon } from "@/images/icons/check.svg"
-import { ReactComponent as ClockIcon } from "@/images/icons/clock.svg"
-import { ReactComponent as FlagIcon } from "@/images/icons/flag.svg"
-import { ReactComponent as RoadmapTitleBg } from "@/images/roadmap-title-bg.svg"
+import { ReactComponent as CheckIcon } from "@/assets/icons/check.svg"
+import { ReactComponent as ClockIcon } from "@/assets/icons/clock.svg"
+import { ReactComponent as FlagIcon } from "@/assets/icons/flag.svg"
+import { ReactComponent as RoadmapTitleBg } from "@/assets/roadmap-title-bg.svg"
 
 import RoadmapCarousel from "./RoadmapCarousel"
 import SectionTitle from "./SectionTitle"

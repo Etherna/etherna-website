@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-import { ReactComponent as SpinnerIcon } from "@/images/animated/spinner-light.svg"
+import { ReactComponent as SpinnerIcon } from "@/assets/animated/spinner-light.svg"
 
 import Alert from "@/components/common/Alert"
 import Button from "@/components/common/Button"

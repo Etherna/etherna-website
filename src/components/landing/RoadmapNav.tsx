@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo } from "react"
 
-import worldBg from "@/images/world.png"
+import worldBg from "@/assets/world.png"
 
 import { quadraticBezier } from "@/utils/bezier"
 import classNames from "@/utils/classnames"

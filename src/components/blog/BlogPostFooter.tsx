@@ -1,9 +1,10 @@
 import { useTranslation } from "react-i18next"
 
-import { ReactComponent as DiscussionIcon } from "@/images/icons/discussion.svg"
-import { ReactComponent as DiscordLogo } from "@/images/logos/discord-logo.svg"
-import { ReactComponent as GithubLogo } from "@/images/logos/github-logo.svg"
-import { ReactComponent as TelegramLogo } from "@/images/logos/telegram-logo.svg"
+import { ReactComponent as DiscussionIcon } from "@/assets/icons/discussion.svg"
+import { ReactComponent as DiscordLogo } from "@/assets/logos/discord-logo.svg"
+import { ReactComponent as GithubLogo } from "@/assets/logos/github-logo.svg"
+import { ReactComponent as TelegramLogo } from "@/assets/logos/telegram-logo.svg"
+
 import classNames from "@/utils/classnames"
 
 import type { PropsWithChildren } from "react"

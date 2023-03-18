@@ -1,4 +1,4 @@
-import { ReactComponent as FeatureBg } from "@/images/feature-bg.svg"
+import { ReactComponent as FeatureBg } from "@/assets/feature-bg.svg"
 
 import Col from "@/components/common/Col"
 import classNames from "@/utils/classnames"

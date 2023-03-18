@@ -1,7 +1,7 @@
 import React, { Fragment, useRef } from "react"
 import { Dialog, Transition } from "@headlessui/react"
 
-import { ReactComponent as CrossIcon } from "@/images/icons/cross-icon.svg"
+import { ReactComponent as CrossIcon } from "@/assets/icons/cross-icon.svg"
 
 import Container from "./Container"
 import classNames from "@/utils/classnames"

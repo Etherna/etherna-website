@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 
-import { ReactComponent as AwardImg } from "@/images/award.svg"
+import { ReactComponent as AwardImg } from "@/assets/award.svg"
 
 import SectionTitle from "./SectionTitle"
 import Col from "@/components/common/Col"

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react"
 
-import { ReactComponent as ChevronDown } from "@/images/icons/chevron-down.svg"
+import { ReactComponent as ChevronDown } from "@/assets/icons/chevron-down.svg"
 
 import DropdownContextProvider from "@/context/dropdown-context/dropdown-context-provider"
 import classNames from "@/utils/classnames"

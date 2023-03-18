@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import axios from "axios"
 
-import { ReactComponent as Spinner } from "@/images/animated/spinner-light.svg"
+import { ReactComponent as Spinner } from "@/assets/animated/spinner-light.svg"
 
 import Alert from "@/components/common/Alert"
 import Button from "@/components/common/Button"

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 
-import { ReactComponent as SpinnerIcon } from "@/images/animated/spinner.svg"
+import { ReactComponent as SpinnerIcon } from "@/assets/animated/spinner.svg"
 
 import AdminHeader from "./AdminHeader"
 import AdminLoginForm from "./AdminLoginForm"

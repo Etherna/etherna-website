@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
 
-import { ReactComponent as ArrowDown } from "@/images/icons/arrow-down.svg"
+import { ReactComponent as ArrowDown } from "@/assets/icons/arrow-down.svg"
 
 import RoadmapNav from "./RoadmapNav"
 import Image from "@/components/common/Image"

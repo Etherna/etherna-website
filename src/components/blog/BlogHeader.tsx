@@ -1,4 +1,4 @@
-import { ReactComponent as HeaderPattern } from "@/images/header-pattern.svg"
+import { ReactComponent as HeaderPattern } from "@/assets/header-pattern.svg"
 
 import Col from "@/components/common/Col"
 import Container from "@/components/common/Container"

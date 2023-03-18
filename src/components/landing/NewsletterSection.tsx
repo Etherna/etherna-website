@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 
-import { ReactComponent as NewsletterImage } from "@/images/newsletter.svg"
+import { ReactComponent as NewsletterImage } from "@/assets/newsletter.svg"
 
 import NewsletterForm from "./NewsletterForm"
 import SectionTitle from "./SectionTitle"

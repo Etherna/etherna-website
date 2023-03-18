@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
-import { ReactComponent as SpinnerIcon } from "@/images/animated/spinner-light.svg"
+import { ReactComponent as SpinnerIcon } from "@/assets/animated/spinner-light.svg"
 
 import CommentThreadMessage from "./CommentThreadMessage"
 import Alert from "@/components/common/Alert"
