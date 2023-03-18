@@ -1,17 +1,23 @@
 import DirectusClient from "@/classes/DirectusClient"
 
-import type { PageNode } from "@/schema/cms"
+import type { DocumentsNode, PageNode } from "@/schema/cms"
 
 export default async function fetchNavbar(lang: string) {
   const client = new DirectusClient()
-  const { data: pages } = await client.getItems<PageNode>("pages", {
-    fields: [
-      "show_in_menu",
-      "localized_contents.title",
-      "localized_contents.slug",
-      "localized_contents.locale",
-    ],
-  })
+  const [{ data: pages }, { data: documents }] = await Promise.all([
+    client.getItems<PageNode>("pages", {
+      fields: [
+        "show_in_menu",
+        "localized_contents.title",
+        "localized_contents.slug",
+        "localized_contents.locale",
+      ],
+    }),
+    client.getItems<DocumentsNode>("documents", {
+      fields: ["whitepaper.private_hash", "whitepaper.filename_disk", "whitepaper.description"],
+      single: true,
+    }),
+  ])
 
   const navbarPages = pages
     .filter(p => p.show_in_menu)
@@ -24,5 +30,10 @@ export default async function fetchNavbar(lang: string) {
 
   return {
     pages: navbarPages,
+    documents: {
+      whitepaper: documents.whitepaper?.private_hash
+        ? client.getFileUrl(documents.whitepaper?.private_hash)
+        : null,
+    },
   }
 }

@@ -12,7 +12,7 @@ interface Props {
 }
 
 const { lang, transparent, localizedPaths } = Astro.props
-const { pages } = await fetchNavbar(lang)
+const { pages, documents } = await fetchNavbar(lang)
 const { locales } = await fetchLocales()
 ---
 
@@ -20,6 +20,7 @@ const { locales } = await fetchLocales()
   pages={pages}
   locales={locales}
   lang={lang}
+  whitepaperLink={documents.whitepaper}
   transparent={transparent}
   localizedPaths={localizedPaths}
   client:load

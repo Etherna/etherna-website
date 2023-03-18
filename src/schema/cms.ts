@@ -195,6 +195,16 @@ export const milestoneNodeSchema = z.object({
   longitude: z.number(),
 })
 
+export const documentsNodeSchema = z.object({
+  whitepaper: fileNodeSchema
+    .omit({
+      width: true,
+      height: true,
+      data: true,
+    })
+    .nullable(),
+})
+
 // Types
 
 export type ImageThumbnailNode = z.infer<typeof imageThumbnailNodeSchema>
@@ -218,3 +228,4 @@ export type LogoNode = z.infer<typeof logoNodeSchema>
 export type BrandNode = z.infer<typeof brandNodeSchema>
 export type MilestoneLocalizedContentsNode = z.infer<typeof milestoneLocalizedContentsNodeSchema>
 export type MilestoneNode = z.infer<typeof milestoneNodeSchema>
+export type DocumentsNode = z.infer<typeof documentsNodeSchema>

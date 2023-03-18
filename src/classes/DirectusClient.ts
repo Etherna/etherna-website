@@ -173,7 +173,7 @@ export default class DirectusClient {
     this.token = undefined
   }
 
-  getFileUrl(filename: string) {
-    return `${this.url}/${this.project}/assets/${filename}`
+  getFileUrl(privateHash: string) {
+    return `${this.url}/${this.project}/assets/${privateHash}`
   }
 }

@@ -17,11 +17,19 @@ type HeaderProps = {
   transparent?: boolean
   localizedPaths?: LocalizedPaths
   pages: { title: string; slug: string }[]
+  whitepaperLink?: string | null
   locales: LocaleInfo[]
   lang: Lang
 }
 
-const Header: React.FC<HeaderProps> = ({ transparent, localizedPaths, pages, locales, lang }) => {
+const Header: React.FC<HeaderProps> = ({
+  transparent,
+  localizedPaths,
+  pages,
+  whitepaperLink,
+  locales,
+  lang,
+}) => {
   const [isActive, setIsActive] = useState(false)
   const [showContextualMenu, setShowContextualMenu] = useState(false)
   const contextualMenu = useRef<HTMLDivElement>(null)
@@ -56,11 +64,13 @@ const Header: React.FC<HeaderProps> = ({ transparent, localizedPaths, pages, loc
             </a>
           </div>
 
-          <WhitepaperLink
-            className="hidden sm:ml-3 sm:flex"
-            url="todo!!!"
-            filename="whitepaper.pdf"
-          />
+          {whitepaperLink && (
+            <WhitepaperLink
+              className="hidden sm:ml-3 sm:flex"
+              url={whitepaperLink}
+              filename="whitepaper.pdf"
+            />
+          )}
 
           <button
             className="ml-auto flex items-center text-xs font-semibold uppercase text-gray-800 focus:shadow-transparent lg:hidden"
@@ -120,11 +130,13 @@ const Header: React.FC<HeaderProps> = ({ transparent, localizedPaths, pages, loc
           >
             <div className="flex w-full flex-nowrap items-center overflow-x-auto py-2 lg:w-auto lg:flex-1 lg:overflow-x-visible lg:py-0">
               <HeaderMenu correctMobile>
-                <WhitepaperLink
-                  url="todo!!!"
-                  filename="whitepaper.pdf"
-                  className="flex sm:hidden"
-                />
+                {whitepaperLink && (
+                  <WhitepaperLink
+                    className="flex sm:hidden"
+                    url={whitepaperLink}
+                    filename="whitepaper.pdf"
+                  />
+                )}
               </HeaderMenu>
 
               <HeaderMenu position="right">
