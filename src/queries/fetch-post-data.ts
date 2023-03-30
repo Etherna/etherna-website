@@ -7,6 +7,11 @@ import type { Lang, LocalizedPaths } from "@/utils/lang"
 
 export default async function fetchPostData(lang: Lang, path: string) {
   const slug = parseSlug(path)
+
+  if (!slug) {
+    throw new Error(`Slug not found, path: '${path}'`)
+  }
+
   const client = new DirectusClient()
   const {
     data: [post],

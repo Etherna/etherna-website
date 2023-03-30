@@ -177,10 +177,11 @@ export const parsePage = (path: string) => {
  */
 export const whichRoute = (path: string, lang: Lang) => {
   const routesGroups = Object.keys(routesIdentifiers) as (keyof typeof routesIdentifiers)[]
-  const normalizedPath = withLocale(
-    withoutPagination(path).replace(/^\/?/, "/").replace(/\/?$/, "") || "/",
-    lang
-  )
+  const normalizedPath =
+    withLocale(
+      withoutPagination(path).replace(/^\/?/, "/").replace(/\/?$/, "") || "/",
+      lang
+    ).replace(/\/$/, "") || "/"
 
   for (const code of Languages) {
     for (const group of routesGroups) {
