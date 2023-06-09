@@ -57,7 +57,7 @@ const TeamMember: React.FC<TeamMemberProps> = ({ member, fluid, dark, onSelect }
         </div>
         <h2
           className={classNames(
-            "col-span-1 col-start-2 row-span-1 row-start-1 mt-2 mb-0",
+            "col-span-1 col-start-2 row-span-1 row-start-1 mb-0 mt-2",
             "text-xl font-semibold leading-none text-gray-900 dark:text-gray-100"
           )}
         >

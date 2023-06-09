@@ -1,8 +1,8 @@
 .fade-in-up {
-  @apply transform translate-y-16 opacity-0 transition duration-700;
+  @apply translate-y-16 transform opacity-0 transition duration-700;
   animation-timing-function: cubic-bezier(0, 0, 0.03, 1);
 
   &.animation-active {
-    @apply opacity-100 translate-y-0;
+    @apply translate-y-0 opacity-100;
   }
 }

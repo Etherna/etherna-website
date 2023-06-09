@@ -1,6 +1,6 @@
 const AdminHeader: React.FC = () => {
   return (
-    <header className="mt-6 mb-20 flex flex-wrap items-center">
+    <header className="mb-20 mt-6 flex flex-wrap items-center">
       <div className="flex w-full justify-around py-8 md:order-2 md:w-auto md:flex-1">
         <a href="/">
           <img src={require("@/assets/logo.svg").default} alt="Etherna" />

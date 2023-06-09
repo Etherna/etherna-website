@@ -18,9 +18,9 @@ const BlogPostFooter: React.FC<BlogPostFooterProps> = ({ className }) => {
 
   return (
     <footer
-      className={classNames("mt-32 mb-4 border-t-2 border-b-2 border-gray-500 py-10", className)}
+      className={classNames("mb-4 mt-32 border-b-2 border-t-2 border-gray-500 py-10", className)}
     >
-      <h6 className="mt-0 mb-3 flex items-center text-center font-bold">
+      <h6 className="mb-3 mt-0 flex items-center text-center font-bold">
         <DiscussionIcon width="14" className="mr-2" />
         {t("blog:discussions")}
       </h6>

@@ -59,7 +59,7 @@ const BlogHeader: React.FC<BlogHeaderProps> = ({ title, categories, currentCateg
       <HeaderPattern
         className={classNames(
           "absolute block h-28 w-56 opacity-25",
-          "right-0 bottom-0 -mr-12 rotate-180 transform bg-left-bottom opacity-50"
+          "bottom-0 right-0 -mr-12 rotate-180 transform bg-left-bottom opacity-50"
         )}
       />
     </header>

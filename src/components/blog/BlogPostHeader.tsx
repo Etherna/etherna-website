@@ -11,7 +11,7 @@ import classNames from "@/utils/classnames"
 import dayjs from "@/utils/dayjs"
 import routes from "@/utils/routes"
 
-import type { Category, AstroImg, User } from "@/schema/app"
+import type { AstroImg, Category, User } from "@/schema/app"
 import type { Lang } from "@/utils/lang"
 
 type BlogPostHeaderProps = {

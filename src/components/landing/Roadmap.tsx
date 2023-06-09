@@ -64,7 +64,7 @@ const Roadmap: React.FC<RoadmapProps> = ({ milestones }) => {
 
               <span
                 className={classNames(
-                  "absolute top-2 right-8 ml-3 flex h-8 w-8 translate-x-full whitespace-nowrap rounded-full text-xs font-bold text-white",
+                  "absolute right-8 top-2 ml-3 flex h-8 w-8 translate-x-full whitespace-nowrap rounded-full text-xs font-bold text-white",
                   {
                     "bg-green-500": selectedMilestone.completion === "done",
                     "bg-blue-500": selectedMilestone.completion === "ongoing",

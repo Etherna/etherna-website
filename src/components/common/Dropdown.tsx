@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react"
+import React, { useRef, useState } from "react"
 
 import { ReactComponent as ChevronDown } from "@/assets/icons/chevron-down.svg"
 

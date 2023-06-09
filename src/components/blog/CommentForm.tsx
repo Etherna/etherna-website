@@ -8,7 +8,7 @@ import Alert from "@/components/common/Alert"
 import Button from "@/components/common/Button"
 import TextField from "@/components/common/TextField"
 import useCommentsContext from "@/context/comments-context/hooks/useCommentsContext"
-import { getCurrentUser, currentUserToken } from "@/utils/admin"
+import { currentUserToken, getCurrentUser } from "@/utils/admin"
 import classNames from "@/utils/classnames"
 import { parseComment } from "@/utils/dataParser"
 

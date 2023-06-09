@@ -1,6 +1,6 @@
-import React from "react"
+import { DropdownContext } from "."
 
-import { DropdownContext, DropdownContextState } from "."
+import type { DropdownContextState } from "."
 
 type DropdownContextProviderProps = {
   children?: React.ReactNode
@@ -11,15 +11,11 @@ type DropdownContextProviderProps = {
 const DropdownContextProvider: React.FC<DropdownContextProviderProps> = ({
   children,
   showMenu,
-  setShowMenu
+  setShowMenu,
 }) => {
   const store: DropdownContextState = [showMenu, setShowMenu]
 
-  return (
-    <DropdownContext.Provider value={store}>
-      {children}
-    </DropdownContext.Provider>
-  )
+  return <DropdownContext.Provider value={store}>{children}</DropdownContext.Provider>
 }
 
 export default DropdownContextProvider

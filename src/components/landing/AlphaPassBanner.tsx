@@ -15,7 +15,7 @@ const AlphaPassBanner: React.FC = () => {
           <Col>
             <div
               className={classNames(
-                "my-8 mx-auto max-w-2xl rounded-lg px-8 py-12 md:my-16",
+                "mx-auto my-8 max-w-2xl rounded-lg px-8 py-12 md:my-16",
                 "bg-white text-white shadow-xl shadow-indigo-600/20",
                 "bg-gradient-to-tr from-indigo-600 to-pink-600"
               )}

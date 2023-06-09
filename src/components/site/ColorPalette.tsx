@@ -26,7 +26,7 @@ const ColorPalette: React.FC<ColorPaletteProps> = ({ name, color }) => {
   return (
     <div className="w-full overflow-hidden rounded border border-gray-300 p-3">
       <div className="-mx-3 -mt-3 pb-24" style={{ backgroundColor: color }}></div>
-      {name && <h3 className="mt-3 mb-2 text-base font-semibold">{name}</h3>}
+      {name && <h3 className="mb-2 mt-3 text-base font-semibold">{name}</h3>}
       <table className="text-left">
         <tbody>
           {Object.entries(colors).map(([colorType, color]) => (

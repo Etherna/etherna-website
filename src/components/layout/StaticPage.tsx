@@ -10,7 +10,7 @@ type StaticPageProps = PropsWithChildren<{
 
 const StaticPage: React.FC<StaticPageProps> = ({ title, children }) => {
   return (
-    <div className="pt-10 pb-20 md:pt-20 md:pb-40">
+    <div className="pb-20 pt-10 md:pb-40 md:pt-20">
       <Container>
         <Row>
           {title && (

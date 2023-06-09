@@ -4,6 +4,7 @@ import Tippy from "@tippyjs/react"
 import dayjs from "dayjs"
 
 import "tippy.js/dist/tippy.css"
+
 import { ReactComponent as VerifiedUserIcon } from "@/assets/icons/verified-user.svg"
 
 import CommentForm from "./CommentForm"
@@ -74,7 +75,7 @@ const CommentThreadMessage: React.FC<CommentThreadMessageProps> = ({
             </span>
           </span>
 
-          <span className="mt-1 block leading-none text-gray-900 [&_p]:mt-0 [&_p]:mb-1">
+          <span className="mt-1 block leading-none text-gray-900 [&_p]:mb-1 [&_p]:mt-0">
             <Markdown rawMarkdown={comment.comment} />
           </span>
 

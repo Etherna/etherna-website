@@ -73,12 +73,12 @@ const FontPalette: React.FC<FontPaletteProps> = ({
           </span>
         )}
       </div>
-      {name && <h3 className="mt-3 mb-0 text-base font-semibold">{name}</h3>}
+      {name && <h3 className="mb-0 mt-3 text-base font-semibold">{name}</h3>}
       <span className="mb-4 text-xs font-semibold text-gray-600">{fontFamilies}</span>
 
       {link && (
         <a
-          className="mt-auto ml-auto text-sm font-semibold"
+          className="ml-auto mt-auto text-sm font-semibold"
           href={link}
           target="_blank"
           rel="noopener noreferrer"

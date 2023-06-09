@@ -71,7 +71,7 @@ const LogoPalette: React.FC<LogoPaletteProps> = ({ name, variants, gridClassName
                 />
               )}
             </div>
-            <h3 className="mt-3 mb-2 text-base font-semibold">{t(`logoStyle.${group.style}`)}</h3>
+            <h3 className="mb-2 mt-3 text-base font-semibold">{t(`logoStyle.${group.style}`)}</h3>
             <div className="flex flex-wrap">
               {group.variants.map((variant, i) => (
                 <div key={i}>

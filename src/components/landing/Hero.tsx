@@ -15,7 +15,7 @@ const Hero: React.FC = () => {
       <HeroMask className="absolute top-0 -z-[2] h-[calc(100%+150px)] w-full" />
       <Container className="flex flex-col items-center py-8 lg:py-16">
         <h1
-          className="mt-12 mb-8 text-center text-5xl font-black leading-tight lg:mt-16 lg:mb-12 lg:text-6xl"
+          className="mb-8 mt-12 text-center text-5xl font-black leading-tight lg:mb-12 lg:mt-16 lg:text-6xl"
           dangerouslySetInnerHTML={{ __html: t("heading") }}
         />
 

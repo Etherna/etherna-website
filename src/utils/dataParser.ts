@@ -5,17 +5,17 @@ import DirectusClient from "@/classes/DirectusClient"
 
 import type { Lang } from "./lang"
 import type {
+  AstroImg,
+  Brand,
   Category,
+  Comment,
+  CommentOwner,
+  Milestone,
   Page,
   Post,
   Project,
   TeamMember,
-  Comment,
-  CommentOwner,
-  Milestone,
-  AstroImg,
   User,
-  Brand,
 } from "@/schema/app"
 import type {
   BrandNode,

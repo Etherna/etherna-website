@@ -5,7 +5,7 @@ export const quadraticBezier = (
   qx: number,
   qy: number,
   x2: number,
-  y2: number,
+  y2: number
 ) => {
   const xyCalc = (a: number, q: number, b: number) => {
     return Math.pow(1 - v, 2) * a + 2 * v * (1 - v) * q + Math.pow(v, 2) * b

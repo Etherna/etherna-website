@@ -3,7 +3,7 @@ import Image from "@/components/common/Image"
 import classNames from "@/utils/classnames"
 
 import type { AstroImg } from "@/schema/app"
-import type { LocalizedPaths, Lang } from "@/utils/lang"
+import type { Lang, LocalizedPaths } from "@/utils/lang"
 
 type LangSwitcherProps = {
   toggleClassName?: string

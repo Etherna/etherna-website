@@ -43,7 +43,7 @@ const Contacts = () => {
               <Col
                 className={classNames(
                   "flex flex-col items-center py-6",
-                  "border-t border-gray-300 md:border-t-0 md:border-l",
+                  "border-t border-gray-300 md:border-l md:border-t-0",
                   "md:w-1/2"
                 )}
               >

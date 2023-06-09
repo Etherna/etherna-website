@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect, useState } from "react"
 
 import { ReactComponent as SpinnerIcon } from "@/assets/animated/spinner.svg"
 
@@ -8,7 +8,7 @@ import Button from "@/components/common/Button"
 import Col from "@/components/common/Col"
 import Container from "@/components/common/Container"
 import Row from "@/components/common/Row"
-import { isLoggedIn, getCurrentUser, logout } from "@/utils/admin"
+import { getCurrentUser, isLoggedIn, logout } from "@/utils/admin"
 import gravatar from "@/utils/gravatar"
 
 const AdminDashboard: React.FC = () => {

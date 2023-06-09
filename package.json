@@ -12,7 +12,10 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "lint": "eslint **/*.{ts,tsx}",
+    "format": "prettier --write src '**/*.{ts,tsx}'",
+    "tscheck": "tsc --noEmit"
   },
   "dependencies": {
     "@astrojs/image": "^0.17.0",

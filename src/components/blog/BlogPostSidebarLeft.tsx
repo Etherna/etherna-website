@@ -22,7 +22,7 @@ const BlogPostSidebarLeft: React.FC<BlogPostSidebarLeftProps> = ({ post }) => {
 
   return (
     <BlogPostSidebar position="left" className="mt-16 lg:mt-0">
-      {otherLangs.length > 0 && <h6 className="mt-0 mb-4">{t("moreLanguages")}</h6>}
+      {otherLangs.length > 0 && <h6 className="mb-4 mt-0">{t("moreLanguages")}</h6>}
       {otherLangs.map((slugInfo, i) => (
         <Fragment key={i}>
           <a
@@ -45,7 +45,7 @@ const BlogPostSidebarLeft: React.FC<BlogPostSidebarLeftProps> = ({ post }) => {
         </Fragment>
       ))}
 
-      <h6 className="mt-0 mb-4">{t`sharePost`}</h6>
+      <h6 className="mb-4 mt-0">{t`sharePost`}</h6>
       <ShareButtons
         className="mb-16"
         url={routes.blogPostPath(post.slug, post.locale)}

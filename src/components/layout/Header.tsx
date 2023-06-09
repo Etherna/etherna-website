@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import { ReactComponent as Logo } from "@/assets/logo.svg"
@@ -90,7 +90,7 @@ const Header: React.FC<HeaderProps> = ({
                   className={classNames(
                     "absolute left-1 top-2.5 h-0.5 w-[22px] rounded-[1px] bg-gray-900",
                     {
-                      "top-3 left-1": showContextualMenu,
+                      "left-1 top-3": showContextualMenu,
                     }
                   )}
                 />
@@ -105,9 +105,9 @@ const Header: React.FC<HeaderProps> = ({
               >
                 <div
                   className={classNames(
-                    "absolute left-1 bottom-2.5 h-0.5 w-[22px] rounded-[1px] bg-gray-900",
+                    "absolute bottom-2.5 left-1 h-0.5 w-[22px] rounded-[1px] bg-gray-900",
                     {
-                      "top-3.5 left-1.5": showContextualMenu,
+                      "left-1.5 top-3.5": showContextualMenu,
                     }
                   )}
                 />
