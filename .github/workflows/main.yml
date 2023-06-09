@@ -12,7 +12,6 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
 
-
     environment:
       name: ${{ endsWith(github.ref, '/main') && 'production' || 'development' }}
 
@@ -26,17 +25,17 @@ jobs:
 
     steps:
       - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.1
+        uses: styfle/cancel-workflow-action@0.11.0
         with:
           access_token: ${{ github.token }}
 
       - uses: actions/checkout@v3
 
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 18
-          architecture: 'x64'
+          architecture: "x64"
 
       - name: Install dependencies
         run: yarn install --ignore-optional
@@ -47,7 +46,7 @@ jobs:
       - name: Cache build artifacts
         uses: actions/cache@v3
         with:
-          path: '**/dist'
+          path: "**/dist"
           key: build-artifacts-${{ github.sha }}
 
   publish_host:
@@ -65,7 +64,7 @@ jobs:
       - name: Restore build artifacts
         uses: actions/cache@v3
         with:
-          path: '**/dist'
+          path: "**/dist"
           key: build-artifacts-${{ github.sha }}
 
       - name: Upload to Host
