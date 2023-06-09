@@ -28,6 +28,10 @@
     "3": {
       "title": "Community Based",
       "description": "All our decisions will be shared transparently with the help of users in our social platforms."
+    },
+    "4": {
+      "title": "Censorship Resistant",
+      "description": "We are building a platform that cannot be censored. We will not be able to delete any content."
     }
   },
   "users": "For Creators and Users",

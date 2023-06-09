@@ -18,8 +18,7 @@ const LandingSectionFeature: React.FC<LandingSectionFeatureProps> = ({ feature, 
       className={classNames({
         // fix purge css
         "sm:w-1/2": count === 2,
-        "sm:w-1/3": count === 3,
-        "mx-auto sm:w-1/3": count === 4,
+        "sm:w-1/3": count >= 3,
       })}
     >
       <div className="mb-8 px-6">

@@ -28,9 +28,11 @@ const LandingSection: React.FC<LandingSectionProps> = ({ id, title, description,
             />
             <p className="mx-auto max-w-2xl pb-6 text-gray-600">{description}</p>
           </Col>
-          {features.map((feature, i) => (
-            <LandingSectionFeature feature={feature} count={features.length} key={i} />
-          ))}
+          <div className="flex w-full flex-wrap justify-evenly">
+            {features.map((feature, i) => (
+              <LandingSectionFeature feature={feature} count={features.length} key={i} />
+            ))}
+          </div>
         </Row>
       </Container>
     </section>

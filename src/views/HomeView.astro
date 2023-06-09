@@ -1,6 +1,7 @@
 ---
 import { z } from "zod"
 
+import { ReactComponent as FeatureCensorshipIcon } from "@/assets/icons/feature-censorship.svg"
 import { ReactComponent as FeatureCommunityIcon } from "@/assets/icons/feature-community.svg"
 import { ReactComponent as FeatureCreativityIcon } from "@/assets/icons/feature-creativity.svg"
 import { ReactComponent as FeatureDecentralizedIcon } from "@/assets/icons/feature-decentralized.svg"
@@ -107,6 +108,11 @@ const { data } = Astro.props
   title={t("landing:transparency")}
   description={t("landing:transparencyDescription")}
   features={[
+    {
+      icon: FeatureCensorshipIcon,
+      title: t("landing:transparencyFeatures.4.title"),
+      description: t("landing:transparencyFeatures.4.description"),
+    },
     {
       icon: FeatureShadowBanIcon,
       title: t("landing:transparencyFeatures.0.title"),
