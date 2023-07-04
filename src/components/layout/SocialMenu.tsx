@@ -65,7 +65,7 @@ const SocialMenu: React.FC<SocialMenuProps> = ({
         <TwitterLogo />
       </SocialMenuLink>
       <SocialMenuLink
-        href="https://discord.gg/vfHYEXf"
+        href="https://info.etherna.io/discord"
         name={t("discord")}
         className={classNames(
           "hover:text-discord",

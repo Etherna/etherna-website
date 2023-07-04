@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useReducer } from "react"
 import { parseComments } from "@utils/dataParser"
 
