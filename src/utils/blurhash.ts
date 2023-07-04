@@ -18,6 +18,10 @@ export function blurHashToDataURL(hash: string | null | undefined): string {
 }
 
 export async function serverImageToBlurhash(transform: TransformOptions) {
+  if (process.env.NODE_ENV === "development") {
+    // fix certificate issue in development
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
+  }
   const resp = await fetch(transform.src.toString())
   const image = await resp.arrayBuffer()
   const loader = globalThis.astroImage.defaultLoader
