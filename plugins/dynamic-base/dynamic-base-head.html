@@ -1,0 +1,24 @@
+<script>
+  ;(function () {
+    // define basepath
+    const path = window.location.pathname
+    const bzzPattern = /\/bzz\/([^/]+)/
+    const basename = bzzPattern.test(path) ? path.match(bzzPattern)[0] : ""
+    window.__basename = basename
+
+    if (!basename) return
+
+    // prepend base path
+    const assetsTags = document.querySelectorAll(`head>link[href^="/"],head>script[src^="/"]`)
+
+    for (const asset of assetsTags) {
+      const assetCopy = asset.cloneNode(true)
+      asset.hasAttribute("href") &&
+        assetCopy.setAttribute("href", basename + asset.getAttribute("href"))
+      asset.hasAttribute("src") &&
+        assetCopy.setAttribute("src", basename + asset.getAttribute("src"))
+      asset.parentNode.insertBefore(assetCopy, asset)
+      asset.remove()
+    }
+  })()
+</script>
