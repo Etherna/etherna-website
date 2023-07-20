@@ -1,0 +1,38 @@
+<script>
+  ;(function () {
+    const basename = window.__basename
+
+    if (!basename) return
+
+    // prepend base path
+    const astroTags = document.querySelectorAll(`astro-island`)
+
+    for (const astro of astroTags) {
+      const astroCopy = astro.cloneNode(true)
+
+      const srcTags = astroCopy.querySelectorAll(`[src]`)
+      const hrefTags = astroCopy.querySelectorAll(`[href]`)
+
+      srcTags.forEach(tag => {
+        tag.src = basename + tag.src
+      })
+      hrefTags.forEach(tag => {
+        tag.href = basename + tag.href
+      })
+
+      astro.hasAttribute("component-url") &&
+        astroCopy.setAttribute("component-url", basename + astro.getAttribute("component-url"))
+      astro.hasAttribute("renderer-url") &&
+        astroCopy.setAttribute("renderer-url", basename + astro.getAttribute("renderer-url"))
+      // astro.hasAttribute("props") && astroCopy.setAttribute("props", JSON.stringify(JSON.parse))
+      astroCopy.innerHTML = astro.innerHTML.replace(
+        /(src="\/)|((href="\/))/gm,
+        match => `${match.slice(0, match.length - 1)}${basename}/`
+      )
+      astroCopy.dataset.bzz = true
+
+      astro.parentNode.insertBefore(astroCopy, astro)
+      astro.remove()
+    }
+  })()
+</script>
