@@ -1,19 +1,3 @@
-const pluginSortImports = require("@ianvs/prettier-plugin-sort-imports")
-const pluginTailwindcss = require("prettier-plugin-tailwindcss")
-
-/** @type {import("prettier").Parser}  */
-const myParser = {
-  ...pluginSortImports.parsers.typescript,
-  parse: pluginTailwindcss.parsers.typescript.parse,
-}
-
-/** @type {import("prettier").Plugin}  */
-const myPlugin = {
-  parsers: {
-    typescript: myParser,
-  },
-}
-
 module.exports = {
   htmlWhitespaceSensitivity: "ignore",
   printWidth: 100,
@@ -42,7 +26,7 @@ module.exports = {
     "<TYPES>^@/",
     "<TYPES>",
   ],
-  importOrderSeparation: false,
-  importOrderMergeDuplicateImports: true,
-  plugins: [myPlugin],
+  importOrderTypeScriptVersion: "5.0.0",
+  tailwindConfig: "./tailwind.config.js",
+  plugins: ["@ianvs/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
 }

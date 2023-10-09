@@ -1,9 +1,9 @@
 ---
 import { z } from "zod"
 
+import ArticleSchema from "@/components/schema/ArticleSchema"
 import BlogPostFooter from "@/components/blog/BlogPostFooter"
 import BlogPostHeader from "@/components/blog/BlogPostHeader"
-import BlogPostSchema from "@/components/blog/BlogPostSchema"
 import BlogPostSidebarLeft from "@/components/blog/BlogPostSidebarLeft"
 import BlogPostSidebarRight from "@/components/blog/BlogPostSidebarRight"
 import Col from "@/components/common/Col"
@@ -50,7 +50,7 @@ const { data, lang } = Astro.props
 
           <Markdown rawMarkdown={data.post.content} />
 
-          <BlogPostSchema
+          <ArticleSchema
             author={data.post.author}
             title={data.post.title}
             image={data.post.image?.attributes.src}

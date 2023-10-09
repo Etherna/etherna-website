@@ -4,6 +4,7 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "strictNullChecks": true,
+    "esModuleInterop": true,
     "exactOptionalPropertyTypes": false,
     "baseUrl": ".",
     "paths": {
