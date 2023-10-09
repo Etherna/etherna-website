@@ -37,7 +37,7 @@ const BlogPostSchema: React.FC<BlogPostSchemaProps> = ({
     headline: title,
     publisher: {
       "@type": "Organization",
-      name: "Etherna Sagl",
+      name: "Etherna SA",
       email: "info(at)etherna.io",
       logo: {
         "@type": "ImageObject",
