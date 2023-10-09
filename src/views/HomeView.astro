@@ -32,6 +32,7 @@ import LandingSection from "@/components/landing/LandingSection"
 import NewsletterSection from "@/components/landing/NewsletterSection"
 // import PresentationVideo from "@/components/landing/PresentationVideo"
 import Roadmap from "@/components/landing/Roadmap"
+import OrganizationSchema from "@/components/schema/OrganizationSchema"
 import { awardSchema, milestoneSchema } from "@/schema/app"
 import { t } from "@/utils/lang"
 
@@ -207,3 +208,5 @@ const { data } = Astro.props
 <Contacts />
 
 <NewsletterSection client:load />
+
+<OrganizationSchema />

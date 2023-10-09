@@ -3,8 +3,6 @@ import { useTranslation } from "react-i18next"
 import Tippy from "@tippyjs/react"
 import dayjs from "dayjs"
 
-import "tippy.js/dist/tippy.css"
-
 import { ReactComponent as VerifiedUserIcon } from "@/assets/icons/verified-user.svg"
 
 import CommentForm from "./CommentForm"

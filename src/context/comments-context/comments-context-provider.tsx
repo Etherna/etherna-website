@@ -1,9 +1,9 @@
 // @ts-nocheck
 
 import React, { useReducer } from "react"
-import { parseComments } from "@utils/dataParser"
 
 import { CommentsContext, reducer } from "."
+import { parseComments } from "@/utils/dataParser"
 
 import type { CommentsState } from "@definitions/comments-context"
 import type { CommentNode } from "@definitions/sources"
