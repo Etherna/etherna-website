@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 96">
+  <rect fill="var(--theme--background-page)" width="156" height="96" rx="6" />
+  <path
+    d="M98 22.417a6 6 0 016 6v40a6 6 0 01-6 6H58a6 6 0 01-6-6v-40a6 6 0 016-6h40zM78 30l-2.791 8.158-8.622.134 6.896 5.176-2.536 8.24L78 46.75l7.053 4.96-2.536-8.241 6.896-5.176-8.622-.134L78 30z"
+    fill-opacity=".25" fill="var(--theme--primary)" />
+  <rect fill="var(--theme--primary)" x="57" y="58" width="42" height="9" rx="2" />
+</svg>

@@ -1,0 +1,44 @@
+.DS_Store
+*.log
+.cache
+.ddev
+.rollup.cache
+
+# Ignore the extensions folder
+/extensions/*
+!/extensions/templates
+
+# Yarn zero-install
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Ignore dev files
+node_modules
+
+# Exclude env vars and custom deployment scripts
+.env
+deploy.*
+
+# Ignore configuration files
+/config/*
+!/config/_example.php
+
+# PHPUnit
+/phpunit.xml
+/documents
+
+# Storage
+/uploads
+
+# Keep gitkeep files
+# This will make sure empty directories has at least one file so it can be tracked by git
+!**/.gitkeep
+/docs/
+
+# Cache generated while filesystem adapter
+/cache/*
