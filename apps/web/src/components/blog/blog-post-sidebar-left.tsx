@@ -3,10 +3,10 @@ import { useTranslation } from "react-i18next"
 
 import { BlogPostSidebar } from "./blog-post-sidebar"
 import { ShareButtons } from "./share-buttons"
-import { Image } from "@/components/common/Image"
+import { Image } from "@/components/common/image"
 import { cn } from "@/utils/classnames"
 import { localeInfo } from "@/utils/lang"
-import routes from "@/utils/routes"
+import { routes } from "@/utils/routes"
 
 import type { Post } from "@/schema/app"
 import type { Lang } from "@/utils/lang"

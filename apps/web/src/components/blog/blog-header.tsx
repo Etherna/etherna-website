@@ -1,10 +1,10 @@
 import { ReactComponent as HeaderPattern } from "@/assets/header-pattern.svg"
 
-import { Col } from "@/components/common/Col"
-import { Container } from "@/components/common/Container"
-import { Row } from "@/components/common/Row"
+import { Col } from "@/components/common/col"
+import { Container } from "@/components/common/container"
+import { Row } from "@/components/common/row"
 import { cn } from "@/utils/classnames"
-import routes from "@/utils/routes"
+import { routes } from "@/utils/routes"
 
 import type { Category } from "@/schema/app"
 import type { Lang } from "@/utils/lang"

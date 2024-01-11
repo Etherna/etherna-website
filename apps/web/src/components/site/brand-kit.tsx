@@ -20,7 +20,7 @@ export function BrandKit({ colors, fonts, logos }: BrandKitProps) {
       <section>
         <h2 className="text-xl text-gray-700">{t("colors")}</h2>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {colors.map((colorInfo, i) => (
+          {colors.map(colorInfo => (
             <ColorPalette key={colorInfo.name} name={colorInfo.name} color={colorInfo.color} />
           ))}
         </div>
@@ -34,7 +34,7 @@ export function BrandKit({ colors, fonts, logos }: BrandKitProps) {
               key={fontInfo.name}
               name={fontInfo.name}
               fontFamily={fontInfo.font_family}
-              fontWeight={fontInfo.font_weight}
+              fontWeight={fontInfo.font_weight ?? []}
               link={fontInfo.font_link}
               importUrl={fontInfo.import_url}
             />

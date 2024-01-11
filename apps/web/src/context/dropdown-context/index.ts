@@ -4,4 +4,5 @@ export type DropdownContextState = [show: boolean, setShow: (show: boolean) => v
 
 export const DropdownContext = createContext<DropdownContextState | undefined>(undefined)
 
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 export const useDropdownContext = () => useContext(DropdownContext)!

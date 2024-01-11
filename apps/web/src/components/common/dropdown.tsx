@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react"
 
 import { ReactComponent as ChevronDown } from "@/assets/icons/chevron-down.svg"
 
-import DropdownContextProvider from "@/context/dropdown-context/dropdown-context-provider"
+import { DropdownContextProvider } from "@/context/dropdown-context/dropdown-context-provider"
 import { cn } from "@/utils/classnames"
 
 import type { PropsWithChildren } from "react"

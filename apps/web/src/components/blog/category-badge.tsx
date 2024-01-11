@@ -1,5 +1,5 @@
 import { cn } from "@/utils/classnames"
-import routes from "@/utils/routes"
+import { routes } from "@/utils/routes"
 
 import type { Category } from "@/schema/app"
 import type { Lang } from "@/utils/lang"

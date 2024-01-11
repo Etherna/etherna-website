@@ -1,15 +1,15 @@
 import { useTranslation } from "react-i18next"
 
 import { CategoryBadge } from "./category-badge"
-import { Avatar } from "@/components/common/Avatar"
-import { Breadcrumb } from "@/components/common/Breadcrumb"
-import { Col } from "@/components/common/Col"
-import { Container } from "@/components/common/Container"
-import { Image } from "@/components/common/Image"
-import { Row } from "@/components/common/Row"
+import { Avatar } from "@/components/common/avatar"
+import { Breadcrumb, BreadcrumbItem } from "@/components/common/breadcrumb"
+import { Col } from "@/components/common/col"
+import { Container } from "@/components/common/container"
+import { Image } from "@/components/common/image"
+import { Row } from "@/components/common/row"
 import { cn } from "@/utils/classnames"
-import dayjs from "@/utils/dayjs"
-import routes from "@/utils/routes"
+import { dayjs } from "@/utils/dayjs"
+import { routes } from "@/utils/routes"
 
 import type { AstroImg, Category, User } from "@/schema/app"
 import type { Lang } from "@/utils/lang"
@@ -58,15 +58,15 @@ export function BlogPostHeader({
           <Row>
             <Col>
               <Breadcrumb>
-                <Breadcrumb.Item path={routes.homePath(lang)} title="Etherna" />
-                <Breadcrumb.Item path={routes.blogPath(lang)} title="Blog" />
+                <BreadcrumbItem href={routes.homePath(lang)} title="Etherna" />
+                <BreadcrumbItem href={routes.blogPath(lang)} title="Blog" />
                 {category && (
-                  <Breadcrumb.Item
-                    path={routes.blogCategoryPath(category.slug, lang)}
+                  <BreadcrumbItem
+                    href={routes.blogCategoryPath(category.slug, lang)}
                     title={category.name}
                   />
                 )}
-                <Breadcrumb.Item title={postTitle} isLast />
+                <BreadcrumbItem title={postTitle} isLast />
               </Breadcrumb>
             </Col>
           </Row>
@@ -101,5 +101,3 @@ export function BlogPostHeader({
     </header>
   )
 }
-
-export default BlogPostHeader

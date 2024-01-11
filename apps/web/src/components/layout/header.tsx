@@ -9,7 +9,7 @@ import { SocialMenu } from "./social-menu"
 import { Container } from "@/components/common/container"
 import { WhitepaperLink } from "@/components/common/whitepaper-link"
 import { cn } from "@/utils/classnames"
-import routes from "@/utils/routes"
+import { routes } from "@/utils/routes"
 
 import type { Lang, LocaleInfo, LocalizedPaths } from "@/utils/lang"
 

@@ -1,4 +1,4 @@
-import Col from "@/components/common/Col"
+import { Col } from "@/components/common/col"
 import { cn } from "@/utils/classnames"
 
 import type { PropsWithChildren } from "react"

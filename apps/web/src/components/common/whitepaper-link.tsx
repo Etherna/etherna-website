@@ -1,6 +1,6 @@
 import { ReactComponent as DocIcon } from "@/assets/icons/document.svg"
 
-import HeaderMenu from "@/components/layout/HeaderMenu"
+import { HeaderMenuLink } from "@/components/layout/header-menu"
 
 interface WhitepaperLinkProps {
   className?: string
@@ -10,7 +10,7 @@ interface WhitepaperLinkProps {
 
 export function WhitepaperLink({ className, url, filename }: WhitepaperLinkProps) {
   return (
-    <HeaderMenu.Link
+    <HeaderMenuLink
       className={className}
       href={url}
       download={filename}
@@ -19,6 +19,6 @@ export function WhitepaperLink({ className, url, filename }: WhitepaperLinkProps
     >
       <DocIcon aria-hidden />
       <span>Whitepaper</span>
-    </HeaderMenu.Link>
+    </HeaderMenuLink>
   )
 }

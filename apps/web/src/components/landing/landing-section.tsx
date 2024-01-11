@@ -29,8 +29,12 @@ export function LandingSection({ id, title, description, features }: LandingSect
             <p className="mx-auto max-w-2xl pb-6 text-gray-600">{description}</p>
           </Col>
           <div className="flex w-full flex-wrap justify-evenly">
-            {features.map((feature, i) => (
-              <LandingSectionFeature key={i} feature={feature} count={features.length} />
+            {features.map(feature => (
+              <LandingSectionFeature
+                key={feature.title}
+                feature={feature}
+                count={features.length}
+              />
             ))}
           </div>
         </Row>

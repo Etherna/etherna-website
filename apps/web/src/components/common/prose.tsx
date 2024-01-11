@@ -2,11 +2,11 @@ import { cn } from "@/utils/classnames"
 
 import type { PropsWithChildren } from "react"
 
-type ProseProps = PropsWithChildren<{
+interface ProseProps extends PropsWithChildren {
   className?: string
-}>
+}
 
-const Prose: React.FC<ProseProps> = ({ children, className }) => {
+export function Prose({ children, className }: ProseProps) {
   return (
     <div
       className={cn(
@@ -21,5 +21,3 @@ const Prose: React.FC<ProseProps> = ({ children, className }) => {
     </div>
   )
 }
-
-export default Prose

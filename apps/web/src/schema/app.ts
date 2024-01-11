@@ -133,8 +133,23 @@ export const logoSchema = z.object({
 })
 
 export const brandSchema = z.object({
-  colors: z.array(z.any()),
-  fonts: z.array(z.any()),
+  colors: z.array(
+    z.object({
+      name: z.string(),
+      color: z.string(),
+    })
+  ),
+  fonts: z.array(
+    z.object({
+      name: z.string(),
+      font_family: z.string(),
+      font_link: z.string().nullish(),
+      font_weight: z
+        .array(z.enum(["100", "200", "300", "400", "500", "600", "700", "800", "900"]))
+        .nullish(),
+      import_url: z.string().nullish(),
+    })
+  ),
   logos: z.array(logoSchema),
 })
 

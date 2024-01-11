@@ -7,7 +7,7 @@ import { ReactComponent as Spinner } from "@/assets/animated/spinner-light.svg"
 import { Alert } from "@/components/common/alert"
 import { Button } from "@/components/common/button"
 import { cn } from "@/utils/classnames"
-import routes from "@/utils/routes"
+import { routes } from "@/utils/routes"
 import { validateEmail } from "@/utils/validation"
 
 import type { InputHTMLAttributes } from "react"

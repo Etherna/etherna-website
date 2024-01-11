@@ -5,7 +5,7 @@ import { SectionTitle } from "./section-title"
 import { Col } from "@/components/common/col"
 import { Container } from "@/components/common/container"
 import { Row } from "@/components/common/row"
-import { ViewportObserver } from "@/components/layout/ViewportObserver"
+import { ViewportObserver } from "@/components/layout/viewport-observer"
 
 export function PresentationVideo() {
   const { t } = useTranslation("landing")

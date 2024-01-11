@@ -1,9 +1,9 @@
 import { CategoryBadge } from "./category-badge"
-import { Avatar } from "@/components/common/Avatar"
-import { Image } from "@/components/common/Image"
+import { Avatar } from "@/components/common/avatar"
+import { Image } from "@/components/common/image"
 import { cn } from "@/utils/classnames"
-import dayjs from "@/utils/dayjs"
-import routes from "@/utils/routes"
+import { dayjs } from "@/utils/dayjs"
+import { routes } from "@/utils/routes"
 
 import type { Post } from "@/schema/app"
 import type { Lang } from "@/utils/lang"
