@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable no-bitwise */
+
 import { decode, encode, isBlurhashValid } from "blurhash"
 
 import { getImagePixels } from "./image"
@@ -7,12 +11,13 @@ import type { TransformOptions } from "@astrojs/image/dist/loaders"
 // Credit: https://gist.github.com/mattiaz9/53cb67040fa135cb395b1d015a200aff
 
 export function blurHashToDataURL(hash: string | null | undefined): string {
-  if (!hash || !isBlurhashValid(hash).result) {
+  let fixedHash = hash
+  if (!fixedHash || !isBlurhashValid(fixedHash).result) {
     // fallback to random blur hash
-    hash = "LEHV6nWB2yk8pyo0adR*.7kCMdnj"
+    fixedHash = "LEHV6nWB2yk8pyo0adR*.7kCMdnj"
   }
 
-  const pixels = decode(hash, 32, 32)
+  const pixels = decode(fixedHash, 32, 32)
   const dataURL = parsePixels(pixels, 32, 32)
   return dataURL
 }
@@ -61,7 +66,7 @@ function parsePixels(pixels: Uint8ClampedArray, width: number, height: number) {
     typeof Buffer !== "undefined"
       ? Buffer.from(getPngArray(pngString)).toString("base64")
       : window.btoa(pngString)
-  return "data:image/png;base64," + dataURL
+  return `data:image/png;base64,${dataURL}`
 }
 
 function getPngArray(pngString: string) {
@@ -121,7 +126,7 @@ function generatePng(width: number, height: number, rgbaString: string) {
   }
 
   function adler32(data: string) {
-    let MOD_ADLER = 65521
+    const MOD_ADLER = 65521
     let a = 1
     let b = 0
 
@@ -133,8 +138,8 @@ function generatePng(width: number, height: number, rgbaString: string) {
     return (b << 16) | a
   }
 
-  function updateCrc(crc: number, buf: string) {
-    let c = crc
+  function updateCrc(updatingCrc: number, buf: string) {
+    let c = updatingCrc
     let b: number
 
     for (let n = 0; n < buf.length; n++) {
@@ -220,10 +225,10 @@ async function getClientImageData(imageData: ArrayBuffer, width: number, height:
 }
 
 async function loadImage(data: ArrayBuffer) {
-  return new Promise<HTMLImageElement | null>((resolve, reject) => {
+  return new Promise<HTMLImageElement | null>(resolve => {
     const img = new Image()
     img.onload = () => resolve(img)
-    img.onerror = () => reject(null)
+    img.onerror = () => resolve(null)
     img.src = URL.createObjectURL(new Blob([data]))
   })
 }

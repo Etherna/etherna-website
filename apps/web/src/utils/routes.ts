@@ -4,7 +4,7 @@ import type { Lang } from "./lang"
 
 /**
  * Home path
- * @param locale Home locale
+ * @param locale - Home locale
  * @returns Home path
  */
 const homePath = (locale: Lang) => {
@@ -13,7 +13,7 @@ const homePath = (locale: Lang) => {
 
 /**
  * Blog path
- * @param locale Blog locale
+ * @param locale - Blog locale
  * @returns Blog path
  */
 const blogPath = (locale: Lang) => {
@@ -22,7 +22,7 @@ const blogPath = (locale: Lang) => {
 
 /**
  * About path
- * @param locale About locale
+ * @param locale - About locale
  * @returns About path
  */
 const aboutPath = (locale: Lang) => {
@@ -30,13 +30,13 @@ const aboutPath = (locale: Lang) => {
     en: "about",
     it: "chi-siamo",
   }
-  const segment = localizedSegment[locale] ?? localizedSegment.en
+  const segment = localizedSegment[locale]
   return withLocale(`/${segment}`, locale)
 }
 
 /**
  * Brand kit path
- * @param locale Brand kit locale
+ * @param locale - Brand kit locale
  * @returns Brand kit path
  */
 const brandKitPath = (locale: Lang) => {
@@ -45,7 +45,7 @@ const brandKitPath = (locale: Lang) => {
 
 /**
  * Thank you page path
- * @param locale Brand kit locale
+ * @param locale - Brand kit locale
  * @returns Thank you path
  */
 const thankyouPath = () => {
@@ -54,7 +54,7 @@ const thankyouPath = () => {
 
 /**
  * Success page path
- * @param locale Brand kit locale
+ * @param locale - Brand kit locale
  * @returns Success path
  */
 const successPath = () => {
@@ -63,8 +63,8 @@ const successPath = () => {
 
 /**
  * Blog post path
- * @param slug Post slug
- * @param locale Category locale
+ * @param slug - Post slug
+ * @param locale - Category locale
  * @returns Post path
  */
 const blogPostPath = (slug: string, locale: Lang = DEFAULT_LOCALE) => {
@@ -73,8 +73,8 @@ const blogPostPath = (slug: string, locale: Lang = DEFAULT_LOCALE) => {
 
 /**
  * Blog category path
- * @param slug Category slug
- * @param locale Category locale
+ * @param slug - Category slug
+ * @param locale - Category locale
  * @returns Category path
  */
 const blogCategoryPath = (slug: string, locale: Lang = DEFAULT_LOCALE) => {
@@ -82,14 +82,14 @@ const blogCategoryPath = (slug: string, locale: Lang = DEFAULT_LOCALE) => {
     en: "categories",
     it: "categorie",
   }
-  const segment = localizedSegment[locale] ?? localizedSegment.en
+  const segment = localizedSegment[locale]
   return withLocale(`/blog/${segment}/${slug}`, locale)
 }
 
 /**
  * Project path
- * @param slug Project slug
- * @param locale Category locale
+ * @param slug - Project slug
+ * @param locale - Category locale
  * @returns Project path
  */
 const projectPath = (slug: string, locale: Lang = DEFAULT_LOCALE) => {
@@ -97,14 +97,14 @@ const projectPath = (slug: string, locale: Lang = DEFAULT_LOCALE) => {
     en: "projects",
     it: "progetti",
   }
-  const segment = localizedSegment[locale] ?? localizedSegment.en
+  const segment = localizedSegment[locale]
   return withLocale(`/${segment}/${slug}`, locale)
 }
 
 /**
  * Page path
- * @param slug Page slug
- * @param locale Category locale
+ * @param slug - Page slug
+ * @param locale - Category locale
  * @returns Page path
  */
 const pagePath = (slug: string, locale: Lang = DEFAULT_LOCALE) => {
@@ -144,8 +144,8 @@ export const routes = {
 }
 
 export const withLocale = (path: string, locale: Lang) => {
-  path = path.replace(/^\/?$/, "/")
-  return locale === DEFAULT_LOCALE ? path : `/${locale}${path}`
+  const normalizedPath = path.replace(/^\/?$/, "/")
+  return locale === DEFAULT_LOCALE ? normalizedPath : `/${locale}${normalizedPath}`
 }
 
 export const withPagination = (path: string, page: number) => {
@@ -172,8 +172,8 @@ export const parsePage = (path: string) => {
 
 /**
  * Get route identifier from path and lang
- * @param path Path to decode
- * @param lang Locale code
+ * @param path - Path to decode
+ * @param lang - Locale code
  */
 export const whichRoute = (path: string, lang: Lang) => {
   const routesGroups = Object.keys(routesIdentifiers) as (keyof typeof routesIdentifiers)[]

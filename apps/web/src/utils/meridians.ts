@@ -1,7 +1,7 @@
 /**
  * Normalize a longitude from 0 to 360 (from left to right relative to the map)
  *
- * @param longitude Longitude to normalize
+ * @param longitude - Longitude to normalize
  * @returns Normalized positive longitude
  */
 export const positiveLongitude = (longitude: number) => {
@@ -11,7 +11,7 @@ export const positiveLongitude = (longitude: number) => {
 /**
  * Normalize a longitude from 0 to 360 (starting from meridian 0)
  *
- * @param longitude Longitude to normalize
+ * @param longitude - Longitude to normalize
  * @returns Normalized extended longitude
  */
 export const extendedLongitude = (longitude: number) => {
@@ -21,8 +21,8 @@ export const extendedLongitude = (longitude: number) => {
 /**
  * Normalize a longitude to follow the sun rotation from a start point
  *
- * @param longitude Longitude to normalize
- * @param startLongitude Start point longitude
+ * @param longitude - Longitude to normalize
+ * @param startLongitude - Start point longitude
  * @returns Normalized longitude
  */
 export const normalizedLongitudeFromStart = (longitude: number, startLongitude: number) => {
@@ -36,9 +36,9 @@ export const normalizedLongitudeFromStart = (longitude: number, startLongitude: 
 /**
  * Calc the world scroll relative to a longitude and a start point
  *
- * @param longitude Longitude to which the map should be centered
- * @param startLongitude Start point longitude
- * @param size World map size
+ * @param longitude - Longitude to which the map should be centered
+ * @param startLongitude - Start point longitude
+ * @param size - World map size
  * @returns The scroll amount
  */
 export const solarLongitudeScroll = (longitude: number, startLongitude: number, size: number) => {

@@ -1,4 +1,4 @@
-type SmoothScrollOptions = {
+interface SmoothScrollOptions {
   left?: number
   top?: number
   duration?: number
@@ -22,6 +22,7 @@ export const smoothScrollBy = (el: HTMLElement, opts: SmoothScrollOptions) => {
   }
 
   const requestAnimationFrame =
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
     window.mozRequestAnimationFrame ||

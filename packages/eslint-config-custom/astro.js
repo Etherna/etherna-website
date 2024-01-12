@@ -26,7 +26,6 @@ module.exports = {
   },
   ignorePatterns: ["node_modules/", "dist/"],
   rules: {
-
     "eslint-comments/require-description": "off",
     "import/no-default-export": "off",
     "import/order": "off",
@@ -37,6 +36,7 @@ module.exports = {
         : "off",
     "no-debugger": process.env.NODE_ENV !== "development" ? "error" : "off",
     "no-implicit-coercion": "off",
+    "prefer-named-capture-group": "off",
     // Require empty line between class members
     "lines-between-class-members": [
       "warn",

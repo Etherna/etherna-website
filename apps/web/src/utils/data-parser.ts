@@ -1,7 +1,7 @@
 import { getImage } from "@astrojs/image"
 
+import { getDirectusAssetUrl } from "./assets"
 import { serverImageToBlurhash } from "./blurhash"
-import DirectusClient from "@/classes/directus-client"
 
 import type { Lang } from "./lang"
 import type {
@@ -33,8 +33,8 @@ import type {
 /**
  * Parse post nodes
  */
-export const parsePosts = async (nodes: PostNode[], locale: Lang) => {
-  return await Promise.all(nodes.map(post => parsePost(post, locale)))
+export const parsePosts = (nodes: PostNode[], locale: Lang) => {
+  return Promise.all(nodes.map(post => parsePost(post, locale)))
 }
 
 /**
@@ -72,13 +72,13 @@ export const parseCategories = async (nodes: CategoryNode[], locale: Lang) => {
  */
 export const parseCategory = async (node: CategoryNode, locale: Lang): Promise<Category> => {
   const { id, localized_contents, color } = node
-  const localizedCategory = (localized_contents?.find(lc => lc.locale === locale) ||
-    localized_contents?.[0]) ?? {
+  const localizedCategory = (localized_contents.find(lc => lc.locale === locale) ||
+    localized_contents[0]) ?? {
     name: "",
     slug: "",
     locale,
   }
-  const allSlugs = localized_contents?.map(lc => ({
+  const allSlugs = localized_contents.map(lc => ({
     slug: lc.slug,
     locale: lc.locale,
   }))
@@ -267,7 +267,7 @@ export const parseBrand = async (node: BrandNode): Promise<Brand> => {
 }
 
 /**
- * Parse image node to  fluid image
+ * Parse image node to fluid image
  */
 export const parseFluidImage = async (
   node: FileNode | null,
@@ -276,13 +276,19 @@ export const parseFluidImage = async (
 ): Promise<AstroImg | null> => {
   if (!node) return null
 
-  const mimeType = node.filename_disk?.split(".").pop() ?? "jpeg"
-  const format = mimeType === "png" ? "png" : mimeType === "svg" ? "svg" : "jpeg"
+  const mimeType = node.filename_disk.split(".").pop() ?? "jpeg"
+  const formats = {
+    jpeg: "jpeg",
+    jpg: "jpeg",
+    png: "png",
+    svg: "svg",
+  } as const
+  const format = mimeType in formats ? formats[mimeType as keyof typeof formats] : "jpeg"
 
-  const width = size?.width ?? node.width ?? 1000
-  const height = size?.height ?? node.height ?? 1000
+  const width = size?.width ?? node.width
+  const height = size?.height ?? node.height
 
-  const src = new DirectusClient().getFileUrl(node.private_hash)
+  const src = getDirectusAssetUrl(node.id)
   const attributes = await getImage({
     src,
     alt: alt ?? node.description,

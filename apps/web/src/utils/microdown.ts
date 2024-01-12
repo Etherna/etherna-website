@@ -3,7 +3,7 @@ import microdown from "micro-down"
 /**
  * Extend microdown capabilities
  *
- * @param md Markdown
+ * @param md - Markdown
  * @returns Markdown html
  */
 export default function microdownEnhanced(md: string) {
