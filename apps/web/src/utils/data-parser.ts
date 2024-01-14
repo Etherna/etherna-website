@@ -4,294 +4,46 @@ import { getDirectusAssetUrl } from "./assets"
 import { serverImageToBlurhash } from "./blurhash"
 
 import type { Lang } from "./lang"
-import type {
-  AstroImg,
-  Brand,
-  Category,
-  Comment,
-  CommentOwner,
-  Milestone,
-  Page,
-  Post,
-  Project,
-  TeamMember,
-  User,
-} from "@/schema/app"
-import type {
-  BrandNode,
-  CategoryNode,
-  CommentNode,
-  FileNode,
-  MilestoneNode,
-  PageNode,
-  PostNode,
-  ProjectNode,
-  TeamMemberNode,
-  UserNode,
-} from "@/schema/cms"
+import type { AstroImg } from "@/schema/app"
+import type { DirectusFile } from "@directus/sdk"
 
-/**
- * Parse post nodes
- */
-export const parsePosts = (nodes: PostNode[], locale: Lang) => {
-  return Promise.all(nodes.map(post => parsePost(post, locale)))
-}
-
-/**
- * Parse a post node
- */
-export const parsePost = async (node: PostNode, locale: Lang): Promise<Post> => {
-  const { localized_contents, id, author, category, published_on, updated_on, image } = node
-  const localizedPost =
-    localized_contents.find(lc => lc.locale === locale) || localized_contents[0]!
-  const allSlugs = localized_contents.map(lc => ({
-    slug: lc.slug,
-    locale: lc.locale,
-  }))
-  return {
-    ...localizedPost,
-    id,
-    author: await parseUser(author),
-    category: category ? await parseCategory(category, locale) : null,
-    published_on,
-    updated_on,
-    image: await parseFluidImage(image),
-    allSlugs,
-  }
-}
-
-/**
- * Parse a list of category nodes
- */
-export const parseCategories = async (nodes: CategoryNode[], locale: Lang) => {
-  return await Promise.all(nodes.map(node => parseCategory(node, locale)))
-}
-
-/**
- * Parse category node
- */
-export const parseCategory = async (node: CategoryNode, locale: Lang): Promise<Category> => {
-  const { id, localized_contents, color } = node
-  const localizedCategory = (localized_contents.find(lc => lc.locale === locale) ||
-    localized_contents[0]) ?? {
-    name: "",
-    slug: "",
-    locale,
-  }
-  const allSlugs = localized_contents.map(lc => ({
-    slug: lc.slug,
-    locale: lc.locale,
-  }))
-  return {
-    id,
-    color,
-    ...localizedCategory,
-    allSlugs,
-  }
-}
-
-/**
- * Parse a list of project nodes
- */
-export const parseProjects = async (nodes: ProjectNode[], locale: Lang) => {
-  return await Promise.all(nodes.map(node => parseProject(node, locale)))
-}
-
-/**
- * Parse project node
- */
-export const parseProject = async (node: ProjectNode, locale: Lang): Promise<Project> => {
-  const { localized_contents, coming_soon, github_link, external_link, image } = node
-  const localizedCategory =
-    localized_contents.find(lc => lc.locale === locale) || localized_contents[0]!
-  const allSlugs = localized_contents.map(lc => ({
-    slug: lc.slug,
-    locale: lc.locale,
-  }))
-  return {
-    ...localizedCategory,
-    coming_soon,
-    github_link,
-    external_link,
-    image: await parseFluidImage(image),
-    allSlugs,
-  }
-}
-
-/**
- * Parse a list of milestone nodes
- */
-export const parseMilestones = async (nodes: MilestoneNode[], locale: Lang) => {
-  return await Promise.all(nodes.map(node => parseMilestone(node, locale)))
-}
-
-/**
- * Parse milestone node
- */
-export const parseMilestone = async (node: MilestoneNode, locale: Lang): Promise<Milestone> => {
-  const { localized_contents, image, completion, completion_quarter, latitude, longitude } = node
-  const localizedCategory =
-    localized_contents.find(lc => lc.locale === locale) || localized_contents[0]!
-  return {
-    ...localizedCategory,
-    image: await parseFluidImage(image),
-    completion,
-    completion_quarter,
-    latitude,
-    longitude,
-  }
-}
-
-/**
- * Parse a list of page nodes
- */
-export const parsePages = async (nodes: PageNode[], locale: Lang) => {
-  return await Promise.all(nodes.map(node => parsePage(node, locale)))
-}
-
-/**
- * Parse page node
- */
-export const parsePage = async (node: PageNode, locale: Lang): Promise<Page> => {
-  const { localized_contents, show_in_menu } = node
-  const localizedContents =
-    localized_contents.find(lc => lc.locale === locale) || localized_contents[0]!
-  const allSlugs = localized_contents.map(lc => ({
-    slug: lc.slug,
-    locale: lc.locale,
-  }))
-  return {
-    ...localizedContents,
-    show_in_menu,
-    allSlugs,
-  }
-}
-
-/**
- * Parse a list of team members nodes
- */
-export const parseTeam = async (nodes: TeamMemberNode[], locale: Lang) => {
-  return await Promise.all(nodes.map(node => parseTeamMember(node, locale)))
-}
-
-/**
- * Parse team member node
- */
-export const parseTeamMember = async (node: TeamMemberNode, locale: Lang): Promise<TeamMember> => {
-  const { localized_contents, name, photo } = node
-  const localizedContents =
-    localized_contents.find(lc => lc.locale === locale) || localized_contents[0]!
-  return {
-    name,
-    ...localizedContents,
-    photo: (await parseFluidImage(photo))!,
-  }
-}
-
-/**
- * Parse and group comments with replies
- */
-export const parseComments = async (nodes: CommentNode[]) => {
-  return await Promise.all(
-    [...nodes].filter(node => node.parent === null).map(node => parseComment(node, nodes))
-  )
-}
-
-/**
- * Parse a comment node and add child comments
- */
-export const parseComment = async (node: CommentNode, nodes: CommentNode[]): Promise<Comment> => {
-  const childNodes = nodes.filter(n =>
-    typeof n.parent === "number" ? n.parent === node.id : (n.parent || {}).id === node.id
-  )
-  const replies = await Promise.all(childNodes.map(childNode => parseComment(childNode, nodes)))
-
-  const avatarData = node.owner?.avatar
-  const ownerAvatar = await parseFluidImage(avatarData, node.owner?.first_name, {
-    width: 50,
-    height: 50,
-  })
-
-  const owner = node.owner
-    ? ({
-        id: node.owner.id,
-        name: `${node.owner.first_name} ${node.owner.last_name}`,
-        email: node.owner.email,
-        avatar: ownerAvatar,
-      } as CommentOwner)
-    : null
-
-  return {
-    id: node.id,
-    name: node.name,
-    email: node.email,
-    comment: node.comment,
-    created_on: node.created_on,
-    locale: node.locale,
-    owner,
-    replies,
-  }
-}
-
-/**
- * Parse user node
- */
-export const parseUser = async (node: UserNode): Promise<User> => {
-  return {
-    ...node,
-    avatar: typeof node.avatar === "object" ? await parseFluidImage(node.avatar) : null,
-  }
-}
-
-/**
- * Parse brand node
- */
-export const parseBrand = async (node: BrandNode): Promise<Brand> => {
-  const { colors, fonts } = node
-  const logos = await Promise.all(
-    node.logos.map(async logo => ({
-      ...logo,
-      logo_variants: await Promise.all(
-        logo.logo_variants.map(async variant => ({
-          ...variant,
-          image: (await parseFluidImage(variant.image))!,
-        }))
-      ),
-    }))
-  )
-  return {
-    colors,
-    fonts,
-    logos,
-  }
+export const findTranslation = <T extends { locale: Locale }>(
+  items: T[],
+  lang: Lang,
+  fallbackLang?: Lang
+): T => {
+  const item =
+    items.find(i => i.locale.startsWith(lang)) ??
+    (fallbackLang ? items.find(i => i.locale.startsWith(fallbackLang)) : null)
+  if (!item) throw new Error(`No translation found for ${lang}`)
+  return item
 }
 
 /**
  * Parse image node to fluid image
  */
 export const parseFluidImage = async (
-  node: FileNode | null,
-  alt?: string,
-  size?: { width: number; height: number }
+  image: Pick<DirectusFile<DirectusSchema>, "id" | "title" | "type" | "width" | "height"> | null,
+  alt?: string
 ): Promise<AstroImg | null> => {
-  if (!node) return null
+  if (!image) return null
 
-  const mimeType = node.filename_disk.split(".").pop() ?? "jpeg"
   const formats = {
-    jpeg: "jpeg",
-    jpg: "jpeg",
-    png: "png",
-    svg: "svg",
+    "image/jpeg": "jpeg",
+    "image/jpg": "jpeg",
+    "image/png": "png",
+    "image/svg+xml": "svg",
   } as const
-  const format = mimeType in formats ? formats[mimeType as keyof typeof formats] : "jpeg"
+  const mimeType = image.type as keyof typeof formats
+  const format = mimeType in formats ? formats[mimeType] : "jpeg"
 
-  const width = size?.width ?? node.width
-  const height = size?.height ?? node.height
+  const width = image.width ?? 100
+  const height = image.height ?? 100
 
-  const src = getDirectusAssetUrl(node.id)
+  const src = getDirectusAssetUrl(image.id)
   const attributes = await getImage({
     src,
-    alt: alt ?? node.description,
+    alt: alt ?? image.title ?? "",
     width,
     height,
     format,
@@ -307,4 +59,30 @@ export const parseFluidImage = async (
     attributes,
     blurhash,
   }
+}
+
+export const loadSvgAsset = async (fileId: UUID | null) => {
+  let svg: string | null = null
+
+  try {
+    if (!fileId) throw new Error("No file ID")
+
+    const url = getDirectusAssetUrl(fileId)
+    const resp = await fetch(url)
+
+    if (!resp.ok) throw new Error(`Failed to fetch ${url}`)
+
+    svg = (await resp.text()) as string
+  } catch (error) {
+    //
+  }
+
+  return {
+    svg,
+  }
+}
+
+export const localeToLang = (locale: Locale): Lang => {
+  const lang = locale.split("-")[0] as Lang
+  return lang
 }

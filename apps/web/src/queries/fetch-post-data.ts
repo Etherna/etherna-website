@@ -1,79 +1,142 @@
-import DirectusClient from "@/classes/directus-client"
-import { parsePost } from "@/utils/dataParser"
-import routes, { parseSlug } from "@/utils/routes"
+import { readItems } from "@directus/sdk"
 
-import type { PostNode } from "@/schema/cms"
+import { directusClient } from "@/classes/directus-client"
+import { findTranslation, localeToLang, parseFluidImage } from "@/utils/data-parser"
+import { parseSlug, routes } from "@/utils/routes"
+
 import type { Lang, LocalizedPaths } from "@/utils/lang"
 
-export default async function fetchPostData(lang: Lang, path: string) {
+export async function fetchPostData(lang: Lang, path: string) {
   const slug = parseSlug(path)
 
   if (!slug) {
     throw new Error(`Slug not found, path: '${path}'`)
   }
 
-  const client = new DirectusClient()
-  const {
-    data: [post],
-  } = await client.getItems<PostNode>("posts", {
-    fields: [
-      "id",
-      "status",
-      "updated_on",
-      "published_on",
-      "author.id",
-      "author.email",
-      "author.first_name",
-      "author.last_name",
-      "author.avatar.private_hash",
-      "author.avatar.filename_disk",
-      "author.avatar.width",
-      "author.avatar.height",
-      "image.private_hash",
-      "image.filename_disk",
-      "image.width",
-      "image.height",
-      "image.description",
-      "localized_contents.title",
-      "localized_contents.slug",
-      "localized_contents.content",
-      "localized_contents.excerpt",
-      "localized_contents.meta_description",
-      "localized_contents.meta_keywords",
-      "localized_contents.locale",
-      "category.id",
-      "category.color",
-      "category.localized_contents.name",
-      "category.localized_contents.slug",
-      "category.localized_contents.locale",
-    ],
-    filter: {
-      "localized_contents.slug": {
-        eq: slug,
-      },
-    },
-  })
+  const postTranslationResult = await directusClient
+    .request(
+      readItems("blog_articles_translations", {
+        fields: [
+          "title",
+          "slug",
+          "content",
+          "excerpt",
+          "seo",
+          "locale",
+          {
+            thumbnail: ["id", "width", "height", "type", "title"],
+          },
+          {
+            article_id: [
+              "published_at",
+              "updated_at",
+              {
+                author_id: [
+                  "id",
+                  "email",
+                  "first_name",
+                  "last_name",
+                  {
+                    avatar: ["id", "width", "height", "type", "title"],
+                  },
+                ],
+              },
+              {
+                primary_category_id: [
+                  "id",
+                  "color",
+                  {
+                    translations: ["name", "slug", "locale"],
+                  },
+                ],
+              },
+              {
+                translations: ["slug", "locale"],
+              },
+            ],
+          },
+        ],
+        filter: {
+          _and: [
+            {
+              slug: {
+                _eq: slug,
+              },
+            },
+            {
+              locale: {
+                _starts_with: lang as Locale,
+              },
+            },
+          ],
+        },
+        limit: 1,
+      })
+    )
+    .then(res => res[0])
 
-  if (!post) {
-    throw new Error("Team not found")
+  if (!postTranslationResult) {
+    throw new Error("Post not found")
   }
 
-  const postLangs = post.localized_contents.map(lc => lc.locale)
-  const parsedPosts = await Promise.all(postLangs.map(lang => parsePost(post, lang)))
-  const parsedPost = parsedPosts.find(project => project.locale === lang)!
+  const article = postTranslationResult.article_id as ExtractGeneric<
+    typeof postTranslationResult.article_id
+  >
+  const primaryCategory = article.primary_category_id as ExtractGeneric<
+    typeof article.primary_category_id
+  >
+  const primaryCategoryTranslation = primaryCategory
+    ? findTranslation(primaryCategory.translations, lang)
+    : null
 
-  const localizedPaths: LocalizedPaths = parsedPosts
-    .filter(p => p.locale !== lang)
+  const post = {
+    title: postTranslationResult.title,
+    slug: postTranslationResult.slug,
+    excerpt: postTranslationResult.excerpt,
+    content: postTranslationResult.content,
+    seo: postTranslationResult.seo,
+    thumbnail: await parseFluidImage(postTranslationResult.thumbnail),
+    locale: postTranslationResult.locale,
+    primaryCategory:
+      primaryCategory && primaryCategoryTranslation
+        ? {
+            id: primaryCategory.id,
+            color: primaryCategory.color,
+            name: primaryCategoryTranslation.name,
+            slug: primaryCategoryTranslation.slug,
+            description: primaryCategoryTranslation.description,
+          }
+        : null,
+    author: article.author_id
+      ? {
+          id: article.author_id.id,
+          email: article.author_id.email,
+          firstName: article.author_id.first_name,
+          lastName: article.author_id.last_name,
+          avatar: article.author_id.avatar
+            ? await parseFluidImage(
+                article.author_id.avatar as ExtractGeneric<typeof article.author_id.avatar>
+              )
+            : null,
+        }
+      : null,
+  }
+
+  const localizedPaths: LocalizedPaths = article.translations
+    .filter(p => localeToLang(p.locale) !== lang)
     .reduce(
       (acc, project) => ({
         ...acc,
-        [project.locale]: routes.projectPath(project.slug, project.locale as Lang),
+        [localeToLang(project.locale)]: routes.projectPath(
+          project.slug,
+          localeToLang(project.locale)
+        ),
       }),
       {}
     )
 
   return {
-    post: parsedPost,
+    post,
     localizedPaths,
   }
 }

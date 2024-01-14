@@ -1,50 +1,81 @@
-import DirectusClient from "@/classes/directus-client"
-import { parsePage } from "@/utils/dataParser"
-import routes, { parseSlug } from "@/utils/routes"
+import { readItems } from "@directus/sdk"
 
-import type { PageNode } from "@/schema/cms"
+import { directusClient } from "@/classes/directus-client"
+import { localeToLang } from "@/utils/data-parser"
+import { parseSlug, routes } from "@/utils/routes"
+
 import type { Lang, LocalizedPaths } from "@/utils/lang"
 
-export default async function fetchPageData(lang: Lang, path: string) {
+export async function fetchPageData(lang: Lang, path: string) {
   const slug = parseSlug(path)
 
   if (!slug) {
     throw new Error(`Slug not found, path: '${path}'`)
   }
 
-  const client = new DirectusClient()
-  const { data: pages } = await client.getItems<PageNode>("pages", {
-    fields: [
-      "show_in_menu",
-      "localized_contents.title",
-      "localized_contents.slug",
-      "localized_contents.content",
-      "localized_contents.excerpt",
-      "localized_contents.meta_description",
-      "localized_contents.meta_keywords",
-      "localized_contents.locale",
-    ],
-    filter: {
-      "localized_contents.slug": {
-        eq: slug,
-      },
-    },
-  })
+  const pageTransltionResult = await directusClient
+    .request(
+      readItems("pages_translations", {
+        fields: [
+          "title",
+          "slug",
+          "content_text",
+          "seo",
+          "locale",
+          {
+            page_id: [
+              "show_in_menu",
+              {
+                translations: ["slug", "locale"],
+              },
+            ],
+          },
+        ],
+        filter: {
+          _and: [
+            {
+              slug: {
+                _eq: slug,
+              },
+            },
+            {
+              locale: {
+                _starts_with: lang as Locale,
+              },
+            },
+          ],
+        },
+        limit: 1,
+      })
+    )
+    .then(res => res[0])
 
-  const pageLangs = pages.map(page => page.localized_contents.map(lc => lc.locale)).flat()
-  const parsedPages = await Promise.all(pageLangs.map(lang => parsePage(pages[0]!, lang)))
-  const page = parsedPages.find(page => page.locale === lang)
-
-  if (!page) {
+  if (!pageTransltionResult) {
     throw new Error(`Page not found, path: '${path}', lang: '${lang}'`)
   }
 
-  const localizedPaths: LocalizedPaths = parsedPages
-    .filter(p => p.locale !== lang)
-    .reduce(
-      (acc, page) => ({
+  const resultPage = pageTransltionResult.page_id as ExtractGeneric<
+    typeof pageTransltionResult.page_id
+  >
+
+  const page = {
+    title: pageTransltionResult.title,
+    slug: pageTransltionResult.slug,
+    contentText: pageTransltionResult.content_text,
+    seo: pageTransltionResult.seo,
+    locale: pageTransltionResult.locale,
+    showInMenu: resultPage.show_in_menu,
+  }
+
+  const localizedPaths = resultPage.translations
+    .filter(t => localeToLang(t.locale) !== lang)
+    .reduce<LocalizedPaths>(
+      (acc, pageTranslation) => ({
         ...acc,
-        [page.locale]: routes.pagePath(page.slug, page.locale as Lang),
+        [localeToLang(pageTranslation.locale)]: routes.pagePath(
+          pageTranslation.slug,
+          localeToLang(pageTranslation.locale)
+        ),
       }),
       {}
     )

@@ -1,32 +1,45 @@
 import { getImage } from "@astrojs/image"
+import { readItems } from "@directus/sdk"
 
-import DirectusClient from "@/classes/directus-client"
-import { parseMilestones } from "@/utils/dataParser"
+import { directusClient } from "@/classes/directus-client"
+import { findTranslation, parseFluidImage } from "@/utils/data-parser"
 
-import type { MilestoneNode } from "@/schema/cms"
 import type { Lang } from "@/utils/lang"
 
-export default async function fetchHomeData(lang: Lang) {
-  const client = new DirectusClient()
-  const { data: milestones } = await client.getItems<MilestoneNode>("milestones", {
-    fields: [
-      "image.private_hash",
-      "image.filename_disk",
-      "image.width",
-      "image.height",
-      "image.description",
-      "completion",
-      "completion_quarter",
-      "latitude",
-      "longitude",
-      "sort",
-      "localized_contents.title",
-      "localized_contents.subtitle",
-      "localized_contents.description",
-      "localized_contents.locale",
-    ],
-    sort: [{ key: "sort" }],
-  })
+export async function fetchHomeData(lang: Lang) {
+  const milestonesResult = await directusClient.request(
+    readItems("milestones", {
+      fields: [
+        "completion",
+        "completion_quarter",
+        "latitude",
+        "longitude",
+        {
+          image: ["id", "width", "height", "title"],
+        },
+        {
+          translations: ["title", "subtitle", "description", "locale"],
+        },
+      ],
+      sort: ["sort"],
+    })
+  )
+
+  const milestones = await Promise.all(
+    milestonesResult.map(async res => {
+      const translation = findTranslation(res.translations ?? [], lang)
+      return {
+        completion: res.completion,
+        completionQuarter: res.completion_quarter,
+        latitude: res.latitude,
+        longitude: res.longitude,
+        image: await parseFluidImage(res.image),
+        title: translation.title,
+        subtitle: translation.subtitle,
+        description: translation.description,
+      }
+    })
+  )
 
   const awards = [
     {
@@ -54,7 +67,7 @@ export default async function fetchHomeData(lang: Lang) {
   ]
 
   return {
-    milestones: await parseMilestones(milestones, lang),
+    milestones,
     awards,
   }
 }

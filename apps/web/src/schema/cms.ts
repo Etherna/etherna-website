@@ -9,7 +9,7 @@ export const imageThumbnailNodeSchema = z.object({
 })
 
 export const fileNodeSchema = z.object({
-  id: z.number(),
+  id: z.string(),
   title: z.string(),
   description: z.string(),
   filename_disk: z.string(),
@@ -30,7 +30,7 @@ export const localeNodeSchema = z.object({
 })
 
 export const userNodeSchema = z.object({
-  id: z.number(),
+  id: z.string(),
   email: z.string(),
   avatar: fileNodeSchema.nullable(),
   first_name: z.string(),
@@ -44,7 +44,7 @@ export const categoryLocalizedContentsNodeSchema = z.object({
 })
 
 export const categoryNodeSchema = z.object({
-  id: z.number(),
+  id: z.string(),
   color: z.string().nullable(),
   posts: z.array(z.any()).optional(),
   localized_contents: z.array(categoryLocalizedContentsNodeSchema),
@@ -61,7 +61,7 @@ export const postLocalizedContentsNodeSchema = z.object({
 })
 
 export const postNodeSchema = z.object({
-  id: z.number(),
+  id: z.string(),
   localized_contents: z.array(postLocalizedContentsNodeSchema),
   author: userNodeSchema,
   category: categoryNodeSchema.nullable(),
@@ -70,8 +70,8 @@ export const postNodeSchema = z.object({
   updated_on: z.string().nullable(),
 })
 
-export type CommentNode = {
-  id: number
+export interface CommentNode {
+  id: string
   name: string
   email: string
   comment: string
@@ -84,7 +84,7 @@ export type CommentNode = {
 }
 
 export const commentNodeSchema: z.ZodType<CommentNode> = z.late.object(() => ({
-  id: z.number(),
+  id: z.string(),
   name: z.string(),
   email: z.string(),
   comment: z.string(),

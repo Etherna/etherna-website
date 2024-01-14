@@ -1,104 +1,196 @@
+import { aggregate, readItems } from "@directus/sdk"
+
 import { PAGINATION_LIMIT } from "./fetch-paths"
-import DirectusClient from "@/classes/directus-client"
-import { parseCategory, parsePost } from "@/utils/dataParser"
+import { directusClient } from "@/classes/directus-client"
+import { findTranslation, parseFluidImage } from "@/utils/data-parser"
 import { Languages } from "@/utils/lang"
-import routes, { parsePage, parseSlug, whichRoute } from "@/utils/routes"
+import { parsePage, parseSlug, routes, whichRoute } from "@/utils/routes"
 
-import type { CategoryNode, PostNode } from "@/schema/cms"
 import type { Lang, LocalizedPaths } from "@/utils/lang"
+import type { DirectusFile, QueryFilter } from "@directus/sdk"
 
-export default async function fetchBlogData(lang: Lang, path: string) {
+export async function fetchBlogData(lang: Lang, path: string) {
   const routeIdentifier = whichRoute(path, lang)
   const page = parsePage(path) ?? 1
   const categorySlug = routeIdentifier === "category" ? parseSlug(path) : null
 
-  const client = new DirectusClient()
-  const [{ data: posts, meta }, { data: categories }] = await Promise.all([
-    client.getItems<PostNode>("posts", {
-      fields: [
-        "updated_on",
-        "published_on",
-        "image.private_hash",
-        "image.filename_disk",
-        "image.width",
-        "image.height",
-        "image.description",
-        "author.first_name",
-        "author.last_name",
-        "author.email",
-        "author.avatar.private_hash",
-        "author.avatar.filename_disk",
-        "author.avatar.width",
-        "author.avatar.height",
-        "author.avatar.description",
-        "category.id",
-        "localized_contents.title",
-        "localized_contents.slug",
-        "localized_contents.excerpt",
-        "localized_contents.locale",
-      ],
-      filter: {
-        ...{
-          "localized_contents.locale": {
-            eq: lang,
+  const postsFilter: QueryFilter<DirectusSchema, BlogArticle> = {
+    _and: [
+      {
+        _or: [
+          {
+            translations: {
+              locale: {
+                _starts_with: lang as Locale,
+              },
+            },
+          },
+          {
+            translations: {
+              locale: {
+                _eq: "en-US",
+              },
+            },
+          },
+        ],
+      },
+      categorySlug
+        ? {
+            primary_category_id: {
+              translations: {
+                slug: {
+                  _eq: categorySlug,
+                },
+              },
+            },
+          }
+        : {},
+      {
+        published_at: {
+          _lte: new Date().toISOString(),
+        },
+      },
+    ],
+  }
+
+  const [postsCountResult, postsResult, categoriesResult] = await Promise.all([
+    directusClient.request(
+      aggregate("blog_articles", {
+        aggregate: {
+          count: "id",
+        },
+        query: {
+          filter: postsFilter,
+        },
+      })
+    ),
+    directusClient.request(
+      readItems("blog_articles", {
+        fields: [
+          "published_at",
+          "updated_at",
+          {
+            primary_category_id: ["id"],
+          },
+          {
+            author_id: [
+              "first_name",
+              "last_name",
+              "email",
+              { avatar: ["id", "width", "height", "title", "type"] },
+            ],
+          },
+          {
+            translations: [
+              "title",
+              "slug",
+              "content",
+              "excerpt",
+              "seo",
+              "locale",
+              { thumbnail: ["id", "width", "height", "title", "type"] },
+            ],
+          },
+        ],
+        filter: postsFilter,
+        sort: ["-published_at"],
+        limit: PAGINATION_LIMIT,
+        page,
+      })
+    ),
+    directusClient.request(
+      readItems("blog_categories", {
+        fields: [
+          "id",
+          "color",
+          {
+            translations: ["name", "slug", "description", "locale"],
+          },
+        ],
+        filter: {
+          translations: {
+            locale: {
+              _starts_with: lang as Locale,
+            },
           },
         },
-        ...(categorySlug
-          ? {
-              "category.localized_contents.slug": {
-                eq: categorySlug,
-              },
-            }
-          : {}),
-      },
-      sort: [
-        { key: "published_on", order: "desc" },
-        { key: "modified_on", order: "desc" },
-      ],
-      limit: PAGINATION_LIMIT,
-      offset: (page - 1) * PAGINATION_LIMIT,
-      meta: ["filter_count"],
-    }),
-    client.getItems<CategoryNode>("categories", {
-      fields: [
-        "id",
-        "color",
-        "posts",
-        "localized_contents.name",
-        "localized_contents.slug",
-        "localized_contents.locale",
-      ],
-    }),
+      })
+    ),
   ])
 
-  const pagesCount = Math.ceil(meta.filter_count / PAGINATION_LIMIT)
-  const parsedCategories = await Promise.all(
-    categories.filter(c => c.posts!.length > 0).map(category => parseCategory(category, lang))
+  const count = Number(postsCountResult[0]?.count ?? 0)
+  const pagesCount = Math.ceil(count / PAGINATION_LIMIT)
+  const categories = categoriesResult.map(res => {
+    const translation = findTranslation(res.translations ?? [], lang)
+    return {
+      id: res.id,
+      color: res.color,
+      name: translation.name,
+      slug: translation.slug,
+      description: translation.description,
+      locale: translation.locale,
+    }
+  })
+  const currentCategory = categories.find(c => c.slug === categorySlug)
+  const posts = await Promise.all(
+    postsResult.map(async res => {
+      const translation = findTranslation(res.translations ?? [], lang)
+      const categoryTranslation = res.primary_category_id
+        ? findTranslation(res.primary_category_id.translations, lang)
+        : undefined
+      return {
+        publishedAt: res.published_at,
+        updatedAt: res.updated_at,
+        primaryCategory:
+          res.primary_category_id && categoryTranslation
+            ? {
+                id: res.primary_category_id.id,
+                color: res.primary_category_id.color,
+                name: categoryTranslation.name,
+                slug: categoryTranslation.slug,
+                description: categoryTranslation.description,
+                locale: categoryTranslation.locale,
+              }
+            : null,
+        author: res.author_id
+          ? {
+              firstName: res.author_id.first_name,
+              lastName: res.author_id.last_name,
+              email: res.author_id.email,
+              avatar: await parseFluidImage(
+                res.author_id.avatar as DirectusFile<DirectusSchema> | null,
+                `${res.author_id.first_name} ${res.author_id.last_name} picture`
+              ),
+            }
+          : null,
+        title: translation.title,
+        slug: translation.slug,
+        content: translation.content,
+        thumbnail: await parseFluidImage(translation.thumbnail, `${translation.title} thumbnail`),
+        excerpt: translation.excerpt,
+        seo: translation.seo,
+        locale: translation.locale,
+      }
+    })
   )
-  const currentCategory = parsedCategories.find(c => c.slug === categorySlug)
-  const parsedPosts = (await Promise.all(posts.map(post => parsePost(post, lang)))).map(post => ({
-    ...post,
-    category: parsedCategories.find(c => c.id === post.category?.id),
-  }))
-
   const localizedPaths: LocalizedPaths = Languages.reduce(
-    (acc, lang) => ({
+    (acc, pathLang) => ({
       ...acc,
-      [lang]: categorySlug
+      [pathLang]: categorySlug
         ? routes.blogCategoryPath(
-            categories
-              .find(c => c.localized_contents.some(lc => lc.slug === categorySlug))
-              ?.localized_contents.find(lc => lc.locale === lang)?.slug ?? categorySlug,
-            lang
+            categoriesResult
+              .find(c => c.translations?.some(lc => lc.slug === categorySlug))
+              ?.translations?.find(lc => lc.locale.startsWith(pathLang))?.slug ?? categorySlug,
+            pathLang
           )
-        : routes.blogPath(lang),
+        : routes.blogPath(pathLang),
     }),
     {}
   )
 
   return {
-    posts: parsedPosts,
-    categories: parsedCategories,
+    posts,
+    categories,
     currentCategory,
     page,
     pagesCount,

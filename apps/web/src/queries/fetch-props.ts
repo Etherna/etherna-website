@@ -1,16 +1,16 @@
-import fetchAboutData from "./fetch-about-data"
-import fetchBlogData from "./fetch-blog-data"
-import fetchBrandKitData from "./fetch-brand-kit-data"
-import fetchHomeData from "./fetch-home-data"
-import fetchPageData from "./fetch-page-data"
-import fetchPostData from "./fetch-post-data"
-import fetchProjectData from "./fetch-project-data"
+import { fetchBlogData } from "./fetch-blog-data"
+import { fetchBrandKitData } from "./fetch-brand-kit-data"
+import { fetchHomeData } from "./fetch-home-data"
+import { fetchPageData } from "./fetch-page-data"
+import { fetchPostData } from "./fetch-post-data"
+import { fetchProjectData } from "./fetch-project-data"
+import { fetchTeamData } from "./fetch-team-data"
 import { t } from "@/utils/lang"
-import routes, { whichRoute } from "@/utils/routes"
+import { routes, whichRoute } from "@/utils/routes"
 
 import type { Lang, LocalizedPaths } from "@/utils/lang"
 
-type PageData = {
+interface PageData {
   data: unknown
   title: string
   description?: string
@@ -22,7 +22,7 @@ export default async function fetchProps(lang: Lang, path: string): Promise<Page
   const routeIdentifier = whichRoute(path, lang)
 
   switch (routeIdentifier) {
-    case "home":
+    case "home": {
       return {
         data: await fetchHomeData(lang),
         title: "Etherna",
@@ -33,9 +33,10 @@ export default async function fetchProps(lang: Lang, path: string): Promise<Page
           it: routes.homePath("it"),
         },
       }
-    case "about":
+    }
+    case "about": {
       return {
-        data: await fetchAboutData(lang),
+        data: await fetchTeamData(lang),
         title: t("seo:aboutTitle", { lng: lang }),
         description: t("seo:aboutDescription", { lng: lang }),
         lang,
@@ -44,7 +45,8 @@ export default async function fetchProps(lang: Lang, path: string): Promise<Page
           it: routes.aboutPath("it"),
         },
       }
-    case "brand-kit":
+    }
+    case "brand-kit": {
       return {
         data: await fetchBrandKitData(),
         title: t("seo:brandKitTitle", { lng: lang }),
@@ -55,7 +57,8 @@ export default async function fetchProps(lang: Lang, path: string): Promise<Page
           it: routes.brandKitPath("it"),
         },
       }
-    case "blog":
+    }
+    case "blog": {
       const blogData = await fetchBlogData(lang, path)
       return {
         data: blogData,
@@ -64,16 +67,18 @@ export default async function fetchProps(lang: Lang, path: string): Promise<Page
         lang,
         localizedPaths: blogData.localizedPaths,
       }
-    case "post":
+    }
+    case "post": {
       const postData = await fetchPostData(lang, path)
       return {
         data: postData,
         title: postData.post.title,
-        description: postData.post.meta_description ?? "",
+        description: postData.post.seo?.description ?? postData.post.excerpt ?? "",
         lang,
         localizedPaths: postData.localizedPaths,
       }
-    case "category":
+    }
+    case "category": {
       const categoryData = await fetchBlogData(lang, path)
       return {
         data: categoryData,
@@ -82,24 +87,27 @@ export default async function fetchProps(lang: Lang, path: string): Promise<Page
         lang,
         localizedPaths: categoryData.localizedPaths,
       }
-    case "page":
+    }
+    case "page": {
       const pageData = await fetchPageData(lang, path)
       return {
         data: pageData,
         title: pageData.page.title,
-        description: pageData.page.meta_description ?? "",
+        description: pageData.page.seo?.description ?? "",
         lang,
         localizedPaths: pageData.localizedPaths,
       }
-    case "project":
+    }
+    case "project": {
       const projectData = await fetchProjectData(lang, path)
       return {
         data: projectData,
         title: projectData.project.title,
-        description: projectData.project.meta_description ?? "",
+        description: projectData.project.seo?.description ?? "",
         lang,
         localizedPaths: projectData.localizedPaths,
       }
+    }
     default:
       throw new Error("Page not found. Update `/src/queries/fetch-page.ts`")
   }

@@ -1,50 +1,55 @@
-import DirectusClient from "@/classes/directus-client"
+import { readItems } from "@directus/sdk"
 
-import type { PageNode, ProjectNode } from "@/schema/cms"
+import { directusClient } from "@/classes/directus-client"
+import { findTranslation } from "@/utils/data-parser"
 
-export default async function fetchFooter(lang: string) {
-  const client = new DirectusClient()
-  const [{ data: pages }, { data: projects }] = await Promise.all([
-    client.getItems<PageNode>("pages", {
-      fields: [
-        "show_in_menu",
-        "localized_contents.title",
-        "localized_contents.slug",
-        "localized_contents.locale",
-      ],
-    }),
-    client.getItems<ProjectNode>("projects", {
-      fields: [
-        "external_link",
-        "localized_contents.title",
-        "localized_contents.slug",
-        "localized_contents.locale",
-      ],
-    }),
+import type { Lang } from "@/utils/lang"
+
+export async function fetchFooter(lang: Lang) {
+  const [pagesResult, projectsResult] = await Promise.all([
+    directusClient.request(
+      readItems("pages", {
+        fields: [
+          "show_in_menu",
+          {
+            translations: ["title", "slug", "locale"],
+          },
+        ],
+      })
+    ),
+    directusClient.request(
+      readItems("projects", {
+        fields: [
+          "external_link",
+          {
+            translations: ["title", "slug", "locale"],
+          },
+        ],
+      })
+    ),
   ])
 
-  const footerPages = pages
-    .filter(p => p.show_in_menu)
-    .map(p => p.localized_contents.find(lc => lc.locale === lang))
-    .filter(Boolean)
-    .map(p => ({
-      title: p.title,
-      slug: p.slug,
-    }))
-  const footerProjects = projects
-    .map(p => ({
-      external_link: p.external_link,
-      ...p.localized_contents.find(lc => lc.locale === lang)!,
-    }))
-    .filter(Boolean)
-    .map(p => ({
-      title: p.title,
-      slug: p.slug,
-      external_link: p.external_link,
-    }))
+  const pages = pagesResult.map(res => {
+    const translation = findTranslation(res.translations ?? [], lang)
+    return {
+      showInMenu: res.show_in_menu,
+      title: translation.title,
+      slug: translation.slug,
+      locale: translation.locale,
+    }
+  })
+  const projects = projectsResult.map(res => {
+    const translation = findTranslation(res.translations ?? [], lang)
+    return {
+      externalLink: res.external_link,
+      title: translation.title,
+      slug: translation.slug,
+      locale: translation.locale,
+    }
+  })
 
   return {
-    pages: footerPages,
-    projects: footerProjects,
+    pages,
+    projects,
   }
 }

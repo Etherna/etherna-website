@@ -1,37 +1,58 @@
-import DirectusClient from "@/classes/directus-client"
-import { parseBrand } from "@/utils/dataParser"
+import { readSingleton } from "@directus/sdk"
 
-import type { BrandNode } from "@/schema/cms"
+import { directusClient } from "@/classes/directus-client"
+import { parseFluidImage } from "@/utils/data-parser"
 
-export default async function fetchBrandKitData() {
-  const client = new DirectusClient()
-  const {
-    data: [brand],
-  } = await client.getItems<BrandNode>("brand", {
-    fields: [
-      "colors.color",
-      "colors.name",
-      "fonts.name",
-      "fonts.font_family",
-      "fonts.font_weight",
-      "fonts.import_url",
-      "fonts.font_link",
-      "logos.name",
-      "logos.logo_variants.style",
-      "logos.logo_variants.variant_name",
-      "logos.logo_variants.image.private_hash",
-      "logos.logo_variants.image.filename_disk",
-      "logos.logo_variants.image.width",
-      "logos.logo_variants.image.height",
-      "logos.logo_variants.image.description",
-    ],
-  })
+export async function fetchBrandKitData() {
+  const brandResult = await directusClient.request(
+    readSingleton("brand", {
+      fields: [
+        "colors",
+        "fonts",
+        {
+          logos: [
+            "name",
+            {
+              variants: [
+                "id",
+                "variant_name",
+                "style",
+                {
+                  image: ["id", "width", "height", "title", "type"],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    })
+  )
 
-  if (!brand) {
-    throw new Error("Brand not found")
+  const brand = {
+    colors: brandResult.colors,
+    fonts: brandResult.fonts.map(font => ({
+      name: font.name,
+      fontFamily: font.font_family,
+      fontWeight: font.font_weight,
+      importUrl: font.import_url,
+      fontLink: font.font_link,
+    })),
+    logos: await Promise.all(
+      (brandResult.logos ?? []).map(async logo => ({
+        name: logo.name,
+        variants: await Promise.all(
+          (logo.variants ?? []).map(async variant => ({
+            id: variant.id,
+            variantName: variant.variant_name,
+            style: variant.style,
+            image: await parseFluidImage(variant.image),
+          }))
+        ),
+      }))
+    ),
   }
 
-  const parsedBrand = await parseBrand(brand)
-
-  return parsedBrand
+  return {
+    brand,
+  }
 }

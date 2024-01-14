@@ -1,66 +1,91 @@
-import DirectusClient from "@/classes/directus-client"
-import { parseProject } from "@/utils/dataParser"
-import routes, { parseSlug } from "@/utils/routes"
+import { readItems } from "@directus/sdk"
 
-import type { ProjectNode } from "@/schema/cms"
+import { directusClient } from "@/classes/directus-client"
+import { localeToLang } from "@/utils/data-parser"
+import { parseSlug, routes } from "@/utils/routes"
+
 import type { Lang, LocalizedPaths } from "@/utils/lang"
 
-export default async function fetchProjectData(lang: Lang, path: string) {
+export async function fetchProjectData(lang: Lang, path: string) {
   const slug = parseSlug(path)
 
   if (!slug) {
     throw new Error(`Slug not found, path: '${path}'`)
   }
 
-  const client = new DirectusClient()
-  const {
-    data: [project],
-  } = await client.getItems<ProjectNode>("projects", {
-    fields: [
-      "github_link",
-      "external_link",
-      "coming_soon",
-      "status",
-      "image.private_hash",
-      "image.filename_disk",
-      "image.width",
-      "image.height",
-      "image.description",
-      "localized_contents.title",
-      "localized_contents.slug",
-      "localized_contents.content",
-      "localized_contents.excerpt",
-      "localized_contents.meta_description",
-      "localized_contents.meta_keywords",
-      "localized_contents.locale",
-    ],
-    filter: {
-      "localized_contents.slug": {
-        eq: slug,
-      },
-    },
-  })
+  const projectTranslationResult = await directusClient
+    .request(
+      readItems("projects_translations", {
+        fields: [
+          "title",
+          "slug",
+          "content",
+          "seo",
+          "locale",
+          {
+            project_id: [
+              "github_link",
+              "external_link",
+              "coming_soon",
+              {
+                image: ["id", "width", "height", "type", "title"],
+              },
+            ],
+          },
+        ],
+        filter: {
+          _and: [
+            {
+              slug: {
+                _eq: slug,
+              },
+            },
+            {
+              locale: {
+                _starts_with: lang as Locale,
+              },
+            },
+          ],
+        },
+        limit: 1,
+      })
+    )
+    .then(res => res[0])
 
-  if (!project) {
+  if (!projectTranslationResult) {
     throw new Error("Project not found")
   }
 
-  const projectLangs = project.localized_contents.map(lc => lc.locale)
-  const parsedProjects = await Promise.all(projectLangs.map(lang => parseProject(project, lang)))
-  const parsedProject = parsedProjects.find(project => project.locale === lang)!
+  const resultProject = projectTranslationResult.project_id as ExtractGeneric<
+    typeof projectTranslationResult.project_id
+  >
 
-  const localizedPaths: LocalizedPaths = parsedProjects
-    .filter(p => p.locale !== lang)
-    .reduce(
-      (acc, project) => ({
+  const project = {
+    title: projectTranslationResult.title,
+    slug: projectTranslationResult.slug,
+    content: projectTranslationResult.content,
+    seo: projectTranslationResult.seo,
+    locale: projectTranslationResult.locale,
+    githubLink: resultProject.github_link,
+    externalLink: resultProject.external_link,
+    comingSoon: resultProject.coming_soon,
+  }
+
+  const localizedPaths = resultProject.translations
+    .filter(t => localeToLang(t.locale) !== lang)
+    .reduce<LocalizedPaths>(
+      (acc, projectTranslation) => ({
         ...acc,
-        [project.locale]: routes.projectPath(project.slug, project.locale as Lang),
+        [localeToLang(projectTranslation.locale)]: routes.pagePath(
+          projectTranslation.slug,
+          localeToLang(projectTranslation.locale)
+        ),
       }),
       {}
     )
 
   return {
-    project: parsedProject,
+    project,
     localizedPaths,
   }
 }

@@ -1,39 +1,61 @@
-import DirectusClient from "@/classes/directus-client"
+import { readItems } from "@directus/sdk"
 
-import type { DocumentsNode, PageNode } from "@/schema/cms"
+import { directusClient } from "@/classes/directus-client"
+import { findTranslation } from "@/utils/data-parser"
 
-export default async function fetchNavbar(lang: string) {
-  const client = new DirectusClient()
-  const [{ data: pages }, { data: documents }] = await Promise.all([
-    client.getItems<PageNode>("pages", {
-      fields: [
-        "show_in_menu",
-        "localized_contents.title",
-        "localized_contents.slug",
-        "localized_contents.locale",
-      ],
-    }),
-    client.getItems<DocumentsNode>("documents", {
-      fields: ["whitepaper.private_hash", "whitepaper.filename_disk", "whitepaper.description"],
-      single: true,
-    }),
+import type { Lang } from "@/utils/lang"
+
+export async function fetchNavbar(lang: Lang) {
+  const [pagesResult, whitepaperResult] = await Promise.all([
+    directusClient.request(
+      readItems("pages", {
+        fields: [
+          "show_in_menu",
+          {
+            translations: ["title", "slug", "locale"],
+          },
+        ],
+      })
+    ),
+    directusClient
+      .request(
+        readItems("documents", {
+          fields: [
+            "name",
+            {
+              file_id: ["id", "type"],
+            },
+          ],
+          filter: {
+            code: {
+              _eq: "whitepaper",
+            },
+          },
+        })
+      )
+      .then(res => res[0]),
   ])
 
-  const navbarPages = pages
-    .filter(p => p.show_in_menu)
-    .map(p => p.localized_contents.find(lc => lc.locale === lang))
-    .filter(Boolean)
-    .map(p => ({
-      title: p.title,
-      slug: p.slug,
-    }))
+  const pages = pagesResult.map(res => {
+    const translation = findTranslation(res.translations ?? [], lang)
+    return {
+      showInMenu: res.show_in_menu,
+      title: translation.title,
+      slug: translation.slug,
+      locale: translation.locale,
+    }
+  })
+  const documents = {
+    whitepaper: whitepaperResult
+      ? {
+          name: whitepaperResult.name,
+          file: whitepaperResult.file_id,
+        }
+      : null,
+  }
 
   return {
-    pages: navbarPages,
-    documents: {
-      whitepaper: documents.whitepaper?.private_hash
-        ? client.getFileUrl(documents.whitepaper?.private_hash)
-        : null,
-    },
+    pages,
+    documents,
   }
 }

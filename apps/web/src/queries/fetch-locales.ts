@@ -1,35 +1,30 @@
-import DirectusClient from "@/classes/directus-client"
-import { parseFluidImage } from "@/utils/dataParser"
+import { readItems } from "@directus/sdk"
 
-import type { LocaleNode } from "@/schema/cms"
-import type { LocaleInfo } from "@/utils/lang"
+import { directusClient } from "@/classes/directus-client"
+import { loadSvgAsset } from "@/utils/data-parser"
 
 export default async function fetchLocales() {
-  const client = new DirectusClient()
-  const { data: locales } = await client.getItems<LocaleNode>("locales", {
-    fields: [
-      "code",
-      "name",
-      "flag.private_hash",
-      "flag.filename_disk",
-      "flag.width",
-      "flag.height",
-      "flag.description",
-    ],
-  })
+  const languagesResult = await directusClient.request(
+    readItems("languages", {
+      fields: [
+        "code",
+        "name",
+        {
+          icon: ["id"],
+        },
+      ],
+    })
+  )
 
-  const navbarLocales = await Promise.all(
-    locales.map(
-      async l =>
-        ({
-          code: l.code,
-          name: l.name,
-          flag: (await parseFluidImage(l.flag, l.name))!,
-        }) as LocaleInfo
-    )
+  const locales = await Promise.all(
+    languagesResult.map(async res => ({
+      code: res.code,
+      name: res.name,
+      icon: await loadSvgAsset(res.icon?.id ?? null),
+    }))
   )
 
   return {
-    locales: navbarLocales,
+    locales,
   }
 }
