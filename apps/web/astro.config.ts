@@ -14,6 +14,9 @@ import svgr from "vite-plugin-svgr"
 // https://astro.build/config
 export default defineConfig({
   site: "https://info.etherna.io",
+  experimental: {
+    assets: true,
+  },
   integrations: [
     react(),
     // files(),
