@@ -2,17 +2,19 @@
 
 import ndarray from "ndarray"
 
-import type { OutputFormat } from "@astrojs/image/dist/loaders"
+import type { ImageOutputFormat } from "astro"
 
 // Credit to: https://github.com/scijs/get-pixels
 
-export function getImagePixels(imageData: ArrayBuffer, format: OutputFormat) {
+export function getImagePixels(imageData: ArrayBuffer, format: ImageOutputFormat) {
   switch (format) {
     case "png":
       return getPNGPixels(imageData)
     case "jpg":
     case "jpeg":
       return getJPEGPixels(imageData)
+    // case "svg":
+    //   return getSVGPixels(imageData)
     default:
       return null
   }
@@ -25,6 +27,18 @@ async function getJPEGPixels(imageData: ArrayBuffer) {
   const result = ndarray(jpegData.data, nshape)
   return new Uint8ClampedArray(result.data)
 }
+
+// async function getSVGPixels(imageData: ArrayBuffer) {
+//   const svgToPgn = (await import("svg2img")).default
+//   const svgString = new TextDecoder().decode(imageData)
+//   const pngData = await new Promise<Buffer>((resolve, reject) => {
+//     svgToPgn(svgString, {}, (err, buffer) => {
+//       if (err) return reject(err)
+//       resolve(buffer)
+//     })
+//   })
+//   return await getPNGPixels(pngData.buffer)
+// }
 
 async function getPNGPixels(imageData: ArrayBuffer) {
   const { PNG } = await import("pngjs")

@@ -2,13 +2,21 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable no-bitwise */
 
+import { getConfiguredImageService, imageConfig } from "astro:assets"
 import { decode, encode, isBlurhashValid } from "blurhash"
 
 import { getImagePixels } from "./image"
 
-import type { TransformOptions } from "@astrojs/image/dist/loaders"
+import type { LocalImageService } from "astro"
 
 // Credit: https://gist.github.com/mattiaz9/53cb67040fa135cb395b1d015a200aff
+
+export interface TransformOptions {
+  src: string
+  width?: number
+  height?: number
+  format?: "jpeg" | "png" | "webp" | "avif" | "svg"
+}
 
 export function blurHashToDataURL(hash: string | null | undefined): string {
   let fixedHash = hash
@@ -23,31 +31,45 @@ export function blurHashToDataURL(hash: string | null | undefined): string {
 }
 
 export async function serverImageToBlurhash(transform: TransformOptions) {
+  return ""
   if (process.env.NODE_ENV === "development") {
     // fix certificate issue in development
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
   }
   const resp = await fetch(transform.src.toString())
-  const image = await resp.arrayBuffer()
-  const loader = globalThis.astroImage.defaultLoader
+  let image = await resp.arrayBuffer()
+
   const width = 50
   const height = Math.round(50 * ((transform.height ?? 100) / (transform.width ?? 100)))
 
-  const { data } = await loader.transform(Buffer.from(image), {
-    ...transform,
-    width,
-    height,
-  })
+  if (transform.format !== "svg") {
+    console.log(">>>FORMAT", transform.format)
+    const imageService = (await getConfiguredImageService()) as LocalImageService
+    const { data } = await imageService.transform(
+      new Uint8Array(image),
+      {
+        src: transform.src,
+        width,
+        height: height,
+      },
+      imageConfig
+    )
+    image = data
+  }
 
   const pixels =
-    (await getImagePixels(data, transform.format ?? "jpeg")) ??
+    (await getImagePixels(image, transform.format ?? "jpeg")) ??
     new Uint8ClampedArray(
       Array.from({ length: width * height * 4 }, () => {
         return Math.floor(155 + Math.random() * 100)
       })
     )
 
-  return encode(pixels, width, height, 4, 4)
+  try {
+    return encode(pixels, width, height, 4, 4)
+  } catch (error) {
+    return "LEHV6nWB2yk8pyo0adR*.7kCMdnj"
+  }
 }
 
 export async function clientImageToBlurhash(

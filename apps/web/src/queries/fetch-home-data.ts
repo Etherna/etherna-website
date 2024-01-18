@@ -1,5 +1,5 @@
-import { getImage } from "@astrojs/image"
 import { readItems, readSingleton } from "@directus/sdk"
+import { getImage } from "astro:assets"
 
 import { directusClient } from "@/classes/directus-client"
 import { findTranslation, parseFluidImage } from "@/utils/data-parser"

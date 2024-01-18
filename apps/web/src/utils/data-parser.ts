@@ -1,4 +1,4 @@
-import { getImage } from "@astrojs/image"
+import { getImage } from "astro:assets"
 
 import { getDirectusAssetUrl } from "./assets"
 import { serverImageToBlurhash } from "./blurhash"
@@ -54,19 +54,21 @@ export const parseFluidImage = async (
   const height = image.height ?? 100
 
   const src = getDirectusAssetUrl(image.id)
-  const attributes = await getImage({
-    src,
-    alt: alt ?? image.title ?? "",
-    width,
-    height,
-    format,
-  })
-  const blurhash = await serverImageToBlurhash({
-    src,
-    width,
-    height,
-    format,
-  })
+  const [attributes, blurhash] = await Promise.all([
+    getImage({
+      src,
+      alt: alt ?? image.title ?? "",
+      width,
+      height,
+      format,
+    }),
+    serverImageToBlurhash({
+      src,
+      width,
+      height,
+      format,
+    }),
+  ])
 
   return {
     attributes,
@@ -95,7 +97,11 @@ export const loadSvgAsset = async (fileId: UUID | null): Promise<AstroSvgAsset> 
   }
 }
 
-export const getExternalAsset = (fileId: UUID | null): AstroFileAsset => {}
+export const getExternalAsset = async (fileId: UUID | null): Promise<AstroFileAsset | null> => {
+  if (!fileId) return null
+
+  return null
+}
 
 export const localeToLang = (locale: Locale): Lang => {
   const lang = locale.split("-")[0] as Lang
