@@ -6,6 +6,9 @@ import { parseSlug, routes } from "@/utils/routes"
 
 import type { Lang, LocalizedPaths } from "@/utils/lang"
 
+export type ParsedPageData = Awaited<ReturnType<typeof fetchPageData>>
+export type ParsedPage = ParsedPageData["page"]
+
 export async function fetchPageData(lang: Lang, path: string) {
   const slug = parseSlug(path)
 
@@ -13,13 +16,14 @@ export async function fetchPageData(lang: Lang, path: string) {
     throw new Error(`Slug not found, path: '${path}'`)
   }
 
-  const pageTransltionResult = await directusClient
+  const pageTranslationResult = await directusClient
     .request(
       readItems("pages_translations", {
         fields: [
           "title",
           "slug",
           "content_text",
+          "description",
           "seo",
           "locale",
           {
@@ -50,20 +54,21 @@ export async function fetchPageData(lang: Lang, path: string) {
     )
     .then(res => res[0])
 
-  if (!pageTransltionResult) {
+  if (!pageTranslationResult) {
     throw new Error(`Page not found, path: '${path}', lang: '${lang}'`)
   }
 
-  const resultPage = pageTransltionResult.page_id as ExtractGeneric<
-    typeof pageTransltionResult.page_id
+  const resultPage = pageTranslationResult.page_id as ExtractGeneric<
+    typeof pageTranslationResult.page_id
   >
 
   const page = {
-    title: pageTransltionResult.title,
-    slug: pageTransltionResult.slug,
-    contentText: pageTransltionResult.content_text,
-    seo: pageTransltionResult.seo,
-    locale: pageTransltionResult.locale,
+    title: pageTranslationResult.title,
+    description: pageTranslationResult.description,
+    slug: pageTranslationResult.slug,
+    contentText: pageTranslationResult.content_text,
+    seo: pageTranslationResult.seo,
+    locale: pageTranslationResult.locale,
     showInMenu: resultPage.show_in_menu,
   }
 

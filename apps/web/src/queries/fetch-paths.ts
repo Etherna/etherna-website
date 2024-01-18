@@ -21,11 +21,11 @@ export const StaticPaths = [
   { params: { lang: "it", path: "/brand-kit" } },
 ] as { params: { lang: Lang; path: string } }[]
 
-export const withoutLocale = (path: string, locale: Lang) => {
-  return path.replace(new RegExp(`^/?${locale}/`), "/")
+export const withoutLocale = (path: string, lang: Lang) => {
+  return path.replace(new RegExp(`^/?${lang}/`), "/")
 }
 
-export async function fetchPaths(locales: Lang[]) {
+export async function fetchPaths(langs: Lang[]) {
   const [pagesResult, projectsResult, postsResult, categoriesResult] = await Promise.all([
     directusClient.request(
       readItems("pages", {
@@ -35,12 +35,13 @@ export async function fetchPaths(locales: Lang[]) {
           },
         ],
         filter: {
-          translations: {
-            locale: {
-              // @ts-expect-error
-              _regex: new RegExp(`^(${locales.join("|")})`),
+          _or: langs.map(lang => ({
+            translations: {
+              locale: {
+                _starts_with: lang as Locale,
+              },
             },
-          },
+          })),
         },
       })
     ),
@@ -52,12 +53,13 @@ export async function fetchPaths(locales: Lang[]) {
           },
         ],
         filter: {
-          translations: {
-            locale: {
-              // @ts-expect-error
-              _regex: new RegExp(`^(${locales.join("|")})`),
+          _or: langs.map(lang => ({
+            translations: {
+              locale: {
+                _starts_with: lang as Locale,
+              },
             },
-          },
+          })),
         },
       })
     ),
@@ -74,12 +76,13 @@ export async function fetchPaths(locales: Lang[]) {
           },
         ],
         filter: {
-          translations: {
-            locale: {
-              // @ts-expect-error
-              _regex: new RegExp(`^(${locales.join("|")})`),
+          _or: langs.map(lang => ({
+            translations: {
+              locale: {
+                _starts_with: lang as Locale,
+              },
             },
-          },
+          })),
         },
       })
     ),
@@ -91,12 +94,13 @@ export async function fetchPaths(locales: Lang[]) {
           },
         ],
         filter: {
-          translations: {
-            locale: {
-              // @ts-expect-error
-              _regex: new RegExp(`^(${locales.join("|")})`),
+          _or: langs.map(lang => ({
+            translations: {
+              locale: {
+                _starts_with: lang as Locale,
+              },
             },
-          },
+          })),
         },
       })
     ),
@@ -139,7 +143,7 @@ export async function fetchPaths(locales: Lang[]) {
           ),
         },
       })),
-    ...locales
+    ...langs
       .map(lang =>
         new Array(
           Math.ceil(
@@ -188,7 +192,7 @@ export async function fetchPaths(locales: Lang[]) {
   ] satisfies { params: { lang: Lang; path: string } }[]
 
   const paths = StaticPaths.concat(dynamicPaths)
-    .filter(({ params }) => locales.includes(params.lang))
+    .filter(({ params }) => langs.includes(params.lang))
     .map(({ params }) => ({
       params: {
         lang: params.lang === DEFAULT_LOCALE ? undefined : params.lang,

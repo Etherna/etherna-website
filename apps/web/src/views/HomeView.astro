@@ -1,6 +1,4 @@
 ---
-import { z } from "zod"
-
 import { ReactComponent as FeatureCensorshipIcon } from "@/assets/icons/feature-censorship.svg"
 import { ReactComponent as FeatureCommunityIcon } from "@/assets/icons/feature-community.svg"
 import { ReactComponent as FeatureCreativityIcon } from "@/assets/icons/feature-creativity.svg"
@@ -20,33 +18,23 @@ import { ReactComponent as MongodbLogo } from "@/assets/logos/mongodb-logo.svg"
 import { ReactComponent as ReactLogo } from "@/assets/logos/react-logo.svg"
 import { ReactComponent as SwarmLogo } from "@/assets/logos/swarm-logo.svg"
 
-import Card from "@/components/common/Card"
-import Col from "@/components/common/Col"
-import Container from "@/components/common/Container"
-import Row from "@/components/common/Row"
-import AlphaPassBanner from "@/components/landing/AlphaPassBanner"
-import Awards from "@/components/landing/Awards"
-import Contacts from "@/components/landing/Contacts"
-import Hero from "@/components/landing/Hero"
-import LandingSection from "@/components/landing/LandingSection"
-import NewsletterSection from "@/components/landing/NewsletterSection"
-// import PresentationVideo from "@/components/landing/PresentationVideo"
-import Roadmap from "@/components/landing/Roadmap"
-import OrganizationSchema from "@/components/schema/OrganizationSchema"
-import { awardSchema, milestoneSchema } from "@/schema/app"
+import { Card } from "@/components/common/card"
+import { Col } from "@/components/common/col"
+import { Container } from "@/components/common/container"
+import { Row } from "@/components/common/row"
+import { AlphaPassBanner } from "@/components/landing/alpha-pass-banner"
+import { Awards } from "@/components/landing/awards"
+import { Contacts } from "@/components/landing/contacts"
+import { Hero } from "@/components/landing/hero"
+import { LandingSection } from "@/components/landing/landing-section"
+import { NewsletterSection } from "@/components/landing/newsletter-section"
+// import {PresentationVideo} from "@/components/landing/presentation-video"
+import { Roadmap } from "@/components/landing/roadmap"
+import { OrganizationSchema } from "@/components/schema/organization-schema"
+import { ViewProps } from "@/queries/fetch-props"
 import { t } from "@/utils/lang"
 
-import type { Lang } from "@/utils/lang"
-
-interface Props {
-  data: z.infer<typeof landingSchema>
-  lang: Lang
-}
-
-export const landingSchema = z.object({
-  milestones: z.array(milestoneSchema),
-  awards: z.array(awardSchema),
-})
+interface Props extends ViewProps<"home"> {}
 
 const { data } = Astro.props
 ---
@@ -63,30 +51,30 @@ const { data } = Astro.props
               {t("landing:builtWith")}
             </div>
             <Container
-              className="mt-8 @apply [&_svg]:max-w-full [&_svg]:mx-auto [&_svg]:max-height-[65px]"
+              className="@apply [&_svg]:max-height-[65px] mt-8 [&_svg]:mx-auto [&_svg]:max-w-full"
             >
               <Row className="items-center justify-evenly">
-                <Col className="w-1/2 sm:w-1/3 md:w-1/5 mb-6">
+                <Col className="mb-6 w-1/2 sm:w-1/3 md:w-1/5">
                   <a href={t("landing:ethereumUrl")} target="_blank" rel="noreferrer noopener">
                     <EthereumLogo />
                   </a>
                 </Col>
-                <Col className="w-1/2 sm:w-1/3 md:w-1/5 mb-6">
+                <Col className="mb-6 w-1/2 sm:w-1/3 md:w-1/5">
                   <a href={t("landing:swarmUrl")} target="_blank" rel="noreferrer noopener">
                     <SwarmLogo />
                   </a>
                 </Col>
-                <Col className="w-1/2 sm:w-1/3 md:w-1/5 mb-6">
+                <Col className="mb-6 w-1/2 sm:w-1/3 md:w-1/5">
                   <a href={t("landing:reactUrl")} target="_blank" rel="noreferrer noopener">
                     <ReactLogo />
                   </a>
                 </Col>
-                <Col className="w-1/2 sm:w-1/3 md:w-1/5 mb-6">
+                <Col className="mb-6 w-1/2 sm:w-1/3 md:w-1/5">
                   <a href={t("landing:dotnetUrl")} target="_blank" rel="noreferrer noopener">
                     <DotNetLogo />
                   </a>
                 </Col>
-                <Col className="w-1/2 sm:w-1/3 md:w-1/5 mb-6">
+                <Col className="mb-6 w-1/2 sm:w-1/3 md:w-1/5">
                   <a href={t("landing:mongodbUrl")} target="_blank" rel="noreferrer noopener">
                     <MongodbLogo />
                   </a>
@@ -207,6 +195,15 @@ const { data } = Astro.props
 
 <Contacts />
 
-<NewsletterSection client:load />
+<NewsletterSection socials={data.companyInfo.socials} client:load />
 
-<OrganizationSchema />
+<OrganizationSchema
+  companyName={data.companyInfo.companyName!}
+  companyAddressLocality={data.companyInfo.companyAddressLocality!}
+  companyPostalCode={data.companyInfo.companyAddressPostalCode!}
+  companyStreetAddress={data.companyInfo.companyAddressStreet!}
+  companyCountry={data.companyInfo.companyAddressCountry!}
+  companyEmail={data.companyInfo.companyEmail!}
+  companyFoundingDate={new Date(data.companyInfo.companyFoundingDate!)}
+  companyKeywords={data.companyInfo.companyKeywords!}
+/>

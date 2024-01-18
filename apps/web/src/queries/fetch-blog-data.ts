@@ -9,6 +9,8 @@ import { parsePage, parseSlug, routes, whichRoute } from "@/utils/routes"
 import type { Lang, LocalizedPaths } from "@/utils/lang"
 import type { DirectusFile, QueryFilter } from "@directus/sdk"
 
+export type ParsedBlogData = Awaited<ReturnType<typeof fetchBlogData>>
+
 export async function fetchBlogData(lang: Lang, path: string) {
   const routeIdentifier = whichRoute(path, lang)
   const page = parsePage(path) ?? 1
@@ -68,12 +70,13 @@ export async function fetchBlogData(lang: Lang, path: string) {
       readItems("blog_articles", {
         fields: [
           "published_at",
-          "updated_at",
+          "edited_at",
           {
             primary_category_id: ["id"],
           },
           {
             author_id: [
+              "id",
               "first_name",
               "last_name",
               "email",
@@ -139,8 +142,8 @@ export async function fetchBlogData(lang: Lang, path: string) {
         ? findTranslation(res.primary_category_id.translations, lang)
         : undefined
       return {
-        publishedAt: res.published_at,
-        updatedAt: res.updated_at,
+        publishedAt: res.published_at as string,
+        editedAt: res.edited_at,
         primaryCategory:
           res.primary_category_id && categoryTranslation
             ? {
@@ -152,17 +155,16 @@ export async function fetchBlogData(lang: Lang, path: string) {
                 locale: categoryTranslation.locale,
               }
             : null,
-        author: res.author_id
-          ? {
-              firstName: res.author_id.first_name,
-              lastName: res.author_id.last_name,
-              email: res.author_id.email,
-              avatar: await parseFluidImage(
-                res.author_id.avatar as DirectusFile<DirectusSchema> | null,
-                `${res.author_id.first_name} ${res.author_id.last_name} picture`
-              ),
-            }
-          : null,
+        author: {
+          id: res.author_id.id,
+          firstName: res.author_id.first_name,
+          lastName: res.author_id.last_name,
+          email: res.author_id.email,
+          avatar: await parseFluidImage(
+            res.author_id.avatar as DirectusFile<DirectusSchema> | null,
+            `${res.author_id.first_name} ${res.author_id.last_name} picture`
+          ),
+        },
         title: translation.title,
         slug: translation.slug,
         content: translation.content,

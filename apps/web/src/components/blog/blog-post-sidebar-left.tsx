@@ -8,11 +8,11 @@ import { cn } from "@/utils/classnames"
 import { localeInfo } from "@/utils/lang"
 import { routes } from "@/utils/routes"
 
-import type { Post } from "@/schema/app"
+import type { ParsedPost } from "@/queries/fetch-post-data"
 import type { Lang } from "@/utils/lang"
 
 interface BlogPostSidebarLeftProps {
-  post: Post
+  post: ParsedPost
   lang: Lang
 }
 

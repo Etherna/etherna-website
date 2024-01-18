@@ -1,13 +1,13 @@
 import { Image } from "@/components/common/image"
 import { cn } from "@/utils/classnames"
 
-import type { AstroImg } from "@/schema/app"
+import type { AstroImageAsset } from "@/utils/data-parser"
 
 interface MegaMenuItemProps {
   href?: string
   title: string
   excerpt?: string
-  image?: AstroImg | null
+  image?: AstroImageAsset | null
   isExternal?: boolean
   disabled?: boolean
 }

@@ -13,6 +13,7 @@
     "start": "turbo run start",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "migrate": "cd ./apps/cms && pnpm migrate-up",
     "bootstrap": "cd ./apps/cms && pnpm bootstrap && pnpm migrate-up"

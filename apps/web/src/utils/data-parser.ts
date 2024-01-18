@@ -4,8 +4,21 @@ import { getDirectusAssetUrl } from "./assets"
 import { serverImageToBlurhash } from "./blurhash"
 
 import type { Lang } from "./lang"
-import type { AstroImg } from "@/schema/app"
 import type { DirectusFile } from "@directus/sdk"
+
+export interface AstroImageAsset {
+  attributes: astroHTML.JSX.ImgHTMLAttributes
+  blurhash: string
+}
+
+export interface AstroSvgAsset {
+  svg: string | null
+}
+
+export interface AstroFileAsset {
+  url: string | null
+  type: string | null
+}
 
 export const findTranslation = <T extends { locale: Locale }>(
   items: T[],
@@ -25,7 +38,7 @@ export const findTranslation = <T extends { locale: Locale }>(
 export const parseFluidImage = async (
   image: Pick<DirectusFile<DirectusSchema>, "id" | "title" | "type" | "width" | "height"> | null,
   alt?: string
-): Promise<AstroImg | null> => {
+): Promise<AstroImageAsset | null> => {
   if (!image) return null
 
   const formats = {
@@ -61,7 +74,7 @@ export const parseFluidImage = async (
   }
 }
 
-export const loadSvgAsset = async (fileId: UUID | null) => {
+export const loadSvgAsset = async (fileId: UUID | null): Promise<AstroSvgAsset> => {
   let svg: string | null = null
 
   try {
@@ -81,6 +94,8 @@ export const loadSvgAsset = async (fileId: UUID | null) => {
     svg,
   }
 }
+
+export const getExternalAsset = (fileId: UUID | null): AstroFileAsset => {}
 
 export const localeToLang = (locale: Locale): Lang => {
   const lang = locale.split("-")[0] as Lang

@@ -11,6 +11,7 @@ import { WhitepaperLink } from "@/components/common/whitepaper-link"
 import { cn } from "@/utils/classnames"
 import { routes } from "@/utils/routes"
 
+import type { SocialUrls } from "./social-menu"
 import type { Lang, LocaleInfo, LocalizedPaths } from "@/utils/lang"
 
 interface HeaderProps {
@@ -20,6 +21,7 @@ interface HeaderProps {
   whitepaperLink?: string | null
   locales: LocaleInfo[]
   lang: Lang
+  socials: SocialUrls
 }
 
 export function Header({
@@ -29,6 +31,7 @@ export function Header({
   whitepaperLink,
   locales,
   lang,
+  socials,
 }: HeaderProps) {
   const [isActive, setIsActive] = useState(false)
   const [showContextualMenu, setShowContextualMenu] = useState(false)
@@ -60,7 +63,7 @@ export function Header({
         <div className="flex flex-wrap items-center py-4 lg:flex-nowrap">
           <div>
             <a href={routes.homePath(lang)}>
-              <Logo className="h-[30px]" />
+              <Logo className="h-7" />
             </a>
           </div>
 
@@ -140,8 +143,8 @@ export function Header({
               </HeaderMenu>
 
               <HeaderMenu position="right">
-                {pages.map((page, i) => (
-                  <HeaderMenuLink key={i} href={routes.pagePath(page.slug, lang)}>
+                {pages.map(page => (
+                  <HeaderMenuLink key={page.slug} href={routes.pagePath(page.slug, lang)}>
                     {page.title}
                   </HeaderMenuLink>
                 ))}
@@ -151,17 +154,13 @@ export function Header({
             </div>
 
             <div className="flex w-full flex-nowrap items-center overflow-x-auto py-2 lg:w-auto lg:overflow-x-visible lg:py-0">
-              <SocialMenu linkClassName="first-of-type:pl-0" />
+              <SocialMenu linkClassName="first-of-type:pl-0" socials={socials} />
               <LangSwitcher
                 toggleClassName="ml-4"
                 lang={lang}
                 locales={locales}
                 localizedPaths={localizedPaths}
               />
-              {/* <UserMenu
-                linkClassName="ml-4"
-                avatarClassName="block h-5 w-5 overflow-hidden rounded-full"
-              /> */}
             </div>
           </div>
         </div>

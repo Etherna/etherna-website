@@ -2,20 +2,21 @@ import { CategoryBadge } from "./category-badge"
 import { Avatar } from "@/components/common/avatar"
 import { Image } from "@/components/common/image"
 import { cn } from "@/utils/classnames"
+import { localeToLang } from "@/utils/data-parser"
 import { dayjs } from "@/utils/dayjs"
 import { routes } from "@/utils/routes"
 
-import type { Post } from "@/schema/app"
+import type { ParsedPost } from "@/queries/fetch-post-data"
 import type { Lang } from "@/utils/lang"
 
 interface BlogPostPreviewProps {
-  post: Omit<Post, "content" | "meta_description" | "meta_keywords">
+  post: Omit<ParsedPost, "content" | "meta_description" | "meta_keywords">
   featured?: boolean
   lang: Lang
 }
 
 export function BlogPostPreview({ post, featured, lang }: BlogPostPreviewProps) {
-  const formattedDate = dayjs(post.updated_on || post.published_on).locale(lang)
+  const formattedDate = dayjs(post.editedAt || post.publishedAt).locale(lang)
 
   return (
     <article
@@ -29,10 +30,10 @@ export function BlogPostPreview({ post, featured, lang }: BlogPostPreviewProps) 
         })}
       >
         <header className="w-full">
-          {post.category && <CategoryBadge category={post.category} lang={lang} />}
+          {post.primaryCategory && <CategoryBadge category={post.primaryCategory} lang={lang} />}
         </header>
 
-        <a href={routes.blogPostPath(post.slug, post.locale)}>
+        <a href={routes.blogPostPath(post.slug, localeToLang(post.locale))}>
           <h2 className="mb-2 font-serif leading-none text-gray-900">{post.title}</h2>
           <p className="truncate text-gray-600 sm:whitespace-normal sm:break-words">
             {post.excerpt}
@@ -46,7 +47,7 @@ export function BlogPostPreview({ post, featured, lang }: BlogPostPreviewProps) 
         >
           {post.author.avatar && <Avatar src={post.author.avatar} className="h-6 w-6" />}
           <h4 className="mb-0 ml-2 text-sm text-gray-600">
-            {post.author.first_name} {post.author.last_name}
+            {post.author.firstName} {post.author.lastName}
           </h4>
           <span
             className={cn("text-xs before:mx-3 before:content-['-']", {
@@ -62,9 +63,9 @@ export function BlogPostPreview({ post, featured, lang }: BlogPostPreviewProps) 
           "order-1 w-1/3 lg:w-1/2": featured,
         })}
       >
-        {post.image && (
-          <a href={routes.blogPostPath(post.slug, post.locale)}>
-            <Image data={post.image} className="object-cover" />
+        {post.thumbnail && (
+          <a href={routes.blogPostPath(post.slug, localeToLang(post.locale))}>
+            <Image data={post.thumbnail} className="object-cover" />
           </a>
         )}
       </div>

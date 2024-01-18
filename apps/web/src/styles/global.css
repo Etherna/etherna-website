@@ -14,10 +14,9 @@
 
   a {
     @apply cursor-pointer text-blue-500 no-underline transition duration-300;
-
-    &:hover {
-      @apply text-blue-400 no-underline transition duration-300;
-    }
+  }
+  a:hover {
+    @apply text-blue-400 no-underline transition duration-300;
   }
 
   h1,
@@ -30,50 +29,53 @@
   }
 
   h1 {
-    @apply mb-6 text-3xl font-extrabold;
-    @screen lg {
-      @apply mb-8;
-    }
+    @apply mb-6 text-3xl font-bold;
   }
   h2 {
-    @apply mb-4 text-3xl font-extrabold;
-    @screen lg {
-      @apply mb-6;
-    }
+    @apply mb-4 text-3xl font-bold;
   }
   h3 {
-    @apply mb-3 text-2xl font-extrabold;
-    @screen lg {
-      @apply mb-4;
-    }
+    @apply mb-3 text-2xl font-bold;
   }
   h4 {
     @apply mb-2 text-xl font-semibold;
-    @screen lg {
-      @apply mb-3;
-    }
   }
   h5 {
     @apply mb-3 text-lg font-semibold;
-    @screen lg {
-      @apply mb-3;
-    }
   }
   h6 {
     @apply text-base font-semibold;
-    @screen lg {
+  }
+
+  @screen lg {
+    h1 {
+      @apply mb-8;
+    }
+    h2 {
+      @apply mb-6;
+    }
+    h3 {
+      @apply mb-4;
+    }
+    h4 {
+      @apply mb-3;
+    }
+    h5 {
+      @apply mb-3;
+    }
+    h6 {
       @apply mb-1;
     }
   }
 
-  button,
-  input {
-    &:focus {
-      @apply outline-none ring-2 ring-primary-500/50;
-    }
-    &:disabled {
-      @apply cursor-not-allowed opacity-50;
-    }
+  button:focus,
+  input:focus {
+    @apply outline-none ring-2 ring-primary-500/50;
+  }
+
+  button:disabled,
+  input:disabled {
+    @apply cursor-not-allowed opacity-50;
   }
 
   blockquote {

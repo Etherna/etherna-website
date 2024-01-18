@@ -33,8 +33,6 @@ import itProject from "@/lang/it/project.json"
 import itRoadmap from "@/lang/it/roadmap.json"
 import itSeo from "@/lang/it/seo.json"
 
-import type { AstroImg } from "@/schema/app"
-
 export const DEFAULT_LOCALE = "en"
 
 export const LOCALES = {
@@ -51,9 +49,11 @@ export type Lang = keyof typeof LOCALES
 export type LocalizedPaths = Partial<Record<Lang, string>>
 
 export interface LocaleInfo {
-  code: string
+  code: Lang
   name: string
-  flag: AstroImg
+  icon: {
+    svg: string | null
+  }
 }
 
 export const resources = {

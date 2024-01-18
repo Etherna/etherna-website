@@ -1,17 +1,18 @@
 ---
 import { whichRoute } from "@/utils/routes"
-import AboutView, { aboutSchema } from "@/views/AboutView.astro"
-import BlogPostView, { postSchema } from "@/views/BlogPostView.astro"
-import BlogView, { blogSchema } from "@/views/BlogView.astro"
-import BrandKitView, { brandKitSchema } from "@/views/BrandKitView.astro"
-import HomeView, { landingSchema } from "@/views/HomeView.astro"
-import PageView, { pageSchema } from "@/views/PageView.astro"
-import ProjectView, { projectSchema } from "@/views/ProjectView.astro"
+import AboutView from "@/views/AboutView.astro"
+import BlogPostView from "@/views/BlogPostView.astro"
+import BlogView from "@/views/BlogView.astro"
+import BrandKitView from "@/views/BrandKitView.astro"
+import HomeView from "@/views/HomeView.astro"
+import PageView from "@/views/PageView.astro"
+import ProjectView from "@/views/ProjectView.astro"
 
+import type { FetchedProps } from "@/queries/fetch-props"
 import type { Lang } from "@/utils/lang"
 
 interface Props {
-  data: unknown
+  data: FetchedProps
   lang: Lang
   path: string
 }
@@ -20,11 +21,91 @@ const { data, lang, path } = Astro.props
 const routeIdentifier = whichRoute(path, lang)
 ---
 
-{routeIdentifier === "home" && <HomeView data={landingSchema.parse(data)} lang={lang} />}
-{routeIdentifier === "about" && <AboutView data={aboutSchema.parse(data)} lang={lang} />}
-{routeIdentifier === "brand-kit" && <BrandKitView data={brandKitSchema.parse(data)} lang={lang} />}
-{routeIdentifier === "page" && <PageView data={pageSchema.parse(data)} lang={lang} />}
-{routeIdentifier === "project" && <ProjectView data={projectSchema.parse(data)} lang={lang} />}
-{routeIdentifier === "blog" && <BlogView data={blogSchema.parse(data)} lang={lang} />}
-{routeIdentifier === "post" && <BlogPostView data={postSchema.parse(data)} lang={lang} />}
-{routeIdentifier === "category" && <BlogView data={blogSchema.parse(data)} lang={lang} />}
+{
+  routeIdentifier === "home" && data.data.home && (
+    <HomeView
+      data={data.data.home}
+      title={data.title}
+      description={data.description}
+      localizedPaths={data.localizedPaths}
+      lang={lang}
+    />
+  )
+}
+{
+  routeIdentifier === "about" && data.data.about && (
+    <AboutView
+      data={data.data.about}
+      title={data.title}
+      description={data.description}
+      localizedPaths={data.localizedPaths}
+      lang={lang}
+    />
+  )
+}
+{
+  routeIdentifier === "brand-kit" && data.data["brand-kit"] && (
+    <BrandKitView
+      data={data.data["brand-kit"]}
+      title={data.title}
+      description={data.description}
+      localizedPaths={data.localizedPaths}
+      lang={lang}
+    />
+  )
+}
+{
+  routeIdentifier === "page" && data.data.page && (
+    <PageView
+      data={data.data.page}
+      title={data.title}
+      description={data.description}
+      localizedPaths={data.localizedPaths}
+      lang={lang}
+    />
+  )
+}
+{
+  routeIdentifier === "project" && data.data.project && (
+    <ProjectView
+      data={data.data.project}
+      title={data.title}
+      description={data.description}
+      localizedPaths={data.localizedPaths}
+      lang={lang}
+    />
+  )
+}
+{
+  routeIdentifier === "blog" && data.data.blog && (
+    <BlogView
+      data={data.data.blog}
+      title={data.title}
+      description={data.description}
+      localizedPaths={data.localizedPaths}
+      lang={lang}
+    />
+  )
+}
+{
+  routeIdentifier === "post" && data.data.post && (
+    <BlogPostView
+      data={data.data.post}
+      title={data.title}
+      description={data.description}
+      localizedPaths={data.localizedPaths}
+      lang={lang}
+    />
+  )
+}
+{
+  routeIdentifier === "category" && data.data.category && (
+    <BlogView
+      data={data.data.category}
+      title={data.title}
+      description={data.description}
+      localizedPaths={data.localizedPaths}
+      lang={lang}
+    />
+  )
+}

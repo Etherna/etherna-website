@@ -1,9 +1,9 @@
 import { readItems } from "@directus/sdk"
 
 import { directusClient } from "@/classes/directus-client"
-import { loadSvgAsset } from "@/utils/data-parser"
+import { loadSvgAsset, localeToLang } from "@/utils/data-parser"
 
-export default async function fetchLocales() {
+export async function fetchLocales() {
   const languagesResult = await directusClient.request(
     readItems("languages", {
       fields: [
@@ -18,7 +18,7 @@ export default async function fetchLocales() {
 
   const locales = await Promise.all(
     languagesResult.map(async res => ({
-      code: res.code,
+      code: localeToLang(res.code),
       name: res.name,
       icon: await loadSvgAsset(res.icon?.id ?? null),
     }))

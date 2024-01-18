@@ -3,11 +3,14 @@ import { useTranslation } from "react-i18next"
 
 import { Image } from "@/components/common/image"
 
-import type { AstroImg, LogoVariant } from "@/schema/app"
+import type { ParsedBrandKitData } from "@/queries/fetch-brand-kit-data"
+import type { AstroImageAsset } from "@/utils/data-parser"
+
+type Variant = ParsedBrandKitData["brand"]["logos"][0]["variants"][0]
 
 interface VariantGroup {
-  previewImage?: AstroImg
-  style: LogoVariant["style"]
+  previewImage?: AstroImageAsset
+  style: Variant["style"]
   variants: {
     href: string
     size: string
@@ -16,7 +19,7 @@ interface VariantGroup {
 
 interface LogoPaletteProps {
   name: string
-  variants: LogoVariant[]
+  variants: Variant[]
   gridClassName?: string
 }
 
@@ -28,7 +31,7 @@ export function LogoPalette({ name, variants, gridClassName }: LogoPaletteProps)
     const groupedVariants: VariantGroup[] = []
 
     variants.forEach(variant => {
-      const { style, image, variant_name: variantName } = variant
+      const { style, image, variantName } = variant
 
       if (!image) return
 
@@ -43,8 +46,8 @@ export function LogoPalette({ name, variants, gridClassName }: LogoPaletteProps)
       }
 
       groupedVariants[groupIndex]?.variants.push({
-        href: image.attributes.src as string,
-        size: variantName ?? "",
+        href: image.attributes.src ?? "",
+        size: variantName,
       })
     })
 

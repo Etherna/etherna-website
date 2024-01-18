@@ -3,10 +3,10 @@ import { useEffect, useRef, useState } from "react"
 import { blurHashToDataURL } from "@/utils/blurhash"
 import { cn } from "@/utils/classnames"
 
-import type { AstroImg } from "@/schema/app"
+import type { AstroImageAsset } from "@/utils/data-parser"
 
 interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
-  data: AstroImg | null | undefined
+  data: AstroImageAsset | null | undefined
   objectFit?: "contain" | "cover" | "fill" | "none" | "scale-down"
 }
 

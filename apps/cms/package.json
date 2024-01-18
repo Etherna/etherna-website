@@ -6,6 +6,7 @@
     "dev": "concurrently \"pnpm:watch\" \"pnpm:start\"",
     "start": "directus start",
     "build": "rollup -c rollup.config.ts --configPlugin typescript",
+    "typecheck": "tsc --noEmit",
     "ci-build": "pnpm migrate:up && pnpm build && pnpm snapshot-apply",
     "watch": "rollup -c rollup.config.ts -w --configPlugin typescript",
     "bootstrap": "directus bootstrap",

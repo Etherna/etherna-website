@@ -1,8 +1,11 @@
+import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
 
 import { ReactComponent as DiscordLogo } from "@/assets/logos/discord-logo.svg"
 import { ReactComponent as FacebookLogo } from "@/assets/logos/facebook-logo.svg"
 import { ReactComponent as GithubLogo } from "@/assets/logos/github-logo.svg"
+import { ReactComponent as InstagramLogo } from "@/assets/logos/instagram-logo.svg"
+import { ReactComponent as LinkedInLogo } from "@/assets/logos/linkedin-logo.svg"
 import { ReactComponent as TelegramLogo } from "@/assets/logos/telegram-logo.svg"
 import { ReactComponent as TwitterLogo } from "@/assets/logos/twitter-logo.svg"
 
@@ -10,15 +13,54 @@ import { cn } from "@/utils/classnames"
 
 import type { AnchorHTMLAttributes } from "react"
 
+export interface SocialUrls {
+  facebook?: string | null
+  instagram?: string | null
+  twitter?: string | null
+  linkedin?: string | null
+  discord?: string | null
+  telegram?: string | null
+  github?: string | null
+}
+
+type SocialKey = keyof SocialUrls
+
 interface SocialMenuProps {
   className?: string
   linkClassName?: string
   vertical?: boolean
   buttonStyle?: boolean
+  socials: SocialUrls
 }
 
-export function SocialMenu({ className, linkClassName, vertical, buttonStyle }: SocialMenuProps) {
+const SocialInfo = {
+  discord: { tKey: "discord", color: "#6378c5", logo: DiscordLogo },
+  facebook: { tKey: "facebookPage", color: "#1877f2", logo: FacebookLogo },
+  github: { tKey: "github", color: "#24292e", logo: GithubLogo },
+  instagram: { tKey: "instagram", color: "#e4405f", logo: InstagramLogo },
+  linkedin: { tKey: "linkedin", color: "#0b78b7", logo: LinkedInLogo },
+  telegram: { tKey: "telegramChannel", color: "#1392d1", logo: TelegramLogo },
+  twitter: { tKey: "twitter", color: "#1da1f2", logo: TwitterLogo },
+} as const satisfies Record<SocialKey, { tKey: string; color: string; logo: React.FC }>
+
+export function SocialMenu({
+  className,
+  linkClassName,
+  vertical,
+  buttonStyle,
+  socials,
+}: SocialMenuProps) {
   const { t } = useTranslation("common")
+
+  const socialsData = useMemo(() => {
+    const keys = (Object.keys(socials) as SocialKey[]).filter(key => !!socials[key])
+    return keys.map(key => ({
+      href: socials[key] as string,
+      name: SocialInfo[key].tKey,
+      color: SocialInfo[key].color,
+      logo: SocialInfo[key].logo,
+    }))
+  }, [socials])
 
   return (
     <nav
@@ -31,76 +73,18 @@ export function SocialMenu({ className, linkClassName, vertical, buttonStyle }: 
         className
       )}
     >
-      <SocialMenuLink
-        href="https://www.facebook.com/Etherna.io/"
-        name={t("facebookPage")}
-        className={cn(
-          "hover:text-facebook",
-          {
-            "text-facebook": buttonStyle,
-          },
-          linkClassName
-        )}
-        buttonStyle={buttonStyle}
-      >
-        <FacebookLogo />
-      </SocialMenuLink>
-      <SocialMenuLink
-        href="https://twitter.com/Etherna_io"
-        name={t("twitter")}
-        className={cn(
-          "hover:text-twitter",
-          {
-            "text-twitter": buttonStyle,
-          },
-          linkClassName
-        )}
-        buttonStyle={buttonStyle}
-      >
-        <TwitterLogo />
-      </SocialMenuLink>
-      <SocialMenuLink
-        href="https://info.etherna.io/discord"
-        name={t("discord")}
-        className={cn(
-          "hover:text-discord",
-          {
-            "text-discord": buttonStyle,
-          },
-          linkClassName
-        )}
-        buttonStyle={buttonStyle}
-      >
-        <DiscordLogo />
-      </SocialMenuLink>
-      <SocialMenuLink
-        href="https://t.me/etherna_io"
-        name={t("telegramChannel")}
-        className={cn(
-          "hover:text-telegram",
-          {
-            "text-telegram": buttonStyle,
-          },
-          linkClassName
-        )}
-        buttonStyle={buttonStyle}
-      >
-        <TelegramLogo />
-      </SocialMenuLink>
-      <SocialMenuLink
-        href="https://github.com/Etherna"
-        name={t("github")}
-        className={cn(
-          "hover:text-github",
-          {
-            "text-github": buttonStyle,
-          },
-          linkClassName
-        )}
-        buttonStyle={buttonStyle}
-      >
-        <GithubLogo />
-      </SocialMenuLink>
+      {socialsData.map(({ href, name, color, logo: Logo }) => (
+        <SocialMenuLink
+          key={name}
+          href={href}
+          name={t(name)}
+          color={color}
+          className={linkClassName}
+          buttonStyle={buttonStyle}
+        >
+          <Logo />
+        </SocialMenuLink>
+      ))}
     </nav>
   )
 }
@@ -110,13 +94,20 @@ function SocialMenuLink({
   children,
   name,
   buttonStyle,
+  color,
+  style,
   ...props
-}: AnchorHTMLAttributes<HTMLAnchorElement> & { name: string; buttonStyle?: boolean }) {
+}: AnchorHTMLAttributes<HTMLAnchorElement> & {
+  name: string
+  color: string
+  buttonStyle?: boolean
+}) {
   return (
     <a
       {...props}
       className={cn(
         "p-2 text-slate-400",
+        "hover:text-[var(--social-color)]",
         "[&_svg]:h-4 [&_svg]:transition-[fill] [&_svg]:duration-500",
         buttonStyle && [
           "mx-4 mb-2 flex items-center whitespace-nowrap rounded",
@@ -126,6 +117,12 @@ function SocialMenuLink({
       )}
       target="_blank"
       rel="noopener noreferrer"
+      style={
+        {
+          ...style,
+          "--social-color": color,
+        } as React.CSSProperties
+      }
     >
       {children}
       <span

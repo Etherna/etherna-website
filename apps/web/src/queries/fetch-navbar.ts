@@ -5,6 +5,8 @@ import { findTranslation } from "@/utils/data-parser"
 
 import type { Lang } from "@/utils/lang"
 
+export type ParsedNavbarData = Awaited<ReturnType<typeof fetchNavbar>>
+
 export async function fetchNavbar(lang: Lang) {
   const [pagesResult, whitepaperResult] = await Promise.all([
     directusClient.request(

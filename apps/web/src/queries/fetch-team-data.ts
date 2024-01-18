@@ -5,6 +5,8 @@ import { findTranslation, parseFluidImage } from "@/utils/data-parser"
 
 import type { Lang } from "@/utils/lang"
 
+export type ParsedTeamData = Awaited<ReturnType<typeof fetchTeamData>>
+
 export async function fetchTeamData(lang: Lang) {
   const result = await directusClient.request(
     readItems("team_members", {
@@ -20,6 +22,7 @@ export async function fetchTeamData(lang: Lang) {
           },
         },
       },
+      sort: ["sort"],
     })
   )
 

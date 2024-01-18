@@ -1,42 +1,22 @@
 ---
-import { z } from "zod"
+import { BlogHeader } from "@/components/blog/blog-header"
+import { BlogPostPreview } from "@/components/blog/blog-post-preview"
+import { Breadcrumb, BreadcrumbItem } from "@/components/common/breadcrumb"
+import { Col } from "@/components/common/col"
+import { Container } from "@/components/common/container"
+import { Pagination } from "@/components/common/pagination"
+import { Row } from "@/components/common/row"
+import { routes, withPagination } from "@/utils/routes"
 
-import BlogHeader from "@/components/blog/BlogHeader"
-import BlogPostPreview from "@/components/blog/BlogPostPreview"
-import Breadcrumb from "@/components/common/Breadcrumb"
-import Col from "@/components/common/Col"
-import Container from "@/components/common/Container"
-import Pagination from "@/components/common/Pagination"
-import Row from "@/components/common/Row"
-import { categorySchema, postSchema } from "@/schema/app"
-import routes, { withPagination } from "@/utils/routes"
+import type { ViewProps } from "@/queries/fetch-props"
 
-import type { Lang } from "@/utils/lang"
+interface Props extends ViewProps<"blog"> {}
 
-interface Props {
-  data: z.infer<typeof blogSchema>
-  lang: Lang
-}
-
-export const blogSchema = z.object({
-  posts: z.array(
-    postSchema.omit({
-      content: true,
-      meta_description: true,
-      meta_keywords: true,
-    })
-  ),
-  categories: z.array(categorySchema),
-  currentCategory: categorySchema.optional(),
-  page: z.number().min(1),
-  pagesCount: z.number(),
-})
-
-const { data, lang } = Astro.props
+const { title, data, lang } = Astro.props
 ---
 
 <BlogHeader
-  title="Blog"
+  title={title}
   categories={data.categories}
   currentCategory={data.currentCategory}
   lang={lang}
@@ -49,8 +29,8 @@ const { data, lang } = Astro.props
         {
           (
             <Breadcrumb className="mb-3">
-              <Breadcrumb.Item title="Etherna" path={routes.homePath(lang)} />
-              <Breadcrumb.Item title="Blog" path={routes.blogPath(lang)} isLast />
+              <BreadcrumbItem title="Etherna" href={routes.homePath(lang)} />
+              <BreadcrumbItem title="Blog" href={routes.blogPath(lang)} isLast />
             </Breadcrumb>
           )
         }

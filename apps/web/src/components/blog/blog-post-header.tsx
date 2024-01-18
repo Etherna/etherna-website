@@ -11,16 +11,17 @@ import { cn } from "@/utils/classnames"
 import { dayjs } from "@/utils/dayjs"
 import { routes } from "@/utils/routes"
 
-import type { AstroImg, Category, User } from "@/schema/app"
+import type { ParsedPostAuthor, ParsedPostCategory } from "@/queries/fetch-post-data"
+import type { AstroImageAsset } from "@/utils/data-parser"
 import type { Lang } from "@/utils/lang"
 
 interface BlogPostHeaderProps {
-  author: User
+  author: ParsedPostAuthor
   postTitle: string
-  image: AstroImg | null
+  image: AstroImageAsset | null
   published: string
   updated: string | null
-  category: Category | null
+  category: ParsedPostCategory | null
   lang: Lang
 }
 
@@ -76,7 +77,7 @@ export function BlogPostHeader({
       <div className="mx-auto -mb-16 flex w-full max-w-prose flex-col items-center justify-end text-base lg:text-lg">
         {author.avatar && <Avatar className="h-10 w-10" src={author.avatar} />}
         <h4 className="mb-2 text-base">
-          {author.first_name} {author.last_name}
+          {author.firstName} {author.lastName}
         </h4>
 
         <div className="mb-2 text-sm font-semibold text-gray-600">

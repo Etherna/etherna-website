@@ -1,29 +1,34 @@
 import { getImage } from "@astrojs/image"
-import { readItems } from "@directus/sdk"
+import { readItems, readSingleton } from "@directus/sdk"
 
 import { directusClient } from "@/classes/directus-client"
 import { findTranslation, parseFluidImage } from "@/utils/data-parser"
 
 import type { Lang } from "@/utils/lang"
 
+export type ParsedHomeData = Awaited<ReturnType<typeof fetchHomeData>>
+
 export async function fetchHomeData(lang: Lang) {
-  const milestonesResult = await directusClient.request(
-    readItems("milestones", {
-      fields: [
-        "completion",
-        "completion_quarter",
-        "latitude",
-        "longitude",
-        {
-          image: ["id", "width", "height", "title"],
-        },
-        {
-          translations: ["title", "subtitle", "description", "locale"],
-        },
-      ],
-      sort: ["sort"],
-    })
-  )
+  const [milestonesResult, companyInfoResult] = await Promise.all([
+    directusClient.request(
+      readItems("milestones", {
+        fields: [
+          "completion",
+          "completion_quarter",
+          "latitude",
+          "longitude",
+          {
+            image: ["id", "width", "height", "title"],
+          },
+          {
+            translations: ["title", "subtitle", "description", "locale"],
+          },
+        ],
+        sort: ["sort"],
+      })
+    ),
+    directusClient.request(readSingleton("company_info")),
+  ])
 
   const milestones = await Promise.all(
     milestonesResult.map(async res => {
@@ -66,8 +71,29 @@ export async function fetchHomeData(lang: Lang) {
     },
   ]
 
+  const companyInfo = {
+    companyName: companyInfoResult.company_name,
+    companyAddressLocality: companyInfoResult.company_address_locality,
+    companyAddressPostalCode: companyInfoResult.company_address_postal_code,
+    companyAddressStreet: companyInfoResult.company_address_street,
+    companyAddressCountry: companyInfoResult.company_address_country,
+    companyEmail: companyInfoResult.company_email,
+    companyKeywords: companyInfoResult.company_keywords,
+    companyFoundingDate: companyInfoResult.company_founding_date,
+    socials: {
+      facebook: companyInfoResult.facebook_url,
+      instagram: companyInfoResult.instagram_url,
+      twitter: companyInfoResult.twitter_url,
+      linkedin: companyInfoResult.linkedin_url,
+      discord: companyInfoResult.discord_url,
+      telegram: companyInfoResult.telegram_url,
+      github: companyInfoResult.github_url,
+    },
+  }
+
   return {
     milestones,
     awards,
+    companyInfo,
   }
 }

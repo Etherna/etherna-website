@@ -2,9 +2,10 @@
 import BaseHead from "./BaseHead.astro"
 import Footer from "./Footer.astro"
 import Navbar from "./Navbar.astro"
-import I18nConfig from "@/components/layout/I18nConfig"
-import UrlRedirect from "@/components/layout/UrlRedirect"
-import fetchLocales from "@/queries/fetch-locales"
+import { I18nConfig } from "@/components/layout/i18n-config"
+import { UrlRedirect } from "@/components/layout/url-redirect"
+import { fetchLocales } from "@/queries/fetch-locales"
+import { fetchSocials } from "@/queries/fetch-socials"
 import { configLang, Lang, LocalizedPaths } from "@/utils/lang"
 
 interface Props {
@@ -17,6 +18,7 @@ interface Props {
 
 const { title, description, image, localizedPaths, lang } = Astro.props
 const { locales } = await fetchLocales()
+const { socials } = await fetchSocials()
 
 configLang(lang)
 ---
@@ -33,6 +35,7 @@ configLang(lang)
       lang={lang}
       transparent={Astro.params.path === undefined}
       localizedPaths={localizedPaths}
+      socials={socials}
     />
 
     <main class="pt-16">

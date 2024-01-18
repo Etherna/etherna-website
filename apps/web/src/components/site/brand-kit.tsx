@@ -4,12 +4,12 @@ import { ColorPalette } from "./color-palette"
 import { FontPalette } from "./font-palette"
 import { LogoPalette } from "./logo-palette"
 
-import type { Brand } from "@/schema/app"
+import type { ParsedBrandKitData } from "@/queries/fetch-brand-kit-data"
 
 interface BrandKitProps {
-  colors: Brand["colors"]
-  fonts: Brand["fonts"]
-  logos: Brand["logos"]
+  colors: ParsedBrandKitData["brand"]["colors"]
+  fonts: ParsedBrandKitData["brand"]["fonts"]
+  logos: ParsedBrandKitData["brand"]["logos"]
 }
 
 export function BrandKit({ colors, fonts, logos }: BrandKitProps) {
@@ -30,14 +30,7 @@ export function BrandKit({ colors, fonts, logos }: BrandKitProps) {
         <h2 className="text-xl text-gray-700">{t("fonts")}</h2>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {fonts.map(fontInfo => (
-            <FontPalette
-              key={fontInfo.name}
-              name={fontInfo.name}
-              fontFamily={fontInfo.font_family}
-              fontWeight={fontInfo.font_weight ?? []}
-              link={fontInfo.font_link}
-              importUrl={fontInfo.import_url}
-            />
+            <FontPalette key={fontInfo.name} {...fontInfo} />
           ))}
         </div>
       </section>
@@ -48,7 +41,7 @@ export function BrandKit({ colors, fonts, logos }: BrandKitProps) {
           <LogoPalette
             key={logoInfo.name}
             name={logoInfo.name}
-            variants={logoInfo.logo_variants}
+            variants={logoInfo.variants}
             gridClassName="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
           />
         ))}

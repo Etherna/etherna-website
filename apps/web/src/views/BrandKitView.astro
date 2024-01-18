@@ -1,21 +1,19 @@
 ---
-import StaticPage from "@/components/layout/StaticPage"
-import BrandKit from "@/components/site/BrandKit"
-import { brandSchema } from "@/schema/app"
-import { Lang, t } from "@/utils/lang"
+import { StaticPage } from "@/components/layout/static-page"
+import { BrandKit } from "@/components/site/brand-kit"
 
-import type { z } from "zod"
+import type { ViewProps } from "@/queries/fetch-props"
 
-interface Props {
-  data: z.infer<typeof brandKitSchema>
-  lang: Lang
-}
+interface Props extends ViewProps<"brand-kit"> {}
 
-export const brandKitSchema = brandSchema
-
-const { data } = Astro.props
+const { title, data } = Astro.props
 ---
 
-<StaticPage title={t("seo:brandKitTitle")}>
-  <BrandKit colors={data.colors} fonts={data.fonts} logos={data.logos} client:load />
+<StaticPage title={title}>
+  <BrandKit
+    colors={data.brand.colors}
+    fonts={data.brand.fonts}
+    logos={data.brand.logos}
+    client:load
+  />
 </StaticPage>

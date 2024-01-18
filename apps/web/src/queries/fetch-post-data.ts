@@ -6,6 +6,11 @@ import { parseSlug, routes } from "@/utils/routes"
 
 import type { Lang, LocalizedPaths } from "@/utils/lang"
 
+export type ParsedPostData = Awaited<ReturnType<typeof fetchPostData>>
+export type ParsedPost = ParsedPostData["post"]
+export type ParsedPostCategory = ParsedPost["primaryCategory"]
+export type ParsedPostAuthor = ParsedPost["author"]
+
 export async function fetchPostData(lang: Lang, path: string) {
   const slug = parseSlug(path)
 
@@ -29,7 +34,7 @@ export async function fetchPostData(lang: Lang, path: string) {
           {
             article_id: [
               "published_at",
-              "updated_at",
+              "edited_at",
               {
                 author_id: [
                   "id",
@@ -97,6 +102,8 @@ export async function fetchPostData(lang: Lang, path: string) {
     seo: postTranslationResult.seo,
     thumbnail: await parseFluidImage(postTranslationResult.thumbnail),
     locale: postTranslationResult.locale,
+    publishedAt: article.published_at as string,
+    editedAt: article.edited_at,
     primaryCategory:
       primaryCategory && primaryCategoryTranslation
         ? {
@@ -107,19 +114,17 @@ export async function fetchPostData(lang: Lang, path: string) {
             description: primaryCategoryTranslation.description,
           }
         : null,
-    author: article.author_id
-      ? {
-          id: article.author_id.id,
-          email: article.author_id.email,
-          firstName: article.author_id.first_name,
-          lastName: article.author_id.last_name,
-          avatar: article.author_id.avatar
-            ? await parseFluidImage(
-                article.author_id.avatar as ExtractGeneric<typeof article.author_id.avatar>
-              )
-            : null,
-        }
-      : null,
+    author: {
+      id: article.author_id.id,
+      email: article.author_id.email,
+      firstName: article.author_id.first_name,
+      lastName: article.author_id.last_name,
+      avatar: article.author_id.avatar
+        ? await parseFluidImage(
+            article.author_id.avatar as ExtractGeneric<typeof article.author_id.avatar>
+          )
+        : null,
+    },
   }
 
   const localizedPaths: LocalizedPaths = article.translations

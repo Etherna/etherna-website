@@ -3,6 +3,8 @@ import { readSingleton } from "@directus/sdk"
 import { directusClient } from "@/classes/directus-client"
 import { parseFluidImage } from "@/utils/data-parser"
 
+export type ParsedBrandKitData = Awaited<ReturnType<typeof fetchBrandKitData>>
+
 export async function fetchBrandKitData() {
   const brandResult = await directusClient.request(
     readSingleton("brand", {

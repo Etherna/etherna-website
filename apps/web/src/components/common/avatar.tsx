@@ -1,11 +1,11 @@
 import { Image } from "./image"
 import { cn } from "@/utils/classnames"
 
-import type { AstroImg } from "@/schema/app"
+import type { AstroImageAsset } from "@/utils/data-parser"
 
 interface AvatarProps {
   id?: number
-  src: string | AstroImg
+  src: string | AstroImageAsset
   alt?: string
   className?: string
 }

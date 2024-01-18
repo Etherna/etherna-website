@@ -51,6 +51,6 @@ export default defineConfig({
     resolve: {
       alias: [{ find: "@", replacement: resolve(dirname(fileURLToPath(import.meta.url)), "src") }],
     },
-    plugins: [svgr({})],
+    plugins: [svgr()],
   },
 })

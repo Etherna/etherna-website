@@ -3,14 +3,16 @@ import { useState } from "react"
 import { Modal } from "@/components/common/modal"
 import { TeamMember } from "@/components/common/team-member"
 
-import type { TeamMember as TeamMemberType } from "@/schema/app"
+import type { ParsedTeamData } from "@/queries/fetch-team-data"
+
+type TeamMemberData = ParsedTeamData["team"][number]
 
 interface TeamProps {
-  team: TeamMemberType[]
+  team: TeamMemberData[]
 }
 
 export function Team({ team }: TeamProps) {
-  const [selectedMember, setSelectedMember] = useState<TeamMemberType>()
+  const [selectedMember, setSelectedMember] = useState<TeamMemberData>()
 
   return (
     <>

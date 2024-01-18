@@ -30,6 +30,9 @@ export async function fetchProjectData(lang: Lang, path: string) {
               {
                 image: ["id", "width", "height", "type", "title"],
               },
+              {
+                translations: ["slug", "locale"],
+              },
             ],
           },
         ],

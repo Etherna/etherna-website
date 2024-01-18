@@ -10,7 +10,13 @@ import { Container } from "@/components/common/container"
 import { Row } from "@/components/common/row"
 import { SocialMenu } from "@/components/layout/social-menu"
 
-export function NewsletterSection() {
+import type { SocialUrls } from "@/components/layout/social-menu"
+
+interface NewsletterSectionProps {
+  socials: SocialUrls
+}
+
+export function NewsletterSection({ socials }: NewsletterSectionProps) {
   const { t } = useTranslation("landing")
 
   return (
@@ -22,7 +28,7 @@ export function NewsletterSection() {
               <div className="flex flex-col items-center">
                 <SectionTitle
                   title={t("contact")}
-                  className="text-center text-4xl font-extrabold leading-tight text-gray-700"
+                  className="text-center text-4xl font-bold leading-tight text-gray-700"
                   anchorLink="newsletter"
                 />
 
@@ -32,7 +38,7 @@ export function NewsletterSection() {
                 <hr className="my-12 w-24" />
 
                 <p className="mb-4 text-gray-600">{t("followUs")}</p>
-                <SocialMenu vertical buttonStyle />
+                <SocialMenu socials={socials} vertical buttonStyle />
               </div>
             </Card>
           </Col>

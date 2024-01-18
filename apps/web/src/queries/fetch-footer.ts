@@ -5,6 +5,8 @@ import { findTranslation } from "@/utils/data-parser"
 
 import type { Lang } from "@/utils/lang"
 
+export type ParsedFooterData = Awaited<ReturnType<typeof fetchFooter>>
+
 export async function fetchFooter(lang: Lang) {
   const [pagesResult, projectsResult] = await Promise.all([
     directusClient.request(

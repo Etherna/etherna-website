@@ -47,7 +47,7 @@ declare global {
     id: UUID
     primary_category_id: UUID | BlogCategory | null
     status: Status
-    author_id: DirectusUser<DirectusSchema> | null
+    author_id: DirectusUser<DirectusSchema>
     translations: BlogArticleTranslation[]
     categories: BlogCategory[]
     published_at: string | null
@@ -105,6 +105,7 @@ declare global {
     slug: string
     content: Record<string, unknown> | null
     content_text: string | null
+    description: string | null
     seo: SEO | null
     page_id: UUID | Page
     locale: Locale

@@ -17,6 +17,7 @@ export default {
       table.uuid("id").primary().defaultTo(knex.raw("gen_random_uuid()"))
       table.string("title").notNullable()
       table.string("slug").notNullable().index()
+      table.text("description")
       table.text("content")
       table.json("seo")
       table
