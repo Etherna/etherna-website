@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react"
 
-import { ReactComponent as ChevronDown } from "@/assets/icons/chevron-down.svg"
+import { ChevronDownIcon } from "lucide-react"
 
 import { DropdownContextProvider } from "@/context/dropdown-context/dropdown-context-provider"
 import { cn } from "@/utils/classnames"
@@ -73,7 +73,7 @@ export function Dropdown({ children, toggleChildren, toggleClass, showChevron }:
         {toggleChildren}
 
         {showChevron && (
-          <ChevronDown
+          <ChevronDownIcon
             className={cn(
               "ml-1 inline-block h-2 w-2 align-middle transition duration-500 hover:opacity-50",
               {

@@ -1,6 +1,4 @@
-import { ReactComponent as FacebookLogo } from "@/assets/logos/facebook-logo.svg"
-import { ReactComponent as LinkedInLogo } from "@/assets/logos/linkedin-logo.svg"
-import { ReactComponent as TwitterLogo } from "@/assets/logos/twitter-logo.svg"
+import { FacebookLogo, LinkedInLogo, TwitterLogo } from "@/components/assets/brands"
 
 import { cn } from "@/utils/classnames"
 

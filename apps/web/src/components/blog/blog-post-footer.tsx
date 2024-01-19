@@ -1,9 +1,7 @@
 import { useTranslation } from "react-i18next"
 
-import { ReactComponent as DiscussionIcon } from "@/assets/icons/discussion.svg"
-import { ReactComponent as DiscordLogo } from "@/assets/logos/discord-logo.svg"
-import { ReactComponent as GithubLogo } from "@/assets/logos/github-logo.svg"
-import { ReactComponent as TelegramLogo } from "@/assets/logos/telegram-logo.svg"
+import { MessageCircleIcon } from "lucide-react"
+import { DiscordLogo, GitHubLogo, TelegramLogo } from "@/components/assets/brands"
 
 import { cn } from "@/utils/classnames"
 
@@ -19,7 +17,7 @@ export function BlogPostFooter({ className }: BlogPostFooterProps) {
   return (
     <footer className={cn("mb-4 mt-32 border-b-2 border-t-2 border-gray-500 py-10", className)}>
       <h6 className="mb-3 mt-0 flex items-center text-center font-bold">
-        <DiscussionIcon className="mr-2" width="14" />
+        <MessageCircleIcon className="mr-2" width="14" />
         {t("blog:discussions")}
       </h6>
       <p className="mb-1 text-sm text-gray-600">{t("blog:contactsUsForMore")}</p>
@@ -35,7 +33,7 @@ export function BlogPostFooter({ className }: BlogPostFooterProps) {
           <span className="social-name">{t("telegramChannel")}</span>
         </FooterChannelItem>
         <FooterChannelItem href="https://github.com/Etherna/etherna/discussions">
-          <GithubLogo className="mr-2" width="14" />
+          <GitHubLogo className="mr-2" width="14" />
           <span className="social-name">{t("githubDiscussions")}</span>
         </FooterChannelItem>
       </ul>

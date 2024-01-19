@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import axios from "axios"
 
-import { ReactComponent as Spinner } from "@/assets/animated/spinner-light.svg"
+import { SpinnerLight } from "@/components/assets/animated"
 
 import { Alert } from "@/components/common/alert"
 import { Button } from "@/components/common/button"
@@ -83,7 +83,7 @@ export function NewsletterForm() {
           disabled={isSubmitting}
           onClick={sendFormRequest}
         >
-          {isSubmitting && <Spinner className="mr-2 h-6 w-6" />}
+          {isSubmitting && <SpinnerLight className="mr-2 h-6 w-6" />}
           {t("subcribeNewsletter")}
         </Button>
       </form>

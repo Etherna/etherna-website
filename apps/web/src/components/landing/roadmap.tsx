@@ -1,10 +1,8 @@
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
-import { ReactComponent as CheckIcon } from "@/assets/icons/check.svg"
-import { ReactComponent as ClockIcon } from "@/assets/icons/clock.svg"
-import { ReactComponent as FlagIcon } from "@/assets/icons/flag.svg"
-import { ReactComponent as RoadmapTitleBg } from "@/assets/roadmap-title-bg.svg"
+import { CheckIcon, ClockIcon, FlagIcon } from "lucide-react"
+import { RoadmapTitleBg } from "@/components/assets/landing"
 
 import { RoadmapCarousel } from "./roadmap-carousel"
 import { SectionTitle } from "./section-title"
@@ -17,14 +15,14 @@ import { Prose } from "@/components/common/prose"
 import { Row } from "@/components/common/row"
 import { cn } from "@/utils/classnames"
 
-import type { Milestone } from "@/schema/app"
+import type { ParsedMilestone } from "@/queries/fetch-home-data"
 
 interface RoadmapProps {
-  milestones: Milestone[]
+  milestones: ParsedMilestone[]
 }
 
 export function Roadmap({ milestones }: RoadmapProps) {
-  const [selectedMilestone, setSelectedMilestone] = useState<Milestone>()
+  const [selectedMilestone, setSelectedMilestone] = useState<ParsedMilestone>()
   const { t } = useTranslation("roadmap")
 
   const hideRoadmapPhotos = milestones.some(milestone => !milestone.image)
@@ -97,7 +95,7 @@ export function Roadmap({ milestones }: RoadmapProps) {
                 "text-gray-700": selectedMilestone.completion === "todo",
               })}
             >
-              {selectedMilestone.completion_quarter}
+              {selectedMilestone.completionQuarter}
             </span>
             <Prose>
               <article>

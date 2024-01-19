@@ -138,23 +138,10 @@ export async function fetchBlogData(lang: Lang, path: string) {
   const posts = await Promise.all(
     postsResult.map(async res => {
       const translation = findTranslation(res.translations ?? [], lang)
-      const categoryTranslation = res.primary_category_id
-        ? findTranslation(res.primary_category_id.translations, lang)
-        : undefined
       return {
         publishedAt: res.published_at as string,
         editedAt: res.edited_at,
-        primaryCategory:
-          res.primary_category_id && categoryTranslation
-            ? {
-                id: res.primary_category_id.id,
-                color: res.primary_category_id.color,
-                name: categoryTranslation.name,
-                slug: categoryTranslation.slug,
-                description: categoryTranslation.description,
-                locale: categoryTranslation.locale,
-              }
-            : null,
+        primaryCategory: categories.find(c => c.id === res.primary_category_id?.id) ?? null,
         author: {
           id: res.author_id.id,
           firstName: res.author_id.first_name,

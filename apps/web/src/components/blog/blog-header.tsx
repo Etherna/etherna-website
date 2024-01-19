@@ -1,4 +1,4 @@
-import { ReactComponent as HeaderPattern } from "@/assets/header-pattern.svg"
+import { HeaderPattern } from "@/components/assets/backgrounds"
 
 import { Col } from "@/components/common/col"
 import { Container } from "@/components/common/container"
@@ -6,13 +6,13 @@ import { Row } from "@/components/common/row"
 import { cn } from "@/utils/classnames"
 import { routes } from "@/utils/routes"
 
-import type { Category } from "@/schema/app"
+import type { ParsedPostCategory } from "@/queries/fetch-post-data"
 import type { Lang } from "@/utils/lang"
 
 interface BlogHeaderProps {
   title: string
-  categories: Category[]
-  currentCategory?: Category
+  categories: ParsedPostCategory[]
+  currentCategory?: ParsedPostCategory
   lang: Lang
 }
 

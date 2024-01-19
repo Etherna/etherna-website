@@ -87,7 +87,7 @@ export const loadSvgAsset = async (fileId: UUID | null): Promise<AstroSvgAsset> 
 
     if (!resp.ok) throw new Error(`Failed to fetch ${url}`)
 
-    svg = (await resp.text()) as string
+    svg = await resp.text()
   } catch (error) {
     //
   }

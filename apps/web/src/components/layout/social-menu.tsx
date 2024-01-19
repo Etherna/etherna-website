@@ -1,13 +1,15 @@
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
 
-import { ReactComponent as DiscordLogo } from "@/assets/logos/discord-logo.svg"
-import { ReactComponent as FacebookLogo } from "@/assets/logos/facebook-logo.svg"
-import { ReactComponent as GithubLogo } from "@/assets/logos/github-logo.svg"
-import { ReactComponent as InstagramLogo } from "@/assets/logos/instagram-logo.svg"
-import { ReactComponent as LinkedInLogo } from "@/assets/logos/linkedin-logo.svg"
-import { ReactComponent as TelegramLogo } from "@/assets/logos/telegram-logo.svg"
-import { ReactComponent as TwitterLogo } from "@/assets/logos/twitter-logo.svg"
+import {
+  DiscordLogo,
+  FacebookLogo,
+  GitHubLogo,
+  InstagramLogo,
+  LinkedInLogo,
+  TelegramLogo,
+  TwitterLogo,
+} from "@/components/assets/brands"
 
 import { cn } from "@/utils/classnames"
 
@@ -36,7 +38,7 @@ interface SocialMenuProps {
 const SocialInfo = {
   discord: { tKey: "discord", color: "#6378c5", logo: DiscordLogo },
   facebook: { tKey: "facebookPage", color: "#1877f2", logo: FacebookLogo },
-  github: { tKey: "github", color: "#24292e", logo: GithubLogo },
+  github: { tKey: "github", color: "#24292e", logo: GitHubLogo },
   instagram: { tKey: "instagram", color: "#e4405f", logo: InstagramLogo },
   linkedin: { tKey: "linkedin", color: "#0b78b7", logo: LinkedInLogo },
   telegram: { tKey: "telegramChannel", color: "#1392d1", logo: TelegramLogo },
@@ -68,7 +70,7 @@ export function SocialMenu({
         "flex items-center justify-between",
         {
           "flex-col": vertical,
-          "items-center sm:mx-auto sm:flex-row sm:flex-wrap sm:justify-evenly": buttonStyle,
+          "items-center sm:mx-auto sm:flex-row sm:flex-wrap sm:justify-center": buttonStyle,
         },
         className
       )}

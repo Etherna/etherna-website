@@ -1,4 +1,4 @@
-import { ReactComponent as DocIcon } from "@/assets/icons/document.svg"
+import { FileTextIcon } from "lucide-react"
 
 import { HeaderMenuLink } from "@/components/layout/header-menu"
 
@@ -17,7 +17,7 @@ export function WhitepaperLink({ className, url, filename }: WhitepaperLinkProps
       target="_blank"
       rel="noreferrer"
     >
-      <DocIcon aria-hidden />
+      <FileTextIcon aria-hidden />
       <span>Whitepaper</span>
     </HeaderMenuLink>
   )

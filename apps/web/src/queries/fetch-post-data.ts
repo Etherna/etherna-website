@@ -8,7 +8,7 @@ import type { Lang, LocalizedPaths } from "@/utils/lang"
 
 export type ParsedPostData = Awaited<ReturnType<typeof fetchPostData>>
 export type ParsedPost = ParsedPostData["post"]
-export type ParsedPostCategory = ParsedPost["primaryCategory"]
+export type ParsedPostCategory = NonNullable<ParsedPost["primaryCategory"]>
 export type ParsedPostAuthor = ParsedPost["author"]
 
 export async function fetchPostData(lang: Lang, path: string) {
@@ -125,6 +125,10 @@ export async function fetchPostData(lang: Lang, path: string) {
           )
         : null,
     },
+    allLanguages: article.translations.map(t => ({
+      slug: t.slug,
+      lang: localeToLang(t.locale),
+    })),
   }
 
   const localizedPaths: LocalizedPaths = article.translations

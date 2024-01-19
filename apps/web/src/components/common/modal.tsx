@@ -1,7 +1,7 @@
 import React, { Fragment, useRef } from "react"
 import { Dialog, Transition } from "@headlessui/react"
 
-import { ReactComponent as CrossIcon } from "@/assets/icons/cross-icon.svg"
+import { XIcon } from "lucide-react"
 
 import { Container } from "./container"
 import { cn } from "@/utils/classnames"
@@ -77,7 +77,7 @@ export function Modal({
                   aria-label="Close"
                   onClick={onClose}
                 >
-                  <CrossIcon className="h-full w-full" aria-hidden="true" />
+                  <XIcon className="h-full w-full" />
                 </button>
               </Container>
             </div>

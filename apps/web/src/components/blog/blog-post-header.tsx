@@ -74,7 +74,7 @@ export function BlogPostHeader({
         </Container>
       </div>
 
-      <div className="mx-auto -mb-16 flex w-full max-w-prose flex-col items-center justify-end text-base lg:text-lg">
+      <div className="mx-auto mt-12 flex w-full max-w-prose flex-col items-center justify-end text-base lg:text-lg">
         {author.avatar && <Avatar className="h-10 w-10" src={author.avatar} />}
         <h4 className="mb-2 text-base">
           {author.firstName} {author.lastName}

@@ -1,5 +1,6 @@
 import { readItems, readSingleton } from "@directus/sdk"
-import { getImage } from "astro:assets"
+
+import { DevconArchiveLogo, SwarmGrantsLogo } from "@/components/assets/brands"
 
 import { directusClient } from "@/classes/directus-client"
 import { findTranslation, parseFluidImage } from "@/utils/data-parser"
@@ -7,6 +8,8 @@ import { findTranslation, parseFluidImage } from "@/utils/data-parser"
 import type { Lang } from "@/utils/lang"
 
 export type ParsedHomeData = Awaited<ReturnType<typeof fetchHomeData>>
+export type ParsedAward = ParsedHomeData["awards"][number]
+export type ParsedMilestone = ParsedHomeData["milestones"][number]
 
 export async function fetchHomeData(lang: Lang) {
   const [milestonesResult, companyInfoResult] = await Promise.all([
@@ -50,23 +53,13 @@ export async function fetchHomeData(lang: Lang) {
     {
       title: "SwarmGrants",
       description: "SwarmGrantsDesc",
-      image: await getImage({
-        src: import("@/assets/logos/swarm-grants.svg"),
-        aspectRatio: 1,
-        format: "svg",
-        alt: "Swarm Grants",
-      }),
+      image: SwarmGrantsLogo,
       link: "https://medium.com/ethereum-swarm/buzz-is-in-the-air-swarm-grants-results-are-in-a030ab9178a9",
     },
     {
       title: "DevconArchive",
       description: "DevconArchiveDesc",
-      image: await getImage({
-        src: import("@/assets/logos/devcon-archive.svg"),
-        aspectRatio: 1,
-        format: "svg",
-        alt: "Devcon Archive",
-      }),
+      image: DevconArchiveLogo,
       link: "https://medium.com/ethereum-swarm/through-etherna-the-devcon-video-archive-is-now-available-on-the-swarm-network-66d4583df8c0",
     },
   ]
@@ -82,12 +75,12 @@ export async function fetchHomeData(lang: Lang) {
     companyFoundingDate: companyInfoResult.company_founding_date,
     socials: {
       facebook: companyInfoResult.facebook_url,
-      instagram: companyInfoResult.instagram_url,
       twitter: companyInfoResult.twitter_url,
+      telegram: companyInfoResult.telegram_url,
       linkedin: companyInfoResult.linkedin_url,
       discord: companyInfoResult.discord_url,
-      telegram: companyInfoResult.telegram_url,
       github: companyInfoResult.github_url,
+      instagram: companyInfoResult.instagram_url,
     },
   }
 

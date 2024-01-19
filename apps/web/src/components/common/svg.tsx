@@ -9,7 +9,7 @@ import parse from "html-react-parser"
 import type { SVGAttributes } from "react"
 
 interface SvgProps extends SVGAttributes<SVGSVGElement> {
-  svgCode: string
+  svgCode: string | null | undefined
 }
 
 export function Svg({ svgCode, ...props }: SvgProps) {

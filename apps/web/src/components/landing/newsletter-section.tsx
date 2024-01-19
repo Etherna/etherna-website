@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 
-import { ReactComponent as NewsletterImage } from "@/assets/newsletter.svg"
+import { NewsletterIcon } from "@/components/assets/landing"
 
 import { NewsletterForm } from "./newsletter-form"
 import { SectionTitle } from "./section-title"
@@ -32,13 +32,15 @@ export function NewsletterSection({ socials }: NewsletterSectionProps) {
                   anchorLink="newsletter"
                 />
 
-                <NewsletterImage width="120" />
+                <NewsletterIcon width="120" />
                 <NewsletterForm />
 
                 <hr className="my-12 w-24" />
 
                 <p className="mb-4 text-gray-600">{t("followUs")}</p>
-                <SocialMenu socials={socials} vertical buttonStyle />
+                <div className="max-w-xl">
+                  <SocialMenu socials={socials} vertical buttonStyle />
+                </div>
               </div>
             </Card>
           </Col>

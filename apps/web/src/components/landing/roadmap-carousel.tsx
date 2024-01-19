@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 
-import { ReactComponent as ArrowDown } from "@/assets/icons/arrow-down.svg"
+import { ArrowDownIcon, ArrowUpIcon } from "lucide-react"
 
 import { RoadmapNav } from "./roadmap-nav"
 import { Image } from "@/components/common/image"
@@ -9,12 +9,12 @@ import { cn } from "@/utils/classnames"
 import { smoothScrollBy } from "@/utils/scroll"
 
 import type { ButtonHTMLAttributes } from "react"
-import type { Milestone } from "@/schema/app"
+import type { ParsedMilestone } from "@/queries/fetch-home-data"
 
 interface RoadmapCarouselProps {
-  milestones: Milestone[]
+  milestones: ParsedMilestone[]
   hidePhotos?: boolean
-  onSelectMilestone?: (milestone: Milestone) => void
+  onSelectMilestone?: (milestone: ParsedMilestone) => void
 }
 
 export function RoadmapCarousel({
@@ -79,14 +79,16 @@ export function RoadmapCarousel({
     })
   }
 
+  const initialLongiude = milestones[0]?.longitude ?? 0
+
   return (
     <div className="flex flex-wrap items-center">
       <div className="w-full md:w-1/3 lg:w-2/5">
         {currentMilestone && (
           <RoadmapNav
-            latitude={currentMilestone.latitude}
-            longitude={currentMilestone.longitude}
-            startLongitude={milestones[0]?.longitude}
+            latitude={currentMilestone.latitude ?? 0}
+            longitude={currentMilestone.longitude ?? 0}
+            startLongitude={initialLongiude}
           />
         )}
       </div>
@@ -132,7 +134,7 @@ export function RoadmapCarousel({
                       "text-gray-600": milestone.completion === "todo",
                     })}
                   >
-                    {milestone.completion_quarter}
+                    {milestone.completionQuarter}
                   </span>
                   <span
                     className={cn(
@@ -145,7 +147,9 @@ export function RoadmapCarousel({
                     )}
                   >
                     {t(
-                      milestone.completion_quarter === "n.d." ? "unscheduled" : milestone.completion
+                      milestone.completionQuarter === "n.d."
+                        ? "unscheduled"
+                        : milestone.completion ?? "unscheduled"
                     )}
                   </span>
                 </span>
@@ -175,15 +179,11 @@ export function RoadmapCarousel({
         </ol>
 
         <div className="absolute left-2/3 top-1/2 flex h-full -translate-y-1/2 flex-col items-center justify-between md:h-[384px]">
-          <RoadmapCarouselNavBtn
-            className="rotate-180"
-            disabled={currentIndex === 0}
-            onClick={previuos}
-          >
-            <ArrowDown className="h-5 w-5" strokeWidth={3} />
+          <RoadmapCarouselNavBtn disabled={currentIndex === 0} onClick={previuos}>
+            <ArrowUpIcon className="h-5 w-5" strokeWidth={3} />
           </RoadmapCarouselNavBtn>
           <RoadmapCarouselNavBtn disabled={currentIndex === milestones.length - 1} onClick={next}>
-            <ArrowDown className="h-5 w-5" strokeWidth={3} />
+            <ArrowDownIcon className="h-5 w-5" strokeWidth={3} />
           </RoadmapCarouselNavBtn>
         </div>
       </div>

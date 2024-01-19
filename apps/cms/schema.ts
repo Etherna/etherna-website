@@ -195,7 +195,7 @@ declare global {
   interface Milestone {
     id: UUID
     image: DirectusFile<DirectusSchema> | null
-    completion: "done" | "ongoing" | "todo" | "undefined" | null
+    completion: "done" | "ongoing" | "todo" | "unscheduled" | null
     completion_quarter: string | null
     latitude: number | null
     longitude: number | null

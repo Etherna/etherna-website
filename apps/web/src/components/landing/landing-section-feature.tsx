@@ -1,4 +1,4 @@
-import { ReactComponent as FeatureBg } from "@/assets/feature-bg.svg"
+import { FeatureBgIcon } from "@/components/assets/landing"
 
 import { Col } from "@/components/common/col"
 import { cn } from "@/utils/classnames"
@@ -24,7 +24,7 @@ export function LandingSectionFeature({ feature, count }: LandingSectionFeatureP
       <div className="mb-8 px-6">
         {feature.icon && (
           <div className="relative mx-auto flex h-36 w-36 justify-around">
-            <FeatureBg className="absolute inset-0 drop-shadow-light" />
+            <FeatureBgIcon className="absolute inset-0 drop-shadow-light" />
             <feature.icon className="z-1" />
           </div>
         )}

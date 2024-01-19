@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 
-import { ReactComponent as AwardImg } from "@/assets/award.svg"
+import { AwardIcon } from "@/components/assets/landing"
 
 import { SectionTitle } from "./section-title"
 import { Col } from "@/components/common/col"
@@ -8,10 +8,10 @@ import { Container } from "@/components/common/container"
 import { Row } from "@/components/common/row"
 import { cn } from "@/utils/classnames"
 
-import type { Award } from "@/schema/app"
+import type { ParsedAward } from "@/queries/fetch-home-data"
 
 interface AwardsProps {
-  awards: Award[]
+  awards: ParsedAward[]
 }
 
 export function Awards({ awards }: AwardsProps) {
@@ -29,9 +29,9 @@ export function Awards({ awards }: AwardsProps) {
             />
 
             <ul className="flex flex-col items-center sm:flex-row sm:justify-evenly">
-              {awards.map((award, i) => (
+              {awards.map(award => (
                 <li
-                  key={i}
+                  key={award.title}
                   className={cn(
                     "group relative w-full max-w-64 rounded-lg p-6 text-center transition-all duration-500",
                     "hover:bg-white hover:shadow-lg"
@@ -39,13 +39,15 @@ export function Awards({ awards }: AwardsProps) {
                 >
                   <div
                     className={cn(
-                      "relative w-full animate-uncolor-image bg-contain bg-center bg-no-repeat pb-full group-hover:animate-color-image"
+                      "relative w-full animate-uncolor-image pb-full group-hover:animate-color-image"
                     )}
-                    style={{ backgroundImage: `url(${award.image.src})` }}
                   >
-                    <AwardImg className="absolute inset-0" />
+                    <award.image className="absolute inset-0" />
+                    <AwardIcon className="absolute inset-0" />
                   </div>
+                  {/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-explicit-any */}
                   <h3 className="mb-4 text-center text-4xl">{t(award.title as any)}</h3>
+                  {/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-explicit-any */}
                   <p className="text-sm text-gray-800">{t(award.description as any)}</p>
                   {award.link && (
                     <a

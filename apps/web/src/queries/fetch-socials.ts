@@ -21,12 +21,12 @@ export async function fetchSocials() {
 
   const socials = {
     facebook: socialsResult.facebook_url,
-    instagram: socialsResult.instagram_url,
     twitter: socialsResult.twitter_url,
+    telegram: socialsResult.telegram_url,
     linkedin: socialsResult.linkedin_url,
     discord: socialsResult.discord_url,
-    telegram: socialsResult.telegram_url,
     github: socialsResult.github_url,
+    instagram: socialsResult.instagram_url,
   }
 
   return {
