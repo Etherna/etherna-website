@@ -1,7 +1,7 @@
 import { readItems } from "@directus/sdk"
 
 import { directusClient } from "@/classes/directus-client"
-import { findTranslation } from "@/utils/data-parser"
+import { findTranslation, getExternalAsset } from "@/utils/data-parser"
 
 import type { Lang } from "@/utils/lang"
 
@@ -48,11 +48,8 @@ export async function fetchNavbar(lang: Lang) {
     }
   })
   const documents = {
-    whitepaper: whitepaperResult
-      ? {
-          name: whitepaperResult.name,
-          file: whitepaperResult.file_id,
-        }
+    whitepaper: whitepaperResult?.file_id
+      ? await getExternalAsset(whitepaperResult.file_id.id, whitepaperResult.name)
       : null,
   }
 

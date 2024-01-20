@@ -3,9 +3,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
-    }
+      "@/*": ["src/*"],
+    },
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.astro", "../cms/schema.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }

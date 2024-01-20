@@ -2,7 +2,7 @@ import { aggregate, readItems } from "@directus/sdk"
 
 import { PAGINATION_LIMIT } from "./fetch-paths"
 import { directusClient } from "@/classes/directus-client"
-import { findTranslation, parseFluidImage } from "@/utils/data-parser"
+import { findTranslation, localeToLang, parseFluidImage } from "@/utils/data-parser"
 import { Languages } from "@/utils/lang"
 import { parsePage, parseSlug, routes, whichRoute } from "@/utils/routes"
 
@@ -10,6 +10,7 @@ import type { Lang, LocalizedPaths } from "@/utils/lang"
 import type { DirectusFile, QueryFilter } from "@directus/sdk"
 
 export type ParsedBlogData = Awaited<ReturnType<typeof fetchBlogData>>
+export type ParsedPreviewPost = ParsedBlogData["posts"][0]
 
 export async function fetchBlogData(lang: Lang, path: string) {
   const routeIdentifier = whichRoute(path, lang)
@@ -18,24 +19,6 @@ export async function fetchBlogData(lang: Lang, path: string) {
 
   const postsFilter: QueryFilter<DirectusSchema, BlogArticle> = {
     _and: [
-      {
-        _or: [
-          {
-            translations: {
-              locale: {
-                _starts_with: lang as Locale,
-              },
-            },
-          },
-          {
-            translations: {
-              locale: {
-                _eq: "en-US",
-              },
-            },
-          },
-        ],
-      },
       categorySlug
         ? {
             primary_category_id: {
@@ -87,7 +70,6 @@ export async function fetchBlogData(lang: Lang, path: string) {
             translations: [
               "title",
               "slug",
-              "content",
               "excerpt",
               "seo",
               "locale",
@@ -137,7 +119,9 @@ export async function fetchBlogData(lang: Lang, path: string) {
   const currentCategory = categories.find(c => c.slug === categorySlug)
   const posts = await Promise.all(
     postsResult.map(async res => {
-      const translation = findTranslation(res.translations ?? [], lang)
+      const bestLocale =
+        res.translations?.find(lc => localeToLang(lc.locale) === lang)?.locale ?? "en-US"
+      const translation = findTranslation(res.translations ?? [], localeToLang(bestLocale))
       return {
         publishedAt: res.published_at as string,
         editedAt: res.edited_at,
@@ -154,11 +138,10 @@ export async function fetchBlogData(lang: Lang, path: string) {
         },
         title: translation.title,
         slug: translation.slug,
-        content: translation.content,
         thumbnail: await parseFluidImage(translation.thumbnail, `${translation.title} thumbnail`),
         excerpt: translation.excerpt,
         seo: translation.seo,
-        locale: translation.locale,
+        locale: bestLocale,
       }
     })
   )

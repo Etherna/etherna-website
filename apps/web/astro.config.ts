@@ -4,19 +4,19 @@ import { dirname, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
 import react from "@astrojs/react"
 import sitemap from "@astrojs/sitemap"
+import files from "astro-plugin-files"
 import { defineConfig } from "astro/config"
 import unfonts from "unplugin-fonts/astro"
 
-// import dynamicBase from "./plugins/dynamic-base/index.mjs"
-// import files from "./plugins/files/index.mjs"
+import dynamicBase from "./plugins/dynamic-base/index.mjs"
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://info.etherna.io",
   integrations: [
     react(),
-    // files(),
-    // dynamicBase(),
+    files(),
+    dynamicBase(),
     unfonts({
       custom: {
         families: [

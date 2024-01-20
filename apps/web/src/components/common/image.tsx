@@ -23,7 +23,8 @@ export function Image({ className, data, objectFit, ...attr }: ImageProps) {
   return (
     <div className="relative">
       <img
-        {...data?.attributes}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        {...(data?.attributes as any)}
         {...attr}
         ref={imgRef}
         className={className}

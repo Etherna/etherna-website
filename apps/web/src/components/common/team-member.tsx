@@ -4,10 +4,10 @@ import { Image } from "./image"
 import { Markdown } from "./markdown"
 import { cn } from "@/utils/classnames"
 
-import type { TeamMember as TeamMemberType } from "@/schema/app"
+import type { ParsedTeamMember } from "@/queries/fetch-team-data"
 
 interface TeamMemberProps {
-  member: TeamMemberType | undefined
+  member: ParsedTeamMember | undefined
   fluid?: boolean
   dark?: boolean
   onSelect?: () => void

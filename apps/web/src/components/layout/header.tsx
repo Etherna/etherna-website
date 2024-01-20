@@ -68,11 +68,7 @@ export function Header({
           </div>
 
           {whitepaperLink && (
-            <WhitepaperLink
-              className="hidden sm:ml-3 sm:flex"
-              url={whitepaperLink}
-              filename="whitepaper.pdf"
-            />
+            <WhitepaperLink className="hidden sm:ml-3 sm:flex" url={whitepaperLink} />
           )}
 
           <button
@@ -134,11 +130,7 @@ export function Header({
             <div className="flex w-full flex-nowrap items-center overflow-x-auto py-2 lg:w-auto lg:flex-1 lg:overflow-x-visible lg:py-0">
               <HeaderMenu correctMobile>
                 {whitepaperLink && (
-                  <WhitepaperLink
-                    className="flex sm:hidden"
-                    url={whitepaperLink}
-                    filename="whitepaper.pdf"
-                  />
+                  <WhitepaperLink className="flex sm:hidden" url={whitepaperLink} />
                 )}
               </HeaderMenu>
 

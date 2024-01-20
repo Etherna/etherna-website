@@ -4,19 +4,19 @@ import { MegaMenu, MegaMenuRow } from "./mega-menu"
 import { MegaMenuItem } from "./mega-menu-item"
 import { routes } from "@/utils/routes"
 
-import type { Project } from "@/schema/app"
+import type { ParsedProject } from "@/queries/fetch-project-data"
 import type { Lang } from "@/utils/lang"
 
 interface ProjectsMenuProps {
-  projects: Project[]
+  projects: ParsedProject[]
   toggleClassName?: string
   lang: Lang
 }
 
 export function ProjectsMenu({ projects, toggleClassName, lang }: ProjectsMenuProps) {
   const { t } = useTranslation("header")
-  const activeProjects = projects.filter(p => !p.coming_soon)
-  const comingSoonProjects = projects.filter(p => p.coming_soon)
+  const activeProjects = projects.filter(p => !p.comingSoon)
+  const comingSoonProjects = projects.filter(p => p.comingSoon)
 
   return (
     <MegaMenu toggleRender={t("projects")} toggleClassName={toggleClassName}>
@@ -24,11 +24,10 @@ export function ProjectsMenu({ projects, toggleClassName, lang }: ProjectsMenuPr
         {activeProjects.map(project => (
           <MegaMenuItem
             key={project.slug}
-            href={project.external_link ?? routes.projectPath(project.slug, lang)}
+            href={project.externalLink ?? routes.projectPath(project.slug, lang)}
             title={project.title}
-            excerpt={project.excerpt || undefined}
-            image={project.image}
-            isExternal={!!project.external_link}
+            image={undefined}
+            isExternal={!!project.externalLink}
           />
         ))}
       </MegaMenuRow>
@@ -46,8 +45,8 @@ export function ProjectsMenu({ projects, toggleClassName, lang }: ProjectsMenuPr
               <MegaMenuItem
                 key={project.slug}
                 title={project.title}
-                excerpt={project.excerpt || undefined}
-                image={project.image}
+                excerpt={undefined}
+                image={undefined}
                 disabled
               />
             ))}

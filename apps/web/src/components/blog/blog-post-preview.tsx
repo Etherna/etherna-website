@@ -6,11 +6,11 @@ import { localeToLang } from "@/utils/data-parser"
 import { dayjs } from "@/utils/dayjs"
 import { routes } from "@/utils/routes"
 
-import type { ParsedPost } from "@/queries/fetch-post-data"
+import type { ParsedPreviewPost } from "@/queries/fetch-blog-data"
 import type { Lang } from "@/utils/lang"
 
 interface BlogPostPreviewProps {
-  post: Omit<ParsedPost, "content" | "meta_description" | "meta_keywords">
+  post: ParsedPreviewPost
   featured?: boolean
   lang: Lang
 }

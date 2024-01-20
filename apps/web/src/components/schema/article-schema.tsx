@@ -5,11 +5,11 @@ import ethernaLogo from "@/assets/logo-etherna.png"
 
 import { dayjs } from "@/utils/dayjs"
 
-import type { User } from "@/schema/app"
+import type { ParsedPostAuthor } from "@/queries/fetch-post-data"
 import type { Article } from "schema-dts"
 
 export interface ArticleSchemaProps {
-  author: User
+  author: ParsedPostAuthor
   title?: string | null
   image?: string | null
   url: string
@@ -40,7 +40,7 @@ export function ArticleSchema({
         "@type": "Article",
         headline: title ?? undefined,
         inLanguage: lang ?? undefined,
-        author: `${author.first_name} ${author.last_name}`.trim(),
+        author: `${author.firstName} ${author.lastName}`.trim(),
         image: image ?? undefined,
         description: excerpt ?? undefined,
         dateCreated: publishDate ? dayjs(publishDate).format("YYYY-MM-DD") : undefined,

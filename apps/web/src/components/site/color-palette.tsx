@@ -1,5 +1,7 @@
+/* eslint-disable import/no-named-as-default-member */
+
 import { useMemo } from "react"
-import * as convert from "color-convert"
+import convert from "color-convert"
 
 interface ColorPaletteProps {
   name?: string

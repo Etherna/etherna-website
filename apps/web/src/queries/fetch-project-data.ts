@@ -6,6 +6,9 @@ import { parseSlug, routes } from "@/utils/routes"
 
 import type { Lang, LocalizedPaths } from "@/utils/lang"
 
+export type ParsedProjectData = Awaited<ReturnType<typeof fetchProjectData>>
+export type ParsedProject = ParsedProjectData["project"]
+
 export async function fetchProjectData(lang: Lang, path: string) {
   const slug = parseSlug(path)
 

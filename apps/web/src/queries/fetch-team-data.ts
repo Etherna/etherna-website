@@ -6,6 +6,7 @@ import { findTranslation, parseFluidImage } from "@/utils/data-parser"
 import type { Lang } from "@/utils/lang"
 
 export type ParsedTeamData = Awaited<ReturnType<typeof fetchTeamData>>
+export type ParsedTeamMember = ParsedTeamData["team"][number]
 
 export async function fetchTeamData(lang: Lang) {
   const result = await directusClient.request(

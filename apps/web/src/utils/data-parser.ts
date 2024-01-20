@@ -1,7 +1,10 @@
+import { readFile } from "@directus/sdk"
+import { getFile } from "astro-plugin-files"
 import { getImage } from "astro:assets"
 
 import { getDirectusAssetUrl } from "./assets"
 import { serverImageToBlurhash } from "./blurhash"
+import { directusClient } from "@/classes/directus-client"
 
 import type { Lang } from "./lang"
 import type { DirectusFile } from "@directus/sdk"
@@ -97,10 +100,31 @@ export const loadSvgAsset = async (fileId: UUID | null): Promise<AstroSvgAsset> 
   }
 }
 
-export const getExternalAsset = async (fileId: UUID | null): Promise<AstroFileAsset | null> => {
+export const getExternalAsset = async (
+  fileId: UUID | null,
+  filename?: string | null
+): Promise<AstroFileAsset | null> => {
   if (!fileId) return null
 
-  return null
+  const fileResult = await directusClient.request(
+    readFile(fileId, {
+      fields: ["type", "title"],
+    })
+  )
+
+  const href = getDirectusAssetUrl(fileId)
+  const type = fileResult.type ?? null
+
+  const url = getFile({
+    src: href,
+    filename: filename ?? fileResult.title ?? "unnamed",
+    type,
+  })
+
+  return {
+    url,
+    type,
+  }
 }
 
 export const localeToLang = (locale: Locale): Lang => {
