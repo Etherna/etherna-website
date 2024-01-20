@@ -10,8 +10,6 @@ import {
   Path,
   Transforms,
 } from "slate"
-import { h, hydrate } from "vue"
-import { renderToString } from "vue/server-renderer"
 import {
   CodeBlock,
   HeadingBlock,
@@ -24,17 +22,22 @@ import {
   TableBlock,
   TableCellBlock,
   TableRowBlock,
-} from "../shared/blocks/textual"
-import { ButtonBlock } from "./blocks/button"
-import { CardBlock } from "./blocks/card"
-import { ClientsBlock } from "./blocks/clients"
-import { ClientBlock } from "./blocks/clients/client"
-import { FeaturesBlock } from "./blocks/features"
-import { FeatureBlock } from "./blocks/features/feature"
-import { HeroBlock } from "./blocks/hero"
-import { ListOfBlock } from "./blocks/list-of"
-import { SectionBlock } from "./blocks/section"
-import { LayoutProps, UiBlock } from "./blocks/ui-block"
+} from "slate-blocks/textual"
+import {
+  ButtonBlock,
+  CardBlock,
+  ClientBlock,
+  ClientsBlock,
+  FeatureBlock,
+  FeaturesBlock,
+  HeroBlock,
+  LayoutProps,
+  ListOfBlock,
+  SectionBlock,
+  UiBlock,
+} from "slate-blocks/ui"
+import { h, hydrate } from "vue"
+import { renderToString } from "vue/server-renderer"
 
 import type {
   SlateBlock,
@@ -153,8 +156,9 @@ export function createEditor(
           }
         }
 
-        const listOfBLock = layout?.find((l) => l.block.id === element.type)
-          ?.block
+        const listOfBLock = layout?.find(
+          (l) => l.block.id === element.type,
+        )?.block
         return listOfBLock
       }
     }
@@ -398,49 +402,4 @@ function fixNodeLayout<T extends ReturnType<typeof createEditor>>(
       childIndex++
     }
   })
-}
-
-export function getElementExtraSettings(type: string): {
-  type: "link" | "string" | "boolean" | "number" | "color"
-  id: string
-  name: string
-}[] {
-  switch (type) {
-    case "button":
-      return [
-        {
-          type: "color",
-          id: "background",
-          name: "Background",
-        },
-        {
-          type: "link",
-          id: "link",
-          name: "Link",
-        },
-      ]
-    case "client":
-      return [
-        {
-          type: "link",
-          id: "link",
-          name: "Link",
-        },
-      ]
-    case "card":
-      return [
-        {
-          type: "color",
-          id: "backgroundStart",
-          name: "Background start",
-        },
-        {
-          type: "color",
-          id: "backgroundEnd",
-          name: "Background end",
-        },
-      ]
-    default:
-      return []
-  }
 }

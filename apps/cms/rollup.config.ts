@@ -8,12 +8,13 @@ import {
   EXTENSION_PKG_KEY,
   HYBRID_EXTENSION_TYPES,
 } from "@directus/extensions"
+import alias from "@rollup/plugin-alias"
 import commonjs from "@rollup/plugin-commonjs"
 import json from "@rollup/plugin-json"
 import { nodeResolve } from "@rollup/plugin-node-resolve"
 import replace from "@rollup/plugin-replace"
 import terser from "@rollup/plugin-terser"
-import url from "@rollup/plugin-url"
+import typescript from "@rollup/plugin-typescript"
 import vue from "@vitejs/plugin-vue"
 import * as glob from "glob"
 import esbuild from "rollup-plugin-esbuild"
@@ -44,11 +45,23 @@ const APP_PLUGINS = [
   vue({ isProduction: true }),
   styles(),
   esbuild(),
+  alias({
+    // This fixes symlinks issue: https://github.com/vitejs/vite/issues/11657
+    entries: [
+      {
+        find: "slate-blocks/textual",
+        replacement: "../../packages/slate-blocks/textual/index.ts",
+      },
+      {
+        find: "slate-blocks/ui",
+        replacement: "../../packages/slate-blocks/ui/index.ts",
+      },
+    ],
+  }),
   nodeResolve({ browser: true }),
   commonjs({ esmExternals: true }),
   json(),
   svg({ stringify: true }),
-  url(),
   replace({
     values: {
       "process.env.NODE_ENV": JSON.stringify(

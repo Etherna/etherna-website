@@ -7,6 +7,8 @@ import { Col } from "@/components/common/col"
 import { Container } from "@/components/common/container"
 import { Prose } from "@/components/common/prose"
 import { Row } from "@/components/common/row"
+import { ArticleSchema } from "@/components/schema/article-schema"
+import { routes } from "@/utils/routes"
 
 import type { ViewProps } from "@/queries/fetch-props"
 
@@ -35,12 +37,12 @@ const { data, lang } = Astro.props
         <article class="lg:max-w-xl lg:px-0">
           <h1 class="font-serif text-5xl leading-none">{data.post.title}</h1>
 
-          <!-- <Markdown rawMarkdown={data.post.content} />
+          <!-- <Markdown rawMarkdown={data.post.content} /> -->
 
           <ArticleSchema
             author={data.post.author}
             title={data.post.title}
-            image={data.post.image?.attributes.src}
+            image={data.post.thumbnail?.attributes.src}
             url={routes.blogPostPath(data.post.slug, data.post.locale)}
             excerpt={data.post.excerpt}
             content={data.post.content}
@@ -48,7 +50,7 @@ const { data, lang } = Astro.props
             lang={data.post.locale}
             publishDate={data.post.published_on}
             updateDate={data.post.updated_on}
-          /> -->
+          />
         </article>
 
         <BlogPostFooter className="mx-auto max-w-prose lg:text-lg" />

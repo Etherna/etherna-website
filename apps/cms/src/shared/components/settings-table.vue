@@ -8,8 +8,8 @@ import tableHeaderRightSelected from "./assets/table-header-right.svg"
 import tableHeaderTopSelected from "./assets/table-header-top.svg"
 import tableHeadersBase from "./assets/table-headers.svg"
 
-import type { TableElement } from "../blocks/textual/table"
 import type { BaseEditor, Path } from "slate"
+import type { TableElement } from "slate-blocks/textual"
 
 const props = defineProps<{
   editor: BaseEditor

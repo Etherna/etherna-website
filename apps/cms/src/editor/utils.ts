@@ -2,9 +2,6 @@ import { initSlate } from "@mattiaz9/slate-jsx"
 import markdown from "remark-parse"
 import slate from "remark-slate"
 import { Editor, Element, Text, Transforms } from "slate"
-import { unified } from "unified"
-import { h, hydrate } from "vue"
-import { renderToString } from "vue/server-renderer"
 import {
   CodeBlock,
   HeadingBlock,
@@ -17,13 +14,16 @@ import {
   TableBlock,
   TableCellBlock,
   TableRowBlock,
-} from "../shared/blocks/textual"
+} from "slate-blocks/textual"
+import { unified } from "unified"
+import { h, hydrate } from "vue"
+import { renderToString } from "vue/server-renderer"
 
-import type { ImageElement } from "../shared/blocks/textual/image"
 import type { SlateDescendant } from "@mattiaz9/slate-jsx"
 import type { AxiosInstance } from "axios"
 import type { InputNodeTypes } from "remark-slate"
 import type { BaseEditor } from "slate"
+import type { ImageElement } from "slate-blocks/textual"
 
 const markdownNodeType: InputNodeTypes = {
   heading: {

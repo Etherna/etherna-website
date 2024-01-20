@@ -1,0 +1,10 @@
+{
+  "extends": "tsconfig/lib.json",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"],
+}

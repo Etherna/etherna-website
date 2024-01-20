@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { useApi } from "@directus/extensions-sdk"
+import blockAdder from "slate-blocks/components/block-adder.vue"
+import blockExtraSettings from "slate-blocks/components/block-extra-settings.vue"
 import { computed, onMounted, reactive, ref, watch } from "vue"
 import editorFormatMenu from "../shared/components/editor-format-menu.vue"
 import editorImageUpload from "../shared/components/editor-image-upload.vue"
 import { setInitialContent } from "../shared/utils/slate"
-import BlockAdder from "./blocks/block-adder.vue"
-import BlockExtraSettings from "./blocks/block-extra-settings.vue"
 import { createEditor, emptyValue, fixInitialValue } from "./utils"
 
 import type { BlockEditor } from "./types"

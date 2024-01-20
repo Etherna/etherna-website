@@ -1,0 +1,16 @@
+{
+  "name": "slate-blocks",
+  "version": "0.0.1",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {},
+  "dependencies": {
+    "@directus/extensions-sdk": "10.3.0",
+    "vue": "3.4.15"
+  },
+  "devDependencies": {
+    "@directus/types": "11.0.3",
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*"
+  }
+}

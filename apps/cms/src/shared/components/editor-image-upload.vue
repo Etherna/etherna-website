@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { DirectusFile } from "@directus/sdk"
 import { BaseEditor, Transforms } from "slate"
+import { ImageElement, imageSelectionPath } from "slate-blocks/textual"
 import { useI18n } from "vue-i18n"
-import { ImageElement, imageSelectionPath } from "../blocks/textual/image"
 
 const { t } = useI18n()
 

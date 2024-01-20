@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { useApi } from "@directus/extensions-sdk"
 import { Editor, Range } from "slate"
+import blockLinkEditor from "slate-blocks/components/block-link-editor.vue"
 import { computed, ref, watch } from "vue"
 import { CaretPosition } from "../classes/caret-position"
-import blockLinkEditor from "./block-link-editor.vue"
 
-import type { LeafProps } from "../blocks/textual/leaf"
 import type { BaseEditor } from "slate"
+import type { LeafProps } from "slate-blocks/textual"
 import type { CSSProperties } from "vue"
 
 const props = defineProps<{

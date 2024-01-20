@@ -18,6 +18,11 @@
     "migrate": "cd ./apps/cms && pnpm migrate-up",
     "bootstrap": "cd ./apps/cms && pnpm bootstrap && pnpm migrate-up"
   },
+  "dependencies": {
+    "@mattiaz9/slate-jsx": "0.1.9",
+    "slate": "0.101.5",
+    "tslib": "2.6.2"
+  },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "4.1.1",
     "@types/node": "20.11.5",
@@ -26,8 +31,5 @@
     "tsconfig": "workspace:*",
     "turbo": "1.11.3",
     "typescript": "5.3.3"
-  },
-  "dependencies": {
-    "tslib": "2.6.2"
   }
 }

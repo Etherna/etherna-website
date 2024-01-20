@@ -1,18 +1,4 @@
-import { ComponentInternalInstance, h, isVNode } from "vue"
-
-type Child = string | JSX.Element | null
-type Children = Child | Child[]
-
-export function vueJsxCompat(
-  tag: string,
-  props: Record<string, unknown> | null = null,
-  children: Children = null,
-) {
-  if (arguments.length > 3 || isVNode(children)) {
-    children = Array.prototype.slice.call(arguments, 2) as any
-  }
-  return h(tag, props, children as any) as JSX.Element
-}
+import { ComponentInternalInstance } from "vue"
 
 export function findParentNodeWithName(
   instance: ComponentInternalInstance | null,
