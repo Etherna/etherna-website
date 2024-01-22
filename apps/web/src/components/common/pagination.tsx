@@ -1,3 +1,5 @@
+import { ChevronsLeftIcon, ChevronsRightIcon } from "lucide-react"
+
 import { cn } from "@/utils/classnames"
 
 import type { PropsWithChildren } from "react"
@@ -25,7 +27,7 @@ function Pagination({
         disabled={currentPage === 1}
         onClick={e => onClick?.(1, e)}
       >
-        {"<<"}
+        <ChevronsLeftIcon size={16} />
       </PaginationItem>
 
       <ol className="flex items-center space-x-2">
@@ -47,7 +49,7 @@ function Pagination({
         disabled={currentPage === pagesCount}
         onClick={e => onClick?.(pagesCount, e)}
       >
-        {">>"}
+        <ChevronsRightIcon size={16} />
       </PaginationItem>
     </nav>
   )

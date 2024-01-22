@@ -42,7 +42,7 @@ export async function fetchBlogData(lang: Lang, path: string) {
     directusClient.request(
       aggregate("blog_articles", {
         aggregate: {
-          count: "id",
+          count: ["id"],
         },
         query: {
           filter: postsFilter,
@@ -103,7 +103,7 @@ export async function fetchBlogData(lang: Lang, path: string) {
     ),
   ])
 
-  const count = Number(postsCountResult[0]?.count ?? 0)
+  const count = Number(postsCountResult[0]?.count?.id ?? 0)
   const pagesCount = Math.ceil(count / PAGINATION_LIMIT)
   const categories = categoriesResult.map(res => {
     const translation = findTranslation(res.translations ?? [], lang)
