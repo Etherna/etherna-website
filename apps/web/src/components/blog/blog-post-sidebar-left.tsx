@@ -46,13 +46,15 @@ export function BlogPostSidebarLeft({ post }: BlogPostSidebarLeftProps) {
         </Fragment>
       ))}
 
-      <h6 className="mb-4 mt-0">{t`sharePost`}</h6>
-      <ShareButtons
-        className="mb-16"
-        url={routes.blogPostPath(post.slug, localeToLang(post.locale))}
-        title={post.title}
-        vertical
-      />
+      <div className="sticky top-24">
+        <h6 className="mb-4 mt-0">{t`sharePost`}</h6>
+        <ShareButtons
+          className="mb-16"
+          url={routes.blogPostPath(post.slug, localeToLang(post.locale))}
+          title={post.title}
+          vertical
+        />
+      </div>
     </BlogPostSidebar>
   )
 }

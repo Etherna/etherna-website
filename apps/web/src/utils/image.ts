@@ -6,7 +6,8 @@ import type { ImageOutputFormat } from "astro"
 
 // Credit to: https://github.com/scijs/get-pixels
 
-export function getImagePixels(imageData: ArrayBuffer, format: ImageOutputFormat) {
+export function getImagePixels(imageData: ArrayBuffer) {
+  const format = detectImageFormat(imageData)
   switch (format) {
     case "png":
       return getPNGPixels(imageData)
@@ -18,6 +19,28 @@ export function getImagePixels(imageData: ArrayBuffer, format: ImageOutputFormat
     default:
       return null
   }
+}
+
+function detectImageFormat(imageData: ArrayBuffer): ImageOutputFormat {
+  const formats = {
+    jpeg: [0xff, 0xd8, 0xff],
+    png: [0x89, 0x50, 0x4e, 0x47],
+    gif: [0x47, 0x49, 0x46, 0x38],
+    avif: [0x00, 0x00, 0x00, 0x18, 0x61, 0x76, 0x69, 0x66],
+    webp: [0x52, 0x49, 0x46, 0x46],
+    svg: [0x3c, 0x73, 0x76, 0x67],
+  } as const
+
+  const header = new Uint8Array(imageData, 0, 8)
+  const headerArray = Array.from(header)
+
+  for (const [format, magic] of Object.entries(formats)) {
+    if (magic.every((v, i) => v === headerArray[i])) {
+      return format as ImageOutputFormat
+    }
+  }
+
+  return "png"
 }
 
 async function getJPEGPixels(imageData: ArrayBuffer) {

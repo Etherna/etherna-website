@@ -11,18 +11,22 @@ import type { LocalImageService } from "astro"
 
 // Credit: https://gist.github.com/mattiaz9/53cb67040fa135cb395b1d015a200aff
 
+export type TransformFormat = "jpeg" | "jpg" | "png" | "webp" | "avif" | "svg"
+
 export interface TransformOptions {
   src: string
   width?: number
   height?: number
-  format?: "jpeg" | "png" | "webp" | "avif" | "svg"
+  format?: TransformFormat
 }
+
+export const FallbackBlurhash = "L6PZfSi_.AyE_3t7t7R**0o#DgR4"
 
 export function blurHashToDataURL(hash: string | null | undefined): string {
   let fixedHash = hash
   if (!fixedHash || !isBlurhashValid(fixedHash).result) {
     // fallback to random blur hash
-    fixedHash = "LEHV6nWB2yk8pyo0adR*.7kCMdnj"
+    fixedHash = FallbackBlurhash
   }
 
   const pixels = decode(fixedHash, 32, 32)
@@ -31,7 +35,6 @@ export function blurHashToDataURL(hash: string | null | undefined): string {
 }
 
 export async function serverImageToBlurhash(transform: TransformOptions) {
-  return ""
   if (process.env.NODE_ENV === "development") {
     // fix certificate issue in development
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
@@ -43,14 +46,13 @@ export async function serverImageToBlurhash(transform: TransformOptions) {
   const height = Math.round(50 * ((transform.height ?? 100) / (transform.width ?? 100)))
 
   if (transform.format !== "svg") {
-    console.log(">>>FORMAT", transform.format)
     const imageService = (await getConfiguredImageService()) as LocalImageService
     const { data } = await imageService.transform(
       new Uint8Array(image),
       {
         src: transform.src,
         width,
-        height: height,
+        height,
       },
       imageConfig
     )
@@ -58,7 +60,7 @@ export async function serverImageToBlurhash(transform: TransformOptions) {
   }
 
   const pixels =
-    (await getImagePixels(image, transform.format ?? "jpeg")) ??
+    (await getImagePixels(image)) ??
     new Uint8ClampedArray(
       Array.from({ length: width * height * 4 }, () => {
         return Math.floor(155 + Math.random() * 100)

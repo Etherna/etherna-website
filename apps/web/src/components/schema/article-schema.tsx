@@ -1,5 +1,4 @@
 import { JsonLd } from "react-schemaorg"
-import removeMd from "remove-markdown"
 
 import ethernaLogo from "@/assets/logo-etherna.png"
 
@@ -14,7 +13,7 @@ export interface ArticleSchemaProps {
   image?: string | null
   url: string
   excerpt?: string | null
-  content?: string | null
+  wordCount?: number | null
   keywords?: string | null
   lang?: string | null
   publishDate?: string | null
@@ -24,7 +23,7 @@ export interface ArticleSchemaProps {
 export function ArticleSchema({
   author,
   title,
-  content,
+  wordCount,
   excerpt,
   image,
   keywords,
@@ -46,7 +45,7 @@ export function ArticleSchema({
         dateCreated: publishDate ? dayjs(publishDate).format("YYYY-MM-DD") : undefined,
         datePublished: publishDate ? dayjs(publishDate).format("YYYY-MM-DD") : undefined,
         dateModified: updateDate ? dayjs(updateDate).format("YYYY-MM-DD") : undefined,
-        wordCount: removeMd(content ?? "").split(/\W+/).length,
+        wordCount: wordCount ?? undefined,
         keywords: keywords?.split(/[ ,;]/).join(" "),
         publisher: {
           "@type": "Organization",

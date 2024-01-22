@@ -1,5 +1,5 @@
 import { SlateBlock } from "@mattiaz9/slate-jsx"
-import { Element, Range, Transforms } from "slate"
+import { Element, Range, Text, Transforms } from "slate"
 
 import { vueJsxCompat } from "../utils/vue"
 import { Leaf } from "./leaf"
@@ -46,6 +46,7 @@ export class ListItemBlock extends SlateBlock<"li", { level: number }> {
             return (
               !isOnlyChild &&
               element.children.length === 1 &&
+              Text.isText(element.children[0]) &&
               element.children[0].text === ""
             )
           },
@@ -75,6 +76,7 @@ export class ListItemBlock extends SlateBlock<"li", { level: number }> {
             return (
               isOnlyChild &&
               element.children.length === 1 &&
+              Text.isText(element.children[0]) &&
               element.children[0].text === ""
             )
           },

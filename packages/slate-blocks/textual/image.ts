@@ -20,7 +20,14 @@ export const imageSelectionPath = shallowRef<Path | undefined>(undefined)
 
 export class ImageBlock extends SlateBlock<
   "img",
-  { src?: string; caption?: string }
+  {
+    src?: string
+    caption?: string
+    alt?: string
+    blurhash?: string
+    width?: number
+    height?: number
+  }
 > {
   protected _assert = (node: unknown) => {
     return Element.isElement(node) && "type" in node && node.type === "img"

@@ -19,7 +19,7 @@
     "bootstrap": "cd ./apps/cms && pnpm bootstrap && pnpm migrate-up"
   },
   "dependencies": {
-    "@mattiaz9/slate-jsx": "0.1.9",
+    "@mattiaz9/slate-jsx": "0.2.2",
     "slate": "0.101.5",
     "tslib": "2.6.2"
   },

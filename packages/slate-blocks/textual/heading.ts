@@ -1,10 +1,11 @@
 import { SlateBlock } from "@mattiaz9/slate-jsx"
-import { Editor, Element, Point, Range } from "slate"
+import { Editor, Element, Point, Range, Text } from "slate"
 
 import { vueJsxCompat } from "../utils/vue"
 import { Leaf } from "./leaf"
 import { ParagraphBlock } from "./paragraph"
 
+import type { LeafElement } from "./leaf"
 import type {
   inferBlockElement,
   inferBlockType,
@@ -43,7 +44,11 @@ export class HeadingBlock<
           withBlock: new ParagraphBlock(),
           when(ctx) {
             const selection = ctx.editor.selection
-            const text = ctx.element.children[0]?.text ?? ""
+
+            const text = Text.isText(ctx.element.children[0])
+              ? ctx.element.children[0].text
+              : ""
+
             return (
               selection !== null &&
               Range.isCollapsed(selection) &&
@@ -105,8 +110,10 @@ export class HeadingBlock<
       lineHeight: "1.2",
     }
 
-    const textChild: string =
-      props.element.children.find(el => Leaf.assert(el)).text ?? ""
+    const textChild = props.element.children.find(el => Leaf.assert(el)) as
+      | LeafElement
+      | undefined
+    const childText = textChild?.text ?? ""
 
     switch (this.id) {
       case "h1":
@@ -123,7 +130,7 @@ export class HeadingBlock<
           },
           [
             props.children,
-            textChild === ""
+            childText === ""
               ? vueJsxCompat(
                   "span",
                   {
@@ -148,7 +155,7 @@ export class HeadingBlock<
           },
           [
             props.children,
-            textChild === ""
+            childText === ""
               ? vueJsxCompat(
                   "span",
                   {

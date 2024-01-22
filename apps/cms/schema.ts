@@ -1,3 +1,5 @@
+import { SlateDescendant } from "@mattiaz9/slate-jsx"
+
 import type { DirectusFile, DirectusUser } from "@directus/sdk"
 
 declare global {
@@ -61,7 +63,7 @@ declare global {
     title: string
     slug: string
     excerpt: string | null
-    content: Record<string, unknown> | null
+    content: SlateDescendant[] | null
     seo: SEO | null
     thumbnail: DirectusFile<DirectusSchema> | null
     article_id: UUID | BlogArticle

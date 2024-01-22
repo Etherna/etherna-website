@@ -53,9 +53,9 @@ const metaTitle = [title, "Etherna"]
   _paq.push(["trackPageView"])
   _paq.push(["enableLinkTracking"])
   ;(function () {
-    var u = "https://analytics.etherna.io/"
+    var u = import.meta.env.ANALYTICS_URL + "/"
     _paq.push(["setTrackerUrl", u + "matomo.php"])
-    _paq.push(["setSiteId", "1"])
+    _paq.push(["setSiteId", import.meta.env.ANALYTICS_SITE_ID])
     var d = document,
       g = d.createElement("script"),
       s = d.getElementsByTagName("script")[0]!

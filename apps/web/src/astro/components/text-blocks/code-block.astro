@@ -1,0 +1,15 @@
+---
+import type { CodeElement } from "slate-blocks/textual"
+
+interface Props extends CodeElement {}
+
+const { language } = Astro.props
+---
+
+<pre
+  class="relative">
+  {language && (
+    <span class="font-mono absolute top-6 left-6 text-xs uppercase py-px px-1 rounded bg-slate-600">{language}</span>
+  )}
+  <slot />
+</pre>

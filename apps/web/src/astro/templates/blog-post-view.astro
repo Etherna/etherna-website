@@ -1,4 +1,5 @@
 ---
+import ArticleBlocks from "../components/article-blocks.astro"
 import { BlogPostFooter } from "@/components/blog/blog-post-footer"
 import { BlogPostHeader } from "@/components/blog/blog-post-header"
 import { BlogPostSidebarLeft } from "@/components/blog/blog-post-sidebar-left"
@@ -8,7 +9,9 @@ import { Container } from "@/components/common/container"
 import { Prose } from "@/components/common/prose"
 import { Row } from "@/components/common/row"
 import { ArticleSchema } from "@/components/schema/article-schema"
+import { localeToLang } from "@/utils/data-parser"
 import { routes } from "@/utils/routes"
+import { getSlateWordsCount } from "@/utils/slate"
 
 import type { ViewProps } from "@/queries/fetch-props"
 
@@ -37,19 +40,19 @@ const { data, lang } = Astro.props
         <article class="lg:max-w-xl lg:px-0">
           <h1 class="font-serif text-5xl leading-none">{data.post.title}</h1>
 
-          <!-- <Markdown rawMarkdown={data.post.content} /> -->
+          <ArticleBlocks children={data.post.content ?? []} />
 
           <ArticleSchema
             author={data.post.author}
             title={data.post.title}
             image={data.post.thumbnail?.attributes.src}
-            url={routes.blogPostPath(data.post.slug, data.post.locale)}
+            url={routes.blogPostPath(data.post.slug, localeToLang(data.post.locale))}
             excerpt={data.post.excerpt}
-            content={data.post.content}
-            keywords={data.post.meta_keywords}
+            wordCount={getSlateWordsCount(data.post.content ?? [])}
+            keywords={undefined}
             lang={data.post.locale}
-            publishDate={data.post.published_on}
-            updateDate={data.post.updated_on}
+            publishDate={data.post.publishedAt}
+            updateDate={data.post.editedAt}
           />
         </article>
 

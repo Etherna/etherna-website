@@ -1,0 +1,23 @@
+---
+import type { TableCellElement } from "slate-blocks/textual"
+
+interface Props extends TableCellElement {}
+
+const { type } = Astro.props
+---
+
+{
+  type === "th" && (
+    <th>
+      <slot />
+    </th>
+  )
+}
+
+{
+  type === "td" && (
+    <td>
+      <slot />
+    </td>
+  )
+}

@@ -4,6 +4,7 @@ import { Editor, Element, Point } from "slate"
 import { vueJsxCompat } from "../utils/vue"
 import { Leaf } from "./leaf"
 
+import type { LeafElement } from "./leaf"
 import type {
   inferBlockElement,
   inferBlockType,
@@ -60,12 +61,14 @@ export class ParagraphBlock extends SlateBlock<
   }
 
   render(props: RenderElementProps<ParagraphBlock>): any {
-    const textChild: string =
-      props.element.children.find(el => Leaf.assert(el)).text ?? ""
+    const textChild = props.element.children.find(el => Leaf.assert(el)) as
+      | LeafElement
+      | undefined
+    const childText = textChild?.text ?? ""
 
     return vueJsxCompat("p", props.attributes, [
       props.children,
-      textChild === ""
+      childText === ""
         ? vueJsxCompat(
             "span",
             {

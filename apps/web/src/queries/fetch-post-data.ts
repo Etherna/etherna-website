@@ -1,10 +1,16 @@
 import { readItems } from "@directus/sdk"
 
 import { directusClient } from "@/classes/directus-client"
-import { findTranslation, localeToLang, parseFluidImage } from "@/utils/data-parser"
+import {
+  findTranslation,
+  localeToLang,
+  parseFluidImage,
+  resolveSlateContent,
+} from "@/utils/data-parser"
 import { parseSlug, routes } from "@/utils/routes"
 
 import type { Lang, LocalizedPaths } from "@/utils/lang"
+import type { SlateDescendant } from "@mattiaz9/slate-jsx"
 
 export type ParsedPostData = Awaited<ReturnType<typeof fetchPostData>>
 export type ParsedPost = ParsedPostData["post"]
@@ -98,9 +104,17 @@ export async function fetchPostData(lang: Lang, path: string) {
     title: postTranslationResult.title,
     slug: postTranslationResult.slug,
     excerpt: postTranslationResult.excerpt,
-    content: postTranslationResult.content,
+    content: await resolveSlateContent(postTranslationResult.content as SlateDescendant[], {
+      lang,
+      fallbackLang: "en",
+      maxWidth: 1400,
+    }),
     seo: postTranslationResult.seo,
-    thumbnail: await parseFluidImage(postTranslationResult.thumbnail),
+    thumbnail: await parseFluidImage(
+      postTranslationResult.thumbnail,
+      `${postTranslationResult.title} thumbnail`,
+      1400
+    ),
     locale: postTranslationResult.locale,
     publishedAt: article.published_at as string,
     editedAt: article.edited_at,
@@ -121,7 +135,9 @@ export async function fetchPostData(lang: Lang, path: string) {
       lastName: article.author_id.last_name,
       avatar: article.author_id.avatar
         ? await parseFluidImage(
-            article.author_id.avatar as ExtractGeneric<typeof article.author_id.avatar>
+            article.author_id.avatar as ExtractGeneric<typeof article.author_id.avatar>,
+            `${article.author_id.first_name} ${article.author_id.last_name} avatar`,
+            128
           )
         : null,
     },

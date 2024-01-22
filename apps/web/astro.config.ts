@@ -7,12 +7,21 @@ import sitemap from "@astrojs/sitemap"
 import files from "astro-plugin-files"
 import { defineConfig } from "astro/config"
 import unfonts from "unplugin-fonts/astro"
+import { loadEnv } from "vite"
 
 import dynamicBase from "./plugins/dynamic-base/index.mjs"
+
+const { PUBLIC_DIRECTUS_URL } = loadEnv(process.env.NODE_ENV as string, process.cwd(), "") as {
+  PUBLIC_DIRECTUS_URL: string
+}
+const cmsOrigin = new URL(PUBLIC_DIRECTUS_URL).hostname
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://info.etherna.io",
+  image: {
+    domains: [cmsOrigin],
+  },
   integrations: [
     react(),
     files(),
