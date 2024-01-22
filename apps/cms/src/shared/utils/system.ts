@@ -5,13 +5,15 @@ import type { AppCollection } from "@directus/types"
 export function findCollectionName(
   collection: AppCollection,
   userLang: string,
+  key: "translation" | "plural" | "singular" = "translation",
 ) {
   return (
-    collection.meta?.translations?.find((t) => t.language === userLang)
-      ?.translation ??
+    collection.meta?.translations?.find((t) => t.language === userLang)?.[
+      key
+    ] ??
     collection.meta?.translations?.find(
       (t) => t.language.split("-")[0] === userLang.split("-")[0],
-    )?.translation ??
+    )?.[key] ??
     collection.name ??
     collection.collection
   )

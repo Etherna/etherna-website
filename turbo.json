@@ -12,6 +12,7 @@
         "PORT",
         "PUBLIC_URL",
         "ENV",
+        "GITHUB_TOKEN",
         "DB_CLIENT",
         "DB_HOST",
         "DB_PORT",

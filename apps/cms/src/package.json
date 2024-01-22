@@ -21,6 +21,16 @@
         "source": "./seo/index.ts"
       },
       {
+        "type": "module",
+        "name": "publisher",
+        "source": "./publisher/index.ts"
+      },
+      {
+        "type": "endpoint",
+        "name": "deploys",
+        "source": "./deploys/index.ts"
+      },
+      {
         "type": "migrations",
         "source": "./migrations"
       }
