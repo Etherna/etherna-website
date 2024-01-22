@@ -224,6 +224,7 @@ declare global {
     company_address_street: string | null
     company_address_country: string | null
     company_email: string | null
+    company_payoff: string | null
     company_keywords: string | null
     facebook_url: string | null
     instagram_url: string | null

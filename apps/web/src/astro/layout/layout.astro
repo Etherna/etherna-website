@@ -4,6 +4,7 @@ import Footer from "./footer.astro"
 import Navbar from "./navbar.astro"
 import { I18nConfig } from "@/components/layout/i18n-config"
 import { UrlRedirect } from "@/components/layout/url-redirect"
+import { fetchGlobalSeo } from "@/queries/fetch-global-seo"
 import { fetchLocales } from "@/queries/fetch-locales"
 import { fetchSocials } from "@/queries/fetch-socials"
 import { configLang, Lang, LocalizedPaths } from "@/utils/lang"
@@ -17,15 +18,18 @@ interface Props {
 }
 
 const { title, description, image, localizedPaths, lang } = Astro.props
-const { locales } = await fetchLocales()
-const { socials } = await fetchSocials()
+const [{ locales }, { socials }, { seo }] = await Promise.all([
+  fetchLocales(),
+  fetchSocials(),
+  fetchGlobalSeo(),
+])
 
 configLang(lang)
 ---
 
 <html lang={lang}>
   <head>
-    <BaseHead title={title} description={description} image={image} />
+    <BaseHead title={title} description={description} image={image} payoff={seo.companyPayoff} />
   </head>
   <body>
     <UrlRedirect client:load />

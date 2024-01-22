@@ -10,6 +10,7 @@ export default {
       table.string("company_address_street")
       table.string("company_address_country")
       table.string("company_email")
+      table.string("company_payoff")
       table.string("company_keywords")
       table.string("facebook_url")
       table.string("instagram_url")

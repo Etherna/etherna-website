@@ -5,16 +5,17 @@
 import "@/styles/global.css"
 
 export interface Props {
-  title?: string
-  description?: string
-  image?: string
+  title?: string | null
+  description?: string | null
+  image?: string | null
+  payoff?: string | null
 }
 
-const { title, description, image } = Astro.props
+const { title, description, image, payoff } = Astro.props
 const metaTitle = [title, "Etherna"]
   .filter((comp, i, self) => comp && self.indexOf(comp) === i)
   .filter(Boolean)
-  .concat(title === "Etherna" ? ["Eyes wide open"] : [])
+  .concat(title === "Etherna" ? [payoff || "Eyes wide open"] : [])
   .join(" | ")
 ---
 
