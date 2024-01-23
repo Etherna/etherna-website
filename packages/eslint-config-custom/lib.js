@@ -22,6 +22,8 @@ module.exports = {
   rules: {
     "eslint-comments/require-description": "off",
     "import/order": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/no-default-export": "off",
     // No console & debugger statements in production
     "no-console":
       process.env.NODE_ENV === "production"

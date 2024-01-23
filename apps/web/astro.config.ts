@@ -4,12 +4,11 @@ import { dirname, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
 import react from "@astrojs/react"
 import sitemap from "@astrojs/sitemap"
+import dynamicBase from "astro-plugin-dynamic-base"
 import files from "astro-plugin-files"
 import { defineConfig } from "astro/config"
 import unfonts from "unplugin-fonts/astro"
 import { loadEnv } from "vite"
-
-import dynamicBase from "./plugins/dynamic-base/index.mjs"
 
 const { PUBLIC_DIRECTUS_URL } = loadEnv(process.env.NODE_ENV as string, process.cwd(), "") as {
   PUBLIC_DIRECTUS_URL: string

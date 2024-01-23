@@ -33,6 +33,9 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:packages/tsconfig
+      tsup:
+        specifier: 8.0.1
+        version: 8.0.1(typescript@5.3.3)
       turbo:
         specifier: 1.11.3
         version: 1.11.3
@@ -45,9 +48,6 @@ importers:
       '@directus/constants':
         specifier: 11.0.2
         version: 11.0.2
-      '@directus/extensions':
-        specifier: 0.2.1
-        version: 0.2.1(@unhead/vue@1.8.9)(knex@3.1.0)(mysql@2.18.1)(pg@8.11.3)(pinia@2.1.7)(pino@8.17.1)(sqlite3@5.1.6)(tedious@16.6.1)(vue@3.4.15)
       '@directus/sdk':
         specifier: 14.0.0
         version: 14.0.0
@@ -91,6 +91,9 @@ importers:
         specifier: 9.9.0
         version: 9.9.0(vue@3.4.15)
     devDependencies:
+      '@directus/extensions':
+        specifier: 0.2.1
+        version: 0.2.1(@unhead/vue@1.8.9)(knex@3.1.0)(mysql@2.18.1)(pg@8.11.3)(pinia@2.1.7)(pino@8.17.1)(sqlite3@5.1.6)(tedious@16.6.1)(vue@3.4.15)
       '@directus/extensions-sdk':
         specifier: 10.3.0
         version: 10.3.0(@types/node@20.11.5)(@unhead/vue@1.8.9)(knex@3.1.0)(mysql@2.18.1)(pg@8.11.3)(pinia@2.1.7)(pino@8.17.1)(sass@1.70.0)(sqlite3@5.1.6)(tedious@16.6.1)(typescript@5.3.3)
@@ -179,8 +182,8 @@ importers:
         specifier: 4.2.6
         version: 4.2.6(react-dom@18.2.0)(react@18.2.0)
       astro:
-        specifier: 4.2.1
-        version: 4.2.1(@types/node@20.11.5)(typescript@5.3.3)
+        specifier: 4.2.3
+        version: 4.2.3(@types/node@20.11.5)(typescript@5.3.3)
       axios:
         specifier: 1.6.2
         version: 1.6.2
@@ -290,6 +293,9 @@ importers:
       '@types/remove-markdown':
         specifier: 0.3.4
         version: 0.3.4
+      astro-plugin-dynamic-base:
+        specifier: workspace:*
+        version: link:../../packages/astro-plugin-dynamic-base
       astro-plugin-files:
         specifier: workspace:*
         version: link:../../packages/astro-plugin-files
@@ -324,11 +330,11 @@ importers:
         specifier: 5.0.12
         version: 5.0.12(@types/node@20.11.5)(sass@1.70.0)
 
-  packages/astro-plugin-files:
+  packages/astro-plugin-dynamic-base:
     dependencies:
       astro:
-        specifier: 4.2.1
-        version: 4.2.1(@types/node@20.11.5)(typescript@5.3.3)
+        specifier: 4.2.3
+        version: 4.2.3(@types/node@20.11.5)(typescript@5.3.3)
       deterministic-object-hash:
         specifier: 2.0.2
         version: 2.0.2
@@ -342,9 +348,25 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
-      tsup:
-        specifier: 8.0.1
-        version: 8.0.1(typescript@5.3.3)
+
+  packages/astro-plugin-files:
+    dependencies:
+      astro:
+        specifier: 4.2.3
+        version: 4.2.3(@types/node@20.11.5)(typescript@5.3.3)
+      deterministic-object-hash:
+        specifier: 2.0.2
+        version: 2.0.2
+      mime:
+        specifier: 4.0.1
+        version: 4.0.1
+    devDependencies:
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
 
   packages/eslint-config-custom:
     devDependencies:
@@ -413,8 +435,8 @@ packages:
     resolution: {integrity: sha512-06DD2ZnItMwUnH81LBLco3tWjcZ1lGU9rLCCBaeUCGYe9cI0wKyY2W3kDyoW1I6GmcWgt1fu+D1CTvz+FIKf8A==}
     dev: false
 
-  /@astrojs/markdown-remark@4.1.0:
-    resolution: {integrity: sha512-JnIy6zk+6f/SgSVMZecZFxQt0faT1uBckwYCuBxKH1hYYJsal8OOe+tx6JxfnyaV+xViyjUvQ28mmn+p/F5LkQ==}
+  /@astrojs/markdown-remark@4.2.0:
+    resolution: {integrity: sha512-qQB+LoxmIqzkhLXaQAzfzlBxZU1jeQYailsifurz89WeY0Q8ywIj8uQQSyqxb7rPPg3ZfdNdxsN9lF5UaCRn0w==}
     dependencies:
       '@astrojs/prism': 3.0.0
       github-slugger: 2.0.0
@@ -2325,7 +2347,6 @@ packages:
       - sqlite3
       - supports-color
       - tedious
-    dev: false
 
   /@directus/format-title@10.1.0:
     resolution: {integrity: sha512-5TmkYfDCKPh/Xy9qYiVO4y6bxPIAFb8dnBn4RgXBQyndffq9GVuCX66FdxdjGqn+ti2t4yuQOGZ+E9a/GjmWcw==}
@@ -2464,7 +2485,6 @@ packages:
       lodash-es: 4.17.21
       pinia: 2.1.7(typescript@5.3.3)(vue@3.4.15)
       vue: 3.4.15(typescript@5.3.3)
-    dev: false
 
   /@directus/types@11.0.3(knex@3.1.0)(mysql@2.18.1)(pg@8.11.3)(sqlite3@5.1.6)(tedious@16.6.1)(vue@3.3.13):
     resolution: {integrity: sha512-iXurOdLdl6u7Y0429t+EPRUtGJeucrRis5n2GMYhozIdn/rWoJhIuouVhnv8pTneCG02AakXBeCtdjAPtH7fNw==}
@@ -2562,7 +2582,6 @@ packages:
       lodash-es: 4.17.21
       micromustache: 8.0.3
       vue: 3.4.15(typescript@5.3.3)
-    dev: false
 
   /@directus/validation@0.0.10(vue@3.4.15):
     resolution: {integrity: sha512-gbnUtm3Zc2FmyUnvoU0h1UNURVBe+c0bZ/t/H6kU1V1Oxd9wC03gF1ZXH7NXM5DmoCoGsda2O0VgjyisequG+Q==}
@@ -6163,14 +6182,14 @@ packages:
     resolution: {integrity: sha512-eBvWn1lvIApYMhzQMsu9ciLfkBY499mFZlNqG+/9WR7PVlroQw0vG30cOQQbaKz3sCEc44TAOu2ykzqXSNnwag==}
     dev: true
 
-  /astro@4.2.1(@types/node@20.11.5)(typescript@5.3.3):
-    resolution: {integrity: sha512-TcrveW2/lohmljrbTUgcDxajEdF1yK+zBvb7SXroloGix/d4jkegO6GANFgvyy0zprMyajW7qgJEFyhWUX86Vw==}
+  /astro@4.2.3(@types/node@20.11.5)(typescript@5.3.3):
+    resolution: {integrity: sha512-6bfSogmcwMdaTRAxuhJ7aISGin/T3ovI/69JWPRYOHBkPZxA/EfsNQOI2TiRHFJSF9XtoMnFlgvT+iYapkhOwg==}
     engines: {node: '>=18.14.1', npm: '>=6.14.0'}
     hasBin: true
     dependencies:
       '@astrojs/compiler': 2.5.0
       '@astrojs/internal-helpers': 0.2.1
-      '@astrojs/markdown-remark': 4.1.0
+      '@astrojs/markdown-remark': 4.2.0
       '@astrojs/telemetry': 3.0.4
       '@babel/core': 7.23.7
       '@babel/generator': 7.23.6

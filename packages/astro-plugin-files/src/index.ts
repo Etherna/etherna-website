@@ -6,7 +6,6 @@ import { hashFileName, joinPaths, loadRemoteFile } from "./utils"
 import type { FileOptions } from "./service"
 import type { AstroConfig, AstroIntegration } from "astro"
 
-// eslint-disable-next-line import/no-default-export
 export default function files(): AstroIntegration {
   let astroConfig: AstroConfig | undefined
 
