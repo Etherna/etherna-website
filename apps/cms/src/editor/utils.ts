@@ -300,10 +300,13 @@ function normalizeLinks(node: SlateDescendant): SlateDescendant {
   }
 }
 
-function normalizeImageParagraph(node: SlateDescendant, level = 0) {
+function normalizeImageParagraph(
+  node: SlateDescendant,
+  level = 0,
+): SlateDescendant {
   if (ParagraphBlock.assert(node)) {
     if (node.children.length === 1 && ImageBlock.assert(node.children[0])) {
-      return node.children[0]
+      return node.children[0] as SlateDescendant
     }
   }
 
