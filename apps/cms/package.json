@@ -6,14 +6,14 @@
     "dev": "concurrently \"pnpm:watch\" \"pnpm:start\"",
     "start": "directus start",
     "build": "rollup -c rollup.config.ts --configPlugin typescript",
-    "typecheck": "tsc --noEmit",
     "ci-build": "pnpm migrate:up && pnpm build && pnpm snapshot-apply",
     "watch": "rollup -c rollup.config.ts -w --configPlugin typescript",
     "bootstrap": "directus bootstrap",
     "migrate-up": "pnpm build --migrationsOnly && directus database migrate:latest",
     "migrate-down": "directus database migrate:down",
     "snapshot": "directus schema snapshot ./snapshot.yaml",
-    "snapshot-apply": "directus schema apply ./snapshot.yaml"
+    "snapshot-apply": "directus schema apply ./snapshot.yaml",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@directus/constants": "11.0.2",
