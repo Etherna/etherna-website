@@ -1,6 +1,5 @@
 import path from "node:path"
-import { API_EXTENSION_TYPES, APP_SHARED_DEPS } from "@directus/extensions"
-import { API_SHARED_DEPS } from "./externals"
+import { API_EXTENSION_TYPES, API_SHARED_DEPS, APP_SHARED_DEPS } from "@directus/extensions"
 import { API_PLUGINS, APP_PLUGINS } from "./plugins"
 import { getBundlesEntries, getExtensionsBaseFolder } from "./utils"
 
@@ -12,6 +11,10 @@ export function getExtensionsEntries() {
   const extensionsEntries = entries.map((entry) => {
     const name = path.basename(path.dirname(entry.path))
     const isApiExtension = (API_EXTENSION_TYPES as readonly string[]).includes(entry.type)
+    const format = isApiExtension ? "cjs" : "es"
+    const exports = isApiExtension ? "default" : undefined
+    const extension = format === "cjs" ? "cjs" : "mjs"
+    const file = path.resolve(`${folder}/${entry.type}s/${name}/${entry.output}.${extension}`)
 
     return {
       type: entry.type,
@@ -19,9 +22,9 @@ export function getExtensionsEntries() {
       rollupOptions: {
         input: entry.path,
         output: {
-          file: path.resolve(`${folder}/${entry.type}s/${name}/${entry.output}.js`),
-          format: isApiExtension ? "cjs" : "es",
-          exports: isApiExtension ? "default" : undefined,
+          file,
+          format,
+          exports,
         },
         external: isApiExtension ? API_SHARED_DEPS : APP_SHARED_DEPS,
         plugins: isApiExtension ? API_PLUGINS : APP_PLUGINS,

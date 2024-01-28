@@ -7,12 +7,8 @@ import { getBundlesEntries, getMigrationsFolder } from "./utils"
 import type { RollupOptions } from "rollup"
 
 export function getMigrationsEntries() {
-  const entries = getBundlesEntries().filter(
-    (entry) => entry.type === "migrations",
-  )
-  const migrationsPaths = entries.flatMap((entry) =>
-    glob.sync(`${entry.path}/*.ts`),
-  )
+  const entries = getBundlesEntries().filter((entry) => entry.type === "migrations")
+  const migrationsPaths = entries.flatMap((entry) => glob.sync(`${entry.path}/*.ts`))
   const folder = getMigrationsFolder()
   const migrationsEntries = migrationsPaths.map((input) => {
     const type = "migrations"
@@ -24,7 +20,7 @@ export function getMigrationsEntries() {
       rollupOptions: {
         input,
         output: {
-          file: `${folder}/${name}.js`,
+          file: `${folder}/${name}.cjs`,
           format: "cjs",
           exports: "default",
         },

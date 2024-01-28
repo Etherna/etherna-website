@@ -3,23 +3,16 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
-FROM base AS repo
+FROM base AS build
 COPY . .
-
-FROM repo AS prod
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
-
-FROM repo AS build
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 WORKDIR /apps/cms
 RUN pnpm run build
 RUN pnpm run build --migrationsOnly
 
-FROM base
-COPY --from=prod ./apps/cms/package.json /app/package.json
-COPY --from=prod ./apps/cms/node_modules /app/node_modules
-COPY --from=prod ./apps/cms/snapshot.yaml /app/snapshot.yaml
-COPY --from=prod ./apps/cms/startup.sh /app/startup.sh
-COPY --from=build ./apps/cms/extensions /app/extensions
-WORKDIR /app
-ENTRYPOINT ["startup.sh"]
+FROM directus/directus
+ENV ADMIN_EMAIL="admin@example.com"
+ENV ADMIN_PASSWORD="d1r3ctu5"
+COPY --from=build ./apps/cms/snapshot.yaml ./snapshot.yaml
+COPY --from=build ./apps/cms/extensions ./extensions
+CMD node cli.js bootstrap && node cli.js database migrate:latest && node cli.js schema apply --yes ./snapshot.yaml && node cli.js start
