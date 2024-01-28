@@ -89,7 +89,7 @@ const packageJson = JSON.parse(fs.readFileSync("package.json", "utf-8")) as {
 const API_SHARED_DEPS = [
   ...DIRECTUS_SHARED_DEPS,
   ...Object.keys(packageJson.dependencies),
-]
+].filter(dep => dep !== "@directus/extensions" && dep !== "@directus/extensions-sdk")
 
 const bundles = glob.sync("src/**/package.json")
 

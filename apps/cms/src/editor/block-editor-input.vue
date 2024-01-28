@@ -31,15 +31,10 @@ const showMenu = ref(false)
 onMounted(() => {
   if (!slateRef.value) return
 
-  const editor = createEditor(
-    slateRef.value,
-    props.value as SlateDescendant[] | null,
-  )
+  const editor = createEditor(slateRef.value, props.value as SlateDescendant[] | null)
   editorRef.value = editor
 
-  const pasteCallback = slateRef.value.onpaste as
-    | ((e: ClipboardEvent) => void)
-    | null
+  const pasteCallback = slateRef.value.onpaste as ((e: ClipboardEvent) => void) | null
   slateRef.value.onpaste = async (e) => {
     if (isImporting.value) return
 
@@ -89,11 +84,7 @@ watch(
       :api="api"
     />
 
-    <editor-menu
-      :editor="(editorRef as any)"
-      :wrapper-element="slateRef"
-      :show="showMenu"
-    />
+    <editor-menu :editor="(editorRef as any)" :wrapper-element="slateRef" :show="showMenu" />
 
     <editor-image-upload :editor="editorRef" />
   </div>
@@ -102,8 +93,7 @@ watch(
 <style scoped>
 .interface-editor {
   background-color: var(--theme--form--field--input--background);
-  border: var(--theme--border-width) solid
-    var(--theme--form--field--input--border-color);
+  border: var(--theme--border-width) solid var(--theme--form--field--input--border-color);
   border-radius: var(--theme--border-radius);
   transition: var(--fast) var(--transition);
   transition-property: border-color, box-shadow;
@@ -143,12 +133,8 @@ watch(
   margin-block-start: 0.5em;
   margin-block-end: 0;
 }
-:global(
-    .editor [data-slate-element="th"] [data-slate-node="element"]:first-child
-  ),
-:global(
-    .editor [data-slate-element="td"] [data-slate-node="element"]:first-child
-  ) {
+:global(.editor [data-slate-element="th"] [data-slate-node="element"]:first-child),
+:global(.editor [data-slate-element="td"] [data-slate-node="element"]:first-child) {
   margin-block-start: 0;
 }
 :global(.editor strong) {

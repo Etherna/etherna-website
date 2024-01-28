@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://github.com/Etherna/etherna-website"
   },
-  "packageManager": "pnpm@8.14.0",
+  "packageManager": "pnpm@8.15.0",
   "scripts": {
     "build": "turbo run build",
     "start": "turbo run start",
@@ -15,7 +15,7 @@
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "migrate": "cd ./apps/cms && pnpm migrate-up"
+    "migrate": "cd ./apps/cms && pnpm migrate"
   },
   "dependencies": {
     "@mattiaz9/slate-jsx": "0.2.2",

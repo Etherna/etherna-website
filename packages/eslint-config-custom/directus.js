@@ -38,7 +38,7 @@ module.exports = {
     // Require brace style for multi-line control statements
     curly: ["warn", "multi-line"],
     // Force import type statements for type-only imports
-    "@typescript-eslint/consistent-type-imports": "warn",
+    "@typescript-eslint/consistent-type-imports": ["error" , { fixStyle: "separate-type-imports" }],
     // Allow ts-directive comments (used to suppress TypeScript compiler errors)
     "@typescript-eslint/ban-ts-comment": "off",
     // Allow ts-directive comments (used to suppress TypeScript compiler errors)

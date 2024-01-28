@@ -4,6 +4,7 @@ module.exports = {
   singleQuote: false,
   semi: false,
   useTabs: false,
+  printWidth: 100,
   importOrder: [
     "<THIRD_PARTY_MODULES>",
     "^[./]",
@@ -14,6 +15,5 @@ module.exports = {
     "<TYPES>",
   ],
   importOrderTypeScriptVersion: "5.0.0",
-  tailwindConfig: "./tailwind.config.ts",
   plugins: ["@ianvs/prettier-plugin-sort-imports"],
 }

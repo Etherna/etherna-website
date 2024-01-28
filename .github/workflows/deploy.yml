@@ -2,6 +2,8 @@ name: Deploy on Hosting
 
 on:
   push:
+    paths:
+      - apps/web/**
     branches:
       - main
       - develop
@@ -16,12 +18,10 @@ jobs:
       name: ${{ endsWith(github.ref, '/main') && 'production' || 'development' }}
 
     env:
-      PUBLIC_DIRECTUS_URL: ${{ secrets.PUBLIC_DIRECTUS_URL }}
-      PUBLIC_DIRECTUS_PROJECT: ${{ secrets.PUBLIC_DIRECTUS_PROJECT }}
-      DIRECTUS_PROJECT: "etherna"
-      DIRECTUS_TOKEN: ${{ secrets.DIRECTUS_TOKEN }}
-      DISABLE_SOURCEMAP: "true"
-      SITE_URL: "https://info.etherna.io"
+      PUBLIC_SITE_URL: "https://info.etherna.io"
+      PUBLIC_DIRECTUS_URL: "https://cms.etherna.io"
+      ANALYTICS_URL: "https://analytics.etherna.io"
+      ANALYTICS_SITE_ID: "1"
 
     steps:
       - name: Cancel Previous Runs

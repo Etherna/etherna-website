@@ -1,9 +1,10 @@
 import { defineInterface, useStores } from "@directus/extensions-sdk"
-import { AppCollection } from "@directus/types"
 import { findCollectionName, useUserLang } from "../shared/utils/system"
 import { fixedSvgImport, svgStringToHtmlElement } from "../shared/utils/vue"
 import InterfaceComponent from "./block-editor-input.vue"
 import PreviewSVG from "./preview.svg"
+
+import type { AppCollection } from "@directus/types"
 
 export default defineInterface({
   id: "block-editor-input",
