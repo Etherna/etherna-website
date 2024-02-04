@@ -52,8 +52,8 @@
         "ADMIN_PASSWORD"
       ]
     },
-    "cms#ci-build": {
-      "dependsOn": ["cms#build"]
+    "cms#build:cms": {
+      "dependsOn": ["^build"]
     },
     "web#build": {
       "dependsOn": ["^build"],

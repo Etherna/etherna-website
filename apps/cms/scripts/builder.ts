@@ -1,8 +1,8 @@
-import chalk from "chalk"
 import { rollup, watch } from "rollup"
 
 import "dotenv/config"
 
+import { gray, green, red } from "./console"
 import { getExtensionsEntries } from "./entries.extensions"
 import { getMigrationsEntries } from "./entries.migrations"
 import { deleteFolders, getExtensionsFolders, getMigrationsFolder } from "./utils"
@@ -26,12 +26,12 @@ async function run() {
         case "BUNDLE_END":
           const endEntry = findEntry(data.input as string)
           const endId = `${endEntry.type}:${endEntry.name}`
-          console.log(chalk.gray(`${endId} - `) + chalk.green("✅ Compiled succesfully"))
+          console.log(gray(`${endId} - `) + green("✅ Compiled succesfully"))
           break
         case "ERROR":
           const errorEntry = findEntry(data.error.watchFiles![0]!)
           const errorId = `${errorEntry.type}:${errorEntry.name}`
-          console.log(chalk.gray(`${errorId} - `) + chalk.red(data.error.message))
+          console.log(gray(`${errorId} - `) + red(data.error.message))
           break
       }
     })
@@ -46,9 +46,9 @@ async function run() {
           const output = await rollup(entry.rollupOptions)
           output.write(entry.rollupOptions.output)
 
-          console.log(chalk.gray(`${id} - `) + chalk.green("✅ Compiled succesfully"))
+          console.log(gray(`${id} - `) + green("✅ Compiled succesfully"))
         } catch (error: any) {
-          console.log(chalk.gray(`${id} - `) + chalk.red(error.message))
+          console.log(gray(`${id} - `) + red(error.message))
         }
       }),
     )

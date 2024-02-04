@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "concurrently \"pnpm:watch\" \"pnpm:start\"",
     "start": "directus start",
+    "build:cms": "pnpm build && pnpm build --migrationsOnly",
     "build": "tsx --tsconfig tsconfig.build.json scripts/builder.ts",
     "watch": "tsx --tsconfig tsconfig.build.json scripts/builder.ts --watch",
     "bootstrap": "directus bootstrap",
@@ -46,7 +47,6 @@
     "@types/express": "4.17.21",
     "@vitejs/plugin-vue": "5.0.3",
     "@vue/compiler-sfc": "3.4.15",
-    "chalk": "5.3.0",
     "concurrently": "8.2.2",
     "eslint-config-custom": "workspace:*",
     "from": "0.1.7",
