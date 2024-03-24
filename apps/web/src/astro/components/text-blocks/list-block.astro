@@ -1,0 +1,23 @@
+---
+import type { ListElement } from "slate-blocks/textual"
+
+interface Props extends ListElement {}
+
+const { type } = Astro.props
+---
+
+{
+  type === "ol" && (
+    <ol>
+      <slot />
+    </ol>
+  )
+}
+
+{
+  type === "ul" && (
+    <ul>
+      <slot />
+    </ul>
+  )
+}

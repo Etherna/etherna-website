@@ -1,15 +1,3 @@
 {
-  "extends": "astro/tsconfigs/strictest",
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxImportSource": "react",
-    "strictNullChecks": true,
-    "esModuleInterop": true,
-    "exactOptionalPropertyTypes": false,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    },
-    "typeRoots": ["src/typings/"]
-  }
+  "extends": "tsconfig/base.json"
 }

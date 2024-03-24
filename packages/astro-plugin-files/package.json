@@ -1,0 +1,25 @@
+{
+  "name": "astro-plugin-files",
+  "version": "0.0.1",
+  "license": "Apache-2.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup src/index.ts src/endpoint.ts --format esm --dts-resolve --minify --clean --sourcemap --dts",
+    "dev": "rm -rf dist && tsup src/index.ts src/endpoint.ts --format esm --dts-resolve --clean --watch --sourcemap --dts",
+    "lint": "eslint --ext .ts,.tsx src"
+  },
+  "dependencies": {
+    "astro": "4.2.3",
+    "deterministic-object-hash": "2.0.2",
+    "mime": "4.0.1"
+  },
+  "devDependencies": {
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*"
+  }
+}

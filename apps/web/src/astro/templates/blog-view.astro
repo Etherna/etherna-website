@@ -1,0 +1,61 @@
+---
+import { BlogHeader } from "@/components/blog/blog-header"
+import { BlogPostPreview } from "@/components/blog/blog-post-preview"
+import { Breadcrumb, BreadcrumbItem } from "@/components/common/breadcrumb"
+import { Col } from "@/components/common/col"
+import { Container } from "@/components/common/container"
+import { Pagination } from "@/components/common/pagination"
+import { Row } from "@/components/common/row"
+import { routes, withPagination } from "@/utils/routes"
+
+import type { ViewProps } from "@/queries/fetch-props"
+
+interface Props extends ViewProps<"blog"> {}
+
+const { title, data, lang } = Astro.props
+---
+
+<BlogHeader
+  title={title}
+  categories={data.categories}
+  currentCategory={data.currentCategory}
+  lang={lang}
+/>
+
+<section class="bg-gray-100 py-10 lg:py-20">
+  <Container>
+    <Row>
+      <Col>
+        {
+          (
+            <Breadcrumb className="mb-3">
+              <BreadcrumbItem title="Etherna" href={routes.homePath(lang)} />
+              <BreadcrumbItem title="Blog" href={routes.blogPath(lang)} isLast />
+            </Breadcrumb>
+          )
+        }
+      </Col>
+    </Row>
+    <Row>
+      <Col className="lg:w-3/4 xl:w-2/3">
+        {
+          data.posts.map(post => (
+            <BlogPostPreview post={post} lang={lang} featured={false} client:load />
+          ))
+        }
+
+        {
+          data.pagesCount > 1 && (
+            <Pagination
+              className="mt-8"
+              page={data.page}
+              pagesCount={data.pagesCount}
+              linkResolver={page => withPagination(routes.blogPath(lang), page)}
+            />
+          )
+        }
+      </Col>
+      <Col as="aside" className="lg:w-1/4 xl:w-1/3" />
+    </Row>
+  </Container>
+</section>

@@ -1,0 +1,14 @@
+---
+import Layout from "@/astro/layout/layout.astro"
+import { StaticPage } from "@/components/layout/static-page"
+import { FunnelThankYou } from "@/components/site/funnel-thankyou"
+import { t } from "@/utils/lang"
+
+Astro.params.path = "thankyou"
+---
+
+<Layout title={t("funnel:thankYou")} lang="en">
+  <StaticPage title={t("funnel:thankYou")}>
+    <FunnelThankYou client:load />
+  </StaticPage>
+</Layout>

@@ -1,0 +1,1 @@
+refactor this code by removing the default export, exporting all components as named export instead of default, change the arrow function into a function and change type definitions into interfaces where possibile, also trying to use the 'extend' feature in place of intersections

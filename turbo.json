@@ -1,0 +1,75 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["**/.env.*local"],
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "cms#build": {
+      "dependsOn": ["^build"],
+      "env": [
+        "PORT",
+        "PUBLIC_URL",
+        "ENV",
+        "GITHUB_TOKEN",
+        "DB_CLIENT",
+        "DB_HOST",
+        "DB_PORT",
+        "DB_DATABASE",
+        "DB_USER",
+        "DB_PASSWORD",
+        "DB_SSL",
+        "RATE_LIMITER_ENABLED",
+        "RATE_LIMITER_STORE",
+        "RATE_LIMITER_POINTS",
+        "RATE_LIMITER_DURATION",
+        "CACHE_ENABLED",
+        "STORAGE_LOCATIONS",
+        "STORAGE_LOCAL_DRIVER",
+        "STORAGE_LOCAL_ROOT",
+        "KEY",
+        "SECRET",
+        "ACCESS_TOKEN_TTL",
+        "REFRESH_TOKEN_TTL",
+        "REFRESH_TOKEN_COOKIE_SECURE",
+        "REFRESH_TOKEN_COOKIE_SAME_SITE",
+        "CORS_ENABLED",
+        "CORS_ORIGIN",
+        "OAUTH_PROVIDERS",
+        "EXTENSIONS_PATH",
+        "EXTENSIONS_AUTO_RELOAD",
+        "EMAIL_FROM_NAME",
+        "EMAIL_FROM",
+        "EMAIL_TRANSPORT",
+        "EMAIL_SMTP_HOST",
+        "EMAIL_SMTP_PORT",
+        "EMAIL_SMTP_USER",
+        "EMAIL_SMTP_PASSWORD",
+        "EMAIL_SMTP_POOL",
+        "EMAIL_SMTP_SECURE",
+        "ADMIN_EMAIL",
+        "ADMIN_PASSWORD"
+      ]
+    },
+    "cms#build:cms": {
+      "dependsOn": ["^build"]
+    },
+    "web#build": {
+      "dependsOn": ["^build"],
+      "env": [
+        "PUBLIC_DIRECTUS_URL",
+        "PUBLIC_SITE_URL",
+        "NODE_ENV",
+        "NODE_TLS_REJECT_UNAUTHORIZED"
+      ]
+    },
+    "start": {},
+    "lint": {},
+    "typecheck": {},
+    "dev": {
+      "cache": false,
+      "persistent": true
+    }
+  }
+}

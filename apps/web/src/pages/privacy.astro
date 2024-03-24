@@ -1,0 +1,11 @@
+---
+import Layout from "@/astro/layout/layout.astro"
+import { StaticPage } from "@/components/layout/static-page"
+import { PrivacyPolicyRenderer } from "@/components/site/privacy-policy-renderer"
+---
+
+<Layout title="Privacy Policy" description="Read the privacy policy of Etherna" lang="en">
+  <StaticPage title={`Privacy Policy`}>
+    <PrivacyPolicyRenderer client:load />
+  </StaticPage>
+</Layout>

@@ -1,0 +1,12 @@
+{
+  "name": "eslint-config-custom",
+  "license": "MIT",
+  "version": "0.0.0",
+  "private": true,
+  "devDependencies": {
+    "@vercel/style-guide": "5.1.0",
+    "eslint-config-turbo": "1.10.16",
+    "eslint-plugin-vue": "9.18.1",
+    "vue-eslint-parser": "9.3.2"
+  }
+}

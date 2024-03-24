@@ -1,0 +1,21 @@
+---
+import Layout from "@/astro/layout/layout.astro"
+import DynamicTemplate from "@/astro/templates/dynamic-template.astro"
+import { fetchPaths } from "@/queries/fetch-paths"
+import { fetchProps } from "@/queries/fetch-props"
+
+import type { Lang } from "@/utils/lang"
+
+export async function getStaticPaths() {
+  return await fetchPaths(["it"])
+}
+
+const lang = (Astro.params.lang ?? "en") as Lang
+const path = Astro.params.path ?? "/"
+const data = await fetchProps(lang, path)
+const { title, description, localizedPaths } = data
+---
+
+<Layout title={title} description={description} lang={lang} localizedPaths={localizedPaths}>
+  <DynamicTemplate lang={lang} path={path} data={data} />
+</Layout>

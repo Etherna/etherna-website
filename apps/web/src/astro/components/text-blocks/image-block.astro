@@ -1,0 +1,30 @@
+---
+import { Image } from "@/components/common/image"
+import { FallbackBlurhash } from "@/utils/blurhash"
+
+import type { ImageElement } from "slate-blocks/textual"
+
+interface Props extends ImageElement {}
+
+const { src, alt, caption, width, height, blurhash } = Astro.props
+---
+
+<figure>
+  {
+    src && (
+      <Image
+        data={{
+          blurhash: blurhash || FallbackBlurhash,
+          attributes: {
+            src,
+            alt,
+            width,
+            height,
+          },
+        }}
+        client:load
+      />
+    )
+  }
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>

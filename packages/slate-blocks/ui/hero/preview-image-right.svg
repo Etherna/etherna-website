@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 96">
+  <rect fill="var(--theme--background-page)" fill-rule="nonzero" width="156" height="96" rx="6" />
+  <rect fill-opacity=".25" fill="var(--theme--primary)" fill-rule="nonzero" x="110" y="30" width="36" height="36"
+    rx="2" />
+  <rect fill="var(--theme--primary)" fill-rule="nonzero" x="10" y="31" width="90" height="7" rx="2" />
+  <rect fill-opacity=".25" fill="var(--theme--primary)" fill-rule="nonzero" x="10" y="43" width="60" height="10"
+    rx="2" />
+  <rect fill-opacity=".25" fill="var(--theme--primary)" fill-rule="nonzero" x="10" y="59" width="20" height="7"
+    rx="2" />
+  <rect fill="var(--theme--primary)" fill-rule="nonzero" x="34" y="59" width="20" height="7" rx="2" />
+</svg>
