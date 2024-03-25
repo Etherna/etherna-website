@@ -48,7 +48,7 @@ export function BlogPostHeader({
       {image && (
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <Image
-            className="absolute inset-0 overflow-hidden bg-cover bg-center bg-no-repeat opacity-25 blur-lg"
+            className="absolute inset-0 w-full overflow-hidden bg-cover bg-center bg-no-repeat opacity-25 blur-lg"
             data={image}
           />
         </div>
