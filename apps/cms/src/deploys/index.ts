@@ -37,10 +37,7 @@ export default defineEndpoint({
           })
           .then((res) => res.data.workflow_runs[0])
 
-        if (
-          last?.status &&
-          ["requested", "queued", "pending", "waiting"].includes(last.status)
-        ) {
+        if (last?.status && ["requested", "queued", "pending", "waiting"].includes(last.status)) {
           return res.status(200).json(last)
         }
 
@@ -60,7 +57,7 @@ export default defineEndpoint({
           const newRun = await github.actions.createWorkflowDispatch({
             owner,
             repo,
-            workflow_id: "main.yml",
+            workflow_id: "deploy.yml",
             ref: "main",
           })
           return res.status(200).json(newRun.data)
