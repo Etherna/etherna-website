@@ -7,7 +7,6 @@
     "type": "git",
     "url": "https://github.com/Etherna/etherna-website"
   },
-  "packageManager": "pnpm@8.15.0",
   "scripts": {
     "build": "turbo run build",
     "build:cms": "turbo run build:cms",

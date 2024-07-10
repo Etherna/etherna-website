@@ -10,10 +10,10 @@ export function getImagePixels(imageData: ArrayBuffer) {
   const format = detectImageFormat(imageData)
   switch (format) {
     case "png":
-      return getPNGPixels(imageData)
+      return getPNGPixels(imageData).catch(() => getJPEGPixels(imageData).catch(() => null))
     case "jpg":
     case "jpeg":
-      return getJPEGPixels(imageData)
+      return getJPEGPixels(imageData).catch(() => getPNGPixels(imageData).catch(() => null))
     // case "svg":
     //   return getSVGPixels(imageData)
     default:
