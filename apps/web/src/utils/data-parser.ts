@@ -170,7 +170,7 @@ export const resolveSlateContent = async (
         imagePromises.push(loadImage(child as unknown as ImageElement, path, opts))
       }
       if (Element.isElement(child)) {
-        walkChildren(child.children as SlateDescendant[], [...path, i])
+        walkChildren(child.children, [...path, i])
       }
     }
   }

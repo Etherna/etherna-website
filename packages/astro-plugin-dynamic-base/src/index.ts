@@ -6,7 +6,7 @@ import baseHead from "./dynamic-base-head.html"
 
 import type { AstroIntegration } from "astro"
 
-export default function files(): AstroIntegration {
+export default function dynamicBase(): AstroIntegration {
   return {
     name: "astro-plugin-dynamic-base",
     hooks: {

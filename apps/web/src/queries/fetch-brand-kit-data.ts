@@ -15,7 +15,7 @@ export async function fetchBrandKitData() {
           logos: [
             "name",
             {
-              variants: [
+              logo_variants: [
                 "id",
                 "variant_name",
                 "style",
@@ -43,7 +43,7 @@ export async function fetchBrandKitData() {
       (brandResult.logos ?? []).map(async logo => ({
         name: logo.name,
         variants: await Promise.all(
-          (logo.variants ?? []).map(async variant => ({
+          (logo.logo_variants ?? []).map(async variant => ({
             id: variant.id,
             variantName: variant.variant_name,
             style: variant.style,

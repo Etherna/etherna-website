@@ -176,7 +176,7 @@ declare global {
     name: string
     sort: number | null
     brand_id: UUID | Brand
-    variants: BrandLogoVariant[]
+    logo_variants: BrandLogoVariant[]
   }
 
   interface BrandLogoVariant {
