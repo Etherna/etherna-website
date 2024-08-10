@@ -43,6 +43,7 @@ declare global {
     code: Locale
     name: string
     icon: DirectusFile<DirectusSchema> | null
+    direction: "ltr" | "rtl"
   }
 
   interface BlogArticle {

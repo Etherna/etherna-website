@@ -6,6 +6,7 @@
 
 # Ignore the extensions folder
 /extensions/*
+/migrations/*
 !/extensions/templates
 
 # Yarn zero-install

@@ -2,6 +2,8 @@ import { rollup, watch } from "rollup"
 
 import "dotenv/config"
 
+import { existsSync, mkdirSync, writeFileSync } from "node:fs"
+import nodePath from "node:path"
 import { gray, green, red } from "./console"
 import { getExtensionsEntries } from "./entries.extensions"
 import { getMigrationsEntries } from "./entries.migrations"
@@ -50,6 +52,36 @@ async function run() {
         } catch (error: any) {
           console.log(gray(`${id} - `) + red(error.message))
         }
+      }),
+    )
+  }
+
+  // create package jsons
+  if (!migrationsOnly) {
+    await Promise.all(
+      entries.map((entry) => {
+        const outputFile = entry.rollupOptions.output.file
+        const outputFolder = nodePath.dirname(outputFile)
+        const packageJson = {
+          name: `directus-extension-${entry.name}`,
+          version: "1.0.0",
+          type: "module",
+          "directus:extension": {
+            type: entry.type,
+            path: `index.${entry.rollupOptions.output.format === "cjs" ? "cjs" : "mjs"}`,
+            source: `index.${entry.rollupOptions.output.format === "cjs" ? "cjs" : "mjs"}`,
+            host: "^11.0.0",
+          },
+        }
+
+        if (!existsSync(outputFolder)) {
+          mkdirSync(outputFolder, { recursive: true })
+        }
+
+        writeFileSync(
+          nodePath.resolve(outputFolder, "package.json"),
+          JSON.stringify(packageJson, null, 2),
+        )
       }),
     )
   }

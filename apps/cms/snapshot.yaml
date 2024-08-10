@@ -1,5 +1,5 @@
 version: 1
-directus: 10.8.3
+directus: 11.0.1
 vendor: postgres
 collections:
   - collection: blog
@@ -586,152 +586,6 @@ collections:
       name: team_members_translations
 fields:
   - collection: blog_articles
-    field: author_id
-    type: uuid
-    meta:
-      collection: blog_articles
-      conditions: null
-      display: user
-      display_options:
-        circle: true
-      field: author_id
-      group: null
-      hidden: false
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        enableCreate: false
-        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
-      readonly: false
-      required: false
-      sort: 6
-      special: null
-      translations:
-        - language: en-US
-          translation: Author
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: author_id
-      table: blog_articles
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: directus_users
-      foreign_key_column: id
-  - collection: blog_articles
-    field: categories
-    type: alias
-    meta:
-      collection: blog_articles
-      conditions: null
-      display: related-values
-      display_options:
-        template: '{{category_id.translations.name}}'
-      field: categories
-      group: null
-      hidden: false
-      interface: list-m2m
-      note: null
-      options:
-        template: '{{category_id.translations.name}}'
-      readonly: false
-      required: false
-      sort: 5
-      special:
-        - m2m
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-  - collection: blog_articles
-    field: created_at
-    type: timestamp
-    meta:
-      collection: blog_articles
-      conditions: null
-      display: null
-      display_options: null
-      field: created_at
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 9
-      special:
-        - date-created
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: created_at
-      table: blog_articles
-      data_type: timestamp with time zone
-      default_value: CURRENT_TIMESTAMP
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: blog_articles
-    field: edited_at
-    type: timestamp
-    meta:
-      collection: blog_articles
-      conditions: null
-      display: datetime
-      display_options:
-        relative: true
-      field: edited_at
-      group: null
-      hidden: false
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 8
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: edited_at
-      table: blog_articles
-      data_type: timestamp with time zone
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: blog_articles
     field: id
     type: uuid
     meta:
@@ -765,6 +619,46 @@ fields:
       is_nullable: false
       is_unique: true
       is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: blog_articles
+    field: updated_at
+    type: timestamp
+    meta:
+      collection: blog_articles
+      conditions: null
+      display: null
+      display_options: null
+      field: updated_at
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 10
+      special:
+        - date-created
+        - date-updated
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: updated_at
+      table: blog_articles
+      data_type: timestamp with time zone
+      default_value: CURRENT_TIMESTAMP
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: false
+      is_primary_key: false
       is_generated: false
       generation_expression: null
       has_auto_increment: false
@@ -812,45 +706,6 @@ fields:
       has_auto_increment: false
       foreign_key_table: blog_categories
       foreign_key_column: id
-  - collection: blog_articles
-    field: published_at
-    type: timestamp
-    meta:
-      collection: blog_articles
-      conditions: null
-      display: datetime
-      display_options:
-        relative: true
-      field: published_at
-      group: null
-      hidden: false
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 7
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: published_at
-      table: blog_articles
-      data_type: timestamp with time zone
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
   - collection: blog_articles
     field: status
     type: string
@@ -910,6 +765,166 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: blog_articles
+    field: author_id
+    type: uuid
+    meta:
+      collection: blog_articles
+      conditions: null
+      display: user
+      display_options:
+        circle: true
+      field: author_id
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+        template: '{{avatar.$thumbnail}} {{first_name}} {{last_name}}'
+      readonly: false
+      required: false
+      sort: 6
+      special: null
+      translations:
+        - language: en-US
+          translation: Author
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: author_id
+      table: blog_articles
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_users
+      foreign_key_column: id
+  - collection: blog_articles
+    field: published_at
+    type: timestamp
+    meta:
+      collection: blog_articles
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: published_at
+      group: null
+      hidden: false
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 7
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: published_at
+      table: blog_articles
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: blog_articles
+    field: edited_at
+    type: timestamp
+    meta:
+      collection: blog_articles
+      conditions: null
+      display: datetime
+      display_options:
+        relative: true
+      field: edited_at
+      group: null
+      hidden: false
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 8
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: edited_at
+      table: blog_articles
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: blog_articles
+    field: created_at
+    type: timestamp
+    meta:
+      collection: blog_articles
+      conditions: null
+      display: null
+      display_options: null
+      field: created_at
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 9
+      special:
+        - date-created
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: created_at
+      table: blog_articles
+      data_type: timestamp with time zone
+      default_value: CURRENT_TIMESTAMP
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: blog_articles
     field: translations
     type: alias
     meta:
@@ -939,14 +954,39 @@ fields:
       validation_message: null
       width: fill
   - collection: blog_articles
-    field: updated_at
-    type: timestamp
+    field: categories
+    type: alias
     meta:
       collection: blog_articles
       conditions: null
+      display: related-values
+      display_options:
+        template: '{{category_id.translations.name}}'
+      field: categories
+      group: null
+      hidden: false
+      interface: list-m2m
+      note: null
+      options:
+        template: '{{category_id.translations.name}}'
+      readonly: false
+      required: false
+      sort: 5
+      special:
+        - m2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+  - collection: blog_articles_categories
+    field: id
+    type: uuid
+    meta:
+      collection: blog_articles_categories
+      conditions: null
       display: null
       display_options: null
-      field: updated_at
+      field: id
       group: null
       hidden: true
       interface: null
@@ -954,25 +994,24 @@ fields:
       options: null
       readonly: false
       required: false
-      sort: 10
+      sort: null
       special:
-        - date-created
-        - date-updated
+        - uuid
       translations: null
       validation: null
       validation_message: null
-      width: half
+      width: full
     schema:
-      name: updated_at
-      table: blog_articles
-      data_type: timestamp with time zone
-      default_value: CURRENT_TIMESTAMP
+      name: id
+      table: blog_articles_categories
+      data_type: uuid
+      default_value: gen_random_uuid()
       max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: false
-      is_unique: false
-      is_primary_key: false
+      is_unique: true
+      is_primary_key: true
       is_generated: false
       generation_expression: null
       has_auto_increment: false
@@ -1055,11 +1094,11 @@ fields:
       has_auto_increment: false
       foreign_key_table: blog_categories
       foreign_key_column: id
-  - collection: blog_articles_categories
+  - collection: blog_articles_translations
     field: id
     type: uuid
     meta:
-      collection: blog_articles_categories
+      collection: blog_articles_translations
       conditions: null
       display: null
       display_options: null
@@ -1071,7 +1110,7 @@ fields:
       options: null
       readonly: false
       required: false
-      sort: null
+      sort: 1
       special:
         - uuid
       translations: null
@@ -1080,7 +1119,7 @@ fields:
       width: full
     schema:
       name: id
-      table: blog_articles_categories
+      table: blog_articles_translations
       data_type: uuid
       default_value: gen_random_uuid()
       max_length: null
@@ -1095,79 +1134,77 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: blog_articles_translations
-    field: article_id
-    type: uuid
+    field: title
+    type: string
     meta:
       collection: blog_articles_translations
       conditions: null
       display: null
       display_options: null
-      field: article_id
+      field: title
       group: null
-      hidden: true
-      interface: null
+      hidden: false
+      interface: input
       note: null
       options: null
       readonly: false
       required: false
-      sort: 8
+      sort: 2
       special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: article_id
-      table: blog_articles_translations
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: blog_articles
-      foreign_key_column: id
-  - collection: blog_articles_translations
-    field: content
-    type: json
-    meta:
-      collection: blog_articles_translations
-      conditions: null
-      display: null
-      display_options: null
-      field: content
-      group: null
-      hidden: false
-      interface: block-editor-input
-      note: null
-      options:
-        linkCollections:
-          - blog_articles
-          - pages
-          - projects
-      readonly: false
-      required: false
-      sort: 4
-      special:
-        - cast-json
       translations: null
       validation: null
       validation_message: null
       width: full
     schema:
-      name: content
+      name: title
       table: blog_articles_translations
-      data_type: json
+      data_type: character varying
       default_value: null
-      max_length: null
+      max_length: 255
       numeric_precision: null
       numeric_scale: null
-      is_nullable: true
+      is_nullable: false
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: blog_articles_translations
+    field: slug
+    type: string
+    meta:
+      collection: blog_articles_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: slug
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options:
+        font: monospace
+        slug: true
+        trim: true
+      readonly: false
+      required: false
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: slug
+      table: blog_articles_translations
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
       is_unique: false
       is_primary_key: false
       is_generated: false
@@ -1220,14 +1257,96 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: blog_articles_translations
-    field: id
+    field: content
+    type: json
+    meta:
+      collection: blog_articles_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: content
+      group: null
+      hidden: false
+      interface: block-editor-input
+      note: null
+      options:
+        linkCollections:
+          - blog_articles
+          - pages
+          - projects
+      readonly: false
+      required: false
+      sort: 4
+      special:
+        - cast-json
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: content
+      table: blog_articles_translations
+      data_type: json
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: blog_articles_translations
+    field: thumbnail
+    type: uuid
+    meta:
+      collection: blog_articles_translations
+      conditions: null
+      display: image
+      display_options: null
+      field: thumbnail
+      group: null
+      hidden: false
+      interface: file-image
+      note: null
+      options:
+        crop: false
+      readonly: false
+      required: false
+      sort: 5
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: thumbnail
+      table: blog_articles_translations
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_files
+      foreign_key_column: id
+  - collection: blog_articles_translations
+    field: article_id
     type: uuid
     meta:
       collection: blog_articles_translations
       conditions: null
       display: null
       display_options: null
-      field: id
+      field: article_id
       group: null
       hidden: true
       interface: null
@@ -1235,29 +1354,28 @@ fields:
       options: null
       readonly: false
       required: false
-      sort: 1
-      special:
-        - uuid
+      sort: 8
+      special: null
       translations: null
       validation: null
       validation_message: null
-      width: full
+      width: half
     schema:
-      name: id
+      name: article_id
       table: blog_articles_translations
       data_type: uuid
-      default_value: gen_random_uuid()
+      default_value: null
       max_length: null
       numeric_precision: null
       numeric_scale: null
-      is_nullable: false
-      is_unique: true
-      is_primary_key: true
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
       is_generated: false
       generation_expression: null
       has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
+      foreign_key_table: blog_articles
+      foreign_key_column: id
   - collection: blog_articles_translations
     field: locale
     type: string
@@ -1338,263 +1456,6 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: blog_articles_translations
-    field: slug
-    type: string
-    meta:
-      collection: blog_articles_translations
-      conditions: null
-      display: null
-      display_options: null
-      field: slug
-      group: null
-      hidden: false
-      interface: input
-      note: null
-      options:
-        font: monospace
-        slug: true
-        trim: true
-      readonly: false
-      required: false
-      sort: 3
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: slug
-      table: blog_articles_translations
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: blog_articles_translations
-    field: thumbnail
-    type: uuid
-    meta:
-      collection: blog_articles_translations
-      conditions: null
-      display: image
-      display_options: null
-      field: thumbnail
-      group: null
-      hidden: false
-      interface: file-image
-      note: null
-      options:
-        crop: false
-      readonly: false
-      required: false
-      sort: 5
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: thumbnail
-      table: blog_articles_translations
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: directus_files
-      foreign_key_column: id
-  - collection: blog_articles_translations
-    field: title
-    type: string
-    meta:
-      collection: blog_articles_translations
-      conditions: null
-      display: null
-      display_options: null
-      field: title
-      group: null
-      hidden: false
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 2
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: title
-      table: blog_articles_translations
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: blog_categories
-    field: articles
-    type: alias
-    meta:
-      collection: blog_categories
-      conditions: null
-      display: null
-      display_options: null
-      field: articles
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 7
-      special:
-        - o2m
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-  - collection: blog_categories
-    field: color
-    type: string
-    meta:
-      collection: blog_categories
-      conditions: null
-      display: color
-      display_options:
-        defaultColor: null
-      field: color
-      group: null
-      hidden: false
-      interface: select-color
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 5
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: color
-      table: blog_categories
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: blog_categories
-    field: created_at
-    type: timestamp
-    meta:
-      collection: blog_categories
-      conditions: null
-      display: null
-      display_options: null
-      field: created_at
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 8
-      special:
-        - date-created
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: created_at
-      table: blog_categories
-      data_type: timestamp with time zone
-      default_value: CURRENT_TIMESTAMP
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: blog_categories
-    field: icon
-    type: uuid
-    meta:
-      collection: blog_categories
-      conditions: null
-      display: image
-      display_options: null
-      field: icon
-      group: null
-      hidden: false
-      interface: file-image
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 4
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: icon
-      table: blog_categories
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: directus_files
-      foreign_key_column: id
   - collection: blog_categories
     field: id
     type: uuid
@@ -1629,6 +1490,44 @@ fields:
       is_nullable: false
       is_unique: true
       is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: blog_categories
+    field: sort
+    type: integer
+    meta:
+      collection: blog_categories
+      conditions: null
+      display: null
+      display_options: null
+      field: sort
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 6
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: sort
+      table: blog_categories
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
       is_generated: false
       generation_expression: null
       has_auto_increment: false
@@ -1677,14 +1576,52 @@ fields:
       foreign_key_table: blog_categories
       foreign_key_column: id
   - collection: blog_categories
-    field: sort
-    type: integer
+    field: icon
+    type: uuid
+    meta:
+      collection: blog_categories
+      conditions: null
+      display: image
+      display_options: null
+      field: icon
+      group: null
+      hidden: false
+      interface: file-image
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 4
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: icon
+      table: blog_categories
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_files
+      foreign_key_column: id
+  - collection: blog_categories
+    field: created_at
+    type: timestamp
     meta:
       collection: blog_categories
       conditions: null
       display: null
       display_options: null
-      field: sort
+      field: created_at
       group: null
       hidden: true
       interface: null
@@ -1692,21 +1629,22 @@ fields:
       options: null
       readonly: false
       required: false
-      sort: 6
-      special: null
+      sort: 8
+      special:
+        - date-created
       translations: null
       validation: null
       validation_message: null
-      width: full
+      width: half
     schema:
-      name: sort
+      name: created_at
       table: blog_categories
-      data_type: integer
-      default_value: null
+      data_type: timestamp with time zone
+      default_value: CURRENT_TIMESTAMP
       max_length: null
-      numeric_precision: 32
-      numeric_scale: 0
-      is_nullable: true
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
       is_unique: false
       is_primary_key: false
       is_generated: false
@@ -1714,35 +1652,6 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: blog_categories
-    field: translations
-    type: alias
-    meta:
-      collection: blog_categories
-      conditions: null
-      display: translations
-      display_options:
-        languageField: code
-        template: '{{name}}'
-        userLanguage: true
-      field: translations
-      group: null
-      hidden: false
-      interface: translations
-      note: null
-      options:
-        languageField: name
-      readonly: false
-      required: false
-      sort: 3
-      special:
-        - translations
-      translations:
-        - language: en-US
-          translation: Translations
-      validation: null
-      validation_message: null
-      width: fill
   - collection: blog_categories
     field: updated_at
     type: timestamp
@@ -1783,73 +1692,64 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: blog_categories_translations
-    field: category_id
-    type: uuid
+  - collection: blog_categories
+    field: translations
+    type: alias
     meta:
-      collection: blog_categories_translations
+      collection: blog_categories
       conditions: null
-      display: null
-      display_options: null
-      field: category_id
+      display: translations
+      display_options:
+        languageField: code
+        template: '{{name}}'
+        userLanguage: true
+      field: translations
       group: null
-      hidden: true
-      interface: null
+      hidden: false
+      interface: translations
+      note: null
+      options:
+        languageField: name
+      readonly: false
+      required: false
+      sort: 3
+      special:
+        - translations
+      translations:
+        - language: en-US
+          translation: Translations
+      validation: null
+      validation_message: null
+      width: fill
+  - collection: blog_categories
+    field: color
+    type: string
+    meta:
+      collection: blog_categories
+      conditions: null
+      display: color
+      display_options:
+        defaultColor: null
+      field: color
+      group: null
+      hidden: false
+      interface: select-color
       note: null
       options: null
       readonly: false
       required: false
-      sort: null
+      sort: 5
       special: null
       translations: null
       validation: null
       validation_message: null
       width: half
     schema:
-      name: category_id
-      table: blog_categories_translations
-      data_type: uuid
+      name: color
+      table: blog_categories
+      data_type: character varying
       default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: blog_categories
-      foreign_key_column: id
-  - collection: blog_categories_translations
-    field: description
-    type: text
-    meta:
-      collection: blog_categories_translations
-      conditions: null
-      display: null
-      display_options: null
-      field: description
-      group: null
-      hidden: false
-      interface: input-multiline
-      note: null
-      options:
-        trim: true
-      readonly: false
-      required: false
-      sort: null
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: description
-      table: blog_categories_translations
-      data_type: text
-      default_value: null
-      max_length: null
+      max_length: 255
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -1860,6 +1760,29 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: blog_categories
+    field: articles
+    type: alias
+    meta:
+      collection: blog_categories
+      conditions: null
+      display: null
+      display_options: null
+      field: articles
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 7
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
   - collection: blog_categories_translations
     field: id
     type: uuid
@@ -1899,44 +1822,6 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: blog_categories_translations
-    field: locale
-    type: string
-    meta:
-      collection: blog_categories_translations
-      conditions: null
-      display: null
-      display_options: null
-      field: locale
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: null
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: locale
-      table: blog_categories_translations
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: languages
-      foreign_key_column: code
   - collection: blog_categories_translations
     field: name
     type: string
@@ -2011,6 +1896,160 @@ fields:
       is_nullable: false
       is_unique: false
       is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: blog_categories_translations
+    field: description
+    type: text
+    meta:
+      collection: blog_categories_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: description
+      group: null
+      hidden: false
+      interface: input-multiline
+      note: null
+      options:
+        trim: true
+      readonly: false
+      required: false
+      sort: null
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: description
+      table: blog_categories_translations
+      data_type: text
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: blog_categories_translations
+    field: category_id
+    type: uuid
+    meta:
+      collection: blog_categories_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: category_id
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: null
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: category_id
+      table: blog_categories_translations
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: blog_categories
+      foreign_key_column: id
+  - collection: blog_categories_translations
+    field: locale
+    type: string
+    meta:
+      collection: blog_categories_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: locale
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: null
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: locale
+      table: blog_categories_translations
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: languages
+      foreign_key_column: code
+  - collection: brand
+    field: id
+    type: uuid
+    meta:
+      collection: brand
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 1
+      special:
+        - uuid
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: brand
+      data_type: uuid
+      default_value: gen_random_uuid()
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
       is_generated: false
       generation_expression: null
       has_auto_increment: false
@@ -2178,45 +2217,6 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: brand
-    field: id
-    type: uuid
-    meta:
-      collection: brand
-      conditions: null
-      display: null
-      display_options: null
-      field: id
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 1
-      special:
-        - uuid
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: id
-      table: brand
-      data_type: uuid
-      default_value: gen_random_uuid()
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: true
-      is_primary_key: true
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: brand
     field: logos
     type: alias
     meta:
@@ -2247,6 +2247,45 @@ fields:
       validation: null
       validation_message: null
       width: full
+  - collection: brand_logos
+    field: id
+    type: uuid
+    meta:
+      collection: brand_logos
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 1
+      special:
+        - uuid
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: brand_logos
+      data_type: uuid
+      default_value: gen_random_uuid()
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
   - collection: brand_logos
     field: brand_id
     type: uuid
@@ -2287,77 +2326,6 @@ fields:
       foreign_key_table: brand
       foreign_key_column: id
   - collection: brand_logos
-    field: id
-    type: uuid
-    meta:
-      collection: brand_logos
-      conditions: null
-      display: null
-      display_options: null
-      field: id
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 1
-      special:
-        - uuid
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: id
-      table: brand_logos
-      data_type: uuid
-      default_value: gen_random_uuid()
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: true
-      is_primary_key: true
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: brand_logos
-    field: logo_variants
-    type: alias
-    meta:
-      collection: brand_logos
-      conditions: null
-      display: related-values
-      display_options:
-        template: '{{variant_name}} ({{style}})'
-      field: logo_variants
-      group: null
-      hidden: false
-      interface: list-o2m
-      note: null
-      options:
-        enableSelect: false
-        fields:
-          - image
-          - style
-          - variant_name
-        layout: table
-      readonly: false
-      required: false
-      sort: 3
-      special:
-        - o2m
-      translations:
-        - language: en-US
-          translation: Variants
-      validation: null
-      validation_message: null
-      width: full
-  - collection: brand_logos
     field: name
     type: string
     meta:
@@ -2395,6 +2363,38 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: brand_logos
+    field: logo_variants
+    type: alias
+    meta:
+      collection: brand_logos
+      conditions: null
+      display: related-values
+      display_options:
+        template: '{{variant_name}} ({{style}})'
+      field: logo_variants
+      group: null
+      hidden: false
+      interface: list-o2m
+      note: null
+      options:
+        enableSelect: false
+        fields:
+          - image
+          - style
+          - variant_name
+        layout: table
+      readonly: false
+      required: false
+      sort: 3
+      special:
+        - o2m
+      translations:
+        - language: en-US
+          translation: Variants
+      validation: null
+      validation_message: null
+      width: full
   - collection: brand_logos
     field: sort
     type: integer
@@ -2434,45 +2434,6 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: brand_logos_variants
-    field: brand_logo_id
-    type: uuid
-    meta:
-      collection: brand_logos_variants
-      conditions: null
-      display: null
-      display_options: null
-      field: brand_logo_id
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: null
-      special:
-        - uuid
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: brand_logo_id
-      table: brand_logos_variants
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: brand_logos
-      foreign_key_column: id
-  - collection: brand_logos_variants
     field: id
     type: uuid
     meta:
@@ -2506,6 +2467,44 @@ fields:
       is_nullable: false
       is_unique: true
       is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: brand_logos_variants
+    field: variant_name
+    type: string
+    meta:
+      collection: brand_logos_variants
+      conditions: null
+      display: null
+      display_options: null
+      field: variant_name
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: null
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: variant_name
+      table: brand_logos_variants
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
       is_generated: false
       generation_expression: null
       has_auto_increment: false
@@ -2605,33 +2604,34 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: brand_logos_variants
-    field: variant_name
-    type: string
+    field: brand_logo_id
+    type: uuid
     meta:
       collection: brand_logos_variants
       conditions: null
       display: null
       display_options: null
-      field: variant_name
+      field: brand_logo_id
       group: null
-      hidden: false
-      interface: input
+      hidden: true
+      interface: null
       note: null
       options: null
       readonly: false
       required: false
       sort: null
-      special: null
+      special:
+        - uuid
       translations: null
       validation: null
       validation_message: null
       width: full
     schema:
-      name: variant_name
+      name: brand_logo_id
       table: brand_logos_variants
-      data_type: character varying
+      data_type: uuid
       default_value: null
-      max_length: 255
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -2640,33 +2640,70 @@ fields:
       is_generated: false
       generation_expression: null
       has_auto_increment: false
+      foreign_key_table: brand_logos
+      foreign_key_column: id
+  - collection: company_info
+    field: id
+    type: uuid
+    meta:
+      collection: company_info
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: company_info
+      data_type: uuid
+      default_value: gen_random_uuid()
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
   - collection: company_info
-    field: company_address_country
+    field: company_name
     type: string
     meta:
       collection: company_info
       conditions: null
       display: null
       display_options: null
-      field: company_address_country
+      field: company_name
       group: company_details
       hidden: false
       interface: input
       note: null
-      options:
-        placeholder: 'eg: US'
+      options: null
       readonly: false
       required: false
-      sort: 5
+      sort: 1
       special: null
       translations: null
       validation: null
       validation_message: null
-      width: half
+      width: full
     schema:
-      name: company_address_country
+      name: company_name
       table: company_info
       data_type: character varying
       default_value: null
@@ -2799,31 +2836,44 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: company_info
-    field: company_details
-    type: alias
+    field: company_address_country
+    type: string
     meta:
       collection: company_info
       conditions: null
       display: null
       display_options: null
-      field: company_details
-      group: null
+      field: company_address_country
+      group: company_details
       hidden: false
-      interface: group-detail
+      interface: input
       note: null
       options:
-        headerIcon: alternate_email
+        placeholder: 'eg: US'
       readonly: false
       required: false
-      sort: 2
-      special:
-        - alias
-        - group
-        - no-data
+      sort: 5
+      special: null
       translations: null
       validation: null
       validation_message: null
-      width: full
+      width: half
+    schema:
+      name: company_address_country
+      table: company_info
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
   - collection: company_info
     field: company_email
     type: string
@@ -2903,159 +2953,6 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: company_info
-    field: company_keywords
-    type: string
-    meta:
-      collection: company_info
-      conditions: null
-      display: null
-      display_options: null
-      field: company_keywords
-      group: company_details
-      hidden: false
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 9
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: company_keywords
-      table: company_info
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: company_info
-    field: company_name
-    type: string
-    meta:
-      collection: company_info
-      conditions: null
-      display: null
-      display_options: null
-      field: company_name
-      group: company_details
-      hidden: false
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 1
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: company_name
-      table: company_info
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: company_info
-    field: company_payoff
-    type: string
-    meta:
-      collection: company_info
-      conditions: null
-      display: null
-      display_options: null
-      field: company_payoff
-      group: company_details
-      hidden: false
-      interface: input
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 8
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: company_payoff
-      table: company_info
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: company_info
-    field: discord_url
-    type: string
-    meta:
-      collection: company_info
-      conditions: null
-      display: null
-      display_options: null
-      field: discord_url
-      group: socials
-      hidden: false
-      interface: input
-      note: null
-      options:
-        iconLeft: link
-      readonly: false
-      required: false
-      sort: 4
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: discord_url
-      table: company_info
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: company_info
     field: facebook_url
     type: string
     meta:
@@ -3095,91 +2992,66 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: company_info
-    field: github_url
-    type: string
+    field: socials
+    type: alias
     meta:
       collection: company_info
       conditions: null
       display: null
       display_options: null
-      field: github_url
-      group: socials
+      field: socials
+      group: null
       hidden: false
-      interface: input
+      interface: group-detail
       note: null
       options:
-        iconLeft: link
+        headerIcon: groups
       readonly: false
       required: false
-      sort: 6
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: github_url
-      table: company_info
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: company_info
-    field: id
-    type: uuid
-    meta:
-      collection: company_info
-      conditions: null
-      display: null
-      display_options: null
-      field: id
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 1
-      special: null
+      sort: 3
+      special:
+        - alias
+        - group
+        - no-data
       translations: null
       validation: null
       validation_message: null
       width: full
-    schema:
-      name: id
-      table: company_info
-      data_type: uuid
-      default_value: gen_random_uuid()
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: true
-      is_primary_key: true
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
   - collection: company_info
-    field: instagram_url
+    field: company_details
+    type: alias
+    meta:
+      collection: company_info
+      conditions: null
+      display: null
+      display_options: null
+      field: company_details
+      group: null
+      hidden: false
+      interface: group-detail
+      note: null
+      options:
+        headerIcon: alternate_email
+      readonly: false
+      required: false
+      sort: 2
+      special:
+        - alias
+        - group
+        - no-data
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+  - collection: company_info
+    field: twitter_url
     type: string
     meta:
       collection: company_info
       conditions: null
       display: null
       display_options: null
-      field: instagram_url
+      field: twitter_url
       group: socials
       hidden: false
       interface: input
@@ -3188,14 +3060,14 @@ fields:
         iconLeft: link
       readonly: false
       required: false
-      sort: 7
+      sort: 2
       special: null
       translations: null
       validation: null
       validation_message: null
       width: half
     schema:
-      name: instagram_url
+      name: twitter_url
       table: company_info
       data_type: character varying
       default_value: null
@@ -3250,31 +3122,83 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: company_info
-    field: socials
-    type: alias
+    field: discord_url
+    type: string
     meta:
       collection: company_info
       conditions: null
       display: null
       display_options: null
-      field: socials
-      group: null
+      field: discord_url
+      group: socials
       hidden: false
-      interface: group-detail
+      interface: input
       note: null
       options:
-        headerIcon: groups
+        iconLeft: link
       readonly: false
       required: false
-      sort: 3
-      special:
-        - alias
-        - group
-        - no-data
+      sort: 4
+      special: null
       translations: null
       validation: null
       validation_message: null
-      width: full
+      width: half
+    schema:
+      name: discord_url
+      table: company_info
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: company_info
+    field: instagram_url
+    type: string
+    meta:
+      collection: company_info
+      conditions: null
+      display: null
+      display_options: null
+      field: instagram_url
+      group: socials
+      hidden: false
+      interface: input
+      note: null
+      options:
+        iconLeft: link
+      readonly: false
+      required: false
+      sort: 7
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: instagram_url
+      table: company_info
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
   - collection: company_info
     field: telegram_url
     type: string
@@ -3315,14 +3239,14 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: company_info
-    field: twitter_url
+    field: github_url
     type: string
     meta:
       collection: company_info
       conditions: null
       display: null
       display_options: null
-      field: twitter_url
+      field: github_url
       group: socials
       hidden: false
       interface: input
@@ -3331,14 +3255,14 @@ fields:
         iconLeft: link
       readonly: false
       required: false
-      sort: 2
+      sort: 6
       special: null
       translations: null
       validation: null
       validation_message: null
       width: half
     schema:
-      name: twitter_url
+      name: github_url
       table: company_info
       data_type: character varying
       default_value: null
@@ -3353,128 +3277,34 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: documents
-    field: code
+  - collection: company_info
+    field: company_keywords
     type: string
     meta:
-      collection: documents
-      conditions: null
-      display: labels
-      display_options:
-        choices:
-          - text: Whitepaper
-            value: whitepaper
-            foreground: '#18222F'
-            background: '#A2B5CD'
-          - text: Pitch deck
-            value: pitchdeck
-            foreground: '#18222F'
-            background: '#A2B5CD'
-      field: code
-      group: null
-      hidden: false
-      interface: select-dropdown
-      note: null
-      options:
-        choices:
-          - text: Whitepaper
-            value: whitepaper
-          - text: Pitch deck
-            value: pitchdeck
-      readonly: false
-      required: false
-      sort: null
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: code
-      table: documents
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: documents
-    field: created_at
-    type: timestamp
-    meta:
-      collection: documents
+      collection: company_info
       conditions: null
       display: null
       display_options: null
-      field: created_at
-      group: null
-      hidden: true
-      interface: null
+      field: company_keywords
+      group: company_details
+      hidden: false
+      interface: input
       note: null
       options: null
       readonly: false
       required: false
-      sort: null
+      sort: 9
       special: null
       translations: null
       validation: null
       validation_message: null
-      width: half
-    schema:
-      name: created_at
-      table: documents
-      data_type: timestamp with time zone
-      default_value: CURRENT_TIMESTAMP
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: documents
-    field: file_id
-    type: uuid
-    meta:
-      collection: documents
-      conditions: null
-      display: file
-      display_options: null
-      field: file_id
-      group: null
-      hidden: false
-      interface: file
-      note: null
-      options:
-        folder: 7cb65349-2c33-495e-8812-ad7211a378ac
-      readonly: false
-      required: false
-      sort: null
-      special:
-        - uuid
-      translations:
-        - language: en-US
-          translation: File
-      validation: null
-      validation_message: null
       width: full
     schema:
-      name: file_id
-      table: documents
-      data_type: uuid
+      name: company_keywords
+      table: company_info
+      data_type: character varying
       default_value: null
-      max_length: null
+      max_length: 255
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -3483,8 +3313,46 @@ fields:
       is_generated: false
       generation_expression: null
       has_auto_increment: false
-      foreign_key_table: directus_files
-      foreign_key_column: id
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: company_info
+    field: company_payoff
+    type: string
+    meta:
+      collection: company_info
+      conditions: null
+      display: null
+      display_options: null
+      field: company_payoff
+      group: company_details
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 8
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: company_payoff
+      table: company_info
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
   - collection: documents
     field: id
     type: uuid
@@ -3562,6 +3430,100 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: documents
+    field: code
+    type: string
+    meta:
+      collection: documents
+      conditions: null
+      display: labels
+      display_options:
+        choices:
+          - text: Whitepaper
+            value: whitepaper
+            foreground: '#18222F'
+            background: '#A2B5CD'
+          - text: Pitch deck
+            value: pitchdeck
+            foreground: '#18222F'
+            background: '#A2B5CD'
+      field: code
+      group: null
+      hidden: false
+      interface: select-dropdown
+      note: null
+      options:
+        choices:
+          - text: Whitepaper
+            value: whitepaper
+          - text: Pitch deck
+            value: pitchdeck
+      readonly: false
+      required: false
+      sort: null
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: code
+      table: documents
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: documents
+    field: file_id
+    type: uuid
+    meta:
+      collection: documents
+      conditions: null
+      display: file
+      display_options: null
+      field: file_id
+      group: null
+      hidden: false
+      interface: file
+      note: null
+      options:
+        folder: 7cb65349-2c33-495e-8812-ad7211a378ac
+      readonly: false
+      required: false
+      sort: null
+      special:
+        - uuid
+      translations:
+        - language: en-US
+          translation: File
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: file_id
+      table: documents
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_files
+      foreign_key_column: id
+  - collection: documents
     field: status
     type: string
     meta:
@@ -3612,6 +3574,44 @@ fields:
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: documents
+    field: created_at
+    type: timestamp
+    meta:
+      collection: documents
+      conditions: null
+      display: null
+      display_options: null
+      field: created_at
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: null
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: created_at
+      table: documents
+      data_type: timestamp with time zone
+      default_value: CURRENT_TIMESTAMP
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
       is_unique: false
       is_primary_key: false
       is_generated: false
@@ -3696,6 +3696,44 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: languages
+    field: name
+    type: string
+    meta:
+      collection: languages
+      conditions: null
+      display: null
+      display_options: null
+      field: name
+      group: null
+      hidden: false
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: name
+      table: languages
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: languages
     field: icon
     type: uuid
     meta:
@@ -3737,32 +3775,14 @@ fields:
       foreign_key_table: directus_files
       foreign_key_column: id
   - collection: languages
-    field: name
+    field: direction
     type: string
-    meta:
-      collection: languages
-      conditions: null
-      display: null
-      display_options: null
-      field: name
-      group: null
-      hidden: false
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 2
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
+    meta: null
     schema:
-      name: name
+      name: direction
       table: languages
       data_type: character varying
-      default_value: null
+      default_value: ltr
       max_length: 255
       numeric_precision: null
       numeric_scale: null
@@ -3774,6 +3794,85 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: milestones
+    field: id
+    type: uuid
+    meta:
+      collection: milestones
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 1
+      special:
+        - uuid
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: milestones
+      data_type: uuid
+      default_value: gen_random_uuid()
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: milestones
+    field: image
+    type: uuid
+    meta:
+      collection: milestones
+      conditions: null
+      display: image
+      display_options: null
+      field: image
+      group: null
+      hidden: false
+      interface: file-image
+      note: null
+      options:
+        crop: false
+      readonly: false
+      required: false
+      sort: 3
+      special:
+        - uuid
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: image
+      table: milestones
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: directus_files
+      foreign_key_column: id
   - collection: milestones
     field: completion
     type: string
@@ -3876,123 +3975,6 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: milestones
-    field: created_at
-    type: timestamp
-    meta:
-      collection: milestones
-      conditions: null
-      display: null
-      display_options: null
-      field: created_at
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 9
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: created_at
-      table: milestones
-      data_type: timestamp with time zone
-      default_value: CURRENT_TIMESTAMP
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: milestones
-    field: id
-    type: uuid
-    meta:
-      collection: milestones
-      conditions: null
-      display: null
-      display_options: null
-      field: id
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 1
-      special:
-        - uuid
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: id
-      table: milestones
-      data_type: uuid
-      default_value: gen_random_uuid()
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: true
-      is_primary_key: true
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: milestones
-    field: image
-    type: uuid
-    meta:
-      collection: milestones
-      conditions: null
-      display: image
-      display_options: null
-      field: image
-      group: null
-      hidden: false
-      interface: file-image
-      note: null
-      options:
-        crop: false
-      readonly: false
-      required: false
-      sort: 3
-      special:
-        - uuid
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: image
-      table: milestones
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: directus_files
-      foreign_key_column: id
   - collection: milestones
     field: latitude
     type: decimal
@@ -4110,32 +4092,43 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: milestones
-    field: translations
-    type: alias
+    field: created_at
+    type: timestamp
     meta:
       collection: milestones
       conditions: null
-      display: translations
-      display_options:
-        languageField: code
-        template: '{{title}}'
-        userLanguage: true
-      field: translations
+      display: null
+      display_options: null
+      field: created_at
       group: null
-      hidden: false
-      interface: translations
+      hidden: true
+      interface: null
       note: null
-      options:
-        languageField: name
+      options: null
       readonly: false
       required: false
-      sort: 2
-      special:
-        - translations
+      sort: 9
+      special: null
       translations: null
       validation: null
       validation_message: null
-      width: fill
+      width: half
+    schema:
+      name: created_at
+      table: milestones
+      data_type: timestamp with time zone
+      default_value: CURRENT_TIMESTAMP
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
   - collection: milestones
     field: updated_at
     type: timestamp
@@ -4167,6 +4160,148 @@ fields:
       numeric_precision: null
       numeric_scale: null
       is_nullable: false
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: milestones
+    field: translations
+    type: alias
+    meta:
+      collection: milestones
+      conditions: null
+      display: translations
+      display_options:
+        languageField: code
+        template: '{{title}}'
+        userLanguage: true
+      field: translations
+      group: null
+      hidden: false
+      interface: translations
+      note: null
+      options:
+        languageField: name
+      readonly: false
+      required: false
+      sort: 2
+      special:
+        - translations
+      translations: null
+      validation: null
+      validation_message: null
+      width: fill
+  - collection: milestones_translations
+    field: id
+    type: uuid
+    meta:
+      collection: milestones_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: null
+      special:
+        - uuid
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: milestones_translations
+      data_type: uuid
+      default_value: gen_random_uuid()
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: milestones_translations
+    field: title
+    type: string
+    meta:
+      collection: milestones_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: title
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: null
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: title
+      table: milestones_translations
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: milestones_translations
+    field: subtitle
+    type: string
+    meta:
+      collection: milestones_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: subtitle
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: null
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: subtitle
+      table: milestones_translations
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
       is_unique: false
       is_primary_key: false
       is_generated: false
@@ -4213,83 +4348,6 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: milestones_translations
-    field: id
-    type: uuid
-    meta:
-      collection: milestones_translations
-      conditions: null
-      display: null
-      display_options: null
-      field: id
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: null
-      special:
-        - uuid
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: id
-      table: milestones_translations
-      data_type: uuid
-      default_value: gen_random_uuid()
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: true
-      is_primary_key: true
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: milestones_translations
-    field: locale
-    type: string
-    meta:
-      collection: milestones_translations
-      conditions: null
-      display: null
-      display_options: null
-      field: locale
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: null
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: locale
-      table: milestones_translations
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: languages
-      foreign_key_column: code
-  - collection: milestones_translations
     field: milestone_id
     type: uuid
     meta:
@@ -4328,17 +4386,17 @@ fields:
       foreign_key_table: milestones
       foreign_key_column: id
   - collection: milestones_translations
-    field: subtitle
+    field: locale
     type: string
     meta:
       collection: milestones_translations
       conditions: null
       display: null
       display_options: null
-      field: subtitle
+      field: locale
       group: null
-      hidden: false
-      interface: input
+      hidden: true
+      interface: null
       note: null
       options: null
       readonly: false
@@ -4348,9 +4406,9 @@ fields:
       translations: null
       validation: null
       validation_message: null
-      width: full
+      width: half
     schema:
-      name: subtitle
+      name: locale
       table: milestones_translations
       data_type: character varying
       default_value: null
@@ -4363,36 +4421,137 @@ fields:
       is_generated: false
       generation_expression: null
       has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: milestones_translations
-    field: title
-    type: string
+      foreign_key_table: languages
+      foreign_key_column: code
+  - collection: pages
+    field: id
+    type: uuid
     meta:
-      collection: milestones_translations
+      collection: pages
       conditions: null
       display: null
       display_options: null
-      field: title
+      field: id
       group: null
-      hidden: false
-      interface: input
+      hidden: true
+      interface: null
       note: null
       options: null
       readonly: false
       required: false
-      sort: null
+      sort: 1
+      special:
+        - uuid
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: pages
+      data_type: uuid
+      default_value: gen_random_uuid()
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: pages
+    field: status
+    type: string
+    meta:
+      collection: pages
+      conditions: null
+      display: labels
+      display_options:
+        choices:
+          - text: Published
+            value: published
+            foreground: '#FFFFFF'
+            background: '#2ECDA7'
+          - text: Draft
+            value: draft
+            foreground: '#18222F'
+            background: '#A2B5CD'
+          - text: Deleted
+            value: deleted
+            foreground: '#FFFFFF'
+            background: '#E35169'
+      field: status
+      group: null
+      hidden: false
+      interface: select-dropdown
+      note: null
+      options:
+        choices:
+          - text: Published
+            value: published
+          - text: Draft
+            value: draft
+          - text: Deleted
+            value: deleted
+      readonly: false
+      required: false
+      sort: 3
       special: null
       translations: null
       validation: null
       validation_message: null
       width: full
     schema:
-      name: title
-      table: milestones_translations
+      name: status
+      table: pages
       data_type: character varying
-      default_value: null
+      default_value: draft
       max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: pages
+    field: parent_page_id
+    type: uuid
+    meta:
+      collection: pages
+      conditions: null
+      display: related-values
+      display_options:
+        template: '{{translations.title}}'
+      field: parent_page_id
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        template: '{{translations.title}}'
+      readonly: false
+      required: false
+      sort: 2
+      special: null
+      translations:
+        - language: en-US
+          translation: Parent page
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: parent_page_id
+      table: pages
+      data_type: uuid
+      default_value: null
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -4401,8 +4560,8 @@ fields:
       is_generated: false
       generation_expression: null
       has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
+      foreign_key_table: pages
+      foreign_key_column: id
   - collection: pages
     field: author_id
     type: uuid
@@ -4485,14 +4644,14 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: pages
-    field: id
-    type: uuid
+    field: updated_at
+    type: timestamp
     meta:
       collection: pages
       conditions: null
       display: null
       display_options: null
-      field: id
+      field: updated_at
       group: null
       hidden: true
       interface: null
@@ -4500,71 +4659,57 @@ fields:
       options: null
       readonly: false
       required: false
-      sort: 1
+      sort: 8
       special:
-        - uuid
+        - date-created
+        - date-updated
       translations: null
       validation: null
       validation_message: null
-      width: full
+      width: half
     schema:
-      name: id
+      name: updated_at
       table: pages
-      data_type: uuid
-      default_value: gen_random_uuid()
+      data_type: timestamp with time zone
+      default_value: CURRENT_TIMESTAMP
       max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: false
-      is_unique: true
-      is_primary_key: true
+      is_unique: false
+      is_primary_key: false
       is_generated: false
       generation_expression: null
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
   - collection: pages
-    field: parent_page_id
-    type: uuid
+    field: translations
+    type: alias
     meta:
       collection: pages
       conditions: null
-      display: related-values
+      display: translations
       display_options:
-        template: '{{translations.title}}'
-      field: parent_page_id
+        languageField: code
+        template: '{{title}}'
+      field: translations
       group: null
       hidden: false
-      interface: select-dropdown-m2o
+      interface: translations
       note: null
       options:
-        template: '{{translations.title}}'
+        languageDirectionField: code
+        languageField: code
       readonly: false
       required: false
-      sort: 2
-      special: null
-      translations:
-        - language: en-US
-          translation: Parent page
+      sort: 4
+      special:
+        - translations
+      translations: null
       validation: null
       validation_message: null
-      width: full
-    schema:
-      name: parent_page_id
-      table: pages
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: pages
-      foreign_key_column: id
+      width: fill
   - collection: pages
     field: show_in_menu
     type: boolean
@@ -4605,53 +4750,73 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: pages
-    field: status
-    type: string
+  - collection: pages_translations
+    field: id
+    type: uuid
     meta:
-      collection: pages
+      collection: pages_translations
       conditions: null
-      display: labels
-      display_options:
-        choices:
-          - text: Published
-            value: published
-            foreground: '#FFFFFF'
-            background: '#2ECDA7'
-          - text: Draft
-            value: draft
-            foreground: '#18222F'
-            background: '#A2B5CD'
-          - text: Deleted
-            value: deleted
-            foreground: '#FFFFFF'
-            background: '#E35169'
-      field: status
+      display: null
+      display_options: null
+      field: id
       group: null
-      hidden: false
-      interface: select-dropdown
+      hidden: true
+      interface: null
       note: null
-      options:
-        choices:
-          - text: Published
-            value: published
-          - text: Draft
-            value: draft
-          - text: Deleted
-            value: deleted
+      options: null
       readonly: false
       required: false
-      sort: 3
+      sort: 1
+      special:
+        - uuid
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: pages_translations
+      data_type: uuid
+      default_value: gen_random_uuid()
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: pages_translations
+    field: title
+    type: string
+    meta:
+      collection: pages_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: title
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options:
+        trim: true
+      readonly: false
+      required: false
+      sort: 2
       special: null
       translations: null
       validation: null
       validation_message: null
       width: full
     schema:
-      name: status
-      table: pages
+      name: title
+      table: pages_translations
       data_type: character varying
-      default_value: draft
+      default_value: null
       max_length: 255
       numeric_precision: null
       numeric_scale: null
@@ -4663,63 +4828,39 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: pages
-    field: translations
-    type: alias
+  - collection: pages_translations
+    field: slug
+    type: string
     meta:
-      collection: pages
+      collection: pages_translations
       conditions: null
-      display: translations
+      display: formatted-value
       display_options:
-        languageField: code
-        template: '{{title}}'
-      field: translations
+        font: monospace
+        prefix: /
+      field: slug
       group: null
       hidden: false
-      interface: translations
+      interface: input
       note: null
       options:
-        languageDirectionField: code
-        languageField: code
+        font: monospace
+        slug: true
+        trim: true
       readonly: false
       required: false
-      sort: 4
-      special:
-        - translations
+      sort: 3
+      special: null
       translations: null
       validation: null
       validation_message: null
-      width: fill
-  - collection: pages
-    field: updated_at
-    type: timestamp
-    meta:
-      collection: pages
-      conditions: null
-      display: null
-      display_options: null
-      field: updated_at
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 8
-      special:
-        - date-created
-        - date-updated
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
+      width: full
     schema:
-      name: updated_at
-      table: pages
-      data_type: timestamp with time zone
-      default_value: CURRENT_TIMESTAMP
-      max_length: null
+      name: slug
+      table: pages_translations
+      data_type: character varying
+      default_value: null
+      max_length: 255
       numeric_precision: null
       numeric_scale: null
       is_nullable: false
@@ -4772,6 +4913,123 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: pages_translations
+    field: seo
+    type: json
+    meta:
+      collection: pages_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: seo
+      group: null
+      hidden: false
+      interface: seo-input
+      note: null
+      options:
+        slugField: slug
+        titleField: title
+      readonly: false
+      required: false
+      sort: 7
+      special:
+        - cast-json
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: seo
+      table: pages_translations
+      data_type: json
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: pages_translations
+    field: page_id
+    type: uuid
+    meta:
+      collection: pages_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: page_id
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 8
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: page_id
+      table: pages_translations
+      data_type: uuid
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: pages
+      foreign_key_column: id
+  - collection: pages_translations
+    field: locale
+    type: string
+    meta:
+      collection: pages_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: locale
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 9
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: locale
+      table: pages_translations
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: languages
+      foreign_key_column: code
   - collection: pages_translations
     field: content_text
     type: text
@@ -4848,11 +5106,11 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: pages_translations
+  - collection: projects
     field: id
     type: uuid
     meta:
-      collection: pages_translations
+      collection: projects
       conditions: null
       display: null
       display_options: null
@@ -4865,15 +5123,14 @@ fields:
       readonly: false
       required: false
       sort: 1
-      special:
-        - uuid
+      special: null
       translations: null
       validation: null
       validation_message: null
       width: full
     schema:
       name: id
-      table: pages_translations
+      table: projects
       data_type: uuid
       default_value: gen_random_uuid()
       max_length: null
@@ -4887,181 +5144,40 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: pages_translations
-    field: locale
+  - collection: projects
+    field: status
     type: string
     meta:
-      collection: pages_translations
+      collection: projects
       conditions: null
-      display: null
-      display_options: null
-      field: locale
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 9
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: locale
-      table: pages_translations
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: languages
-      foreign_key_column: code
-  - collection: pages_translations
-    field: page_id
-    type: uuid
-    meta:
-      collection: pages_translations
-      conditions: null
-      display: null
-      display_options: null
-      field: page_id
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 8
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: page_id
-      table: pages_translations
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: pages
-      foreign_key_column: id
-  - collection: pages_translations
-    field: seo
-    type: json
-    meta:
-      collection: pages_translations
-      conditions: null
-      display: null
-      display_options: null
-      field: seo
-      group: null
-      hidden: false
-      interface: seo-input
-      note: null
-      options:
-        slugField: slug
-        titleField: title
-      readonly: false
-      required: false
-      sort: 7
-      special:
-        - cast-json
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: seo
-      table: pages_translations
-      data_type: json
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: pages_translations
-    field: slug
-    type: string
-    meta:
-      collection: pages_translations
-      conditions: null
-      display: formatted-value
+      display: labels
       display_options:
-        font: monospace
-        prefix: /
-      field: slug
+        choices:
+          - text: Published
+            value: published
+            foreground: '#FFFFFF'
+            background: '#2ECDA7'
+          - text: Draft
+            value: draft
+            foreground: '#18222F'
+            background: '#A2B5CD'
+          - text: Deleted
+            value: deleted
+            foreground: '#FFFFFF'
+            background: '#E35169'
+      field: status
       group: null
       hidden: false
-      interface: input
+      interface: select-dropdown
       note: null
       options:
-        font: monospace
-        slug: true
-        trim: true
-      readonly: false
-      required: false
-      sort: 3
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: slug
-      table: pages_translations
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: pages_translations
-    field: title
-    type: string
-    meta:
-      collection: pages_translations
-      conditions: null
-      display: null
-      display_options: null
-      field: title
-      group: null
-      hidden: false
-      interface: input
-      note: null
-      options:
-        trim: true
+        choices:
+          - text: Published
+            value: published
+          - text: Draft
+            value: draft
+          - text: Deleted
+            value: deleted
       readonly: false
       required: false
       sort: 2
@@ -5071,88 +5187,11 @@ fields:
       validation_message: null
       width: full
     schema:
-      name: title
-      table: pages_translations
+      name: status
+      table: projects
       data_type: character varying
-      default_value: null
+      default_value: draft
       max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: projects
-    field: coming_soon
-    type: boolean
-    meta:
-      collection: projects
-      conditions: null
-      display: boolean
-      display_options: null
-      field: coming_soon
-      group: null
-      hidden: false
-      interface: boolean
-      note: null
-      options:
-        label: Show as coming soon
-      readonly: false
-      required: false
-      sort: 7
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: coming_soon
-      table: projects
-      data_type: boolean
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: projects
-    field: created_at
-    type: timestamp
-    meta:
-      collection: projects
-      conditions: null
-      display: null
-      display_options: null
-      field: created_at
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 9
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: created_at
-      table: projects
-      data_type: timestamp with time zone
-      default_value: CURRENT_TIMESTAMP
-      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: false
@@ -5244,44 +5283,6 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: projects
-    field: id
-    type: uuid
-    meta:
-      collection: projects
-      conditions: null
-      display: null
-      display_options: null
-      field: id
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 1
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: id
-      table: projects
-      data_type: uuid
-      default_value: gen_random_uuid()
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: false
-      is_unique: true
-      is_primary_key: true
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: projects
     field: image
     type: uuid
     meta:
@@ -5322,6 +5323,45 @@ fields:
       foreign_key_table: directus_files
       foreign_key_column: id
   - collection: projects
+    field: coming_soon
+    type: boolean
+    meta:
+      collection: projects
+      conditions: null
+      display: boolean
+      display_options: null
+      field: coming_soon
+      group: null
+      hidden: false
+      interface: boolean
+      note: null
+      options:
+        label: Show as coming soon
+      readonly: false
+      required: false
+      sort: 7
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: coming_soon
+      table: projects
+      data_type: boolean
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: projects
     field: sort
     type: integer
     meta:
@@ -5360,53 +5400,33 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: projects
-    field: status
-    type: string
+    field: created_at
+    type: timestamp
     meta:
       collection: projects
       conditions: null
-      display: labels
-      display_options:
-        choices:
-          - text: Published
-            value: published
-            foreground: '#FFFFFF'
-            background: '#2ECDA7'
-          - text: Draft
-            value: draft
-            foreground: '#18222F'
-            background: '#A2B5CD'
-          - text: Deleted
-            value: deleted
-            foreground: '#FFFFFF'
-            background: '#E35169'
-      field: status
+      display: null
+      display_options: null
+      field: created_at
       group: null
-      hidden: false
-      interface: select-dropdown
+      hidden: true
+      interface: null
       note: null
-      options:
-        choices:
-          - text: Published
-            value: published
-          - text: Draft
-            value: draft
-          - text: Deleted
-            value: deleted
+      options: null
       readonly: false
       required: false
-      sort: 2
+      sort: 9
       special: null
       translations: null
       validation: null
       validation_message: null
-      width: full
+      width: half
     schema:
-      name: status
+      name: created_at
       table: projects
-      data_type: character varying
-      default_value: draft
-      max_length: 255
+      data_type: timestamp with time zone
+      default_value: CURRENT_TIMESTAMP
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: false
@@ -5417,33 +5437,6 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: projects
-    field: translations
-    type: alias
-    meta:
-      collection: projects
-      conditions: null
-      display: translations
-      display_options:
-        languageField: code
-        template: '{{title}}'
-        userLanguage: true
-      field: translations
-      group: null
-      hidden: false
-      interface: translations
-      note: null
-      options:
-        languageField: name
-      readonly: false
-      required: false
-      sort: 3
-      special:
-        - translations
-      translations: null
-      validation: null
-      validation_message: null
-      width: fill
   - collection: projects
     field: updated_at
     type: timestamp
@@ -5482,44 +5475,33 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: projects_translations
-    field: content
-    type: text
+  - collection: projects
+    field: translations
+    type: alias
     meta:
-      collection: projects_translations
+      collection: projects
       conditions: null
-      display: null
-      display_options: null
-      field: content
+      display: translations
+      display_options:
+        languageField: code
+        template: '{{title}}'
+        userLanguage: true
+      field: translations
       group: null
       hidden: false
-      interface: input-rich-text-md
+      interface: translations
       note: null
-      options: null
+      options:
+        languageField: name
       readonly: false
       required: false
-      sort: null
-      special: null
+      sort: 3
+      special:
+        - translations
       translations: null
       validation: null
       validation_message: null
-      width: full
-    schema:
-      name: content
-      table: projects_translations
-      data_type: text
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
+      width: fill
   - collection: projects_translations
     field: id
     type: uuid
@@ -5559,17 +5541,17 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: projects_translations
-    field: locale
+    field: title
     type: string
     meta:
       collection: projects_translations
       conditions: null
       display: null
       display_options: null
-      field: locale
+      field: title
       group: null
-      hidden: true
-      interface: null
+      hidden: false
+      interface: input
       note: null
       options: null
       readonly: false
@@ -5579,96 +5561,16 @@ fields:
       translations: null
       validation: null
       validation_message: null
-      width: half
+      width: full
     schema:
-      name: locale
+      name: title
       table: projects_translations
       data_type: character varying
       default_value: null
       max_length: 255
       numeric_precision: null
       numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: languages
-      foreign_key_column: code
-  - collection: projects_translations
-    field: project_id
-    type: uuid
-    meta:
-      collection: projects_translations
-      conditions: null
-      display: null
-      display_options: null
-      field: project_id
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: null
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: project_id
-      table: projects_translations
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: projects
-      foreign_key_column: id
-  - collection: projects_translations
-    field: seo
-    type: json
-    meta:
-      collection: projects_translations
-      conditions: null
-      display: null
-      display_options: null
-      field: seo
-      group: null
-      hidden: false
-      interface: seo-input
-      note: null
-      options:
-        descriptionField: content
-        slugField: slug
-        titleField: title
-      readonly: false
-      required: false
-      sort: null
-      special:
-        - cast-json
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: seo
-      table: projects_translations
-      data_type: json
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
+      is_nullable: false
       is_unique: false
       is_primary_key: false
       is_generated: false
@@ -5719,17 +5621,17 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: projects_translations
-    field: title
-    type: string
+    field: content
+    type: text
     meta:
       collection: projects_translations
       conditions: null
       display: null
       display_options: null
-      field: title
+      field: content
       group: null
       hidden: false
-      interface: input
+      interface: input-rich-text-md
       note: null
       options: null
       readonly: false
@@ -5741,14 +5643,14 @@ fields:
       validation_message: null
       width: full
     schema:
-      name: title
+      name: content
       table: projects_translations
-      data_type: character varying
+      data_type: text
       default_value: null
-      max_length: 255
+      max_length: null
       numeric_precision: null
       numeric_scale: null
-      is_nullable: false
+      is_nullable: true
       is_unique: false
       is_primary_key: false
       is_generated: false
@@ -5756,15 +5658,57 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: team_members
-    field: created_at
-    type: timestamp
+  - collection: projects_translations
+    field: seo
+    type: json
     meta:
-      collection: team_members
+      collection: projects_translations
       conditions: null
       display: null
       display_options: null
-      field: created_at
+      field: seo
+      group: null
+      hidden: false
+      interface: seo-input
+      note: null
+      options:
+        descriptionField: content
+        slugField: slug
+        titleField: title
+      readonly: false
+      required: false
+      sort: null
+      special:
+        - cast-json
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: seo
+      table: projects_translations
+      data_type: json
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: projects_translations
+    field: project_id
+    type: uuid
+    meta:
+      collection: projects_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: project_id
       group: null
       hidden: true
       interface: null
@@ -5772,28 +5716,66 @@ fields:
       options: null
       readonly: false
       required: false
-      sort: 7
+      sort: null
       special: null
       translations: null
       validation: null
       validation_message: null
       width: half
     schema:
-      name: created_at
-      table: team_members
-      data_type: timestamp with time zone
-      default_value: CURRENT_TIMESTAMP
+      name: project_id
+      table: projects_translations
+      data_type: uuid
+      default_value: null
       max_length: null
       numeric_precision: null
       numeric_scale: null
-      is_nullable: false
+      is_nullable: true
       is_unique: false
       is_primary_key: false
       is_generated: false
       generation_expression: null
       has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
+      foreign_key_table: projects
+      foreign_key_column: id
+  - collection: projects_translations
+    field: locale
+    type: string
+    meta:
+      collection: projects_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: locale
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: null
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: locale
+      table: projects_translations
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: languages
+      foreign_key_column: code
   - collection: team_members
     field: id
     type: uuid
@@ -5827,6 +5809,64 @@ fields:
       is_nullable: false
       is_unique: true
       is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: team_members
+    field: status
+    type: string
+    meta:
+      collection: team_members
+      conditions: null
+      display: labels
+      display_options:
+        choices:
+          - text: Published
+            value: published
+            foreground: '#FFFFFF'
+            background: '#2ECDA7'
+          - text: Draft
+            value: draft
+            foreground: '#18222F'
+            background: '#A2B5CD'
+          - text: Deleted
+            value: deleted
+            foreground: '#FFFFFF'
+            background: '#E35169'
+      field: status
+      group: null
+      hidden: false
+      interface: select-dropdown
+      note: null
+      options:
+        choices:
+          - text: Published
+            value: published
+          - text: Draft
+            value: draft
+          - text: Deleted
+            value: deleted
+      readonly: false
+      required: false
+      sort: 2
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: status
+      table: team_members
+      data_type: character varying
+      default_value: draft
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: false
+      is_primary_key: false
       is_generated: false
       generation_expression: null
       has_auto_increment: false
@@ -5949,53 +5989,33 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: team_members
-    field: status
-    type: string
+    field: created_at
+    type: timestamp
     meta:
       collection: team_members
       conditions: null
-      display: labels
-      display_options:
-        choices:
-          - text: Published
-            value: published
-            foreground: '#FFFFFF'
-            background: '#2ECDA7'
-          - text: Draft
-            value: draft
-            foreground: '#18222F'
-            background: '#A2B5CD'
-          - text: Deleted
-            value: deleted
-            foreground: '#FFFFFF'
-            background: '#E35169'
-      field: status
+      display: null
+      display_options: null
+      field: created_at
       group: null
-      hidden: false
-      interface: select-dropdown
+      hidden: true
+      interface: null
       note: null
-      options:
-        choices:
-          - text: Published
-            value: published
-          - text: Draft
-            value: draft
-          - text: Deleted
-            value: deleted
+      options: null
       readonly: false
       required: false
-      sort: 2
+      sort: 7
       special: null
       translations: null
       validation: null
       validation_message: null
-      width: full
+      width: half
     schema:
-      name: status
+      name: created_at
       table: team_members
-      data_type: character varying
-      default_value: draft
-      max_length: 255
+      data_type: timestamp with time zone
+      default_value: CURRENT_TIMESTAMP
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: false
@@ -6006,33 +6026,6 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: team_members
-    field: translations
-    type: alias
-    meta:
-      collection: team_members
-      conditions: null
-      display: translations
-      display_options:
-        languageField: code
-        template: '{{role}}'
-        userLanguage: true
-      field: translations
-      group: null
-      hidden: false
-      interface: translations
-      note: null
-      options:
-        languageField: name
-      readonly: false
-      required: false
-      sort: 5
-      special:
-        - translations
-      translations: null
-      validation: null
-      validation_message: null
-      width: fill
   - collection: team_members
     field: updated_at
     type: timestamp
@@ -6071,44 +6064,33 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: team_members_translations
-    field: bio
-    type: text
+  - collection: team_members
+    field: translations
+    type: alias
     meta:
-      collection: team_members_translations
+      collection: team_members
       conditions: null
-      display: null
-      display_options: null
-      field: bio
+      display: translations
+      display_options:
+        languageField: code
+        template: '{{role}}'
+        userLanguage: true
+      field: translations
       group: null
       hidden: false
-      interface: input-rich-text-md
+      interface: translations
       note: null
-      options: null
+      options:
+        languageField: name
       readonly: false
       required: false
-      sort: null
-      special: null
+      sort: 5
+      special:
+        - translations
       translations: null
       validation: null
       validation_message: null
-      width: full
-    schema:
-      name: bio
-      table: team_members_translations
-      data_type: text
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
+      width: fill
   - collection: team_members_translations
     field: id
     type: uuid
@@ -6148,44 +6130,6 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: team_members_translations
-    field: locale
-    type: string
-    meta:
-      collection: team_members_translations
-      conditions: null
-      display: null
-      display_options: null
-      field: locale
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: null
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: half
-    schema:
-      name: locale
-      table: team_members_translations
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: languages
-      foreign_key_column: code
-  - collection: team_members_translations
     field: role
     type: string
     meta:
@@ -6214,6 +6158,44 @@ fields:
       data_type: character varying
       default_value: null
       max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: team_members_translations
+    field: bio
+    type: text
+    meta:
+      collection: team_members_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: bio
+      group: null
+      hidden: false
+      interface: input-rich-text-md
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: null
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: bio
+      table: team_members_translations
+      data_type: text
+      default_value: null
+      max_length: null
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -6262,6 +6244,44 @@ fields:
       has_auto_increment: false
       foreign_key_table: team_members
       foreign_key_column: id
+  - collection: team_members_translations
+    field: locale
+    type: string
+    meta:
+      collection: team_members_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: locale
+      group: null
+      hidden: true
+      interface: null
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: null
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: locale
+      table: team_members_translations
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: languages
+      foreign_key_column: code
 relations:
   - collection: blog_articles
     field: author_id
@@ -6288,27 +6308,6 @@ relations:
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: blog_articles_categories
-    field: article_id
-    related_collection: blog_articles
-    meta:
-      junction_field: category_id
-      many_collection: blog_articles_categories
-      many_field: article_id
-      one_allowed_collections: null
-      one_collection: blog_articles
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: categories
-      sort_field: null
-    schema:
-      table: blog_articles_categories
-      column: article_id
-      foreign_key_table: blog_articles
-      foreign_key_column: id
-      constraint_name: blog_articles_categories_article_id_foreign
-      on_update: NO ACTION
-      on_delete: CASCADE
-  - collection: blog_articles_categories
     field: category_id
     related_collection: blog_categories
     meta:
@@ -6329,25 +6328,25 @@ relations:
       constraint_name: blog_articles_categories_category_id_foreign
       on_update: NO ACTION
       on_delete: CASCADE
-  - collection: blog_articles_translations
+  - collection: blog_articles_categories
     field: article_id
     related_collection: blog_articles
     meta:
-      junction_field: locale
-      many_collection: blog_articles_translations
+      junction_field: category_id
+      many_collection: blog_articles_categories
       many_field: article_id
       one_allowed_collections: null
       one_collection: blog_articles
       one_collection_field: null
       one_deselect_action: nullify
-      one_field: translations
+      one_field: categories
       sort_field: null
     schema:
-      table: blog_articles_translations
+      table: blog_articles_categories
       column: article_id
       foreign_key_table: blog_articles
       foreign_key_column: id
-      constraint_name: blog_articles_translations_article_id_foreign
+      constraint_name: blog_articles_categories_article_id_foreign
       on_update: NO ACTION
       on_delete: CASCADE
   - collection: blog_articles_translations
@@ -6372,6 +6371,27 @@ relations:
       on_update: NO ACTION
       on_delete: CASCADE
   - collection: blog_articles_translations
+    field: article_id
+    related_collection: blog_articles
+    meta:
+      junction_field: locale
+      many_collection: blog_articles_translations
+      many_field: article_id
+      one_allowed_collections: null
+      one_collection: blog_articles
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: translations
+      sort_field: null
+    schema:
+      table: blog_articles_translations
+      column: article_id
+      foreign_key_table: blog_articles
+      foreign_key_column: id
+      constraint_name: blog_articles_translations_article_id_foreign
+      on_update: NO ACTION
+      on_delete: CASCADE
+  - collection: blog_articles_translations
     field: thumbnail
     related_collection: directus_files
     meta: null
@@ -6381,18 +6401,6 @@ relations:
       foreign_key_table: directus_files
       foreign_key_column: id
       constraint_name: blog_articles_translations_thumbnail_foreign
-      on_update: NO ACTION
-      on_delete: SET NULL
-  - collection: blog_categories
-    field: icon
-    related_collection: directus_files
-    meta: null
-    schema:
-      table: blog_categories
-      column: icon
-      foreign_key_table: directus_files
-      foreign_key_column: id
-      constraint_name: blog_categories_icon_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: blog_categories
@@ -6407,27 +6415,18 @@ relations:
       constraint_name: blog_categories_parent_id_foreign
       on_update: NO ACTION
       on_delete: SET NULL
-  - collection: blog_categories_translations
-    field: category_id
-    related_collection: blog_categories
-    meta:
-      junction_field: locale
-      many_collection: blog_categories_translations
-      many_field: category_id
-      one_allowed_collections: null
-      one_collection: blog_categories
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: translations
-      sort_field: null
+  - collection: blog_categories
+    field: icon
+    related_collection: directus_files
+    meta: null
     schema:
-      table: blog_categories_translations
-      column: category_id
-      foreign_key_table: blog_categories
+      table: blog_categories
+      column: icon
+      foreign_key_table: directus_files
       foreign_key_column: id
-      constraint_name: blog_categories_translations_category_id_foreign
+      constraint_name: blog_categories_icon_foreign
       on_update: NO ACTION
-      on_delete: CASCADE
+      on_delete: SET NULL
   - collection: blog_categories_translations
     field: locale
     related_collection: languages
@@ -6447,6 +6446,27 @@ relations:
       foreign_key_table: languages
       foreign_key_column: code
       constraint_name: blog_categories_translations_locale_foreign
+      on_update: NO ACTION
+      on_delete: CASCADE
+  - collection: blog_categories_translations
+    field: category_id
+    related_collection: blog_categories
+    meta:
+      junction_field: locale
+      many_collection: blog_categories_translations
+      many_field: category_id
+      one_allowed_collections: null
+      one_collection: blog_categories
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: translations
+      sort_field: null
+    schema:
+      table: blog_categories_translations
+      column: category_id
+      foreign_key_table: blog_categories
+      foreign_key_column: id
+      constraint_name: blog_categories_translations_category_id_foreign
       on_update: NO ACTION
       on_delete: CASCADE
   - collection: brand_logos
@@ -6591,18 +6611,6 @@ relations:
       on_update: NO ACTION
       on_delete: CASCADE
   - collection: pages
-    field: author_id
-    related_collection: directus_users
-    meta: null
-    schema:
-      table: pages
-      column: author_id
-      foreign_key_table: directus_users
-      foreign_key_column: id
-      constraint_name: pages_author_id_foreign
-      on_update: NO ACTION
-      on_delete: SET NULL
-  - collection: pages
     field: parent_page_id
     related_collection: pages
     meta: null
@@ -6612,6 +6620,18 @@ relations:
       foreign_key_table: pages
       foreign_key_column: id
       constraint_name: pages_parent_page_id_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: pages
+    field: author_id
+    related_collection: directus_users
+    meta: null
+    schema:
+      table: pages
+      column: author_id
+      foreign_key_table: directus_users
+      foreign_key_column: id
+      constraint_name: pages_author_id_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: pages_translations
