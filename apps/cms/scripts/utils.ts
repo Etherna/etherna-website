@@ -21,14 +21,14 @@ export function getExtensionsBaseFolder() {
 }
 
 export function getMigrationsFolder() {
-  return path.resolve(getExtensionsBaseFolder(), "migrations")
+  return path.resolve(process.env.MIGRATIONS_PATH || "./migrations")
 }
 
 export function getExtensionsFolders() {
-  const extensionsFolders = [...API_EXTENSION_TYPES, ...APP_EXTENSION_TYPES].map((type) =>
-    path.resolve(getExtensionsBaseFolder(), type.replace(/s?$/, "s")),
-  )
-
+  const extensionsFolders = glob
+    .sync(getExtensionsBaseFolder() + "/*/")
+    .filter((p) => !p.endsWith("migrations"))
+    .map((p) => path.resolve(p))
   return extensionsFolders
 }
 

@@ -14,7 +14,7 @@ export function getExtensionsEntries() {
     const format = isApiExtension ? "cjs" : "es"
     const exports = isApiExtension ? "default" : undefined
     const extension = format === "cjs" ? "cjs" : "mjs"
-    const file = path.resolve(`${folder}/${entry.type}s/${name}/${entry.output}.${extension}`)
+    const file = path.resolve(`${folder}/${name}/${entry.output}.${extension}`)
 
     return {
       type: entry.type,

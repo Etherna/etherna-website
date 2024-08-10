@@ -12,4 +12,5 @@ ENV ADMIN_EMAIL="admin@example.com"
 ENV ADMIN_PASSWORD="d1r3ctu5"
 COPY --from=build ./usr/src/app/apps/cms/snapshot.yaml ./snapshot.yaml
 COPY --from=build ./usr/src/app/apps/cms/extensions ./extensions
+COPY --from=build ./usr/src/app/apps/cms/migrations ./migrations
 CMD node cli.js bootstrap && node cli.js database migrate:latest && node cli.js schema apply --yes ./snapshot.yaml && node cli.js start
