@@ -1,13 +1,13 @@
-FROM node:alpine AS build
-ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
+FROM node:20-alpine AS build
+RUN apk add --no-cache --virtual build-dependencies build-base gcc python3
 COPY . /usr/src/app
 WORKDIR /usr/src/app
+RUN corepack enable
 RUN pnpm install --force --frozen-lockfile
 RUN pnpm run build:cms
 
 FROM directus/directus
+USER node
 ENV ADMIN_EMAIL="admin@example.com"
 ENV ADMIN_PASSWORD="d1r3ctu5"
 COPY --from=build ./usr/src/app/apps/cms/snapshot.yaml ./snapshot.yaml
