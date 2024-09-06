@@ -35,7 +35,7 @@ export function BlogPostPreview({ post, featured, lang }: BlogPostPreviewProps) 
 
         <a href={routes.blogPostPath(post.slug, localeToLang(post.locale))}>
           <h2 className="mb-2 font-serif leading-none text-gray-900">{post.title}</h2>
-          <p className="truncate text-gray-600 sm:whitespace-normal sm:break-words">
+          <p className="line-clamp-4 text-gray-600 sm:whitespace-normal sm:break-words">
             {post.excerpt}
           </p>
         </a>
