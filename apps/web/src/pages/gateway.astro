@@ -1,0 +1,133 @@
+---
+import { Image as AstroImg } from "astro:assets"
+
+import gatewayImg from "@/assets/gateway.png"
+
+import Layout from "@/astro/layout/layout.astro"
+import { Image } from "@/components/common/image"
+import { fetchPostData } from "@/queries/fetch-post-data"
+import { localeToLang } from "@/utils/data-parser"
+import { routes } from "@/utils/routes"
+
+const articleSlugs = [
+  "etherna-your-gateway-to-decentralized-multimedia-on-web-3-0",
+  "revolutionizing-access-to-decentralized-storage-network",
+]
+
+const articles = await Promise.all(
+  articleSlugs.map(async slug => fetchPostData("en", routes.blogPostPath(slug, "en")))
+)
+---
+
+<Layout title="Etherna Gateway" description="A game changer for cloud storage" lang="en">
+  <div class="container flex flex-col items-center gap-y-12 py-12 md:flex-row-reverse">
+    <AstroImg src={gatewayImg} alt="Etherna Gateway" class="w-full max-w-64 xl:max-w-80" />
+    <div class="flex flex-1 flex-col items-center md:items-start">
+      <h1 class="text-3xl font-extrabold text-gradient md:text-4xl lg:text-5xl">Etherna gateway</h1>
+      <p
+        class="max-w-screen-sm text-center text-base font-medium text-gray-500 md:text-left lg:text-lg"
+      >
+        Etherna isn't just different—it's a leap forward— with groundbreaking advantages when it
+        comes to performance, sovereignity of data, security and sustainability.
+      </p>
+    </div>
+  </div>
+
+  <div class="container flex flex-col items-start py-12">
+    <h2 class="text-lg md:text-xl lg:text-2xl">Distributed is better</h2>
+    <p class="max-w-sm text-sm text-gray-500 md:text-base">
+      Decentralized storage transforms unused global storage space into a massive global network,
+      eliminating the need for costly data centers and providing enterprise-level durability and
+      high performance without data replication.
+    </p>
+  </div>
+
+  <div class="container flex flex-col items-start py-12 md:items-end lg:-translate-y-28">
+    <h2 class="text-lg md:text-right md:text-xl lg:text-2xl">Unmatched security and privacy</h2>
+    <p class="max-w-sm text-sm text-gray-500 md:text-right md:text-base">
+      The Swarm distributed architecture protects your files and metadata so that no one can access
+      them without your explicit permission.
+    </p>
+  </div>
+
+  <div class="bg-white py-20">
+    <ul class="container grid grid-cols-1 gap-4 xs:grid-cols-2 sm:grid-cols-3 sm:gap-8">
+      <li class="flex flex-col">
+        <h3 class="mb-1 text-base">DDOS resistant</h3>
+        <p class="text-sm text-gray-400">
+          A decentralized storage is a resistent one, as it is not a single point of failure
+        </p>
+      </li>
+      <li class="flex flex-col">
+        <h3 class="mb-1 text-base">Efficient</h3>
+        <p class="text-sm text-gray-400">
+          Data is split into small chunks and spread across the network, reducing redundancy at
+          minimum
+        </p>
+      </li>
+      <li class="flex flex-col">
+        <h3 class="mb-1 text-base">Fast</h3>
+        <p class="text-sm text-gray-400">
+          Data is retrieved from the nearest node, reducing latency and increasing speed
+        </p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="container py-12">
+    <h2 class="text-xl md:text-2xl">Some quality read</h2>
+    <div class="w-full overflow-x-auto">
+      <div class="inline-flex gap-4">
+        {
+          articles.map(article => (
+            <div class="w-60">
+              {article.post.thumbnail && (
+                <a
+                  class="relative block aspect-[16/10] w-full overflow-hidden rounded-lg border"
+                  href={routes.blogPostPath(article.post.slug, localeToLang(article.post.locale))}
+                >
+                  <Image
+                    className="absolute inset-0 object-cover"
+                    data={article.post.thumbnail}
+                    alt={`Thumbnail for post ${article.post.title}`}
+                  />
+                </a>
+              )}
+              <a
+                class="text-black hover:text-black"
+                href={routes.blogPostPath(article.post.slug, localeToLang(article.post.locale))}
+              >
+                <h3 class="mt-2 line-clamp-2 text-base/tight">{article.post.title}</h3>
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-gradient-to-b from-gray-200 to-transparent py-20">
+    <div class="container flex flex-col items-center text-center">
+      <h2>Drop-in replacement for AWS S3</h2>
+      <p class="max-w-sm text-sm text-gray-500">
+        The chunks nature of the storage makes it perfect as a drop-in replacement for AWS S3,
+        Cloudflare R2 or any other cloud object storage available.
+      </p>
+
+      <div class="mt-12 md:mt-20">
+        <h3 class="text-base">Interested in a decentralized S3?</h3>
+        <p class="max-w-sm text-sm text-gray-500">
+          Let's stay in touch. Some magic is about to happen!
+        </p>
+        <div class="mt-4">
+          <a
+            href="mailto:info@etherna.io"
+            class="inline-flex h-10 items-center rounded-lg bg-primary-500 px-4 text-sm font-medium text-white hover:text-white"
+          >
+            Contact us
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
