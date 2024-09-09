@@ -16,6 +16,18 @@ export default {
         xl: "1280px",
         "2xl": "1536px",
       },
+      container: {
+        center: true,
+        padding: {
+          DEFAULT: "1rem",
+          lg: "1.25rem",
+        },
+        screens: {
+          sm: "640px",
+          md: "768px",
+          lg: "1024px",
+        },
+      },
       colors: {
         primary: {
           50: "#EBFCFF",
@@ -101,6 +113,12 @@ export default {
           "--tw-translate-x": "-50%",
           "--tw-translate-y": "-50%",
           transform: "var(--tw-transform)",
+        },
+        ".text-gradient": {
+          color: "transparent",
+          background: "linear-gradient(0deg, #151515 0%, #9d9d9d 100%)",
+          "-webkit-background-clip": "text",
+          "-webkit-text-fill-color": "transparent",
         },
       }
       addUtilities(utils)
