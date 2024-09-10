@@ -4,9 +4,8 @@
   "version": "0.0.0",
   "private": true,
   "devDependencies": {
-    "@vercel/style-guide": "5.1.0",
-    "eslint-config-turbo": "1.10.16",
-    "eslint-plugin-vue": "9.18.1",
-    "vue-eslint-parser": "9.3.2"
+    "@next/eslint-plugin-next": "14.2.9",
+    "@vercel/style-guide": "6.0.0",
+    "eslint-config-turbo": "2.1.1"
   }
 }

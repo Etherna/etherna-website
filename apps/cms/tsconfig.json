@@ -1,8 +1,19 @@
 {
-  "extends": "tsconfig/directus.json",
+  "extends": "tsconfig/next.json",
   "compilerOptions": {
-    "jsx": "preserve"
+    "plugins": [
+      {
+        "name": "next",
+      },
+    ],
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "react": ["./node_modules/@types/react"],
+      "@payload-config": ["./payload.config.ts"],
+    },
   },
-  "include": ["**/*.ts", "**/*.vue"],
-  "exclude": ["node_modules"]
+  "include": ["**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "next.config.js"],
+  "exclude": ["node_modules"],
 }

@@ -2,21 +2,6 @@
 *.log
 .cache
 .ddev
-.rollup.cache
-
-# Ignore the extensions folder
-/extensions/*
-/migrations/*
-!/extensions/templates
-
-# Yarn zero-install
-.yarn/*
-!.yarn/cache
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
 
 # Ignore dev files
 node_modules
