@@ -1,4 +1,4 @@
-import { slugifyHook } from "./utils"
+import { slugifyHook } from "@/collections/hooks/slugify"
 
 import type { CheckboxField, TextField } from "payload"
 
@@ -7,12 +7,10 @@ interface Overrides {
   checkboxOverrides?: Partial<CheckboxField>
 }
 
-type Slug = (fieldToUse?: string, overrides?: Overrides) => [TextField, CheckboxField]
-
-export const slugField: Slug = (fieldToUse = "title", overrides = {}) => {
+export const slugField = (fieldToUse = "title", overrides: Overrides = {}) => {
   const { slugOverrides, checkboxOverrides } = overrides
 
-  const checkBoxField: CheckboxField = {
+  const checkBoxField = {
     name: "slugLock",
     type: "checkbox",
     defaultValue: true,
@@ -21,18 +19,19 @@ export const slugField: Slug = (fieldToUse = "title", overrides = {}) => {
       position: "sidebar",
     },
     ...checkboxOverrides,
-  }
+  } satisfies CheckboxField
 
-  // Expect ts error here because of typescript mismatching Partial<TextField> with TextField
-  // @ts-expect-error
-  const slugField: TextField = {
+  const slugField = {
     name: "slug",
     type: "text",
     index: true,
     label: "Slug",
+    localized: true,
     ...(slugOverrides || {}),
+    hasMany: false,
+    minRows: undefined,
+    maxRows: undefined,
     hooks: {
-      // Kept this in for hook or API based updates
       beforeValidate: [slugifyHook(fieldToUse)],
     },
     admin: {
@@ -40,7 +39,7 @@ export const slugField: Slug = (fieldToUse = "title", overrides = {}) => {
       ...(slugOverrides?.admin || {}),
       components: {
         Field: {
-          path: "@/fields/slug/SlugComponent#SlugComponent",
+          path: "@/fields/slug/component#SlugComponent",
           clientProps: {
             fieldToUse,
             checkboxFieldPath: checkBoxField.name,
@@ -48,7 +47,7 @@ export const slugField: Slug = (fieldToUse = "title", overrides = {}) => {
         },
       },
     },
-  }
+  } satisfies TextField
 
   return [slugField, checkBoxField]
 }

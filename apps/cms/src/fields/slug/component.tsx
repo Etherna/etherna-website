@@ -10,7 +10,7 @@ import {
   useFormFields,
 } from "@payloadcms/ui"
 
-import { slugify } from "./utils"
+import { slugify } from "@/lib/string"
 
 import type { TextFieldClientProps } from "payload"
 
@@ -37,7 +37,7 @@ export function SlugComponent({
     path: checkboxFieldPath,
   })
 
-  const fieldToUseValue = useFormFields(([fields, dispatch]) => {
+  const fieldToUseValue = useFormFields(([fields, _dispatch]) => {
     return fields[fieldToUse]?.value as string
   })
 

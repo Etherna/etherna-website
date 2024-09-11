@@ -6,7 +6,6 @@ import {
   lexicalEditor,
 } from "@payloadcms/richtext-lexical"
 
-import { updateBlurhash } from "./hooks/update-blurhash"
 import { anyone } from "@/access/anyone"
 import { authenticated } from "@/access/authenticated"
 
@@ -37,14 +36,6 @@ export const Media: CollectionConfig = {
           return [...rootFeatures, FixedToolbarFeature(), InlineToolbarFeature()]
         },
       }),
-    },
-    {
-      name: "blurhash",
-      type: "text",
-      required: false,
-      hooks: {
-        beforeChange: [updateBlurhash],
-      },
     },
   ],
   upload: {

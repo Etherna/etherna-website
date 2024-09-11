@@ -19,8 +19,12 @@ import { buildConfig } from "payload"
 import sharp from "sharp"
 
 import { Categories } from "@/collections/categories"
+import { triggerDeploy } from "@/collections/hooks/trigger-deploy"
 import { Media } from "@/collections/media"
+import { Pages } from "@/collections/pages"
 import { Users } from "@/collections/users"
+
+import type { Field } from "payload"
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -98,7 +102,7 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       host: process.env.DB_HOST,
-      port: parseInt(process.env.DB_PORT!),
+      port: parseInt(process.env.DB_PORT ?? "5432"),
       user: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
@@ -117,36 +121,36 @@ export default buildConfig({
       },
     ],
   },
-  collections: [Users, Media, Categories],
+  collections: [Pages, Categories, Media, Users],
   globals: [],
   cors: ["*"],
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
   endpoints: [],
   plugins: [
-    // redirectsPlugin({
-    //   collections: ["pages", "posts"],
-    //   overrides: {
-    //     // @ts-expect-error
-    //     fields: ({ defaultFields }) => {
-    //       return defaultFields.map((field) => {
-    //         if ("name" in field && field.name === "from") {
-    //           return {
-    //             ...field,
-    //             admin: {
-    //               description: "You will need to rebuild the website when changing this field.",
-    //             },
-    //           }
-    //         }
-    //         return field
-    //       })
-    //     },
-    //     // hooks: {
-    //     //   afterChange: [revalidateRedirects],
-    //     // },
-    //   },
-    // }),
+    redirectsPlugin({
+      collections: ["pages"],
+      overrides: {
+        fields: ({ defaultFields }) => {
+          return defaultFields.map((field) => {
+            if ("name" in field && field.name === "from") {
+              return {
+                ...field,
+                admin: {
+                  description: "You will need to rebuild the website when changing this field.",
+                },
+              } as Field
+            }
+            return field
+          })
+        },
+        hooks: {
+          afterChange: [triggerDeploy],
+        },
+      },
+    }),
     nestedDocsPlugin({
-      collections: ["categories"],
+      collections: ["pages"],
+      generateURL: (docs) => "/" + docs.map((doc) => doc.slug).join("/"),
     }),
     seoPlugin({
       generateTitle: ({ doc }) => {
@@ -154,8 +158,8 @@ export default buildConfig({
       },
       generateURL: ({ doc }) => {
         return doc?.slug
-          ? `${process.env.NEXT_PUBLIC_SERVER_URL!}/${doc.slug}`
-          : process.env.NEXT_PUBLIC_SERVER_URL!
+          ? `${process.env.NEXT_PUBLIC_SERVER_URL ?? ""}/${doc.slug}`
+          : (process.env.NEXT_PUBLIC_SERVER_URL ?? "")
       },
     }),
     formBuilderPlugin({
@@ -185,7 +189,7 @@ export default buildConfig({
       },
     }),
   ],
-  secret: process.env.PAYLOAD_SECRET!,
+  secret: process.env.PAYLOAD_SECRET ?? "",
   sharp,
   typescript: {
     autoGenerate: true,
