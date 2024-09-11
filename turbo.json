@@ -21,7 +21,6 @@
         "PAYLOAD_SECRET",
         "PAYLOAD_PUBLIC_SERVER_URL",
         "GITHUB_TOKEN",
-        "DATABASE_URI",
         "DB_HOST",
         "DB_PORT",
         "DB_DATABASE",

@@ -18,6 +18,8 @@ import {
 import { buildConfig } from "payload"
 import sharp from "sharp"
 
+import { Categories } from "@/collections/categories"
+import { Media } from "@/collections/media"
 import { Users } from "@/collections/users"
 
 const filename = fileURLToPath(import.meta.url)
@@ -95,14 +97,31 @@ export default buildConfig({
   }),
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URI || "",
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT!),
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
     },
   }),
-  collections: [Users],
+  localization: {
+    defaultLocale: "en",
+    locales: [
+      {
+        code: "en",
+        label: "English",
+      },
+      {
+        code: "it",
+        label: "Italian",
+      },
+    ],
+  },
+  collections: [Users, Media, Categories],
+  globals: [],
   cors: ["*"],
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
   endpoints: [],
-  globals: [],
   plugins: [
     // redirectsPlugin({
     //   collections: ["pages", "posts"],
