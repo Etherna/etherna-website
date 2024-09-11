@@ -69,7 +69,7 @@ export function SlugComponent({
       <div className="flex items-center justify-between">
         <FieldLabel field={field} htmlFor={`field-${path}`} label={label} />
 
-        <Button className="m-0 pb-1.5" buttonStyle="none" onClick={handleLock}>
+        <Button className="!m-0 pb-1.5" buttonStyle="none" onClick={handleLock}>
           {checkboxValue ? "Unlock" : "Lock"}
         </Button>
       </div>

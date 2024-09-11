@@ -59,6 +59,7 @@ export const Pages: CollectionConfig = {
               type: "blocks",
               blocks: [],
               defaultValue: [],
+              localized: true,
               required: false,
             },
           ],

@@ -1,3 +1,7 @@
-.rich-text-lexical .editor-container {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body .rich-text-lexical .editor-container {
   @apply font-sans;
 }
