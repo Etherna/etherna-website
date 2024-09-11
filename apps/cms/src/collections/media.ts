@@ -6,12 +6,11 @@ import {
   lexicalEditor,
 } from "@payloadcms/richtext-lexical"
 
+import { updateBlurhash } from "./hooks/update-blurhash"
 import { anyone } from "@/access/anyone"
 import { authenticated } from "@/access/authenticated"
 
 import type { CollectionConfig } from "payload"
-import { Media } from "payload-types"
-import { updateBlurhash } from "./hooks/update-blurhash"
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -44,9 +43,7 @@ export const Media: CollectionConfig = {
       type: "text",
       required: false,
       hooks: {
-        beforeChange: [
-          updateBlurhash
-        ],
+        beforeChange: [updateBlurhash],
       },
     },
   ],
