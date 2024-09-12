@@ -96,6 +96,7 @@ export const Pages: CollectionConfig = {
         },
       ],
     },
+    ...slugField(),
     {
       name: "publishedAt",
       type: "date",
@@ -103,7 +104,6 @@ export const Pages: CollectionConfig = {
         position: "sidebar",
       },
     },
-    ...slugField(),
   ],
   hooks: {
     afterChange: [triggerDeploy],

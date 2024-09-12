@@ -22,6 +22,7 @@ import { Categories } from "@/collections/categories"
 import { triggerDeploy } from "@/collections/hooks/trigger-deploy"
 import { Media } from "@/collections/media"
 import { Pages } from "@/collections/pages"
+import { Posts } from "@/collections/posts"
 import { Users } from "@/collections/users"
 
 import type { Field } from "payload"
@@ -121,14 +122,14 @@ export default buildConfig({
       },
     ],
   },
-  collections: [Pages, Categories, Media, Users],
+  collections: [Pages, Posts, Categories, Media, Users],
   globals: [],
   cors: ["*"],
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
   endpoints: [],
   plugins: [
     redirectsPlugin({
-      collections: ["pages"],
+      collections: ["pages", "posts"],
       overrides: {
         fields: ({ defaultFields }) => {
           return defaultFields.map((field) => {
