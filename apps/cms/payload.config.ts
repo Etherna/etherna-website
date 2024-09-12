@@ -24,6 +24,8 @@ import { Media } from "@/collections/media"
 import { Pages } from "@/collections/pages"
 import { Posts } from "@/collections/posts"
 import { Users } from "@/collections/users"
+import { fetchWorkflow } from "@/server/endpoints/fetch-workflow"
+import { runDeploy } from "@/server/endpoints/run-deploy"
 
 import type { Field } from "payload"
 
@@ -38,7 +40,7 @@ export default buildConfig({
       // beforeLogin: ["@/components/BeforeLogin"],
       // // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
       // // Feel free to delete this at any time. Simply remove the line below and the import `BeforeDashboard` statement on line 15.
-      // beforeDashboard: ["@/components/BeforeDashboard"],
+      beforeDashboard: ["@/components/before-dashboard#BeforeDashboard"],
     },
     importMap: {
       baseDir: path.resolve(dirname),
@@ -126,7 +128,7 @@ export default buildConfig({
   globals: [],
   cors: ["*"],
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
-  endpoints: [],
+  endpoints: [fetchWorkflow, runDeploy],
   plugins: [
     redirectsPlugin({
       collections: ["pages", "posts"],
