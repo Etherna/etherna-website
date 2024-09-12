@@ -76,11 +76,15 @@ export const Pages: CollectionConfig = {
             }),
             MetaTitleField({
               hasGenerateFn: true,
+              overrides: { localized: true },
             }),
             MetaImageField({
               relationTo: "media",
+              overrides: { localized: true },
             }),
-            MetaDescriptionField({}),
+            MetaDescriptionField({
+              overrides: { localized: true },
+            }),
             PreviewField({
               // if the `generateUrl` function is configured
               hasGenerateFn: true,

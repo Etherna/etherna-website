@@ -19,6 +19,7 @@ export const hero: Field = {
       type: "select",
       defaultValue: "lowImpact",
       label: "Type",
+      localized: true,
       options: [
         {
           label: "None",
@@ -42,6 +43,7 @@ export const hero: Field = {
     {
       name: "description",
       type: "richText",
+      localized: true,
       editor: lexicalEditor({
         features: ({ rootFeatures }) => {
           return [
@@ -57,11 +59,13 @@ export const hero: Field = {
     linkGroup({
       overrides: {
         maxRows: 2,
+        localized: true,
       },
     }),
     {
       name: "media",
       type: "upload",
+      localized: true,
       admin: {
         condition: (_, { type } = {}) => ["highImpact", "mediumImpact"].includes(type),
       },

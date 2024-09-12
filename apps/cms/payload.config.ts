@@ -169,18 +169,21 @@ export default buildConfig({
       formOverrides: {
         fields: ({ defaultFields }) => {
           return defaultFields.map((field) => {
-            if ("name" in field && field.name === "confirmationMessage") {
-              return {
-                ...field,
-                editor: lexicalEditor({
-                  features: ({ rootFeatures }) => {
-                    return [
-                      ...rootFeatures,
-                      FixedToolbarFeature(),
-                      HeadingFeature({ enabledHeadingSizes: ["h2", "h3", "h4"] }),
-                    ]
-                  },
-                }),
+            if ("name" in field) {
+              if (field.name === "confirmationMessage") {
+                return {
+                  ...field,
+                  localized: true,
+                  editor: lexicalEditor({
+                    features: ({ rootFeatures }) => {
+                      return [
+                        ...rootFeatures,
+                        FixedToolbarFeature(),
+                        HeadingFeature({ enabledHeadingSizes: ["h2", "h3", "h4"] }),
+                      ]
+                    },
+                  }),
+                }
               }
             }
             return field
