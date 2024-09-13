@@ -24,7 +24,7 @@ const DefaultColorPalette = [
   "#FFFFFF", // White
 ]
 
-export function ColorComponent({ field }: TextFieldClientProps) {
+export function ColorField({ field }: TextFieldClientProps) {
   const { label } = field
   const { path, readOnly } = useFieldProps()
 

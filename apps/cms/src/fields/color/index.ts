@@ -19,7 +19,10 @@ export const colorField = (overrides: Partial<TextField> = {}) =>
     admin: {
       components: {
         Field: {
-          path: "@/fields/color/component#ColorComponent",
+          path: "@/fields/color/field#ColorField",
+        },
+        Cell: {
+          path: "@/fields/color/cell#ColorCell",
         },
       },
     },

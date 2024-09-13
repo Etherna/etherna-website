@@ -14,16 +14,16 @@ import { slugify } from "@/lib/string"
 
 import type { TextFieldClientProps } from "payload"
 
-interface SlugComponentProps extends TextFieldClientProps {
+interface SlugFieldProps extends TextFieldClientProps {
   fieldToUse: string
   checkboxFieldPath: string
 }
 
-export function SlugComponent({
+export function SlugField({
   field,
   fieldToUse,
   checkboxFieldPath: checkboxFieldPathFromProps,
-}: SlugComponentProps) {
+}: SlugFieldProps) {
   const { label } = field
   const { path, readOnly: readOnlyFromProps } = useFieldProps()
 

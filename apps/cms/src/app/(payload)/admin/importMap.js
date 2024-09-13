@@ -20,11 +20,12 @@ import { MetaTitleComponent as MetaTitleComponent_18 } from '@payloadcms/plugin-
 import { MetaImageComponent as MetaImageComponent_19 } from '@payloadcms/plugin-seo/client'
 import { MetaDescriptionComponent as MetaDescriptionComponent_20 } from '@payloadcms/plugin-seo/client'
 import { PreviewComponent as PreviewComponent_21 } from '@payloadcms/plugin-seo/client'
-import { SlugComponent as SlugComponent_22 } from '@/fields/slug/component'
+import { SlugField as SlugField_22 } from '@/fields/slug/field'
 import { HorizontalRuleFeatureClient as HorizontalRuleFeatureClient_23 } from '@payloadcms/richtext-lexical/client'
 import { BlocksFeatureClient as BlocksFeatureClient_24 } from '@payloadcms/richtext-lexical/client'
-import { ColorComponent as ColorComponent_25 } from '@/fields/color/component'
-import { BeforeDashboard as BeforeDashboard_26 } from '@/components/before-dashboard'
+import { ColorCell as ColorCell_25 } from '@/fields/color/cell'
+import { ColorField as ColorField_26 } from '@/fields/color/field'
+import { BeforeDashboard as BeforeDashboard_27 } from '@/components/before-dashboard'
 
 export const importMap = {
   "@payloadcms/richtext-lexical/client#RichTextCell": RichTextCell_0,
@@ -49,9 +50,10 @@ export const importMap = {
   "@payloadcms/plugin-seo/client#MetaImageComponent": MetaImageComponent_19,
   "@payloadcms/plugin-seo/client#MetaDescriptionComponent": MetaDescriptionComponent_20,
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_21,
-  "@/fields/slug/component#SlugComponent": SlugComponent_22,
+  "@/fields/slug/field#SlugField": SlugField_22,
   "@payloadcms/richtext-lexical/client#HorizontalRuleFeatureClient": HorizontalRuleFeatureClient_23,
   "@payloadcms/richtext-lexical/client#BlocksFeatureClient": BlocksFeatureClient_24,
-  "@/fields/color/component#ColorComponent": ColorComponent_25,
-  "@/components/before-dashboard#BeforeDashboard": BeforeDashboard_26
+  "@/fields/color/cell#ColorCell": ColorCell_25,
+  "@/fields/color/field#ColorField": ColorField_26,
+  "@/components/before-dashboard#BeforeDashboard": BeforeDashboard_27
 }
