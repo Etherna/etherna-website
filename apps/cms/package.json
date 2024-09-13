@@ -30,6 +30,7 @@
     "lexical": "0.17.0",
     "next": "15.0.0-canary.104",
     "payload": "beta",
+    "payload-plugin-scheduler": "workspace:*",
     "react": "rc",
     "react-dom": "rc",
     "sharp": "0.33.5"

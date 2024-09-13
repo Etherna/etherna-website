@@ -16,6 +16,7 @@ import {
   UnderlineFeature,
 } from "@payloadcms/richtext-lexical"
 import { buildConfig } from "payload"
+import { schedulerPlugin } from "payload-plugin-scheduler"
 import sharp from "sharp"
 
 import { Categories } from "@/collections/categories"
@@ -24,6 +25,7 @@ import { Media } from "@/collections/media"
 import { Pages } from "@/collections/pages"
 import { Posts } from "@/collections/posts"
 import { Users } from "@/collections/users"
+import { deployIfNeeded } from "@/schedules/deploy-if-needed"
 import { fetchWorkflow } from "@/server/endpoints/fetch-workflow"
 import { runDeploy } from "@/server/endpoints/run-deploy"
 
@@ -193,6 +195,18 @@ export default buildConfig({
           })
         },
       },
+    }),
+    schedulerPlugin({
+      jobs: [
+        {
+          name: "triggerDeploy",
+          // every minute
+          cron: "*/1 * * * *",
+          handler: deployIfNeeded({
+            collections: ["pages", "posts"],
+          }),
+        },
+      ],
     }),
   ],
   secret: process.env.PAYLOAD_SECRET ?? "",
