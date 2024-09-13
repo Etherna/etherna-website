@@ -32,6 +32,7 @@
     "payload": "beta",
     "payload-plugin-scheduler": "workspace:*",
     "react": "rc",
+    "react-colorful": "5.6.1",
     "react-dom": "rc",
     "sharp": "0.33.5"
   },

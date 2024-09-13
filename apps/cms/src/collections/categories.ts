@@ -1,5 +1,6 @@
 import { anyone } from "../access/anyone"
 import { authenticated } from "../access/authenticated"
+import { colorField } from "@/fields/color"
 import { slugField } from "@/fields/slug"
 
 import type { CollectionConfig } from "payload"
@@ -22,13 +23,7 @@ export const Categories: CollectionConfig = {
       required: true,
       localized: true,
     },
-    {
-      name: "color",
-      type: "text",
-      required: false,
-      minLength: 4,
-      maxLength: 7,
-    },
+    colorField(),
     ...slugField(),
   ],
 }

@@ -6,14 +6,20 @@ import { nestedDocsPlugin } from "@payloadcms/plugin-nested-docs"
 import { redirectsPlugin } from "@payloadcms/plugin-redirects"
 import { seoPlugin } from "@payloadcms/plugin-seo"
 import {
+  BlockquoteFeature,
   BoldFeature,
   EXPERIMENTAL_TableFeature,
   FixedToolbarFeature,
   HeadingFeature,
+  IndentFeature,
+  InlineCodeFeature,
   ItalicFeature,
   lexicalEditor,
   LinkFeature,
+  OrderedListFeature,
+  StrikethroughFeature,
   UnderlineFeature,
+  UnorderedListFeature,
 } from "@payloadcms/richtext-lexical"
 import { buildConfig } from "payload"
 import { schedulerPlugin } from "payload-plugin-scheduler"
@@ -78,12 +84,18 @@ export default buildConfig({
   editor: lexicalEditor({
     features: () => {
       return [
-        UnderlineFeature(),
         BoldFeature(),
         ItalicFeature(),
+        UnderlineFeature(),
+        InlineCodeFeature(),
+        StrikethroughFeature(),
+        BlockquoteFeature(),
+        IndentFeature(),
+        OrderedListFeature(),
+        UnorderedListFeature(),
         EXPERIMENTAL_TableFeature(),
         LinkFeature({
-          // enabledCollections: ["pages", "posts"],
+          enabledCollections: ["pages", "posts"],
           fields: ({ defaultFields }) => {
             const defaultFieldsWithoutUrl = defaultFields.filter((field) => {
               if ("name" in field && field.name === "url") return false

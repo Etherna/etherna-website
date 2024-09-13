@@ -25,7 +25,11 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  globals: {};
+  globals: {
+    header: Header;
+    footer: Footer;
+    company: Company;
+  };
   locale: 'en' | 'it';
   user: User & {
     collection: 'users';
@@ -460,6 +464,116 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header".
+ */
+export interface Header {
+  id: number;
+  navItems?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          icon?: (number | null) | Media;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+          sublinks?:
+            | {
+                link: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  icon?: (number | null) | Media;
+                  reference?: {
+                    relationTo: 'pages';
+                    value: number | Page;
+                  } | null;
+                  url?: string | null;
+                  label: string;
+                };
+                id?: string | null;
+              }[]
+            | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
+export interface Footer {
+  id: number;
+  groups?:
+    | {
+        title: string;
+        groupItems?:
+          | {
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?: {
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null;
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "company".
+ */
+export interface Company {
+  id: number;
+  socials?:
+    | {
+        social:
+          | 'facebook'
+          | 'twitter'
+          | 'instagram'
+          | 'linkedin'
+          | 'github'
+          | 'youtube'
+          | 'pinterest'
+          | 'tiktok'
+          | 'snapchat'
+          | 'telegram'
+          | 'signal'
+          | 'discord'
+          | 'twitch'
+          | 'reddit';
+        link: string;
+        id?: string | null;
+      }[]
+    | null;
+  companyName: string;
+  companyEmail: string;
+  companyFoundedDate: string;
+  companyAddress: {
+    streetAddress: string;
+    state: string;
+    zip: string;
+    country: string;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
