@@ -18,11 +18,19 @@ export const appearanceOptions: Record<LinkAppearances, { label: string; value: 
 type LinkType = (options?: {
   appearances?: LinkAppearances[] | false
   disableLabel?: boolean
+  sublinks?: boolean
+  icon?: boolean
   overrides?: Record<string, unknown>
 }) => Field
 
-export const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = {}) => {
-  const linkResult: Field = {
+export const link: LinkType = ({
+  appearances,
+  disableLabel = false,
+  sublinks = false,
+  icon = false,
+  overrides = {},
+} = {}) => {
+  const linkResult: Field & { type: "group" } = {
     name: "link",
     type: "group",
     admin: {
@@ -37,7 +45,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
             type: "radio",
             admin: {
               layout: "horizontal",
-              width: "50%",
+              width: "33%",
             },
             defaultValue: "reference",
             options: [
@@ -53,18 +61,32 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
           },
           {
             name: "newTab",
+            label: "Open in new tab",
             type: "checkbox",
             admin: {
               style: {
-                alignSelf: "flex-end",
+                alignSelf: "flex-start",
+                marginTop: "2rem",
               },
-              width: "50%",
+              width: "33%",
             },
-            label: "Open in new tab",
           },
         ],
       },
     ],
+  }
+
+  if (icon) {
+    const rowField = linkResult.fields[0] as Field & { type: "row" }
+    rowField.fields.push({
+      name: "icon",
+      label: "Icon",
+      type: "upload",
+      relationTo: "media",
+      admin: {
+        width: "33%",
+      },
+    })
   }
 
   const linkTypes: Field[] = [
@@ -87,6 +109,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
       },
       label: "Custom URL",
       required: true,
+      localized: true,
     },
   ]
 
@@ -111,6 +134,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
           },
           label: "Label",
           required: true,
+          localized: true,
         },
       ],
     })
@@ -133,6 +157,14 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
       },
       defaultValue: "default",
       options: appearanceOptionsToUse,
+    })
+  }
+
+  if (sublinks) {
+    linkResult.fields.push({
+      name: "sublinks",
+      type: "array",
+      fields: [link({ appearances, disableLabel, icon, overrides })],
     })
   }
 

@@ -25,6 +25,9 @@ import { Media } from "@/collections/media"
 import { Pages } from "@/collections/pages"
 import { Posts } from "@/collections/posts"
 import { Users } from "@/collections/users"
+import { Company } from "@/globals/company"
+import { Footer } from "@/globals/footer"
+import { Header } from "@/globals/header"
 import { deployIfNeeded } from "@/schedules/deploy-if-needed"
 import { fetchWorkflow } from "@/server/endpoints/fetch-workflow"
 import { runDeploy } from "@/server/endpoints/run-deploy"
@@ -127,7 +130,7 @@ export default buildConfig({
     ],
   },
   collections: [Pages, Posts, Categories, Media, Users],
-  globals: [],
+  globals: [Header, Footer, Company],
   cors: ["*"],
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
   endpoints: [fetchWorkflow, runDeploy],
