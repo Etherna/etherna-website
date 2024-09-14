@@ -65,7 +65,6 @@ export function ColorField({ field }: TextFieldClientProps) {
                 onClick={() => setValue(color)}
                 style={{
                   backgroundColor: color,
-
                   boxShadow: value === color ? "0 0 0 2px var(--theme-elevation-900)" : "none",
                 }}
               />

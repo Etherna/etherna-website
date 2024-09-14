@@ -6,19 +6,24 @@ import {
   PreviewField,
 } from "@payloadcms/plugin-seo/fields"
 import {
+  BlockquoteFeature,
   BlocksFeature,
+  ChecklistFeature,
   EXPERIMENTAL_TableFeature,
-  FixedToolbarFeature,
-  HeadingFeature,
-  HorizontalRuleFeature,
-  InlineToolbarFeature,
+  IndentFeature,
+  InlineCodeFeature,
   lexicalEditor,
+  OrderedListFeature,
+  ParagraphFeature,
+  UnorderedListFeature,
+  UploadFeature,
 } from "@payloadcms/richtext-lexical"
 
 import { populateAuthors } from "./hooks/populate-authors"
 import { triggerDeploy } from "./hooks/trigger-deploy"
 import { authenticated } from "@/access/authenticated"
 import { authenticatedOrPublished } from "@/access/authenticated-or-published"
+import { CodeBlock } from "@/app/blocks/code"
 import { slugField } from "@/fields/slug"
 import { generatePreviewUrl } from "@/lib/preview"
 
@@ -67,12 +72,16 @@ export const Posts: CollectionConfig = {
                 features: ({ rootFeatures }) => {
                   return [
                     ...rootFeatures,
+                    InlineCodeFeature(),
+                    BlockquoteFeature(),
+                    IndentFeature(),
+                    OrderedListFeature(),
+                    UnorderedListFeature(),
                     EXPERIMENTAL_TableFeature(),
-                    HeadingFeature({ enabledHeadingSizes: ["h2", "h3", "h4", "h5", "h6"] }),
-                    BlocksFeature({ blocks: [] }),
-                    FixedToolbarFeature(),
-                    InlineToolbarFeature(),
-                    HorizontalRuleFeature(),
+                    UploadFeature(),
+                    ChecklistFeature(),
+                    ParagraphFeature(),
+                    BlocksFeature({ blocks: [CodeBlock] }),
                   ]
                 },
               }),

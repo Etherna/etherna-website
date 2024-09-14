@@ -6,20 +6,15 @@ import { nestedDocsPlugin } from "@payloadcms/plugin-nested-docs"
 import { redirectsPlugin } from "@payloadcms/plugin-redirects"
 import { seoPlugin } from "@payloadcms/plugin-seo"
 import {
-  BlockquoteFeature,
   BoldFeature,
-  EXPERIMENTAL_TableFeature,
-  FixedToolbarFeature,
   HeadingFeature,
-  IndentFeature,
-  InlineCodeFeature,
+  HorizontalRuleFeature,
+  InlineToolbarFeature,
   ItalicFeature,
   lexicalEditor,
   LinkFeature,
-  OrderedListFeature,
   StrikethroughFeature,
   UnderlineFeature,
-  UnorderedListFeature,
 } from "@payloadcms/richtext-lexical"
 import { buildConfig } from "payload"
 import { schedulerPlugin } from "payload-plugin-scheduler"
@@ -84,16 +79,13 @@ export default buildConfig({
   editor: lexicalEditor({
     features: () => {
       return [
+        HeadingFeature({ enabledHeadingSizes: ["h2", "h3", "h4", "h5", "h6"] }),
         BoldFeature(),
         ItalicFeature(),
         UnderlineFeature(),
-        InlineCodeFeature(),
         StrikethroughFeature(),
-        BlockquoteFeature(),
-        IndentFeature(),
-        OrderedListFeature(),
-        UnorderedListFeature(),
-        EXPERIMENTAL_TableFeature(),
+        HorizontalRuleFeature(),
+        InlineToolbarFeature(),
         LinkFeature({
           enabledCollections: ["pages", "posts"],
           fields: ({ defaultFields }) => {
@@ -198,7 +190,6 @@ export default buildConfig({
                     features: ({ rootFeatures }) => {
                       return [
                         ...rootFeatures,
-                        FixedToolbarFeature(),
                         HeadingFeature({ enabledHeadingSizes: ["h2", "h3", "h4"] }),
                       ]
                     },
