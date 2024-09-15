@@ -216,6 +216,8 @@ export interface Category {
 export interface User {
   id: number;
   name?: string | null;
+  role?: string | null;
+  policies: ('postsEditor' | 'postsContributor' | 'webDesigner' | 'administrator')[];
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -574,6 +576,17 @@ export interface Company {
   };
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CodeBlock".
+ */
+export interface CodeBlock {
+  language?: ('ts' | 'tsx' | 'js' | 'css' | 'bash' | 'csharp') | null;
+  code: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'code';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

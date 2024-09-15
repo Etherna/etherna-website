@@ -2,6 +2,10 @@ import type { CollectionAfterReadHook } from "payload"
 import type { User } from "payload-types"
 
 export const populateAuthors: CollectionAfterReadHook = async ({ doc, req, req: { payload } }) => {
+  if (doc && req.user && !doc.authors) {
+    doc.authors = [req.user?.id]
+  }
+
   if (doc?.authors) {
     const authorDocs: User[] = []
 

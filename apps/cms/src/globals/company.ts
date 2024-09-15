@@ -1,11 +1,18 @@
 import { triggerDeploy } from "./hooks/trigger-deploy"
+import { someAccess } from "@/lib/access"
+import { admin } from "@/policies/admin"
+import { authenticated } from "@/policies/authenticated"
+import { webDesigner } from "@/policies/web-designer"
 
 import type { GlobalConfig } from "payload"
 
 export const Company: GlobalConfig = {
   slug: "company",
   access: {
-    read: () => true,
+    read: authenticated,
+    readDrafts: someAccess(admin, webDesigner),
+    readVersions: someAccess(admin, webDesigner),
+    update: someAccess(admin, webDesigner),
   },
   fields: [
     {

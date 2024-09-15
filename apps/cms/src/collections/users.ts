@@ -1,4 +1,9 @@
-import { authenticated } from "@/access/authenticated"
+import { someAccess } from "@/lib/access"
+import { ACCESS_POLICIES } from "@/lib/const"
+import { admin, field_admin } from "@/policies/admin"
+import { anyone } from "@/policies/anyone"
+import { authenticated } from "@/policies/authenticated"
+import { selfUser } from "@/policies/self-user"
 
 import type { CollectionConfig } from "payload"
 
@@ -6,10 +11,12 @@ export const Users: CollectionConfig = {
   slug: "users",
   access: {
     admin: authenticated,
-    create: authenticated,
-    delete: authenticated,
-    read: authenticated,
-    update: authenticated,
+    create: admin,
+    delete: admin,
+    read: anyone,
+    readVersions: someAccess(admin, selfUser),
+    update: someAccess(admin, selfUser),
+    unlock: admin,
   },
   admin: {
     defaultColumns: ["name", "email"],
@@ -20,6 +27,26 @@ export const Users: CollectionConfig = {
     {
       name: "name",
       type: "text",
+    },
+    {
+      name: "role",
+      type: "text",
+    },
+    {
+      name: "policies",
+      type: "select",
+      hasMany: true,
+      access: {
+        create: field_admin,
+        update: field_admin,
+        read: field_admin,
+      },
+      defaultValue: ["postsContributor"],
+      required: true,
+      options: Object.entries(ACCESS_POLICIES).map(([value, label]) => ({
+        value,
+        label,
+      })),
     },
   ],
   timestamps: true,

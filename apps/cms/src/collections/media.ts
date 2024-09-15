@@ -6,8 +6,8 @@ import {
   lexicalEditor,
 } from "@payloadcms/richtext-lexical"
 
-import { anyone } from "@/access/anyone"
-import { authenticated } from "@/access/authenticated"
+import { anyone } from "@/policies/anyone"
+import { authenticated } from "@/policies/authenticated"
 
 import type { CollectionConfig } from "payload"
 
@@ -17,10 +17,13 @@ const dirname = path.dirname(filename)
 export const Media: CollectionConfig = {
   slug: "media",
   access: {
+    admin: authenticated,
     create: authenticated,
     delete: authenticated,
     read: anyone,
+    readVersions: authenticated,
     update: authenticated,
+    unlock: authenticated,
   },
   fields: [
     {

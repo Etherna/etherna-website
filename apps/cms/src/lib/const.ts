@@ -8,3 +8,10 @@ export const BASE_LOCALE_PATH = {
 export const RESERVED_PAGE_SLUGS = ["_preview", "_image", "_file", "blog"]
 
 export const DEPLOY_WORKFLOW_ID = "deploy.yml"
+
+export const ACCESS_POLICIES = {
+  postsEditor: "Posts Editor",
+  postsContributor: "Posts Contributor",
+  webDesigner: "Web Designer",
+  administrator: "Administrator",
+} as const

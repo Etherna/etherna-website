@@ -17,8 +17,9 @@ import {
   UnderlineFeature,
 } from "@payloadcms/richtext-lexical"
 import { buildConfig } from "payload"
-import { schedulerPlugin } from "payload-plugin-scheduler"
 import sharp from "sharp"
+
+import { schedulerPlugin } from "../../packages/payload-plugin-scheduler/src/index" // PATCH for ERR_MODULE_NOT_FOUND
 
 import { Categories } from "@/collections/categories"
 import { triggerDeploy } from "@/collections/hooks/trigger-deploy"

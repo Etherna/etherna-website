@@ -21,21 +21,29 @@ import {
 
 import { populateAuthors } from "./hooks/populate-authors"
 import { triggerDeploy } from "./hooks/trigger-deploy"
-import { authenticated } from "@/access/authenticated"
-import { authenticatedOrPublished } from "@/access/authenticated-or-published"
 import { CodeBlock } from "@/app/blocks/code"
 import { slugField } from "@/fields/slug"
+import { someAccess } from "@/lib/access"
 import { generatePreviewUrl } from "@/lib/preview"
+import { admin } from "@/policies/admin"
+import { authenticated } from "@/policies/authenticated"
+import { postAuthor } from "@/policies/post-author"
+import { postContributor } from "@/policies/post-contributor"
+import { postEditor } from "@/policies/post-editor"
+import { published } from "@/policies/published"
 
 import type { CollectionConfig } from "payload"
 
 export const Posts: CollectionConfig = {
   slug: "posts",
   access: {
-    create: authenticated,
-    delete: authenticated,
-    read: authenticatedOrPublished,
-    update: authenticated,
+    admin: authenticated,
+    create: someAccess(admin, postEditor, postContributor),
+    delete: someAccess(admin, postEditor),
+    read: someAccess(authenticated, published),
+    readVersions: someAccess(admin, postEditor),
+    update: someAccess(admin, postEditor, postAuthor),
+    unlock: someAccess(admin, postEditor),
   },
   admin: {
     defaultColumns: ["title", "slug", "updatedAt"],

@@ -8,22 +8,28 @@ import {
 
 import { populatePublishedAt } from "./hooks/populate-published-at"
 import { triggerDeploy } from "./hooks/trigger-deploy"
-import { authenticated } from "@/access/authenticated"
-import { authenticatedOrPublished } from "@/access/authenticated-or-published"
 import { hero } from "@/fields/hero"
 import { slugField } from "@/fields/slug"
+import { someAccess } from "@/lib/access"
 import { getParentsTree } from "@/lib/breadcrumb"
 import { generatePreviewUrl } from "@/lib/preview"
+import { admin } from "@/policies/admin"
+import { authenticated } from "@/policies/authenticated"
+import { published } from "@/policies/published"
+import { webDesigner } from "@/policies/web-designer"
 
 import type { CollectionConfig } from "payload"
 
 export const Pages: CollectionConfig = {
   slug: "pages",
   access: {
-    create: authenticated,
-    delete: authenticated,
-    read: authenticatedOrPublished,
-    update: authenticated,
+    admin: authenticated,
+    create: someAccess(admin, webDesigner),
+    delete: someAccess(admin, webDesigner),
+    read: someAccess(authenticated, published),
+    readVersions: someAccess(admin, webDesigner),
+    update: someAccess(admin, webDesigner),
+    unlock: someAccess(admin, webDesigner),
   },
   admin: {
     defaultColumns: ["title", "slug", "updatedAt"],
