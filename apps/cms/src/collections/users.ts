@@ -29,6 +29,15 @@ export const Users: CollectionConfig = {
       type: "text",
     },
     {
+      name: "avatar",
+      label: "Avatar",
+      type: "upload",
+      relationTo: "media",
+      admin: {
+        position: "sidebar",
+      },
+    },
+    {
       name: "role",
       type: "text",
     },
@@ -36,6 +45,9 @@ export const Users: CollectionConfig = {
       name: "policies",
       type: "select",
       hasMany: true,
+      admin: {
+        position: "sidebar",
+      },
       access: {
         create: field_admin,
         update: field_admin,

@@ -7,14 +7,14 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     remotePatterns: [
-      ...[NEXT_PUBLIC_SERVER_URL /* 'https://example.com' */].map((item) => {
-        const url = new URL(item)
-
-        return {
-          hostname: url.hostname,
-          protocol: url.protocol.replace(":", ""),
-        }
-      }),
+      {
+        protocol: new URL(NEXT_PUBLIC_SERVER_URL).protocol.replace(":", ""),
+        hostname: new URL(NEXT_PUBLIC_SERVER_URL).hostname,
+      },
+      {
+        protocol: "https",
+        hostname: "www.gravatar.com",
+      },
     ],
   },
 }

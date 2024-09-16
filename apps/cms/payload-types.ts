@@ -216,6 +216,7 @@ export interface Category {
 export interface User {
   id: number;
   name?: string | null;
+  avatar?: (number | null) | Media;
   role?: string | null;
   policies: ('postsEditor' | 'postsContributor' | 'webDesigner' | 'administrator')[];
   updatedAt: string;

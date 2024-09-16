@@ -28,7 +28,8 @@ import { BlockquoteFeatureClient as BlockquoteFeatureClient_26 } from '@payloadc
 import { InlineCodeFeatureClient as InlineCodeFeatureClient_27 } from '@payloadcms/richtext-lexical/client'
 import { ColorCell as ColorCell_28 } from '@/fields/color/cell'
 import { ColorField as ColorField_29 } from '@/fields/color/field'
-import { BeforeDashboard as BeforeDashboard_30 } from '@/components/before-dashboard'
+import { UserAvatar as UserAvatar_30 } from '@/components/avatar'
+import { BeforeDashboard as BeforeDashboard_31 } from '@/components/before-dashboard'
 
 export const importMap = {
   "@payloadcms/richtext-lexical/client#RichTextCell": RichTextCell_0,
@@ -61,5 +62,6 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#InlineCodeFeatureClient": InlineCodeFeatureClient_27,
   "@/fields/color/cell#ColorCell": ColorCell_28,
   "@/fields/color/field#ColorField": ColorField_29,
-  "@/components/before-dashboard#BeforeDashboard": BeforeDashboard_30
+  "@/components/avatar#UserAvatar": UserAvatar_30,
+  "@/components/before-dashboard#BeforeDashboard": BeforeDashboard_31
 }
