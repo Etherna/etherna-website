@@ -1,10 +1,10 @@
 import {
   FixedToolbarFeature,
-  HeadingFeature,
   InlineToolbarFeature,
   lexicalEditor,
 } from "@payloadcms/richtext-lexical"
 
+import { link } from "./link"
 import { linkGroup } from "@/fields/link-group"
 
 import type { Field } from "payload"
@@ -41,27 +41,50 @@ export const hero: Field = {
       required: true,
     },
     {
+      name: "title",
+      type: "text",
+      localized: true,
+    },
+    {
       name: "description",
       type: "richText",
       localized: true,
       editor: lexicalEditor({
         features: ({ rootFeatures }) => {
-          return [
-            ...rootFeatures,
-            HeadingFeature({ enabledHeadingSizes: ["h2", "h3", "h4"] }),
-            FixedToolbarFeature(),
-            InlineToolbarFeature(),
-          ]
+          return [...rootFeatures, FixedToolbarFeature(), InlineToolbarFeature()]
         },
       }),
-      label: false,
     },
-    linkGroup({
-      overrides: {
-        maxRows: 2,
-        localized: true,
-      },
-    }),
+    {
+      type: "row",
+      fields: [
+        linkGroup({
+          linkOptions: {
+            appearances: ["badge"],
+          },
+          overrides: {
+            name: "badges",
+            maxRows: 2,
+            localized: true,
+            admin: {
+              width: "50%",
+            },
+          },
+        }),
+        linkGroup({
+          linkOptions: {
+            appearances: ["default", "outline"],
+          },
+          overrides: {
+            maxRows: 2,
+            localized: true,
+            admin: {
+              width: "50%",
+            },
+          },
+        }),
+      ],
+    },
     {
       name: "media",
       type: "upload",
@@ -70,7 +93,13 @@ export const hero: Field = {
         condition: (_, { type } = {}) => ["highImpact", "mediumImpact"].includes(type),
       },
       relationTo: "media",
-      required: true,
+      required: false,
+    },
+    {
+      name: "backgroundImage",
+      type: "upload",
+      relationTo: "media",
+      required: false,
     },
   ],
 }

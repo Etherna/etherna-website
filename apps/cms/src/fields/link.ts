@@ -1,8 +1,8 @@
 import { deepMerge } from "@/lib/objects"
 
-import type { Field } from "payload"
+import type { Field, GroupField } from "payload"
 
-export type LinkAppearances = "default" | "outline"
+export type LinkAppearances = "default" | "outline" | "badge"
 
 export const appearanceOptions: Record<LinkAppearances, { label: string; value: string }> = {
   default: {
@@ -13,15 +13,21 @@ export const appearanceOptions: Record<LinkAppearances, { label: string; value: 
     label: "Outline",
     value: "outline",
   },
+  badge: {
+    label: "Badge",
+    value: "badge",
+  },
 }
 
-type LinkType = (options?: {
+export interface LinkOptions {
   appearances?: LinkAppearances[] | false
   disableLabel?: boolean
   sublinks?: boolean
   icon?: boolean
-  overrides?: Record<string, unknown>
-}) => Field
+  overrides?: Partial<GroupField>
+}
+
+type LinkType = (options?: LinkOptions) => Field
 
 export const link: LinkType = ({
   appearances,

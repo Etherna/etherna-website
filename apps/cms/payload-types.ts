@@ -62,6 +62,7 @@ export interface Page {
   title: string;
   hero: {
     type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
+    title?: string | null;
     description?: {
       root: {
         type: string;
@@ -77,6 +78,22 @@ export interface Page {
       };
       [k: string]: unknown;
     } | null;
+    badges?:
+      | {
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?: {
+              relationTo: 'pages';
+              value: number | Page;
+            } | null;
+            url?: string | null;
+            label: string;
+            appearance?: 'badge' | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
     links?:
       | {
           link: {
@@ -94,6 +111,7 @@ export interface Page {
         }[]
       | null;
     media?: (number | null) | Media;
+    backgroundImage?: (number | null) | Media;
   };
   layout?: unknown[] | null;
   meta?: {

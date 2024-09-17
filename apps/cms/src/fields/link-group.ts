@@ -1,21 +1,21 @@
 import { link } from "./link"
 import { deepMerge } from "@/lib/objects"
 
-import type { LinkAppearances } from "./link"
+import type { LinkOptions } from "./link"
 import type { ArrayField, Field } from "payload"
 
 type LinkGroupType = (options?: {
-  appearances?: LinkAppearances[] | false
   overrides?: Partial<ArrayField>
+  linkOptions?: LinkOptions
 }) => Field
 
-export const linkGroup: LinkGroupType = ({ appearances, overrides = {} } = {}) => {
+export const linkGroup: LinkGroupType = ({ overrides = {}, linkOptions } = {}) => {
   const generatedLinkGroup = {
     name: "links",
     type: "array",
     fields: [
       link({
-        appearances,
+        ...linkOptions,
       }),
     ],
   } satisfies Field
