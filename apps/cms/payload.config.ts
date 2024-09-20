@@ -16,6 +16,7 @@ import {
   StrikethroughFeature,
   UnderlineFeature,
 } from "@payloadcms/richtext-lexical"
+import { migrations } from "migrations"
 import { buildConfig } from "payload"
 import sharp from "sharp"
 
@@ -122,6 +123,10 @@ export default buildConfig({
     },
   }),
   db: postgresAdapter({
+    push: process.env.NODE_ENV === "development",
+    migrationDir: "migrations",
+    prodMigrations: migrations,
+    idType: "uuid",
     pool: {
       host: process.env.DB_HOST,
       port: parseInt(process.env.DB_PORT ?? "5432"),

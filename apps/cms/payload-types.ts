@@ -23,7 +23,7 @@ export interface Config {
     'payload-migrations': PayloadMigration;
   };
   db: {
-    defaultIDType: number;
+    defaultIDType: string;
   };
   globals: {
     header: Header;
@@ -58,7 +58,7 @@ export interface UserAuthOperations {
  * via the `definition` "pages".
  */
 export interface Page {
-  id: number;
+  id: string;
   title: string;
   hero: {
     type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
@@ -86,11 +86,11 @@ export interface Page {
             reference?:
               | ({
                   relationTo: 'pages';
-                  value: number | Page;
+                  value: string | Page;
                 } | null)
               | ({
                   relationTo: 'posts';
-                  value: number | Post;
+                  value: string | Post;
                 } | null);
             url?: string | null;
             label: string;
@@ -107,11 +107,11 @@ export interface Page {
             reference?:
               | ({
                   relationTo: 'pages';
-                  value: number | Page;
+                  value: string | Page;
                 } | null)
               | ({
                   relationTo: 'posts';
-                  value: number | Post;
+                  value: string | Post;
                 } | null);
             url?: string | null;
             label: string;
@@ -120,8 +120,8 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
-    media?: (number | null) | Media;
-    backgroundImage?: (number | null) | Media;
+    media?: (string | null) | Media;
+    backgroundImage?: (string | null) | Media;
   };
   layout?:
     | (
@@ -142,16 +142,16 @@ export interface Page {
     | null;
   meta?: {
     title?: string | null;
-    image?: (number | null) | Media;
+    image?: (string | null) | Media;
     description?: string | null;
   };
   slug?: string | null;
   slugLock?: boolean | null;
   publishedAt?: string | null;
-  parent?: (number | null) | Page;
+  parent?: (string | null) | Page;
   breadcrumbs?:
     | {
-        doc?: (number | null) | Page;
+        doc?: (string | null) | Page;
         url?: string | null;
         label?: string | null;
         id?: string | null;
@@ -166,7 +166,7 @@ export interface Page {
  * via the `definition` "posts".
  */
 export interface Post {
-  id: number;
+  id: string;
   title: string;
   content: {
     root: {
@@ -183,19 +183,19 @@ export interface Post {
     };
     [k: string]: unknown;
   };
-  relatedPosts?: (number | Post)[] | null;
-  categories?: (number | Category)[] | null;
+  relatedPosts?: (string | Post)[] | null;
+  categories?: (string | Category)[] | null;
   meta?: {
     title?: string | null;
-    image?: (number | null) | Media;
+    image?: (string | null) | Media;
     description?: string | null;
   };
   slug?: string | null;
   slugLock?: boolean | null;
   publishedAt?: string | null;
   editedAt?: string | null;
-  thumbnail?: (number | null) | Media;
-  authors?: (number | User)[] | null;
+  thumbnail?: (string | null) | Media;
+  authors?: (string | User)[] | null;
   populatedAuthors?:
     | {
         id?: string | null;
@@ -211,7 +211,7 @@ export interface Post {
  * via the `definition` "categories".
  */
 export interface Category {
-  id: number;
+  id: string;
   title: string;
   color?: string | null;
   slug?: string | null;
@@ -224,7 +224,7 @@ export interface Category {
  * via the `definition` "media".
  */
 export interface Media {
-  id: number;
+  id: string;
   alt?: string | null;
   caption?: {
     root: {
@@ -258,9 +258,9 @@ export interface Media {
  * via the `definition` "users".
  */
 export interface User {
-  id: number;
+  id: string;
   name?: string | null;
-  avatar?: (number | null) | Media;
+  avatar?: (string | null) | Media;
   role?: string | null;
   policies: ('postsEditor' | 'postsContributor' | 'webDesigner' | 'administrator')[];
   updatedAt: string;
@@ -300,7 +300,7 @@ export interface TextBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
-    backgroundImage?: (number | null) | Media;
+    backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
       | {
@@ -340,7 +340,7 @@ export interface CtaBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
-    backgroundImage?: (number | null) | Media;
+    backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
       | {
@@ -358,11 +358,11 @@ export interface CtaBlock {
           reference?:
             | ({
                 relationTo: 'pages';
-                value: number | Page;
+                value: string | Page;
               } | null)
             | ({
                 relationTo: 'posts';
-                value: number | Post;
+                value: string | Post;
               } | null);
           url?: string | null;
           label: string;
@@ -371,7 +371,7 @@ export interface CtaBlock {
         id?: string | null;
       }[]
     | null;
-  media?: (number | null) | Media;
+  media?: (string | null) | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'cta';
@@ -402,12 +402,12 @@ export interface MilestonesBlock {
       };
       [k: string]: unknown;
     } | null;
-    media?: (number | null) | Media;
+    media?: (string | null) | Media;
     id?: string | null;
   }[];
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
-    backgroundImage?: (number | null) | Media;
+    backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
       | {
@@ -447,7 +447,7 @@ export interface ClientsBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
-    backgroundImage?: (number | null) | Media;
+    backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
       | {
@@ -458,18 +458,18 @@ export interface ClientsBlock {
       | null;
   };
   clients: {
-    logo: number | Media;
+    logo: string | Media;
     link?: {
       type?: ('reference' | 'custom') | null;
       newTab?: boolean | null;
       reference?:
         | ({
             relationTo: 'pages';
-            value: number | Page;
+            value: string | Page;
           } | null)
         | ({
             relationTo: 'posts';
-            value: number | Post;
+            value: string | Post;
           } | null);
       url?: string | null;
       label?: string | null;
@@ -507,7 +507,7 @@ export interface FeaturesBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
-    backgroundImage?: (number | null) | Media;
+    backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
       | {
@@ -534,7 +534,7 @@ export interface FeaturesBlock {
       };
       [k: string]: unknown;
     } | null;
-    icon?: (number | null) | Media;
+    icon?: (string | null) | Media;
     id?: string | null;
   }[];
   id?: string | null;
@@ -567,7 +567,7 @@ export interface AwardsBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
-    backgroundImage?: (number | null) | Media;
+    backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
       | {
@@ -578,18 +578,18 @@ export interface AwardsBlock {
       | null;
   };
   awards: {
-    logo: number | Media;
+    logo: string | Media;
     link?: {
       type?: ('reference' | 'custom') | null;
       newTab?: boolean | null;
       reference?:
         | ({
             relationTo: 'pages';
-            value: number | Page;
+            value: string | Page;
           } | null)
         | ({
             relationTo: 'posts';
-            value: number | Post;
+            value: string | Post;
           } | null);
       url?: string | null;
       label?: string | null;
@@ -627,7 +627,7 @@ export interface StatsBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
-    backgroundImage?: (number | null) | Media;
+    backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
       | {
@@ -674,7 +674,7 @@ export interface BentoBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
-    backgroundImage?: (number | null) | Media;
+    backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
       | {
@@ -704,7 +704,7 @@ export interface BentoBlock {
         } | null;
         background: {
           type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
-          backgroundImage?: (number | null) | Media;
+          backgroundImage?: (string | null) | Media;
           color?: string | null;
           colorStops?:
             | {
@@ -722,11 +722,11 @@ export interface BentoBlock {
           reference?:
             | ({
                 relationTo: 'pages';
-                value: number | Page;
+                value: string | Page;
               } | null)
             | ({
                 relationTo: 'posts';
-                value: number | Post;
+                value: string | Post;
               } | null);
           url?: string | null;
           label?: string | null;
@@ -765,7 +765,7 @@ export interface TestimonialsBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
-    backgroundImage?: (number | null) | Media;
+    backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
       | {
@@ -793,18 +793,18 @@ export interface TestimonialsBlock {
       };
       [k: string]: unknown;
     };
-    avatar?: (number | null) | Media;
+    avatar?: (string | null) | Media;
     link?: {
       type?: ('reference' | 'custom') | null;
       newTab?: boolean | null;
       reference?:
         | ({
             relationTo: 'pages';
-            value: number | Page;
+            value: string | Page;
           } | null)
         | ({
             relationTo: 'posts';
-            value: number | Post;
+            value: string | Post;
           } | null);
       url?: string | null;
       label?: string | null;
@@ -842,7 +842,7 @@ export interface FAQBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
-    backgroundImage?: (number | null) | Media;
+    backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
       | {
@@ -901,7 +901,7 @@ export interface RelatedPostsBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
-    backgroundImage?: (number | null) | Media;
+    backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
       | {
@@ -911,7 +911,7 @@ export interface RelatedPostsBlock {
         }[]
       | null;
   };
-  relatedPosts?: (number | Post)[] | null;
+  relatedPosts?: (string | Post)[] | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'relatedPosts';
@@ -942,7 +942,7 @@ export interface FormBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
-    backgroundImage?: (number | null) | Media;
+    backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
       | {
@@ -952,7 +952,7 @@ export interface FormBlock {
         }[]
       | null;
   };
-  form: number | Form;
+  form: string | Form;
   id?: string | null;
   blockName?: string | null;
   blockType: 'form';
@@ -962,7 +962,7 @@ export interface FormBlock {
  * via the `definition` "forms".
  */
 export interface Form {
-  id: number;
+  id: string;
   title: string;
   fields?:
     | (
@@ -1147,7 +1147,7 @@ export interface BrandBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
-    backgroundImage?: (number | null) | Media;
+    backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
       | {
@@ -1159,8 +1159,8 @@ export interface BrandBlock {
   };
   logos?:
     | {
-        svgLogo: number | Media;
-        pngLogo: number | Media;
+        svgLogo: string | Media;
+        pngLogo: string | Media;
         variant?: ('light' | 'dark') | null;
         id?: string | null;
       }[]
@@ -1181,18 +1181,18 @@ export interface BrandBlock {
  * via the `definition` "redirects".
  */
 export interface Redirect {
-  id: number;
+  id: string;
   from: string;
   to?: {
     type?: ('reference' | 'custom') | null;
     reference?:
       | ({
           relationTo: 'pages';
-          value: number | Page;
+          value: string | Page;
         } | null)
       | ({
           relationTo: 'posts';
-          value: number | Post;
+          value: string | Post;
         } | null);
     url?: string | null;
   };
@@ -1204,8 +1204,8 @@ export interface Redirect {
  * via the `definition` "form-submissions".
  */
 export interface FormSubmission {
-  id: number;
-  form: number | Form;
+  id: string;
+  form: string | Form;
   submissionData?:
     | {
         field: string;
@@ -1221,10 +1221,10 @@ export interface FormSubmission {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: number;
+  id: string;
   user: {
     relationTo: 'users';
-    value: number | User;
+    value: string | User;
   };
   key?: string | null;
   value?:
@@ -1244,7 +1244,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: number;
+  id: string;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
@@ -1255,21 +1255,21 @@ export interface PayloadMigration {
  * via the `definition` "header".
  */
 export interface Header {
-  id: number;
+  id: string;
   navItems?:
     | {
         link: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
-          icon?: (number | null) | Media;
+          icon?: (string | null) | Media;
           reference?:
             | ({
                 relationTo: 'pages';
-                value: number | Page;
+                value: string | Page;
               } | null)
             | ({
                 relationTo: 'posts';
-                value: number | Post;
+                value: string | Post;
               } | null);
           url?: string | null;
           label: string;
@@ -1278,15 +1278,15 @@ export interface Header {
                 link: {
                   type?: ('reference' | 'custom') | null;
                   newTab?: boolean | null;
-                  icon?: (number | null) | Media;
+                  icon?: (string | null) | Media;
                   reference?:
                     | ({
                         relationTo: 'pages';
-                        value: number | Page;
+                        value: string | Page;
                       } | null)
                     | ({
                         relationTo: 'posts';
-                        value: number | Post;
+                        value: string | Post;
                       } | null);
                   url?: string | null;
                   label: string;
@@ -1306,7 +1306,7 @@ export interface Header {
  * via the `definition` "footer".
  */
 export interface Footer {
-  id: number;
+  id: string;
   groups?:
     | {
         title: string;
@@ -1318,11 +1318,11 @@ export interface Footer {
                 reference?:
                   | ({
                       relationTo: 'pages';
-                      value: number | Page;
+                      value: string | Page;
                     } | null)
                   | ({
                       relationTo: 'posts';
-                      value: number | Post;
+                      value: string | Post;
                     } | null);
                 url?: string | null;
                 label: string;
@@ -1341,7 +1341,7 @@ export interface Footer {
  * via the `definition` "company".
  */
 export interface Company {
-  id: number;
+  id: string;
   socials?:
     | {
         social:
