@@ -24,6 +24,7 @@ export interface LinkOptions {
   disableLabel?: boolean
   sublinks?: boolean
   icon?: boolean
+  required?: boolean
   overrides?: Partial<GroupField>
 }
 
@@ -34,6 +35,7 @@ export const link: LinkType = ({
   disableLabel = false,
   sublinks = false,
   icon = false,
+  required = true,
   overrides = {},
 } = {}) => {
   const linkResult: Field & { type: "group" } = {
@@ -104,8 +106,8 @@ export const link: LinkType = ({
       },
       label: "Document to link to",
       maxDepth: 1,
-      relationTo: ["pages"],
-      required: true,
+      relationTo: ["pages", "posts"],
+      required,
     },
     {
       name: "url",
@@ -114,7 +116,7 @@ export const link: LinkType = ({
         condition: (_, siblingData) => siblingData?.type === "custom",
       },
       label: "Custom URL",
-      required: true,
+      required,
       localized: true,
     },
   ]
@@ -139,7 +141,7 @@ export const link: LinkType = ({
             width: "50%",
           },
           label: "Label",
-          required: true,
+          required,
           localized: true,
         },
       ],
@@ -161,7 +163,6 @@ export const link: LinkType = ({
       admin: {
         description: "Choose how the link should be rendered.",
       },
-      defaultValue: "default",
       options: appearanceOptionsToUse,
     })
   }

@@ -27,15 +27,14 @@ const DefaultColorPalette = [
 export function ColorField({ field }: TextFieldClientProps) {
   const { label } = field
   const { path, readOnly } = useFieldProps()
-
   const { value, setValue } = useField<string>({ path })
 
   return (
-    <div className="field-type relative">
+    <div className="field-type relative" style={field.admin?.style}>
       <TextInput
         className="[&_input]:!pl-14"
         label={label ?? "Color"}
-        value={value}
+        value={value || undefined}
         onChange={setValue}
         path={path}
         readOnly={readOnly}

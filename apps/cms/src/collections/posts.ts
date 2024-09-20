@@ -21,7 +21,7 @@ import {
 
 import { populateAuthors } from "./hooks/populate-authors"
 import { triggerDeploy } from "./hooks/trigger-deploy"
-import { CodeBlock } from "@/blocks/code"
+import { CodeBlock } from "@/blocks/code-block"
 import { slugField } from "@/fields/slug"
 import { someAccess } from "@/lib/access"
 import { generatePreviewUrl } from "@/lib/preview"

@@ -8,6 +8,19 @@ import {
 
 import { populatePublishedAt } from "./hooks/populate-published-at"
 import { triggerDeploy } from "./hooks/trigger-deploy"
+import { AwardsBlock } from "@/blocks/awards-block"
+import { BentoBlock } from "@/blocks/bento-block"
+import { BrandBlock } from "@/blocks/brand-block"
+import { ClientsBlock } from "@/blocks/clients-block"
+import { CtaBlock } from "@/blocks/cta-block"
+import { FAQBlock } from "@/blocks/faq-block"
+import { FeaturesBlock } from "@/blocks/features-block"
+import { FormBlock } from "@/blocks/form-block"
+import { RelatedPostsBlock } from "@/blocks/related-posts-block"
+import { StatsBlock } from "@/blocks/stats-block"
+import { TestimonialsBlock } from "@/blocks/testimonials-block"
+import { TextBlock } from "@/blocks/text-block"
+import { MilestonesBlock } from "@/blocks/timeline-block"
 import { hero } from "@/fields/hero"
 import { slugField } from "@/fields/slug"
 import { someAccess } from "@/lib/access"
@@ -63,7 +76,21 @@ export const Pages: CollectionConfig = {
             {
               name: "layout",
               type: "blocks",
-              blocks: [],
+              blocks: [
+                TextBlock,
+                CtaBlock,
+                MilestonesBlock,
+                ClientsBlock,
+                FeaturesBlock,
+                AwardsBlock,
+                StatsBlock,
+                BentoBlock,
+                TestimonialsBlock,
+                FAQBlock,
+                RelatedPostsBlock,
+                FormBlock,
+                BrandBlock,
+              ],
               defaultValue: [],
               localized: true,
               required: false,

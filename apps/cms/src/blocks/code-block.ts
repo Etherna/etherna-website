@@ -1,6 +1,6 @@
 import type { Block } from "payload"
 
-export const CodeBlock: Block = {
+export const CodeBlock = {
   slug: "code",
   interfaceName: "CodeBlock",
   fields: [
@@ -41,4 +41,4 @@ export const CodeBlock: Block = {
       required: true,
     },
   ],
-}
+} as const satisfies Block

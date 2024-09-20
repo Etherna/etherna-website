@@ -83,10 +83,15 @@ export interface Page {
           link: {
             type?: ('reference' | 'custom') | null;
             newTab?: boolean | null;
-            reference?: {
-              relationTo: 'pages';
-              value: number | Page;
-            } | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: number | Post;
+                } | null);
             url?: string | null;
             label: string;
             appearance?: 'badge' | null;
@@ -99,10 +104,15 @@ export interface Page {
           link: {
             type?: ('reference' | 'custom') | null;
             newTab?: boolean | null;
-            reference?: {
-              relationTo: 'pages';
-              value: number | Page;
-            } | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: number | Post;
+                } | null);
             url?: string | null;
             label: string;
             appearance?: ('default' | 'outline') | null;
@@ -113,7 +123,23 @@ export interface Page {
     media?: (number | null) | Media;
     backgroundImage?: (number | null) | Media;
   };
-  layout?: unknown[] | null;
+  layout?:
+    | (
+        | TextBlock
+        | CtaBlock
+        | MilestonesBlock
+        | ClientsBlock
+        | FeaturesBlock
+        | AwardsBlock
+        | StatsBlock
+        | BentoBlock
+        | TestimonialsBlock
+        | FAQBlock
+        | RelatedPostsBlock
+        | FormBlock
+        | BrandBlock
+      )[]
+    | null;
   meta?: {
     title?: string | null;
     image?: (number | null) | Media;
@@ -134,40 +160,6 @@ export interface Page {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: number;
-  alt?: string | null;
-  caption?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -229,6 +221,40 @@ export interface Category {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  alt?: string | null;
+  caption?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -250,26 +276,686 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "redirects".
+ * via the `definition` "TextBlock".
  */
-export interface Redirect {
-  id: number;
-  from: string;
-  to?: {
-    type?: ('reference' | 'custom') | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: number | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: number | Post;
-        } | null);
-    url?: string | null;
+export interface TextBlock {
+  title?: string | null;
+  heading: 'h2' | 'h3' | 'h4';
+  subtitle?: string | null;
+  text?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  centered?: boolean | null;
+  background: {
+    type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    backgroundImage?: (number | null) | Media;
+    color?: string | null;
+    colorStops?:
+      | {
+          color: string;
+          stop: number;
+          id?: string | null;
+        }[]
+      | null;
   };
-  updatedAt: string;
-  createdAt: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'text';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CtaBlock".
+ */
+export interface CtaBlock {
+  title?: string | null;
+  heading: 'h2' | 'h3' | 'h4';
+  subtitle?: string | null;
+  text?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  centered?: boolean | null;
+  background: {
+    type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    backgroundImage?: (number | null) | Media;
+    color?: string | null;
+    colorStops?:
+      | {
+          color: string;
+          stop: number;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  media?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'cta';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MilestonesBlock".
+ */
+export interface MilestonesBlock {
+  title?: string | null;
+  type: 'timeline' | 'roadmap';
+  milestones: {
+    title: string;
+    date: string;
+    status: 'completed' | 'active' | 'upcoming';
+    text?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    media?: (number | null) | Media;
+    id?: string | null;
+  }[];
+  background: {
+    type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    backgroundImage?: (number | null) | Media;
+    color?: string | null;
+    colorStops?:
+      | {
+          color: string;
+          stop: number;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'milestones';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ClientsBlock".
+ */
+export interface ClientsBlock {
+  title?: string | null;
+  heading: 'h2' | 'h3' | 'h4';
+  subtitle?: string | null;
+  text?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  centered?: boolean | null;
+  background: {
+    type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    backgroundImage?: (number | null) | Media;
+    color?: string | null;
+    colorStops?:
+      | {
+          color: string;
+          stop: number;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  clients: {
+    logo: number | Media;
+    link?: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: number | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: number | Post;
+          } | null);
+      url?: string | null;
+      label?: string | null;
+      appearance?: ('default' | 'outline') | null;
+    };
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'clients';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturesBlock".
+ */
+export interface FeaturesBlock {
+  title?: string | null;
+  heading: 'h2' | 'h3' | 'h4';
+  subtitle?: string | null;
+  text?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  centered?: boolean | null;
+  background: {
+    type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    backgroundImage?: (number | null) | Media;
+    color?: string | null;
+    colorStops?:
+      | {
+          color: string;
+          stop: number;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  features: {
+    title?: string | null;
+    description?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    icon?: (number | null) | Media;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'features';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AwardsBlock".
+ */
+export interface AwardsBlock {
+  title?: string | null;
+  heading: 'h2' | 'h3' | 'h4';
+  subtitle?: string | null;
+  text?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  centered?: boolean | null;
+  background: {
+    type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    backgroundImage?: (number | null) | Media;
+    color?: string | null;
+    colorStops?:
+      | {
+          color: string;
+          stop: number;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  awards: {
+    logo: number | Media;
+    link?: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: number | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: number | Post;
+          } | null);
+      url?: string | null;
+      label?: string | null;
+      appearance?: ('default' | 'outline') | null;
+    };
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'awards';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StatsBlock".
+ */
+export interface StatsBlock {
+  title?: string | null;
+  heading: 'h2' | 'h3' | 'h4';
+  subtitle?: string | null;
+  text?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  centered?: boolean | null;
+  background: {
+    type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    backgroundImage?: (number | null) | Media;
+    color?: string | null;
+    colorStops?:
+      | {
+          color: string;
+          stop: number;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  stats?:
+    | {
+        label: string;
+        value: number;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'stats';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BentoBlock".
+ */
+export interface BentoBlock {
+  title?: string | null;
+  heading: 'h2' | 'h3' | 'h4';
+  subtitle?: string | null;
+  text?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  centered?: boolean | null;
+  background: {
+    type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    backgroundImage?: (number | null) | Media;
+    color?: string | null;
+    colorStops?:
+      | {
+          color: string;
+          stop: number;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  items?:
+    | {
+        title?: string | null;
+        description?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        background: {
+          type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+          backgroundImage?: (number | null) | Media;
+          color?: string | null;
+          colorStops?:
+            | {
+                color: string;
+                stop: number;
+                id?: string | null;
+              }[]
+            | null;
+        };
+        rowSpan?: number | null;
+        colSpan?: number | null;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          label?: string | null;
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bento';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsBlock".
+ */
+export interface TestimonialsBlock {
+  title?: string | null;
+  heading: 'h2' | 'h3' | 'h4';
+  subtitle?: string | null;
+  text?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  centered?: boolean | null;
+  background: {
+    type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    backgroundImage?: (number | null) | Media;
+    color?: string | null;
+    colorStops?:
+      | {
+          color: string;
+          stop: number;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  testimonials: {
+    name: string;
+    role: string;
+    quote: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    avatar?: (number | null) | Media;
+    link?: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: number | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: number | Post;
+          } | null);
+      url?: string | null;
+      label?: string | null;
+      appearance?: ('default' | 'outline') | null;
+    };
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'testimonials';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQBlock".
+ */
+export interface FAQBlock {
+  title?: string | null;
+  heading: 'h2' | 'h3' | 'h4';
+  subtitle?: string | null;
+  text?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  centered?: boolean | null;
+  background: {
+    type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    backgroundImage?: (number | null) | Media;
+    color?: string | null;
+    colorStops?:
+      | {
+          color: string;
+          stop: number;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  faqs: {
+    question?: string | null;
+    text?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'faq';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RelatedPostsBlock".
+ */
+export interface RelatedPostsBlock {
+  title?: string | null;
+  heading: 'h2' | 'h3' | 'h4';
+  subtitle?: string | null;
+  text?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  centered?: boolean | null;
+  background: {
+    type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    backgroundImage?: (number | null) | Media;
+    color?: string | null;
+    colorStops?:
+      | {
+          color: string;
+          stop: number;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  relatedPosts?: (number | Post)[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'relatedPosts';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FormBlock".
+ */
+export interface FormBlock {
+  title?: string | null;
+  heading: 'h2' | 'h3' | 'h4';
+  subtitle?: string | null;
+  text?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  centered?: boolean | null;
+  background: {
+    type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    backgroundImage?: (number | null) | Media;
+    color?: string | null;
+    colorStops?:
+      | {
+          color: string;
+          stop: number;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  form: number | Form;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'form';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -437,6 +1123,84 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BrandBlock".
+ */
+export interface BrandBlock {
+  title?: string | null;
+  heading: 'h2' | 'h3' | 'h4';
+  subtitle?: string | null;
+  text?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  centered?: boolean | null;
+  background: {
+    type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    backgroundImage?: (number | null) | Media;
+    color?: string | null;
+    colorStops?:
+      | {
+          color: string;
+          stop: number;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  logos?:
+    | {
+        svgLogo: number | Media;
+        pngLogo: number | Media;
+        variant?: ('light' | 'dark') | null;
+        id?: string | null;
+      }[]
+    | null;
+  colors?:
+    | {
+        name: string;
+        color: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'brand';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "redirects".
+ */
+export interface Redirect {
+  id: number;
+  from: string;
+  to?: {
+    type?: ('reference' | 'custom') | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: number | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: number | Post;
+        } | null);
+    url?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "form-submissions".
  */
 export interface FormSubmission {
@@ -498,10 +1262,15 @@ export interface Header {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
           icon?: (number | null) | Media;
-          reference?: {
-            relationTo: 'pages';
-            value: number | Page;
-          } | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
           url?: string | null;
           label: string;
           sublinks?:
@@ -510,10 +1279,15 @@ export interface Header {
                   type?: ('reference' | 'custom') | null;
                   newTab?: boolean | null;
                   icon?: (number | null) | Media;
-                  reference?: {
-                    relationTo: 'pages';
-                    value: number | Page;
-                  } | null;
+                  reference?:
+                    | ({
+                        relationTo: 'pages';
+                        value: number | Page;
+                      } | null)
+                    | ({
+                        relationTo: 'posts';
+                        value: number | Post;
+                      } | null);
                   url?: string | null;
                   label: string;
                 };
@@ -541,10 +1315,15 @@ export interface Footer {
               link: {
                 type?: ('reference' | 'custom') | null;
                 newTab?: boolean | null;
-                reference?: {
-                  relationTo: 'pages';
-                  value: number | Page;
-                } | null;
+                reference?:
+                  | ({
+                      relationTo: 'pages';
+                      value: number | Page;
+                    } | null)
+                  | ({
+                      relationTo: 'posts';
+                      value: number | Post;
+                    } | null);
                 url?: string | null;
                 label: string;
               };

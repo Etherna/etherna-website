@@ -1,10 +1,5 @@
-import {
-  FixedToolbarFeature,
-  InlineToolbarFeature,
-  lexicalEditor,
-} from "@payloadcms/richtext-lexical"
+import { lexicalEditor } from "@payloadcms/richtext-lexical"
 
-import { link } from "./link"
 import { linkGroup } from "@/fields/link-group"
 
 import type { Field } from "payload"
@@ -51,7 +46,7 @@ export const hero: Field = {
       localized: true,
       editor: lexicalEditor({
         features: ({ rootFeatures }) => {
-          return [...rootFeatures, FixedToolbarFeature(), InlineToolbarFeature()]
+          return [...rootFeatures]
         },
       }),
     },

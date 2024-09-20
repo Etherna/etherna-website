@@ -54,6 +54,10 @@ export default buildConfig({
         path: "@/components/avatar#UserAvatar",
       },
     },
+    autoLogin: {
+      email: process.env.PAYLOAD_AUTOLOGIN_EMAIL,
+      password: process.env.PAYLOAD_AUTOLOGIN_PASSWORD,
+    },
     importMap: {
       baseDir: path.resolve(dirname),
     },

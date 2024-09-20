@@ -1,4 +1,5 @@
 import { hexColorHook } from "@/collections/hooks/hex-color"
+import { validateHexColor } from "@/collections/validations/validate-hex-color"
 
 import type { TextField } from "payload"
 
@@ -7,7 +8,7 @@ export const colorField = (overrides: Partial<TextField> = {}) =>
     name: "color",
     label: "Color",
     type: "text",
-    ...(overrides || {}),
+    ...overrides,
     hasMany: false,
     minRows: undefined,
     maxRows: undefined,
@@ -16,7 +17,9 @@ export const colorField = (overrides: Partial<TextField> = {}) =>
     hooks: {
       beforeValidate: [hexColorHook()],
     },
+    validate: validateHexColor,
     admin: {
+      ...overrides.admin,
       components: {
         Field: {
           path: "@/fields/color/field#ColorField",
