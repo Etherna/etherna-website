@@ -34,6 +34,7 @@ import { Header } from "@/globals/header"
 import { deployIfNeeded } from "@/schedules/deploy-if-needed"
 import { fetchWorkflow } from "@/server/endpoints/fetch-workflow"
 import { runDeploy } from "@/server/endpoints/run-deploy"
+import { submitForm } from "@/server/endpoints/submit-form"
 
 import type { Field } from "payload"
 
@@ -152,7 +153,7 @@ export default buildConfig({
   globals: [Header, Footer, Company],
   cors: ["*"],
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
-  endpoints: [fetchWorkflow, runDeploy],
+  endpoints: [fetchWorkflow, runDeploy, submitForm],
   plugins: [
     redirectsPlugin({
       collections: ["pages", "posts"],
@@ -192,10 +193,13 @@ export default buildConfig({
     formBuilderPlugin({
       fields: {
         payment: false,
+        country: false,
+        state: false,
       },
+      redirectRelationships: ["pages", "posts"],
       formOverrides: {
         fields: ({ defaultFields }) => {
-          return defaultFields.map((field) => {
+          const fields = defaultFields.map((field) => {
             if ("name" in field) {
               if (field.name === "confirmationMessage") {
                 return {
@@ -214,6 +218,44 @@ export default buildConfig({
             }
             return field
           })
+
+          fields.push(
+            {
+              name: "event",
+              type: "select",
+              defaultValue: "submission",
+              options: [
+                {
+                  value: "submission",
+                  label: "Submission",
+                },
+                {
+                  value: "registration",
+                  label: "Registration",
+                },
+              ],
+            },
+            {
+              name: "mailchimpList",
+              type: "text",
+              required: true,
+              admin: {
+                condition: ({ event }) => event === "registration",
+                width: "50%",
+              },
+            },
+            {
+              name: "mailchimpTags",
+              type: "text",
+              admin: {
+                condition: ({ event }) => event === "registration",
+                placeholder: "comma (,) separated tags",
+                width: "50%",
+              },
+            },
+          )
+
+          return fields
         },
       },
     }),

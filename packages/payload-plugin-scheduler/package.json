@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "node-schedule": "2.1.1",
-    "payload": "beta"
+    "payload": "3.0.0-beta.108"
   },
   "devDependencies": {
     "@types/node-schedule": "2.1.7",
