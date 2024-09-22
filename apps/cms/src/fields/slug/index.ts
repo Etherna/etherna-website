@@ -3,7 +3,7 @@ import { slugifyHook } from "@/collections/hooks/slugify"
 import type { CheckboxField, TextField } from "payload"
 
 interface Overrides {
-  slugOverrides?: Partial<TextField>
+  slugOverrides?: Partial<TextField & { hasMany: false }>
   checkboxOverrides?: Partial<CheckboxField>
 }
 
