@@ -2,18 +2,18 @@
 
 import { dirname, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
-import react from "@astrojs/react"
-import sitemap from "@astrojs/sitemap"
 import dynamicBase from "astro-plugin-dynamic-base"
 import files from "astro-plugin-files"
 import { defineConfig } from "astro/config"
+import react from "@astrojs/react"
+import sitemap from "@astrojs/sitemap"
 import unfonts from "unplugin-fonts/astro"
 import { loadEnv } from "vite"
 
-const { PUBLIC_DIRECTUS_URL } = loadEnv(process.env.NODE_ENV as string, process.cwd(), "") as {
-  PUBLIC_DIRECTUS_URL: string
+const { PUBLIC_PAYLOAD_URL } = loadEnv(process.env.NODE_ENV as string, process.cwd(), "") as {
+  PUBLIC_PAYLOAD_URL: string
 }
-const cmsOrigin = new URL(PUBLIC_DIRECTUS_URL).hostname
+const cmsOrigin = new URL(PUBLIC_PAYLOAD_URL).hostname
 
 // https://astro.build/config
 export default defineConfig({

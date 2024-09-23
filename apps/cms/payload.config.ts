@@ -36,10 +36,21 @@ import { fetchWorkflow } from "@/server/endpoints/fetch-workflow"
 import { runDeploy } from "@/server/endpoints/run-deploy"
 import { submitForm } from "@/server/endpoints/submit-form"
 
-import type { Field } from "payload"
+import type { Field, Locale } from "payload"
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+export const Locales = [
+  {
+    code: "en",
+    label: "English",
+  },
+  {
+    code: "it",
+    label: "Italian",
+  },
+] as const satisfies Locale[]
 
 export default buildConfig({
   admin: {
@@ -138,16 +149,7 @@ export default buildConfig({
   }),
   localization: {
     defaultLocale: "en",
-    locales: [
-      {
-        code: "en",
-        label: "English",
-      },
-      {
-        code: "it",
-        label: "Italian",
-      },
-    ],
+    locales: Locales,
   },
   collections: [Pages, Posts, Categories, Media, Users],
   globals: [Header, Footer, Company],

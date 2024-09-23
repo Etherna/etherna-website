@@ -1,5 +1,3 @@
-/* eslint-disable no-bitwise */
-
 import ndarray from "ndarray"
 
 import type { ImageOutputFormat } from "astro"
@@ -73,7 +71,7 @@ async function getPNGPixels(imageData: ArrayBuffer) {
         new Uint8Array(pngOutput.data),
         [pngOutput.width | 0, pngOutput.height | 0, 4],
         [4, (4 * pngOutput.width) | 0, 1],
-        0
+        0,
       )
       resolve(new Uint8ClampedArray(result.data))
     })

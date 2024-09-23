@@ -4,8 +4,10 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-    },
+      "@payload-config": ["../cms/payload.config.ts"],
+      "@payload-types": ["../cms/payload-types.ts"]
+    }
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.astro", "../cms/schema.ts"],
-  "exclude": ["node_modules"],
+  "include": ["**/*.ts", "**/*.tsx", "**/*.astro"],
+  "exclude": ["node_modules"]
 }
