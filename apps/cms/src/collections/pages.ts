@@ -45,7 +45,7 @@ export const Pages: CollectionConfig = {
     unlock: someAccess(admin, webDesigner),
   },
   admin: {
-    defaultColumns: ["title", "slug", "updatedAt"],
+    defaultColumns: ["title", "slug", "_status", "publishedAt", "updatedAt"],
     livePreview: {
       url: async ({ data, locale, payload }) => {
         const parents = await getParentsTree(data, "pages", payload)
@@ -64,6 +64,7 @@ export const Pages: CollectionConfig = {
     {
       name: "title",
       type: "text",
+      defaultValue: "Untitled Page",
       required: true,
       localized: true,
     },
@@ -148,7 +149,7 @@ export const Pages: CollectionConfig = {
   versions: {
     drafts: {
       autosave: {
-        interval: 100, // We set this interval for optimal live preview
+        interval: 1000, // We set this interval for optimal live preview
       },
     },
     maxPerDoc: 20,

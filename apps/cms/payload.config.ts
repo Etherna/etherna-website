@@ -18,6 +18,7 @@ import {
 } from "@payloadcms/richtext-lexical"
 import { migrations } from "migrations"
 import { buildConfig } from "payload"
+import { Locales } from "payload.i18n"
 import sharp from "sharp"
 
 import { schedulerPlugin } from "../../packages/payload-plugin-scheduler/src/index" // PATCH for ERR_MODULE_NOT_FOUND
@@ -36,21 +37,10 @@ import { fetchWorkflow } from "@/server/endpoints/fetch-workflow"
 import { runDeploy } from "@/server/endpoints/run-deploy"
 import { submitForm } from "@/server/endpoints/submit-form"
 
-import type { Field, Locale } from "payload"
+import type { Field } from "payload"
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
-
-export const Locales = [
-  {
-    code: "en",
-    label: "English",
-  },
-  {
-    code: "it",
-    label: "Italian",
-  },
-] as const satisfies Locale[]
 
 export default buildConfig({
   admin: {
@@ -70,6 +60,7 @@ export default buildConfig({
     autoLogin: {
       email: process.env.PAYLOAD_AUTOLOGIN_EMAIL,
       password: process.env.PAYLOAD_AUTOLOGIN_PASSWORD,
+      prefillOnly: true,
     },
     importMap: {
       baseDir: path.resolve(dirname),

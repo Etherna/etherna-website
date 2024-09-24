@@ -46,7 +46,7 @@ export const Posts: CollectionConfig = {
     unlock: someAccess(admin, postEditor),
   },
   admin: {
-    defaultColumns: ["title", "slug", "updatedAt"],
+    defaultColumns: ["title", "slug", "_status", "publishedAt", "updatedAt"],
     livePreview: {
       url: async ({ data, locale }) => {
         const path = "/blog/" + data.slug
@@ -63,6 +63,7 @@ export const Posts: CollectionConfig = {
     {
       name: "title",
       type: "text",
+      defaultValue: "Untitled Post",
       required: true,
       localized: true,
     },
@@ -125,6 +126,7 @@ export const Posts: CollectionConfig = {
               },
               hasMany: true,
               relationTo: "categories",
+              defaultValue: [],
             },
           ],
         },
@@ -242,7 +244,7 @@ export const Posts: CollectionConfig = {
   versions: {
     drafts: {
       autosave: {
-        interval: 100, // We set this interval for optimal live preview
+        interval: 1000, // We set this interval for optimal live preview
       },
     },
     maxPerDoc: 20,
