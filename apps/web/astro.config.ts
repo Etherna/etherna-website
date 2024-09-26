@@ -5,6 +5,7 @@ import files from "astro-plugin-files"
 import { defineConfig } from "astro/config"
 import react from "@astrojs/react"
 import sitemap from "@astrojs/sitemap"
+import tailwind from "@astrojs/tailwind"
 import unfonts from "unplugin-fonts/astro"
 import { loadEnv } from "vite"
 
@@ -49,6 +50,9 @@ export default defineConfig({
           it: "it",
         },
       },
+    }),
+    tailwind({
+      applyBaseStyles: false,
     }),
   ],
   vite: {

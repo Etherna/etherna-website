@@ -1,5 +1,5 @@
-import { bundleMedia, resolveInternalLink } from "@/utils/bundle"
-import { fetchPayloadRequest } from "@/utils/payload"
+import { bundleMedia, resolveInternalLink } from "@/lib/bundle"
+import { fetchPayloadRequest } from "@/lib/payload"
 
 import type { Locale } from "@/lang/types"
 import type { Header } from "@payload-types"

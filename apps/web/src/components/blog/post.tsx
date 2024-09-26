@@ -1,5 +1,5 @@
 import { Image } from "../common/image"
-import { cn } from "@/utils/classnames"
+import { cn } from "@/lib/utils"
 
 import type { ImageProps } from "../common/image"
 

@@ -1,4 +1,4 @@
-import { cn } from "@/utils/classnames"
+import { cn } from "@/lib/utils"
 
 function BlogHeader({ className, children, ...props }: React.ComponentProps<"header">) {
   return (

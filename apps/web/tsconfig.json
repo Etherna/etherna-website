@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
+      "@/*": ["./src/*"],
       "@payload-config": ["../cms/payload.config.ts"],
       "@payload-types": ["../cms/payload-types.ts"],
       "@payload-i18n": ["../cms/payload.i18n.ts"]

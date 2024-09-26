@@ -3,9 +3,9 @@ import { useTransition } from "react"
 import { DownloadCloudIcon } from "lucide-react"
 
 import { Spinner } from "../ui/spinner"
-import { cn } from "@/utils/classnames"
+import { cn } from "@/lib/utils"
 
-import type { BundledFile } from "@/utils/bundle"
+import type { BundledFile } from "@/lib/bundle"
 
 interface DocumentProps extends React.ComponentProps<"div"> {
   file?: BundledFile | null

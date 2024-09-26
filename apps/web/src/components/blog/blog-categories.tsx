@@ -1,4 +1,4 @@
-import { cn } from "@/utils/classnames"
+import { cn } from "@/lib/utils"
 
 function BlogCategories({ className, children, ...props }: React.ComponentProps<"ul">) {
   return (

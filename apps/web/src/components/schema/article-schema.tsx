@@ -2,7 +2,7 @@ import { JsonLd } from "react-schemaorg"
 
 import ethernaLogo from "@/assets/logo-etherna.png"
 
-import { dayjs } from "@/utils/dayjs"
+import { dayjs } from "@/lib/dayjs"
 
 import type { ParsedPostAuthor } from "@/queries/fetch-post-data"
 import type { Article } from "schema-dts"

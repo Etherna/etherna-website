@@ -1,5 +1,5 @@
-import { resolveInternalLink } from "@/utils/bundle"
-import { fetchPayloadRequest } from "@/utils/payload"
+import { resolveInternalLink } from "@/lib/bundle"
+import { fetchPayloadRequest } from "@/lib/payload"
 
 import type { Locale } from "@/lang/types"
 import type { Footer } from "@payload-types"

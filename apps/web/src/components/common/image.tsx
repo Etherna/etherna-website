@@ -1,9 +1,9 @@
 import { useState } from "react"
 
-import { blurHashToDataURL } from "@/utils/blurhash"
-import { cn } from "@/utils/classnames"
+import { blurHashToDataURL } from "@/lib/blurhash"
+import { cn } from "@/lib/utils"
 
-import type { BundledImage } from "@/utils/bundle"
+import type { BundledImage } from "@/lib/bundle"
 
 export interface ImageProps extends React.ComponentProps<"img"> {
   image?: BundledImage | null

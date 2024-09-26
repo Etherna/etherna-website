@@ -1,6 +1,6 @@
 import React from "react"
 
-import { cn } from "@/utils/classnames"
+import { cn } from "@/lib/utils"
 
 interface HeaderProps extends React.ComponentProps<"header"> {}
 

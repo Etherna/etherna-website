@@ -6,7 +6,7 @@ import { Footer } from "./_footer"
 import { Header } from "./_header"
 import { Page } from "./_page"
 import { Post } from "./_post"
-import { route } from "@/utils/routes"
+import { route } from "@/lib/routes"
 
 export function PreviewPage() {
   const pathname = window.location.pathname

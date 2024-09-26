@@ -1,6 +1,6 @@
-import { cn } from "@/utils/classnames"
+import { cn } from "@/lib/utils"
 
-import type { BundledImage } from "@/utils/bundle"
+import type { BundledImage } from "@/lib/bundle"
 
 function PostAuthors({ className, children, ...props }: React.ComponentProps<"ul">) {
   return (

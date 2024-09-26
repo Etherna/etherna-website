@@ -1,8 +1,8 @@
-import { bundleLexical, bundleMedia } from "@/utils/bundle"
-import { fetchPayloadRequest } from "@/utils/payload"
+import { bundleLexical, bundleMedia } from "@/lib/bundle"
+import { fetchPayloadRequest } from "@/lib/payload"
 
 import type { Locale } from "@/lang/types"
-import type { NodeType } from "@/utils/lexical"
+import type { NodeType } from "@/lib/lexical"
 import type { Post } from "@payload-types"
 
 interface FetchPostParams {

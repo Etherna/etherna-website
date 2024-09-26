@@ -1,5 +1,5 @@
-import { fetchPayloadRequest } from "@/utils/payload"
-import { route } from "@/utils/routes"
+import { fetchPayloadRequest } from "@/lib/payload"
+import { route } from "@/lib/routes"
 
 import type { Locale } from "@/lang/types"
 import type { Category, Page, Post } from "@payload-types"

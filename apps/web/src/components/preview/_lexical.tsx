@@ -13,8 +13,8 @@ import { CodeBlock } from "../blocks/code-block"
 import { Document } from "../common/document"
 import { Image } from "../common/image"
 
-import type { BundledUploadFields } from "@/utils/bundle"
-import type { NodeType } from "@/utils/lexical"
+import type { BundledUploadFields } from "@/lib/bundle"
+import type { NodeType } from "@/lib/lexical"
 import type { DefaultNodeTypes } from "@payloadcms/richtext-lexical"
 
 interface LexicalProps {
