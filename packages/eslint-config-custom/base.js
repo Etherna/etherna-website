@@ -14,6 +14,8 @@ export default [
           ? ["error", { allow: ["info", "warn", "error", "debug", "table"] }]
           : "off",
       "no-debugger": process.env.NODE_ENV !== "development" ? "error" : "off",
+      "no-fallthrough": "error",
+      "@typescript-eslint/switch-exhaustiveness-check": "error",
       "@typescript-eslint/no-empty-interface": "off",
       "@typescript-eslint/no-misused-promises": [
         "error",

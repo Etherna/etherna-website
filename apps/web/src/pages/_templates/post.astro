@@ -1,0 +1,65 @@
+---
+import Lexical from "./_lexical.astro"
+import Root from "./_root.astro"
+import {
+  PostContent,
+  PostDate,
+  PostShare,
+  PostThumbnail,
+  PostTitle,
+  Post as PostWrapper,
+} from "@/components/blog/post"
+import { PostAuthors, PostAuthorsItem } from "@/components/blog/post-authors"
+import { fetchPost } from "@/queries/fetch-post"
+
+import type { Locale } from "@/lang/types"
+import type { Media, User } from "@payload-types"
+
+interface Props {
+  id: string
+  path: string
+  locale: Locale
+}
+
+const post = await fetchPost({
+  id: Astro.props.id,
+  locale: Astro.props.locale,
+})
+---
+
+<Root
+  title={post.meta?.title ?? post.title}
+  description={post.meta?.description}
+  image={post.meta?.image?.bundled?.image?.src}
+  locale={Astro.props.locale}
+>
+  <PostWrapper>
+    <PostTitle>
+      {post.title}
+    </PostTitle>
+
+    <PostDate>{post.publishedAt}</PostDate>
+
+    {
+      post.authors && (
+        <PostAuthors>
+          {(post.authors as User[]).map((author) => (
+            <PostAuthorsItem
+              name={author.name ?? author.id}
+              role={author.role}
+              avatar={(author.avatar as Media)?.bundled?.image}
+            />
+          ))}
+        </PostAuthors>
+      )
+    }
+
+    {post.thumbnail && <PostThumbnail image={post.thumbnail.bundled?.image} />}
+
+    <PostContent>
+      <Lexical nodes={post.content.root.children} />
+    </PostContent>
+
+    <PostShare />
+  </PostWrapper>
+</Root>

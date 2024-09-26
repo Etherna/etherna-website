@@ -1,13 +1,16 @@
 ---
-import Head from "./_head.astro"
-
 import "@/styles/globals.css"
+
+import Footer from "./_footer.astro"
+import Head from "./_head.astro"
+import Header from "./_header.astro"
+import { Body } from "@/components/layout/body"
 
 import type { Locale } from "@/lang/types"
 
 interface Props {
   title: string
-  description?: string
+  description?: string | null
   image?: string
   locale: Locale
 }
@@ -20,6 +23,10 @@ const { title, description, image, locale } = Astro.props
     <Head title={title} description={description} image={image} />
   </head>
   <body>
-    <slot />
+    <Body>
+      <Header />
+      <slot />
+      <Footer />
+    </Body>
   </body>
 </html>

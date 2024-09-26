@@ -1,0 +1,29 @@
+---
+import Blocks from "./_blocks.astro"
+import Root from "./_root.astro"
+import { HeroBlock } from "@/components/blocks/hero-block"
+import { fetchPage } from "@/queries/fetch-page"
+
+import type { Locale } from "@/lang/types"
+
+interface Props {
+  id: string
+  path: string
+  locale: Locale
+}
+
+const page = await fetchPage({
+  id: Astro.props.id,
+  locale: Astro.props.locale,
+})
+---
+
+<Root
+  title={page.meta?.title ?? page.title}
+  description={page.meta?.description}
+  image={page.meta?.image?.bundled?.image?.src}
+  locale={Astro.props.locale}
+>
+  <HeroBlock {...page.hero} />
+  <Blocks blocks={page.layout} />
+</Root>

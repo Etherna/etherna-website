@@ -234,6 +234,11 @@ export const Posts: CollectionConfig = {
           name: "name",
           type: "text",
         },
+        {
+          name: "avatar",
+          type: "relationship",
+          relationTo: "media",
+        },
       ],
     },
   ],

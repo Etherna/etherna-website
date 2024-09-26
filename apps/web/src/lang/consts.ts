@@ -1,4 +1,4 @@
-import { Locales } from "@payload-config"
+import { Locales } from "@payload-i18n"
 
 export const LOCALES = Locales.map((locale) => locale.code) as ArrayToTuple<
   (typeof Locales)[number]["code"][]

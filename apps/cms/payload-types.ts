@@ -201,6 +201,7 @@ export interface Post {
     | {
         id?: string | null;
         name?: string | null;
+        avatar?: (string | null) | Media;
       }[]
     | null;
   updatedAt: string;

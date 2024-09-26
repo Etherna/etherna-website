@@ -1,0 +1,56 @@
+---
+import { Page } from "@payload-types"
+
+import { AwardsBlock } from "@/components/blocks/awards-block"
+import { BentoBlock } from "@/components/blocks/bento-block"
+import { BrandBlock } from "@/components/blocks/brand-block"
+import { ClientsBlock } from "@/components/blocks/clients-block"
+import { CtaBlock } from "@/components/blocks/cta-block"
+import { FAQBlock } from "@/components/blocks/faq-block"
+import { FeaturesBlock } from "@/components/blocks/features-block"
+import { FormBlock } from "@/components/blocks/form-block"
+import { MilestonesBlock } from "@/components/blocks/milestones-block"
+import { RelatedPostsBlock } from "@/components/blocks/related-posts-block"
+import { StatsBlock } from "@/components/blocks/stats-block"
+import { TestimonialsBlock } from "@/components/blocks/testimonials-block"
+import { TextBlock } from "@/components/blocks/text-block"
+
+interface Props {
+  blocks: Page["layout"]
+}
+---
+
+{
+  Astro.props.blocks?.map((block) => {
+    switch (block.blockType) {
+      case "awards":
+        return <AwardsBlock {...block} />
+      case "bento":
+        return <BentoBlock {...block} />
+      case "brand":
+        return <BrandBlock {...block} />
+      case "clients":
+        return <ClientsBlock {...block} />
+      case "cta":
+        return <CtaBlock {...block} />
+      case "faq":
+        return <FAQBlock {...block} />
+      case "features":
+        return <FeaturesBlock {...block} />
+      case "form":
+        return <FormBlock {...block} />
+      case "milestones":
+        return <MilestonesBlock {...block} />
+      case "relatedPosts":
+        return <RelatedPostsBlock {...block} />
+      case "stats":
+        return <StatsBlock {...block} />
+      case "testimonials":
+        return <TestimonialsBlock {...block} />
+      case "text":
+        return <TextBlock {...block} />
+      default:
+        return null
+    }
+  })
+}

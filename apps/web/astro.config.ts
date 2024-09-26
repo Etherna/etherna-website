@@ -1,5 +1,3 @@
-// @ts-check
-
 import { dirname, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
 import dynamicBase from "astro-plugin-dynamic-base"

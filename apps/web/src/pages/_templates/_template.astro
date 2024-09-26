@@ -1,0 +1,34 @@
+---
+import Blog from "./blog.astro"
+import Page from "./page.astro"
+import Post from "./post.astro"
+import Preview from "./preview.astro"
+import { route } from "@/utils/routes"
+
+import type { Locale } from "@/lang/types"
+
+interface Props {
+  id: string
+  path: string
+  locale: Locale
+  category?: string
+  page?: number
+}
+
+const pathname = Astro.props.path
+
+const matchPreview = route.test(pathname, ["/_preview"])
+const matchPage = route.test(pathname, ["/", "/:path"])
+const matchBlog = route.test(pathname, [
+  "/blog",
+  "/blog/page/:page",
+  "/blog/category/:category",
+  "/blog/category/:category/page/:page",
+])
+const matchPost = route.test(pathname, ["/blog/:slug"])
+---
+
+{matchPreview && <Preview {...Astro.props} />}
+{matchPage && <Page {...Astro.props} />}
+{matchBlog && <Blog {...Astro.props} />}
+{matchPost && <Post {...Astro.props} />}

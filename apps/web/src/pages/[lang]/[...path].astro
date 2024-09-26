@@ -1,18 +1,15 @@
 ---
 import { OTHER_LOCALES } from "@/lang/consts"
-import Root from "@/pages/_root.astro"
+import Template from "@/pages/_templates/_template.astro"
 import { fetchPaths } from "@/queries/fetch-paths"
 
 export async function getStaticPaths() {
   return await fetchPaths(OTHER_LOCALES)
 }
 
-const locale = Astro.params.locale
+const locale = Astro.params.lang
 const path = Astro.params.path ?? "/"
-const title = ""
-const description = ""
+const id = Astro.props.id
 ---
 
-<Root title={title} description={description} locale={locale}>
-  <!-- <DynamicTemplate lang={lang} path={path} data={data} /> -->
-</Root>
+<Template locale={locale} path={path} id={id} />

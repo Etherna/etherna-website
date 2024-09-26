@@ -1,23 +1,19 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable no-bitwise */
 
 import { getConfiguredImageService, imageConfig } from "astro:assets"
 import { decode, encode, isBlurhashValid } from "blurhash"
 
 import { getImagePixels } from "./image"
 
-import type { LocalImageService } from "astro"
+import type { ImageOutputFormat, LocalImageService } from "astro"
 
 // Credit: https://gist.github.com/mattiaz9/53cb67040fa135cb395b1d015a200aff
-
-export type TransformFormat = "jpeg" | "jpg" | "png" | "webp" | "avif" | "svg"
 
 export interface TransformOptions {
   src: string
   width?: number
   height?: number
-  format?: TransformFormat
+  format?: ImageOutputFormat
 }
 
 export const FallbackBlurhash = "L6PZfSi_.AyE_3t7t7R**0o#DgR4"
@@ -54,7 +50,7 @@ export async function serverImageToBlurhash(transform: TransformOptions) {
         width,
         height,
       },
-      imageConfig
+      imageConfig,
     )
     image = data
   }
@@ -64,12 +60,12 @@ export async function serverImageToBlurhash(transform: TransformOptions) {
     new Uint8ClampedArray(
       Array.from({ length: width * height * 4 }, () => {
         return Math.floor(155 + Math.random() * 100)
-      })
+      }),
     )
 
   try {
     return encode(pixels, width, height, 4, 4)
-  } catch (error) {
+  } catch {
     return "LEHV6nWB2yk8pyo0adR*.7kCMdnj"
   }
 }
@@ -77,14 +73,14 @@ export async function serverImageToBlurhash(transform: TransformOptions) {
 export async function clientImageToBlurhash(
   image: ArrayBuffer,
   imageWidth: number,
-  imageHeight: number
+  imageHeight: number,
 ) {
   const data = await getClientImageData(image, imageWidth, imageHeight)
   return encode(data, imageWidth, imageHeight, 4, 4)
 }
 
 function parsePixels(pixels: Uint8ClampedArray, width: number, height: number) {
-  const pixelsString = [...pixels].map(byte => String.fromCharCode(byte)).join("")
+  const pixelsString = [...pixels].map((byte) => String.fromCharCode(byte)).join("")
   const pngString = generatePng(width, height, pixelsString)
   const dataURL =
     typeof Buffer !== "undefined"
@@ -182,7 +178,7 @@ function generatePng(width: number, height: number, rgbaString: string) {
       (dword & 0xff000000) >>> 24,
       (dword & 0x00ff0000) >>> 16,
       (dword & 0x0000ff00) >>> 8,
-      dword & 0x000000ff
+      dword & 0x000000ff,
     )
   }
 
@@ -244,12 +240,15 @@ async function getClientImageData(imageData: ArrayBuffer, width: number, height:
   canvas.height = height
   const ctx = canvas.getContext("2d")!
   const image = await loadImage(imageData)
-  image && ctx.drawImage(image, 0, 0)
+  if (image) {
+    ctx.drawImage(image, 0, 0)
+  }
+
   return ctx.getImageData(0, 0, width, height).data
 }
 
 async function loadImage(data: ArrayBuffer) {
-  return new Promise<HTMLImageElement | null>(resolve => {
+  return new Promise<HTMLImageElement | null>((resolve) => {
     const img = new Image()
     img.onload = () => resolve(img)
     img.onerror = () => resolve(null)

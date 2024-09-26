@@ -1,4 +1,4 @@
-import { fontFamily, spacing } from "tailwindcss/defaultTheme"
+import { fontFamily } from "tailwindcss/defaultTheme"
 import plugin from "tailwindcss/plugin"
 
 import type { Config } from "tailwindcss"
@@ -39,6 +39,7 @@ export default {
       animation: {
         "color-image": "color-image 0.5s ease-in-out forwards",
         "uncolor-image": "uncolor-image 0.5s ease-in-out forwards",
+        "tick-fade": "tick-fade 1.2s infinite",
       },
       keyframes: {
         "color-image": {
@@ -47,6 +48,14 @@ export default {
         },
         "uncolor-image": {
           "100%": { filter: "brightness(0)" },
+        },
+        "tick-fade": {
+          "0%": {
+            opacity: "1",
+          },
+          "100%": {
+            opacity: "0.1",
+          },
         },
       },
       zIndex: {
@@ -70,6 +79,7 @@ export default {
     },
   },
   plugins: [
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     require("@tailwindcss/typography"),
     plugin(({ addUtilities }) => {
       const utils = {
