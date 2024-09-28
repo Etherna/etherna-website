@@ -25,6 +25,7 @@ import { schedulerPlugin } from "../../packages/payload-plugin-scheduler/src/ind
 
 import { Categories } from "@/collections/categories"
 import { triggerDeploy } from "@/collections/hooks/trigger-deploy"
+import { Jobs } from "@/collections/jobs"
 import { Media } from "@/collections/media"
 import { Pages } from "@/collections/pages"
 import { Posts } from "@/collections/posts"
@@ -142,7 +143,7 @@ export default buildConfig({
     defaultLocale: "en",
     locales: Locales,
   },
-  collections: [Pages, Posts, Categories, Media, Users],
+  collections: [Pages, Posts, Categories, Jobs, Media, Users],
   globals: [Header, Footer, Company],
   cors: ["*"],
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),

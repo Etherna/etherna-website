@@ -14,6 +14,7 @@ export interface Config {
     pages: Page;
     posts: Post;
     categories: Category;
+    jobs: Job;
     media: Media;
     users: User;
     redirects: Redirect;
@@ -140,6 +141,7 @@ export interface Page {
         | RelatedPostsBlock
         | FormBlock
         | BrandBlock
+        | JobsBlock
       )[]
     | null;
   meta?: {
@@ -1237,6 +1239,76 @@ export interface BrandBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "JobsBlock".
+ */
+export interface JobsBlock {
+  title?: string | null;
+  heading: 'h2' | 'h3' | 'h4';
+  subtitle?: string | null;
+  text?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  centered?: boolean | null;
+  background: {
+    type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    backgroundImage?: (string | null) | Media;
+    color?: string | null;
+    colorStops?:
+      | {
+          color: string;
+          stop: number;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'jobs';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobs".
+ */
+export interface Job {
+  id: string;
+  name: string;
+  location?: string | null;
+  salary?: string | null;
+  type?: ('full-time' | 'part-time' | 'contract' | 'freelance' | 'internship') | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  publishedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1293,6 +1365,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'categories';
         value: string | Category;
+      } | null)
+    | ({
+        relationTo: 'jobs';
+        value: string | Job;
       } | null)
     | ({
         relationTo: 'media';

@@ -16,6 +16,7 @@ import { CtaBlock } from "@/blocks/cta-block"
 import { FAQBlock } from "@/blocks/faq-block"
 import { FeaturesBlock } from "@/blocks/features-block"
 import { FormBlock } from "@/blocks/form-block"
+import { JobsBlock } from "@/blocks/jobs-block"
 import { MilestonesBlock } from "@/blocks/milestones-block"
 import { RelatedPostsBlock } from "@/blocks/related-posts-block"
 import { StatsBlock } from "@/blocks/stats-block"
@@ -93,6 +94,7 @@ export const Pages: CollectionConfig = {
                 RelatedPostsBlock,
                 FormBlock,
                 BrandBlock,
+                JobsBlock,
               ],
               defaultValue: [],
               localized: true,
