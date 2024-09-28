@@ -25,6 +25,7 @@
     "@payloadcms/plugin-nested-docs": "beta",
     "@payloadcms/plugin-redirects": "beta",
     "@payloadcms/plugin-seo": "beta",
+    "@payloadcms/richtext-lexical": "3.0.0-beta.109",
     "@payloadcms/ui": "beta",
     "@sendgrid/mail": "8.1.3",
     "date-fns": "4.1.0",
@@ -32,8 +33,8 @@
     "next": "canary",
     "payload-plugin-scheduler": "workspace:*",
     "react": "rc",
-    "react-dom": "rc",
     "react-colorful": "5.6.1",
+    "react-dom": "rc",
     "sharp": "0.33.5"
   },
   "devDependencies": {

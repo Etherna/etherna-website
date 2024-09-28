@@ -19,6 +19,7 @@ import { FormBlock } from "@/blocks/form-block"
 import { MilestonesBlock } from "@/blocks/milestones-block"
 import { RelatedPostsBlock } from "@/blocks/related-posts-block"
 import { StatsBlock } from "@/blocks/stats-block"
+import { TeamBlock } from "@/blocks/team-block"
 import { TestimonialsBlock } from "@/blocks/testimonials-block"
 import { TextBlock } from "@/blocks/text-block"
 import { hero } from "@/fields/hero"
@@ -88,6 +89,7 @@ export const Pages: CollectionConfig = {
                 BentoBlock,
                 TestimonialsBlock,
                 FAQBlock,
+                TeamBlock,
                 RelatedPostsBlock,
                 FormBlock,
                 BrandBlock,

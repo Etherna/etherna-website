@@ -136,6 +136,7 @@ export interface Page {
         | BentoBlock
         | TestimonialsBlock
         | FAQBlock
+        | TeamBlock
         | RelatedPostsBlock
         | FormBlock
         | BrandBlock
@@ -876,6 +877,67 @@ export interface FAQBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'faq';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TeamBlock".
+ */
+export interface TeamBlock {
+  title?: string | null;
+  heading: 'h2' | 'h3' | 'h4';
+  subtitle?: string | null;
+  text?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  centered?: boolean | null;
+  background: {
+    type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    backgroundImage?: (string | null) | Media;
+    color?: string | null;
+    colorStops?:
+      | {
+          color: string;
+          stop: number;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  members: {
+    name?: string | null;
+    role?: string | null;
+    bio?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    photo?: (string | null) | Media;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'teams';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
