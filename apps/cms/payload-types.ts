@@ -1562,7 +1562,7 @@ export interface Company {
  * via the `definition` "CodeBlock".
  */
 export interface CodeBlock {
-  language?: ('ts' | 'tsx' | 'js' | 'css' | 'bash' | 'csharp') | null;
+  language?: ('ts' | 'tsx' | 'js' | 'json' | 'css' | 'bash' | 'csharp') | null;
   code: string;
   id?: string | null;
   blockName?: string | null;

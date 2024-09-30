@@ -77,6 +77,8 @@ export const Posts: CollectionConfig = {
               name: "content",
               type: "richText",
               localized: true,
+              label: false,
+              required: true,
               editor: lexicalEditor({
                 features: ({ rootFeatures }) => {
                   return [
@@ -94,8 +96,6 @@ export const Posts: CollectionConfig = {
                   ]
                 },
               }),
-              label: false,
-              required: true,
             },
           ],
         },

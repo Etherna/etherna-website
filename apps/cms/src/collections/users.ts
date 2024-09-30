@@ -19,7 +19,7 @@ export const Users: CollectionConfig = {
     unlock: admin,
   },
   admin: {
-    defaultColumns: ["name", "email"],
+    defaultColumns: ["name", "email", "role", "policies"],
     useAsTitle: "name",
   },
   auth: true,

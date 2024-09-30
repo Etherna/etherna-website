@@ -7,6 +7,9 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
+        hostname: new URL(process.env.PAYLOAD_PUBLIC_SERVER_URL).hostname,
+      },
+      {
         protocol: "https",
         hostname: "www.gravatar.com",
       },

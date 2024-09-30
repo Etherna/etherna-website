@@ -21,6 +21,10 @@ export const CodeBlock = {
           value: "js",
         },
         {
+          label: "JSON",
+          value: "json",
+        },
+        {
           label: "CSS",
           value: "css",
         },

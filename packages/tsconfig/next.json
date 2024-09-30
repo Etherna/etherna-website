@@ -3,6 +3,8 @@
   "display": "Next.JS",
   "extends": "./base.json",
   "compilerOptions": {
+    "module": "esnext",
+    "target": "es2017",
     "moduleResolution": "bundler",
     "allowJs": true,
     "declaration": false,
@@ -11,11 +13,9 @@
     "jsx": "preserve",
     "jsxImportSource": "react",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "module": "esnext",
     "noEmit": true,
     "resolveJsonModule": true,
-    "strict": true,
-    "target": "es6"
+    "strict": true
   },
   "files": ["./global.d.ts"],
   "include": ["src"],

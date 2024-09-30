@@ -142,6 +142,7 @@ export default buildConfig({
   localization: {
     defaultLocale: "en",
     locales: Locales,
+    fallback: true,
   },
   collections: [Pages, Posts, Categories, Jobs, Media, Users],
   globals: [Header, Footer, Company],
