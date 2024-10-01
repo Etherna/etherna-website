@@ -1,7 +1,7 @@
-import { bundleBlocks, bundleMedia } from "@/lib/bundle"
+import { bundleBlocks, bundleHero, bundleMedia } from "@/lib/bundle"
 import { fetchPayloadRequest } from "@/lib/payload"
 
-import type { Locale } from "@/lang/types"
+import type { Locale, LocalizedPath } from "@/lang/types"
 import type { Page } from "@payload-types"
 
 interface FetchPageParams {
@@ -13,19 +13,24 @@ interface FetchPageParams {
 export async function fetchPage(params: FetchPageParams) {
   const { id, locale, accessToken } = params
 
-  const page = await fetchPayloadRequest<Page>({
+  const pageData = await fetchPayloadRequest<Page>({
     method: "GET",
     path: `/pages/${id}`,
     params: { locale, depth: 1 },
     accessToken,
   })
 
-  return {
-    ...page,
-    layout: await bundleBlocks(page.layout, locale, accessToken),
+  const page = {
+    ...pageData,
+    hero: await bundleHero(pageData.hero, locale, accessToken),
+    layout: await bundleBlocks(pageData.layout ?? [], locale, accessToken),
     meta: {
-      ...page.meta,
-      image: await bundleMedia(page.meta?.image, locale, accessToken),
+      ...pageData.meta,
+      image: await bundleMedia(pageData.meta?.image, locale, accessToken),
     },
   } satisfies Page
+
+  const localizedPaths = [] satisfies LocalizedPath[]
+
+  return { page, localizedPaths }
 }

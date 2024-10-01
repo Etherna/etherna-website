@@ -98,8 +98,8 @@ export default {
         "color-image": "color-image 0.5s ease-in-out forwards",
         "uncolor-image": "uncolor-image 0.5s ease-in-out forwards",
         "tick-fade": "tick-fade 1.2s infinite",
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+        "accordion-down": "accordion-down 0.2s ease-out forwards",
+        "accordion-up": "accordion-up 0.2s ease-out forwards",
       },
       keyframes: {
         "color-image": {
@@ -177,7 +177,7 @@ export default {
   plugins: [
     require("@tailwindcss/typography"),
     require("tailwindcss-animate"),
-    plugin(({ addUtilities, matchUtilities, theme }) => {
+    plugin(({ addUtilities, addVariant, matchUtilities, theme }) => {
       addUtilities({
         ".absolute-center": {
           position: "absolute",
@@ -194,6 +194,10 @@ export default {
           "-webkit-text-fill-color": "transparent",
         },
       })
+      addVariant("scrollviewport", "& > [data-radix-scroll-area-viewport]")
+      addVariant("scrollviewportcontainer", "& > [data-radix-scroll-area-viewport] > div")
+      addVariant("scrollbar-v", "& > [data-orientation=vertical]")
+      addVariant("scrollbar-h", "& > [data-orientation=horizontal]")
 
       matchUtilities(
         {

@@ -4,7 +4,7 @@ import { getImage } from "astro:assets"
 import { serverImageToBlurhash } from "./blurhash"
 import { fetchPayloadRequest } from "./payload"
 import { route } from "./routes"
-import { DEFAULT_LOCALE } from "@/lang/consts"
+import { localized } from "@/lang/utils"
 
 import type { NodeType } from "./lexical"
 import type { Locale } from "@/lang/types"
@@ -65,9 +65,15 @@ export async function bundleCmsImage(
           src,
         },
       } satisfies GetImageResult)
-    : await getImage({ src, alt: img.alt })
+    : await getImage({ src, alt: img.alt, inferSize: true })
+
+  if (img.mimeType === "image/svg+xml") {
+    // fix srcset for SVGs
+    result.src = result.src.replace(/(webp|jpg|jpeg|png)/, "svg")
+  }
+
   const blurhash = await serverImageToBlurhash({
-    src: result.src,
+    src,
     format: result.options.format,
     height: result.options.height,
     width: result.options.width,
@@ -144,7 +150,10 @@ export async function bundleMedia(
   return media
 }
 
-type BlockLink = AwardsBlock["awards"][number]["link"]
+type BlockLink =
+  | Omit<NonNullable<AwardsBlock["awards"][number]["link"]>, "appearance">
+  | null
+  | undefined
 
 export async function resolveInternalLink<T extends LinkFields | BlockLink>(
   link: T,
@@ -157,8 +166,7 @@ export async function resolveInternalLink<T extends LinkFields | BlockLink>(
 
   const linkType = "linkType" in link ? link.linkType : link.type
 
-  if (linkType === "internal") {
-    const prefix = locale === DEFAULT_LOCALE ? "" : `/${locale}`
+  if (linkType === "internal" || linkType === "reference") {
     const relationTo = "doc" in link ? link.doc?.relationTo : link.reference?.relationTo
     const docValue = "doc" in link ? link.doc?.value : link.reference?.value
 
@@ -173,11 +181,12 @@ export async function resolveInternalLink<T extends LinkFields | BlockLink>(
                 accessToken,
               })
             : (docValue as unknown as Page)
-        link.url =
-          prefix +
+        link.url = localized(
           route("/:path", {
-            path: page.breadcrumbs?.at(-1)?.url ?? page.slug ?? "",
-          })
+            path: (page.breadcrumbs?.at(-1)?.url ?? page.slug ?? "").replace(/^\//, ""),
+          }),
+          locale,
+        )
         break
       }
       case "posts": {
@@ -190,11 +199,12 @@ export async function resolveInternalLink<T extends LinkFields | BlockLink>(
                 accessToken,
               })
             : (docValue as unknown as Post)
-        link.url =
-          prefix +
+        link.url = localized(
           route("/blog/:slug", {
-            slug: post.slug ?? "",
-          })
+            slug: (post.slug ?? "").replace(/^\//, ""),
+          }),
+          locale,
+        )
         break
       }
       default:
@@ -237,8 +247,10 @@ export async function bundleLexical(nodes: NodeType[], locale: Locale, accessTok
   return nodes
 }
 
-export async function bundleBlocks(blocks: Page["layout"], locale: Locale, accessToken?: string) {
-  for (const block of blocks ?? []) {
+type AnyBlock = NonNullable<Page["layout"]>[number]
+
+export async function bundleBlocks(blocks: AnyBlock[], locale: Locale, accessToken?: string) {
+  for (const block of blocks) {
     switch (block.blockType) {
       case "awards": {
         block.background.backgroundImage = await bundleMedia(
@@ -253,6 +265,9 @@ export async function bundleBlocks(blocks: Page["layout"], locale: Locale, acces
             return award
           }),
         )
+        break
+      }
+      case "jobs": {
         break
       }
       case "bento": {
@@ -323,6 +338,15 @@ export async function bundleBlocks(blocks: Page["layout"], locale: Locale, acces
           block.background.backgroundImage,
           locale,
           accessToken,
+        )
+        break
+      }
+      case "teams": {
+        block.members = await Promise.all(
+          (block.members ?? []).map(async (member) => {
+            member.photo = await bundleMedia(member.photo, locale, accessToken)
+            return member
+          }),
         )
         break
       }
@@ -431,7 +455,26 @@ export async function bundleBlocks(blocks: Page["layout"], locale: Locale, acces
         break
       }
     }
-
-    return blocks
   }
+
+  return blocks
+}
+
+export async function bundleHero(hero: Page["hero"], locale: Locale, accessToken?: string) {
+  hero.backgroundImage = await bundleMedia(hero.backgroundImage, locale, accessToken)
+  hero.badges = await Promise.all(
+    (hero.badges ?? []).map(async (badge) => {
+      badge.link = await resolveInternalLink(badge.link, locale, accessToken)
+      return badge
+    }),
+  )
+  hero.links = await Promise.all(
+    (hero.links ?? []).map(async (link) => {
+      link.link = await resolveInternalLink(link.link, locale, accessToken)
+      return link
+    }),
+  )
+  hero.media = await bundleMedia(hero.media, locale, accessToken)
+
+  return hero
 }

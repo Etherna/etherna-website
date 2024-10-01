@@ -15,7 +15,7 @@ export async function fetchHeader(params: FetchHeaderParams) {
   const header = await fetchPayloadRequest<Header>({
     method: "GET",
     path: `/globals/header`,
-    params: { locale, depth: 1 },
+    params: { locale },
     accessToken,
   })
 

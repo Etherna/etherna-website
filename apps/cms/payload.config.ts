@@ -33,6 +33,7 @@ import { Users } from "@/collections/users"
 import { Company } from "@/globals/company"
 import { Footer } from "@/globals/footer"
 import { Header } from "@/globals/header"
+import { admin } from "@/policies/admin"
 import { deployIfNeeded } from "@/schedules/deploy-if-needed"
 import { fetchWorkflow } from "@/server/endpoints/fetch-workflow"
 import { runDeploy } from "@/server/endpoints/run-deploy"
@@ -61,7 +62,6 @@ export default buildConfig({
     autoLogin: {
       email: process.env.PAYLOAD_AUTOLOGIN_EMAIL,
       password: process.env.PAYLOAD_AUTOLOGIN_PASSWORD,
-      prefillOnly: true,
     },
     importMap: {
       baseDir: path.resolve(dirname),
@@ -192,6 +192,17 @@ export default buildConfig({
         state: false,
       },
       redirectRelationships: ["pages", "posts"],
+      formSubmissionOverrides: {
+        access: {
+          admin: admin,
+          create: admin,
+          read: admin,
+          update: admin,
+          delete: admin,
+          readVersions: admin,
+          unlock: admin,
+        },
+      },
       formOverrides: {
         fields: ({ defaultFields }) => {
           const fields = defaultFields.map((field) => {

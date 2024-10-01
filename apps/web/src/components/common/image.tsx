@@ -1,5 +1,3 @@
-import { useState } from "react"
-
 import { blurHashToDataURL } from "@/lib/blurhash"
 import { cn } from "@/lib/utils"
 
@@ -10,10 +8,6 @@ export interface ImageProps extends React.ComponentProps<"img"> {
 }
 
 export function Image({ className, image, src, srcSet, alt, style, ...props }: ImageProps) {
-  const [loaded, setLoaded] = useState(false)
-
-  const showBlurhash = image?.blurhash && !loaded
-
   return (
     <img
       className={cn("relative", className)}
@@ -22,11 +16,12 @@ export function Image({ className, image, src, srcSet, alt, style, ...props }: I
       alt={alt}
       loading="lazy"
       style={{
-        backgroundImage: showBlurhash ? `url(${blurHashToDataURL(image.blurhash)})` : undefined,
-        backgroundSize: showBlurhash ? "100% 100%" : undefined,
+        backgroundImage: image?.blurhash ? `url(${blurHashToDataURL(image.blurhash)})` : undefined,
+        backgroundSize: image?.blurhash ? "100% 100%" : undefined,
         ...style,
       }}
-      onLoad={() => setLoaded(true)}
+      // blurhash is removed from custom script (src/pages/_templates/_scripts.astro)
+      data-blurhash={image?.blurhash ? "true" : undefined}
       {...image?.attributes}
       {...props}
     />

@@ -14,7 +14,7 @@
     "lint": "eslint --ext .ts,.tsx src"
   },
   "dependencies": {
-    "astro": "4.2.3",
+    "astro": "beta",
     "deterministic-object-hash": "2.0.2",
     "mime": "4.0.1"
   },

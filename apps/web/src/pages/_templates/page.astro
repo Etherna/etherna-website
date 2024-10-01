@@ -12,7 +12,7 @@ interface Props {
   locale: Locale
 }
 
-const page = await fetchPage({
+const { page, localizedPaths } = await fetchPage({
   id: Astro.props.id,
   locale: Astro.props.locale,
 })
@@ -23,7 +23,9 @@ const page = await fetchPage({
   description={page.meta?.description}
   image={page.meta?.image?.bundled?.image?.src}
   locale={Astro.props.locale}
+  path={Astro.props.path}
+  localizedPaths={localizedPaths}
 >
-  <HeroBlock {...page.hero} />
+  <HeroBlock {...page.hero} client:idle />
   <Blocks blocks={page.layout} />
 </Root>

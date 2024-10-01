@@ -86,7 +86,8 @@
     "sharp": "0.33.2",
     "tsconfig": "workspace:*",
     "unplugin-fonts": "1.1.1",
-    "vite": "5.4.7"
+    "vite": "5.4.7",
+    "vite-plugin-svgr": "4.2.0"
   },
   "pnpm": {
     "overrides": {

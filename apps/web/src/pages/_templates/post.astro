@@ -21,7 +21,7 @@ interface Props {
   locale: Locale
 }
 
-const post = await fetchPost({
+const { post, localizedPaths } = await fetchPost({
   id: Astro.props.id,
   locale: Astro.props.locale,
 })
@@ -31,7 +31,9 @@ const post = await fetchPost({
   title={post.meta?.title ?? post.title}
   description={post.meta?.description}
   image={post.meta?.image?.bundled?.image?.src}
+  path={Astro.props.path}
   locale={Astro.props.locale}
+  localizedPaths={localizedPaths}
 >
   <PostWrapper>
     <PostTitle>

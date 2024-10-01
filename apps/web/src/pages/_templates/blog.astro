@@ -32,9 +32,9 @@ interface Props {
   page?: number
 }
 
-const { locale, page, category } = Astro.props
+const { locale, page, category, path } = Astro.props
 
-const { posts, categories } = await fetchBlog({
+const { posts, categories, localizedPaths } = await fetchBlog({
   categorySlug: category,
   locale,
   page,
@@ -46,6 +46,8 @@ const { posts, categories } = await fetchBlog({
   title={t(blogDictionary.pageTitle, { locale })}
   description={t(blogDictionary.pageDescription, { locale })}
   locale={locale}
+  path={path}
+  localizedPaths={localizedPaths}
 >
   <BlogHeader>
     <BlogTitle>Blog</BlogTitle>

@@ -49,6 +49,9 @@ export const hero: Field = {
           return [...rootFeatures]
         },
       }),
+      admin: {
+        condition: (_, { type } = {}) => type !== "none",
+      },
     },
     {
       type: "row",
@@ -63,6 +66,8 @@ export const hero: Field = {
             localized: true,
             admin: {
               width: "50%",
+
+              condition: (_, { type } = {}) => type !== "none",
             },
           },
         }),
@@ -75,6 +80,7 @@ export const hero: Field = {
             localized: true,
             admin: {
               width: "50%",
+              condition: (_, { type } = {}) => type !== "none",
             },
           },
         }),

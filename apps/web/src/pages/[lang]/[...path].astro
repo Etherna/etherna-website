@@ -8,7 +8,7 @@ export async function getStaticPaths() {
 }
 
 const locale = Astro.params.lang
-const path = Astro.params.path ?? "/"
+const path = Astro.params.path || "/"
 const id = Astro.props.id
 ---
 

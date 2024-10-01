@@ -1,6 +1,6 @@
 import { fetchPayloadRequest } from "@/lib/payload"
 
-import type { Locale } from "@/lang/types"
+import type { Locale, LocalizedPath } from "@/lang/types"
 import type { Category, Post } from "@payload-types"
 import type { PaginatedDocs } from "payload"
 
@@ -44,8 +44,11 @@ export async function fetchBlog(params: FetchBlogParams) {
     }),
   ])
 
+  const localizedPaths = [] satisfies LocalizedPath[]
+
   return {
     posts,
     categories,
+    localizedPaths,
   }
 }

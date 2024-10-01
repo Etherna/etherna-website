@@ -17,14 +17,18 @@ import type { BundledUploadFields } from "@/lib/bundle"
 import type { NodeType } from "@/lib/lexical"
 import type { DefaultNodeTypes } from "@payloadcms/richtext-lexical"
 
-interface LexicalProps {
-  nodes: NodeType[]
+interface RichTextProps {
+  nodes: {
+    type: string
+    version: number
+    [k: string]: unknown
+  }[]
 }
 
-export function Lexical({ nodes }: LexicalProps) {
+export function RichText({ nodes }: RichTextProps) {
   return (
     <>
-      {nodes.map((node, index) => {
+      {(nodes as NodeType[]).map((node, index) => {
         if (node == null) {
           return null
         }
@@ -89,7 +93,7 @@ export function Lexical({ nodes }: LexicalProps) {
           case "paragraph": {
             return (
               <p key={index}>
-                <Lexical nodes={node.children as DefaultNodeTypes[]} />
+                <RichText nodes={node.children as DefaultNodeTypes[]} />
               </p>
             )
           }
@@ -97,7 +101,7 @@ export function Lexical({ nodes }: LexicalProps) {
             const Tag = node?.tag
             return (
               <Tag key={index}>
-                <Lexical nodes={node.children as DefaultNodeTypes[]} />
+                <RichText nodes={node.children as DefaultNodeTypes[]} />
               </Tag>
             )
           }
@@ -105,7 +109,7 @@ export function Lexical({ nodes }: LexicalProps) {
             const Tag = node?.tag
             return (
               <Tag key={index}>
-                <Lexical nodes={node.children as DefaultNodeTypes[]} />
+                <RichText nodes={node.children as DefaultNodeTypes[]} />
               </Tag>
             )
           }
@@ -120,13 +124,13 @@ export function Lexical({ nodes }: LexicalProps) {
                   tabIndex={-1}
                   value={node?.value}
                 >
-                  <Lexical nodes={node.children as DefaultNodeTypes[]} />
+                  <RichText nodes={node.children as DefaultNodeTypes[]} />
                 </li>
               )
             } else {
               return (
                 <li key={index} value={node?.value}>
-                  <Lexical nodes={node.children as DefaultNodeTypes[]} />
+                  <RichText nodes={node.children as DefaultNodeTypes[]} />
                 </li>
               )
             }
@@ -134,7 +138,7 @@ export function Lexical({ nodes }: LexicalProps) {
           case "quote": {
             return (
               <blockquote key={index}>
-                <Lexical nodes={node.children as DefaultNodeTypes[]} />
+                <RichText nodes={node.children as DefaultNodeTypes[]} />
               </blockquote>
             )
           }
@@ -143,7 +147,7 @@ export function Lexical({ nodes }: LexicalProps) {
 
             return (
               <a key={index} href={fields.url} target={fields.newTab ? "_blank" : undefined}>
-                <Lexical nodes={node.children as DefaultNodeTypes[]} />
+                <RichText nodes={node.children as DefaultNodeTypes[]} />
               </a>
             )
           }

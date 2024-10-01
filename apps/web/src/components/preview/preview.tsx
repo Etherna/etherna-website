@@ -1,6 +1,6 @@
 import { Suspense } from "react"
 
-import { Body } from "../layout/body"
+import { Main } from "../layout/main"
 import { Spinner } from "../ui/spinner"
 import { Footer } from "./_footer"
 import { Header } from "./_header"
@@ -15,17 +15,19 @@ export function PreviewPage() {
   const matchPost = route.test(pathname, ["/blog/:slug"])
 
   return (
-    <Body>
+    <>
       <Suspense>
         <Header />
       </Suspense>
-      <Suspense fallback={<Spinner size={32} />}>
-        {matchPage && <Page />}
-        {matchPost && <Post />}
-      </Suspense>
+      <Main>
+        <Suspense fallback={<Spinner size={32} />}>
+          {matchPage && <Page />}
+          {matchPost && <Post />}
+        </Suspense>
+      </Main>
       <Suspense>
         <Footer />
       </Suspense>
-    </Body>
+    </>
   )
 }

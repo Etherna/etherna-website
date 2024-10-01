@@ -1,0 +1,11 @@
+<script>
+  window.addEventListener("load", () => {
+    const images = document.querySelectorAll<HTMLImageElement>("img[data-blurhash]")
+    images.forEach((img) => {
+      img.addEventListener("load", () => {
+        img.style.backgroundImage = ""
+        img.style.backgroundSize = ""
+      })
+    })
+  })
+</script>

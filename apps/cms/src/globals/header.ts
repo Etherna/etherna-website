@@ -2,7 +2,7 @@ import { triggerDeploy } from "./hooks/trigger-deploy"
 import { link } from "@/fields/link"
 import { someAccess } from "@/lib/access"
 import { admin } from "@/policies/admin"
-import { authenticated } from "@/policies/authenticated"
+import { anyone } from "@/policies/anyone"
 import { webDesigner } from "@/policies/web-designer"
 
 import type { GlobalConfig } from "payload"
@@ -10,7 +10,7 @@ import type { GlobalConfig } from "payload"
 export const Header: GlobalConfig = {
   slug: "header",
   access: {
-    read: authenticated,
+    read: anyone,
     readDrafts: someAccess(admin, webDesigner),
     readVersions: someAccess(admin, webDesigner),
     update: someAccess(admin, webDesigner),

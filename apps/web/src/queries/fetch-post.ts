@@ -1,7 +1,7 @@
 import { bundleLexical, bundleMedia } from "@/lib/bundle"
 import { fetchPayloadRequest } from "@/lib/payload"
 
-import type { Locale } from "@/lang/types"
+import type { Locale, LocalizedPath } from "@/lang/types"
 import type { NodeType } from "@/lib/lexical"
 import type { Post } from "@payload-types"
 
@@ -14,36 +14,40 @@ interface FetchPostParams {
 export async function fetchPost(params: FetchPostParams) {
   const { id, locale, accessToken } = params
 
-  const post = await fetchPayloadRequest<Post>({
+  const postData = await fetchPayloadRequest<Post>({
     method: "GET",
     path: `/posts/${id}`,
     params: { locale, depth: 1 },
     accessToken,
   })
 
-  return {
-    ...post,
-    thumbnail: await bundleMedia(post.thumbnail, locale, accessToken),
+  const post = {
+    ...postData,
+    thumbnail: await bundleMedia(postData.thumbnail, locale, accessToken),
     populatedAuthors: await Promise.all(
-      (post.populatedAuthors ?? []).map(async (author) => ({
+      (postData.populatedAuthors ?? []).map(async (author) => ({
         ...author,
         avatar: await bundleMedia(author.avatar, locale, accessToken),
       })),
     ),
     content: {
-      ...post.content,
+      ...postData.content,
       root: {
-        ...post.content.root,
+        ...postData.content.root,
         children: await bundleLexical(
-          post.content.root.children as NodeType[],
+          postData.content.root.children as NodeType[],
           locale,
           accessToken,
         ),
       },
     },
     meta: {
-      ...post.meta,
-      image: await bundleMedia(post.meta?.image, locale, accessToken),
+      ...postData.meta,
+      image: await bundleMedia(postData.meta?.image, locale, accessToken),
     },
   } satisfies Post
+
+  const localizedPaths = [] satisfies LocalizedPath[]
+
+  return { post, localizedPaths }
 }

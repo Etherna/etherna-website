@@ -8,6 +8,7 @@ import sitemap from "@astrojs/sitemap"
 import tailwind from "@astrojs/tailwind"
 import unfonts from "unplugin-fonts/astro"
 import { loadEnv } from "vite"
+import svgr from "vite-plugin-svgr"
 
 const { PUBLIC_PAYLOAD_URL } = loadEnv(process.env.NODE_ENV as string, process.cwd(), "") as {
   PUBLIC_PAYLOAD_URL: string
@@ -35,10 +36,6 @@ export default defineConfig({
             name: "Geist Mono",
             src: "./fonts/geist-mono/*.woff2",
           },
-          {
-            name: "DM Serif Display",
-            src: "./fonts/dm-serif-display/*.woff2",
-          },
         ],
       },
     }),
@@ -59,5 +56,11 @@ export default defineConfig({
     resolve: {
       alias: [{ find: "@", replacement: resolve(dirname(fileURLToPath(import.meta.url)), "src") }],
     },
+    plugins: [
+      svgr({
+        // svgrOptions: { exportType: "named", ref: true, svgo: false, titleProp: true },
+        // include: "**/*.svg",
+      }),
+    ],
   },
 })

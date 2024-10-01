@@ -1,7 +1,23 @@
 ---
 import { Header as LayoutHeader } from "@/components/layout/header"
+import { Locale, LocalizedPath } from "@/lang/types"
+import { fetchHeader } from "@/queries/fetch-header"
 
-// fetch header data
+interface Props {
+  path: string
+  localizedPaths: LocalizedPath[]
+  locale: Locale
+}
+
+const header = await fetchHeader({
+  locale: Astro.props.locale,
+})
 ---
 
-<LayoutHeader />
+<LayoutHeader
+  locale={Astro.props.locale}
+  navItems={header.navItems}
+  path={Astro.props.path}
+  localizedPaths={Astro.props.localizedPaths}
+  client:idle
+/>
