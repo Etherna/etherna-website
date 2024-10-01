@@ -36,21 +36,37 @@ export function getPayloadRequest(req: PayloadRequest) {
   return request
 }
 
-const cache = new Map<string, unknown>()
+const cache = new Map<string, Promise<unknown>>()
 
 export function fetchPayloadRequest<T>(req: PayloadRequest) {
   const cacheKey = req.method === "GET" ? JSON.stringify(req) : ""
 
+  let resolver: (value: T) => void
+  let rejecter: (reason?: unknown) => void
+  const promise = new Promise<T>((res, rej) => {
+    resolver = res
+    rejecter = rej
+  })
+
   if (cache.has(cacheKey)) {
-    return Promise.resolve(cache.get(cacheKey) as T)
+    return cache.get(cacheKey) as Promise<T>
   }
+
+  cache.set(cacheKey, promise)
 
   const request = getPayloadRequest(req)
-  const response = fetch(request).then((res) => res.json()) as Promise<T>
-
-  if (req.method === "GET") {
-    response.then((data) => cache.set(cacheKey, data))
-  }
+  const response = fetch(request)
+    .then((res) => res.json() as Promise<T>)
+    .then((data) => {
+      resolver(data)
+      cache.delete(cacheKey)
+      return data
+    })
+    .catch((err) => {
+      rejecter(err)
+      cache.delete(cacheKey)
+      throw err
+    })
 
   return response
 }

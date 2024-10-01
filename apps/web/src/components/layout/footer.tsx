@@ -50,7 +50,7 @@ export function Footer({
 function FooterRowHeader({ children, className, ...props }: React.ComponentProps<"div">) {
   return (
     <div className={cn("flex flex-col items-start", className)} {...props}>
-      <Logo className="h-7 opacity-50 brightness-50 grayscale" />
+      <Logo className="dark h-7 opacity-50 brightness-0" />
       {children}
     </div>
   )
