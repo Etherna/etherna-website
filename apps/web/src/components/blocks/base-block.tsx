@@ -22,7 +22,31 @@ export function BaseBlock({
   ...props
 }: BaseBlockProps) {
   const bgImageResult = background.backgroundImage as Media | undefined
-  const bgColorsStops = background.colorStops ?? []
+  const bgColorsStops = (() => {
+    let stops = background.colorStops?.length
+      ? background.colorStops
+      : [
+          {
+            color: "hsl(var(--card))",
+            stop: 0,
+          },
+          {
+            color: "hsl(var(--card) / 0)",
+            stop: 100,
+          },
+        ]
+    if (background.inverted) {
+      stops = stops.map(({ stop }, i, self) => {
+        const oppositeIndex = self.length - 1 - i
+        const color = self[oppositeIndex]?.color ?? "hsl(var(--card))"
+        return {
+          color,
+          stop,
+        }
+      })
+    }
+    return stops.map((stop) => `${stop.color} ${stop.stop}%`).join(", ")
+  })()
   const backgroundImage = (() => {
     switch (background.type) {
       case "image":
@@ -30,9 +54,9 @@ export function BaseBlock({
           ? `url(${bgImageResult.bundled.image.src}&q=100)`
           : ""
       case "verticalGradient":
-        return `linear-gradient(to bottom, ${bgColorsStops.map((stop) => stop.color).join(", ")})`
+        return `linear-gradient(to bottom, ${bgColorsStops})`
       case "horizontalGradient":
-        return `linear-gradient(to right, ${bgColorsStops.map((stop) => stop.color).join(", ")})`
+        return `linear-gradient(to right, ${bgColorsStops})`
       default:
         return ""
     }
@@ -53,6 +77,7 @@ export function BaseBlock({
       className={cn(
         "w-full",
         {
+          dark: background.dark,
           "py-4 md:py-6 lg:py-8": hasBackground && spacing === "sm",
           "my-4 md:my-6 lg:my-8": !hasBackground && spacing === "sm",
           "py-8 md:py-12 lg:py-16": hasBackground && spacing === "default",

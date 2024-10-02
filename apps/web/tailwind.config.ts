@@ -189,7 +189,8 @@ export default {
         },
         ".text-gradient": {
           color: "transparent",
-          background: "linear-gradient(0deg, #151515 0%, #9d9d9d 100%)",
+          background:
+            "linear-gradient(0deg, hsl(var(--foreground)) 0%, hsl(var(--foreground) / 0.3) 100%)",
           "-webkit-background-clip": "text",
           "-webkit-text-fill-color": "transparent",
         },

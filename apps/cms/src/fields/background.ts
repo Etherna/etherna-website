@@ -15,6 +15,7 @@ export const background = (overrides?: Partial<GroupField>) =>
         type: "select",
         defaultValue: "none",
         localized: true,
+        required: true,
         options: [
           {
             label: "None",
@@ -37,7 +38,27 @@ export const background = (overrides?: Partial<GroupField>) =>
             value: "horizontalGradient",
           },
         ],
-        required: true,
+        admin: {
+          width: "50%",
+        },
+      },
+      {
+        name: "inverted",
+        type: "checkbox",
+        required: false,
+        admin: {
+          condition: (_, { type } = {}) => type.includes("Gradient"),
+          width: "50%",
+        },
+      },
+      {
+        name: "dark",
+        type: "checkbox",
+        required: false,
+        admin: {
+          condition: (_, { type } = {}) => type !== "none",
+          width: "50%",
+        },
       },
       {
         name: "backgroundImage",
@@ -46,12 +67,14 @@ export const background = (overrides?: Partial<GroupField>) =>
         required: true,
         admin: {
           condition: (_, { type } = {}) => type === "image",
+          width: "50%",
         },
       },
       colorField({
         required: false,
         admin: {
           condition: (_, { type } = {}) => type === "color",
+          width: "50%",
         },
       }),
       {
@@ -61,6 +84,7 @@ export const background = (overrides?: Partial<GroupField>) =>
         defaultValue: [],
         admin: {
           condition: (_, { type } = {}) => type.includes("Gradient"),
+          width: "50%",
         },
         fields: [
           colorField({

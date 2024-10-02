@@ -305,6 +305,8 @@ export interface TextBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    inverted?: boolean | null;
+    dark?: boolean | null;
     backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
@@ -345,6 +347,8 @@ export interface CtaBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    inverted?: boolean | null;
+    dark?: boolean | null;
     backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
@@ -412,6 +416,8 @@ export interface MilestonesBlock {
   }[];
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    inverted?: boolean | null;
+    dark?: boolean | null;
     backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
@@ -452,6 +458,8 @@ export interface ClientsBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    inverted?: boolean | null;
+    dark?: boolean | null;
     backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
@@ -512,6 +520,8 @@ export interface FeaturesBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    inverted?: boolean | null;
+    dark?: boolean | null;
     backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
@@ -572,6 +582,8 @@ export interface AwardsBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    inverted?: boolean | null;
+    dark?: boolean | null;
     backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
@@ -632,6 +644,8 @@ export interface StatsBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    inverted?: boolean | null;
+    dark?: boolean | null;
     backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
@@ -679,6 +693,8 @@ export interface BentoBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    inverted?: boolean | null;
+    dark?: boolean | null;
     backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
@@ -709,6 +725,8 @@ export interface BentoBlock {
         } | null;
         background: {
           type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+          inverted?: boolean | null;
+          dark?: boolean | null;
           backgroundImage?: (string | null) | Media;
           color?: string | null;
           colorStops?:
@@ -770,6 +788,8 @@ export interface TestimonialsBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    inverted?: boolean | null;
+    dark?: boolean | null;
     backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
@@ -847,6 +867,8 @@ export interface FAQBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    inverted?: boolean | null;
+    dark?: boolean | null;
     backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
@@ -906,6 +928,8 @@ export interface TeamBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    inverted?: boolean | null;
+    dark?: boolean | null;
     backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
@@ -967,6 +991,8 @@ export interface RelatedPostsBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    inverted?: boolean | null;
+    dark?: boolean | null;
     backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
@@ -1008,6 +1034,8 @@ export interface FormBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    inverted?: boolean | null;
+    dark?: boolean | null;
     backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
@@ -1208,6 +1236,8 @@ export interface BrandBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    inverted?: boolean | null;
+    dark?: boolean | null;
     backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:
@@ -1263,6 +1293,8 @@ export interface JobsBlock {
   centered?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    inverted?: boolean | null;
+    dark?: boolean | null;
     backgroundImage?: (string | null) | Media;
     color?: string | null;
     colorStops?:

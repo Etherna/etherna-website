@@ -30,7 +30,13 @@ export function ColorField({ field }: TextFieldClientProps) {
   const { value, setValue } = useField<string>({ path })
 
   return (
-    <div className="field-type relative" style={field.admin?.style}>
+    <div
+      className="field-type relative"
+      style={{
+        ...field.admin?.style,
+        width: field.admin?.width,
+      }}
+    >
       <TextInput
         className="[&_input]:!pl-14"
         label={label ?? "Color"}
