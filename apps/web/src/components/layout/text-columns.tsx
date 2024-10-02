@@ -23,6 +23,7 @@ function TextColumns({
       )}
       {...props}
       data-centered={centered || undefined}
+      data-inline={!centered || undefined}
     >
       {children}
     </div>
@@ -38,7 +39,7 @@ function TextColumnsMainColumn({ children, className, ...props }: React.Componen
 }
 
 const titleVariants = cva(
-  "mt-[0.35em] text-gradient font-bold max-w-screen-sm group/text:data-[centered]:mx-auto",
+  "mt-[0.35em] text-gradient font-bold max-w-screen-sm group-data-[centered]/text:mx-auto",
   {
     variants: {
       size: {
@@ -72,7 +73,7 @@ function TextColumnsSubtitle({ children, className, ...props }: React.ComponentP
   return (
     <p
       className={cn(
-        "group/text:data-[centered]:mx-auto text-lg/none font-semibold text-secondary-foreground/70",
+        "text-lg/none font-semibold text-secondary-foreground/70 group-data-[centered]/text:mx-auto",
         className,
       )}
       {...props}
@@ -86,7 +87,7 @@ function TextColumnsDescription({ children, className, ...props }: React.Compone
   return (
     <div
       className={cn(
-        "group/text:data-[centered]:mx-auto mt-6 max-w-screen-sm text-secondary-foreground/70 md:mt-8",
+        "mt-6 max-w-screen-sm text-secondary-foreground/70 group-data-[centered]/text:mx-auto md:mt-8",
         className,
       )}
       {...props}
@@ -100,7 +101,7 @@ function TextColumnsContentColumn({ children, className, ...props }: React.Compo
   return (
     <div
       className={cn(
-        "group/text:data-[centered]:md:w-1/2 group/text:data-[centered]:lg:w-1/3 flex shrink-0 flex-col",
+        "flex shrink-0 flex-col group-data-[inline]/text:md:w-1/2 group-data-[inline]/text:lg:w-1/3",
         className,
       )}
       {...props}
