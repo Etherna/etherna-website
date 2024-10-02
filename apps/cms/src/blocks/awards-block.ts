@@ -20,13 +20,24 @@ export const AwardsBlock = {
       minRows: 1,
       fields: [
         {
+          name: "issuer",
+          type: "text",
+          required: true,
+        },
+        {
+          name: "name",
+          type: "text",
+          required: true,
+          localized: true,
+        },
+        {
           name: "logo",
           type: "upload",
           relationTo: "media",
           required: true,
           validate: validateMimeTypes(["image/svg+xml"]),
         },
-        link({ required: false }),
+        link({ required: false, disableLabel: true, appearances: false }),
       ],
     },
   ],

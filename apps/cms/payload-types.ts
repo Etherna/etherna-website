@@ -595,6 +595,8 @@ export interface AwardsBlock {
       | null;
   };
   awards: {
+    issuer: string;
+    name: string;
     logo: string | Media;
     link?: {
       type?: ('reference' | 'custom') | null;
@@ -609,8 +611,6 @@ export interface AwardsBlock {
             value: string | Post;
           } | null);
       url?: string | null;
-      label?: string | null;
-      appearance?: ('default' | 'outline') | null;
     };
     id?: string | null;
   }[];

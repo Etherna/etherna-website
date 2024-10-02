@@ -98,7 +98,13 @@ function TextColumnsDescription({ children, className, ...props }: React.Compone
 
 function TextColumnsContentColumn({ children, className, ...props }: React.ComponentProps<"div">) {
   return (
-    <div className={cn("flex shrink-0 flex-col", className)} {...props}>
+    <div
+      className={cn(
+        "group/text:data-[centered]:md:w-1/2 group/text:data-[centered]:lg:w-1/3 flex shrink-0 flex-col",
+        className,
+      )}
+      {...props}
+    >
       {children}
     </div>
   )

@@ -31,8 +31,8 @@ export function Footer({
   ...props
 }: FooterProps) {
   return (
-    <footer className={cn("bg-background pb-8 pt-16", className)} {...props}>
-      <div className="container flex flex-col gap-10 md:gap-16">
+    <footer className={cn("bg-muted pb-8 pt-12", className)} {...props}>
+      <div className="container flex flex-col gap-6 md:gap-12">
         <h2 className="sr-only">Footer</h2>
         <FooterRowHeader />
         <FooterRowGroups groups={groups ?? []} locale={locale} />
@@ -50,7 +50,7 @@ export function Footer({
 function FooterRowHeader({ children, className, ...props }: React.ComponentProps<"div">) {
   return (
     <div className={cn("flex flex-col items-start", className)} {...props}>
-      <Logo className="dark h-7 opacity-50 brightness-0" />
+      <Logo className="dark h-7 opacity-50 brightness-0 dark:brightness-200" />
       {children}
     </div>
   )

@@ -14,6 +14,7 @@ import type { GetImageResult } from "astro"
 
 export interface BundledImage extends GetImageResult {
   originalSrc: string
+  svgContent?: string
   blurhash?: string
 }
 
@@ -67,22 +68,28 @@ export async function bundleCmsImage(
       } satisfies GetImageResult)
     : await getImage({ src, alt: img.alt, inferSize: true })
 
+  let blurhash
+  let svgContent
+
   if (img.mimeType === "image/svg+xml") {
     // fix srcset for SVGs
     result.src = result.src.replace(/(webp|jpg|jpeg|png)/, "svg")
-  }
 
-  const blurhash = await serverImageToBlurhash({
-    src,
-    format: result.options.format,
-    height: result.options.height,
-    width: result.options.width,
-  })
+    svgContent = await fetch(src).then((res) => res.text())
+  } else {
+    blurhash = await serverImageToBlurhash({
+      src,
+      format: result.options.format,
+      height: result.options.height,
+      width: result.options.width,
+    })
+  }
 
   return {
     ...result,
     originalSrc: src,
-    blurhash: blurhash,
+    svgContent,
+    blurhash,
   }
 }
 

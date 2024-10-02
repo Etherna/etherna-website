@@ -35,6 +35,9 @@
     --warning: 50, 84%, 60%;
     --warning-foreground: 50 20% 98%;
 
+    --gold: 43 60% 60%;
+    --gold-foreground: 43 20% 99%;
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
@@ -80,6 +83,9 @@
 
     --warning: 50, 64%, 49%;
     --warning-foreground: 50 20% 96%;
+
+    --gold: 43 45% 45%;
+    --gold-foreground: 43 20% 99%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;

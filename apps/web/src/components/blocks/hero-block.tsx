@@ -18,32 +18,8 @@ export function HeroBlock({
   links,
   media,
 }: Page["hero"]) {
-  const blockRef = React.useRef<HTMLDivElement>(null)
-  const circleRef = React.useRef<HTMLDivElement>(null)
-
-  React.useEffect(() => {
-    if (type !== "highImpact" || !backgroundImage) return
-
-    console.log(blockRef.current)
-
-    function move(e: MouseEvent) {
-      const x = e.clientX
-      const y = e.clientY
-
-      circleRef.current?.style.setProperty("--x", `${x}px`)
-      circleRef.current?.style.setProperty("--y", `${y}px`)
-    }
-
-    blockRef.current?.addEventListener("mousemove", move)
-
-    return () => {
-      blockRef.current?.removeEventListener("mousemove", move)
-    }
-  }, [])
-
   return (
     <BaseBlock
-      ref={blockRef}
       className="bg-card pt-24 reset-current-bg-card"
       blockType={"hero"}
       background={{
@@ -52,18 +28,6 @@ export function HeroBlock({
       }}
       spacing="none"
     >
-      {/* {type === "highImpact" && backgroundImage && (
-        <div
-          ref={circleRef}
-          className="fixed left-[var(--x)] top-[var(--y)] hidden size-16 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-75 supports-[mix-blend-mode:color-burn]:block"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at center, hsl(var(--primary)) 0%, hsl(var(--primary) / 0) 70%)",
-            mixBlendMode: "color-burn",
-          }}
-        />
-      )} */}
-
       <div
         className={cn("container flex flex-col gap-4", {
           "lg:flex-row lg:items-center": type !== "highImpact",

@@ -8,7 +8,7 @@ import type { Config } from "tailwindcss"
 
 export default {
   content: ["./index.html", "./public/**/*.html", "./src/**/*.tsx", "./src/**/*.astro"],
-  darkMode: ["class", "class"],
+  darkMode: "class",
   theme: {
     container: {
       center: true,
@@ -70,6 +70,10 @@ export default {
         warning: {
           DEFAULT: "hsl(var(--warning))",
           foreground: "hsl(var(--warning-foreground))",
+        },
+        gold: {
+          DEFAULT: "hsl(var(--gold))",
+          foreground: "hsl(var(--gold-foreground))",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -185,7 +189,8 @@ export default {
           top: "50%",
           "--tw-translate-x": "-50%",
           "--tw-translate-y": "-50%",
-          transform: "var(--tw-transform)",
+          transform:
+            "translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))",
         },
         ".text-gradient": {
           color: "transparent",
@@ -204,6 +209,18 @@ export default {
         {
           "reset-current-bg": (value) => ({
             "--current-background": value.match(/^hsl\((.+)\)$/)?.[1] ?? value,
+          }),
+        },
+        {
+          type: "color",
+          values: flattenColorPalette(theme("colors")),
+        },
+      )
+
+      matchUtilities(
+        {
+          "stop-color": (value) => ({
+            "stop-color": `hsl(${value.match(/^hsl\((.+)\)$/)?.[1] ?? value})`,
           }),
         },
         {
