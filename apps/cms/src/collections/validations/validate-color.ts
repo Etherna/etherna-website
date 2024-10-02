@@ -1,10 +1,18 @@
 import type { Validate } from "payload"
 
-export const validateHexColor: Validate = (value, { required }) => {
+export const validateColor: Validate = (value, { required }) => {
   if (required && !value) {
     return "This field is required"
   }
   if (!required && !value) {
+    return true
+  }
+
+  if (/var\(.+\)/.test(value)) {
+    return true
+  }
+
+  if (/hsl\(.+\)/.test(value)) {
     return true
   }
 

@@ -12,6 +12,7 @@ import {
   TextColumnsTitle,
 } from "../layout/text-columns"
 import { BaseBlock } from "./base-block"
+import { isEmptyLexical } from "@/lib/lexical"
 import { cn } from "@/lib/utils"
 
 import type { AwardsBlock, Media } from "@payload-types"
@@ -46,7 +47,7 @@ export function AwardsBlock({
             </TextColumnsTitle>
           )}
 
-          {text && (
+          {isEmptyLexical(text) && (
             <TextColumnsDescription>
               <RichText nodes={text.root.children} />
             </TextColumnsDescription>
