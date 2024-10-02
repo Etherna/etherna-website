@@ -26,7 +26,7 @@ export const ClientsBlock = {
           required: true,
           validate: validateMimeTypes(["image/svg+xml"]),
         },
-        link({ required: false }),
+        link({ required: false, disableLabel: true, appearances: false }),
       ],
     },
   ],

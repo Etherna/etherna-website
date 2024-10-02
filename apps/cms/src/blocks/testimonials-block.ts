@@ -47,7 +47,7 @@ export const TestimonialsBlock = {
           relationTo: "media",
           validate: validateMimeTypes(["image/png", "image/jpg", "image/jpeg"]),
         },
-        link({ required: false }),
+        link({ required: false, disableLabel: true, appearances: false }),
       ],
     },
   ],

@@ -485,8 +485,6 @@ export interface ClientsBlock {
             value: string | Post;
           } | null);
       url?: string | null;
-      label?: string | null;
-      appearance?: ('default' | 'outline') | null;
     };
     id?: string | null;
   }[];
@@ -752,8 +750,6 @@ export interface BentoBlock {
                 value: string | Post;
               } | null);
           url?: string | null;
-          label?: string | null;
-          appearance?: ('default' | 'outline') | null;
         };
         id?: string | null;
       }[]
@@ -832,8 +828,6 @@ export interface TestimonialsBlock {
             value: string | Post;
           } | null);
       url?: string | null;
-      label?: string | null;
-      appearance?: ('default' | 'outline') | null;
     };
     id?: string | null;
   }[];

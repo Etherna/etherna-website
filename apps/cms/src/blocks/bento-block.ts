@@ -55,7 +55,7 @@ export const BentoBlock = {
             width: "50%",
           },
         },
-        link({ required: false }),
+        link({ required: false, disableLabel: true, appearances: false }),
       ],
     },
   ],

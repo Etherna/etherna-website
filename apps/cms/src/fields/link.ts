@@ -162,6 +162,7 @@ export const link: LinkType = ({
       type: "select",
       admin: {
         description: "Choose how the link should be rendered.",
+        width: "50%",
       },
       options: appearanceOptionsToUse,
     })
