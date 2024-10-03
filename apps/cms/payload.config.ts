@@ -33,6 +33,7 @@ import { Users } from "@/collections/users"
 import { Company } from "@/globals/company"
 import { Footer } from "@/globals/footer"
 import { Header } from "@/globals/header"
+import { HighlightFeature } from "@/lexical/highlight/highlight-feature.server"
 import { admin } from "@/policies/admin"
 import { deployIfNeeded } from "@/schedules/deploy-if-needed"
 import { fetchWorkflow } from "@/server/endpoints/fetch-workflow"
@@ -99,6 +100,7 @@ export default buildConfig({
         ItalicFeature(),
         UnderlineFeature(),
         StrikethroughFeature(),
+        HighlightFeature(),
         HorizontalRuleFeature(),
         InlineToolbarFeature(),
         LinkFeature({
