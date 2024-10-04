@@ -2,6 +2,7 @@ import React from "react"
 import {
   IS_BOLD,
   IS_CODE,
+  IS_HIGHLIGHT,
   IS_ITALIC,
   IS_STRIKETHROUGH,
   IS_SUBSCRIPT,
@@ -15,7 +16,6 @@ import { Image } from "../common/image"
 
 import type { BundledUploadFields } from "@/lib/bundle"
 import type { NodeType } from "@/lib/lexical"
-import type { DefaultNodeTypes } from "@payloadcms/richtext-lexical"
 
 interface RichTextProps {
   nodes: {
@@ -23,9 +23,10 @@ interface RichTextProps {
     version: number
     [k: string]: unknown
   }[]
+  highlightStyles?: React.CSSProperties
 }
 
-export function RichText({ nodes }: RichTextProps) {
+export function RichText({ nodes, highlightStyles }: RichTextProps) {
   return (
     <>
       {(nodes as NodeType[]).map((node, index) => {
@@ -65,6 +66,13 @@ export function RichText({ nodes }: RichTextProps) {
           if (node.format & IS_SUPERSCRIPT) {
             text = <sup key={index}>{text}</sup>
           }
+          if (node.format & IS_HIGHLIGHT) {
+            text = (
+              <mark key={index} style={highlightStyles}>
+                {text}
+              </mark>
+            )
+          }
 
           return text
         }
@@ -93,7 +101,7 @@ export function RichText({ nodes }: RichTextProps) {
           case "paragraph": {
             return (
               <p key={index}>
-                <RichText nodes={node.children as DefaultNodeTypes[]} />
+                <RichText nodes={node.children} highlightStyles={highlightStyles} />
               </p>
             )
           }
@@ -101,7 +109,7 @@ export function RichText({ nodes }: RichTextProps) {
             const Tag = node?.tag
             return (
               <Tag key={index}>
-                <RichText nodes={node.children as DefaultNodeTypes[]} />
+                <RichText nodes={node.children} highlightStyles={highlightStyles} />
               </Tag>
             )
           }
@@ -109,7 +117,7 @@ export function RichText({ nodes }: RichTextProps) {
             const Tag = node?.tag
             return (
               <Tag key={index}>
-                <RichText nodes={node.children as DefaultNodeTypes[]} />
+                <RichText nodes={node.children} highlightStyles={highlightStyles} />
               </Tag>
             )
           }
@@ -124,13 +132,13 @@ export function RichText({ nodes }: RichTextProps) {
                   tabIndex={-1}
                   value={node?.value}
                 >
-                  <RichText nodes={node.children as DefaultNodeTypes[]} />
+                  <RichText nodes={node.children} highlightStyles={highlightStyles} />
                 </li>
               )
             } else {
               return (
                 <li key={index} value={node?.value}>
-                  <RichText nodes={node.children as DefaultNodeTypes[]} />
+                  <RichText nodes={node.children} highlightStyles={highlightStyles} />
                 </li>
               )
             }
@@ -138,7 +146,7 @@ export function RichText({ nodes }: RichTextProps) {
           case "quote": {
             return (
               <blockquote key={index}>
-                <RichText nodes={node.children as DefaultNodeTypes[]} />
+                <RichText nodes={node.children} highlightStyles={highlightStyles} />
               </blockquote>
             )
           }
@@ -147,7 +155,7 @@ export function RichText({ nodes }: RichTextProps) {
 
             return (
               <a key={index} href={fields.url} target={fields.newTab ? "_blank" : undefined}>
-                <RichText nodes={node.children as DefaultNodeTypes[]} />
+                <RichText nodes={node.children} highlightStyles={highlightStyles} />
               </a>
             )
           }

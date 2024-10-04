@@ -134,6 +134,7 @@ export interface Page {
         | FeaturesBlock
         | AwardsBlock
         | StatsBlock
+        | GridBlock
         | BentoBlock
         | TestimonialsBlock
         | FAQBlock
@@ -667,6 +668,105 @@ export interface StatsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GridBlock".
+ */
+export interface GridBlock {
+  title?: string | null;
+  heading: 'h2' | 'h3' | 'h4';
+  subtitle?: string | null;
+  text?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  centered?: boolean | null;
+  background: {
+    type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    inverted?: boolean | null;
+    dark?: boolean | null;
+    backgroundImage?: (string | null) | Media;
+    color?: string | null;
+    colorStops?:
+      | {
+          color: string;
+          stop: number;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  size?: ('default' | 'large') | null;
+  rows?:
+    | {
+        items?:
+          | {
+              title?: string | null;
+              description?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: string;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
+              background: {
+                type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+                inverted?: boolean | null;
+                dark?: boolean | null;
+                backgroundImage?: (string | null) | Media;
+                color?: string | null;
+                colorStops?:
+                  | {
+                      color: string;
+                      stop: number;
+                      id?: string | null;
+                    }[]
+                  | null;
+              };
+              effect?: ('none' | 'appear' | 'zoom' | 'slide') | null;
+              accentColor?: string | null;
+              link?: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?:
+                  | ({
+                      relationTo: 'pages';
+                      value: string | Page;
+                    } | null)
+                  | ({
+                      relationTo: 'posts';
+                      value: string | Post;
+                    } | null);
+                url?: string | null;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'grid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "BentoBlock".
  */
 export interface BentoBlock {
@@ -735,6 +835,7 @@ export interface BentoBlock {
               }[]
             | null;
         };
+        accentColor?: string | null;
         rowSpan?: number | null;
         colSpan?: number | null;
         link?: {
@@ -957,7 +1058,7 @@ export interface TeamBlock {
   }[];
   id?: string | null;
   blockName?: string | null;
-  blockType: 'teams';
+  blockType: 'team';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

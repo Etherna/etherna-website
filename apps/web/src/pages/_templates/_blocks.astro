@@ -9,17 +9,18 @@ import { CtaBlock } from "@/components/blocks/cta-block"
 import { FAQBlock } from "@/components/blocks/faq-block"
 import { FeaturesBlock } from "@/components/blocks/features-block"
 import { FormBlock } from "@/components/blocks/form-block"
+import { GridBlock } from "@/components/blocks/grid-block"
+import { JobsBlock } from "@/components/blocks/jobs-block"
 import { MilestonesBlock } from "@/components/blocks/milestones-block"
 import { RelatedPostsBlock } from "@/components/blocks/related-posts-block"
 import { StatsBlock } from "@/components/blocks/stats-block"
+import { TeamBlock } from "@/components/blocks/team-block"
 import { TestimonialsBlock } from "@/components/blocks/testimonials-block"
 import { TextBlock } from "@/components/blocks/text-block"
 
 interface Props {
   blocks: Page["layout"]
 }
-
-console.log(Astro.props.blocks)
 ---
 
 {
@@ -27,6 +28,8 @@ console.log(Astro.props.blocks)
     switch (block.blockType) {
       case "awards":
         return <AwardsBlock {...block} />
+      case "grid":
+        return <GridBlock {...block} />
       case "bento":
         return <BentoBlock {...block} />
       case "brand":
@@ -49,10 +52,12 @@ console.log(Astro.props.blocks)
         return <StatsBlock {...block} />
       case "testimonials":
         return <TestimonialsBlock {...block} />
+      case "team":
+        return <TeamBlock {...block} />
+      case "jobs":
+        return <JobsBlock {...block} />
       case "text":
         return <TextBlock {...block} />
-      default:
-        return null
     }
   })
 }

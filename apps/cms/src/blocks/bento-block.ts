@@ -2,6 +2,7 @@ import { lexicalEditor } from "@payloadcms/richtext-lexical"
 
 import { TextBlock } from "./text-block"
 import { background } from "@/fields/background"
+import { colorField } from "@/fields/color"
 import { link } from "@/fields/link"
 
 import type { Block } from "payload"
@@ -35,8 +36,15 @@ export const BentoBlock = {
           }),
         },
         background(),
+        colorField({
+          name: "accentColor",
+          admin: {
+            width: "50%",
+          },
+        }),
         {
           name: "rowSpan",
+          label: "Row Span (1-2)",
           type: "number",
           defaultValue: 1,
           min: 1,
@@ -47,10 +55,11 @@ export const BentoBlock = {
         },
         {
           name: "colSpan",
+          label: "Col Span (1-6)",
           type: "number",
-          defaultValue: 1,
+          defaultValue: 3,
           min: 1,
-          max: 2,
+          max: 6,
           admin: {
             width: "50%",
           },

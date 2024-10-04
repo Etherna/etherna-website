@@ -5,7 +5,6 @@ import type { TextField } from "payload"
 export const colorField = (overrides: Partial<TextField> = {}) =>
   ({
     name: "color",
-    label: "Color",
     type: "text",
     ...overrides,
     hasMany: false,

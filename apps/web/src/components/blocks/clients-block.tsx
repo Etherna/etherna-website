@@ -11,7 +11,7 @@ import {
   TextColumnsTitle,
 } from "../layout/text-columns"
 import { BaseBlock } from "./base-block"
-import { isEmptyLexical } from "@/lib/lexical"
+import { isNotEmptyLexical } from "@/lib/lexical"
 import { cn } from "@/lib/utils"
 
 import type { ClientsBlock, Media } from "@payload-types"
@@ -31,7 +31,7 @@ export function ClientsBlock({
 
   return (
     <BaseBlock blockId={id} blockType={blockType} background={background}>
-      <TextColumns className="container gap-4 md:gap-6 lg:gap-6" centered={centered ?? false}>
+      <TextColumns className="gap-4 md:gap-6 lg:gap-6" centered={centered ?? false}>
         <TextColumnsMainColumn>
           {subtitle && <TextColumnsSubtitle size={"sm"}>{subtitle}</TextColumnsSubtitle>}
 
@@ -41,14 +41,14 @@ export function ClientsBlock({
             </TextColumnsTitle>
           )}
 
-          {isEmptyLexical(text) && (
+          {isNotEmptyLexical(text) && (
             <TextColumnsDescription className="text-sm">
               <RichText nodes={text.root.children} />
             </TextColumnsDescription>
           )}
         </TextColumnsMainColumn>
-        <TextColumnsContentColumn className="group-data-[inline]/text:lg:w-3/5">
-          <ul className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-x-3 gap-y-6">
+        <TextColumnsContentColumn inlineSize={"lg"}>
+          <ul className="grid w-full grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-x-3 gap-y-6 md:grid-cols-[repeat(auto-fill,minmax(180px,1fr))]">
             {clients.map((client, index) => {
               const gradientId = `${elementId}_ClientsGradient_${index}`
               return (
@@ -83,11 +83,11 @@ function SvgDefs({ id }: { id: string }) {
     <>
       <linearGradient id={id} x1="0" x2="1" y1="0" y2="1">
         <stop
-          className="stop-color-foreground/20 group-hover/client:stop-color-foreground transition-all duration-500"
+          className="transition-all duration-500 stop-color-foreground/20 group-hover/client:stop-color-foreground"
           offset="0%"
         />
         <stop
-          className="stop-color-foreground/60 group-hover/client:stop-color-foreground transition-all duration-500"
+          className="transition-all duration-500 stop-color-foreground/60 group-hover/client:stop-color-foreground"
           offset="100%"
         />
       </linearGradient>

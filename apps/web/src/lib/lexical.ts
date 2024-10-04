@@ -13,8 +13,12 @@ export interface LexicalRichText {
   }
 }
 
-export function isEmptyLexical(
+export function isEmptyLexical(content: LexicalRichText | null | undefined) {
+  return (content?.root.children.length ?? 0) === 0
+}
+
+export function isNotEmptyLexical(
   content: LexicalRichText | null | undefined,
 ): content is LexicalRichText {
-  return (content?.root.children.length ?? 0) === 0
+  return !isEmptyLexical(content)
 }

@@ -1,10 +1,35 @@
 <script>
+  function imageEvent(e: Event) {
+    removeBlurhash(e.target as HTMLImageElement)
+  }
+
+  function removeBlurhash(img: HTMLImageElement) {
+    img.style.backgroundImage = ""
+    img.style.backgroundSize = ""
+    img.removeEventListener("load", imageEvent)
+  }
+
   window.addEventListener("load", () => {
     const images = document.querySelectorAll<HTMLImageElement>("img[data-blurhash]")
     images.forEach((img) => {
-      img.addEventListener("load", () => {
-        img.style.backgroundImage = ""
-        img.style.backgroundSize = ""
+      img.addEventListener("load", imageEvent)
+
+      if (img.complete) {
+        removeBlurhash(img)
+      }
+
+      const observer = new MutationObserver((record) => {
+        record.forEach(() => {
+          if (img.style.backgroundImage) {
+            removeBlurhash(img)
+          }
+        })
+      })
+      observer.observe(img, {
+        attributes: true,
+        attributeFilter: ["src", "srcset", "style"],
+        childList: false,
+        subtree: false,
       })
     })
   })

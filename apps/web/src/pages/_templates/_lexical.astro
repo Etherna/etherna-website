@@ -2,6 +2,7 @@
 import {
   IS_BOLD,
   IS_CODE,
+  IS_HIGHLIGHT,
   IS_ITALIC,
   IS_STRIKETHROUGH,
   IS_SUBSCRIPT,
@@ -51,6 +52,9 @@ interface Props {
       }
       if (node.format & IS_SUPERSCRIPT) {
         text = <sup>{text}</sup>
+      }
+      if (node.format & IS_HIGHLIGHT) {
+        text = <mark>{text}</mark>
       }
 
       return text

@@ -75,7 +75,7 @@ export function BaseBlock({
     <section
       {...props}
       className={cn(
-        "w-full",
+        "flex w-full flex-col",
         {
           dark: background.dark,
           "py-4 md:py-6 lg:py-8": hasBackground && spacing === "sm",

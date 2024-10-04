@@ -3,10 +3,10 @@ import { TextBlock } from "./text-block"
 import type { Block } from "payload"
 
 export const TeamBlock = {
-  slug: "teams",
+  slug: "team",
   labels: {
-    singular: "Teams",
-    plural: "Teams Blocks",
+    singular: "Team",
+    plural: "Team Blocks",
   },
   interfaceName: "TeamBlock",
   fields: [

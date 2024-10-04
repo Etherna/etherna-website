@@ -6,9 +6,12 @@ import { CtaBlock } from "@/components/blocks/cta-block"
 import { FAQBlock } from "@/components/blocks/faq-block"
 import { FeaturesBlock } from "@/components/blocks/features-block"
 import { FormBlock } from "@/components/blocks/form-block"
+import { GridBlock } from "@/components/blocks/grid-block"
+import { JobsBlock } from "@/components/blocks/jobs-block"
 import { MilestonesBlock } from "@/components/blocks/milestones-block"
 import { RelatedPostsBlock } from "@/components/blocks/related-posts-block"
 import { StatsBlock } from "@/components/blocks/stats-block"
+import { TeamBlock } from "@/components/blocks/team-block"
 import { TestimonialsBlock } from "@/components/blocks/testimonials-block"
 import { TextBlock } from "@/components/blocks/text-block"
 
@@ -25,6 +28,8 @@ export function Blocks({ blocks }: BlocksProps) {
         switch (block.blockType) {
           case "awards":
             return <AwardsBlock key={index} {...block} />
+          case "grid":
+            return <GridBlock key={index} {...block} />
           case "bento":
             return <BentoBlock key={index} {...block} />
           case "brand":
@@ -47,10 +52,12 @@ export function Blocks({ blocks }: BlocksProps) {
             return <StatsBlock key={index} {...block} />
           case "testimonials":
             return <TestimonialsBlock key={index} {...block} />
+          case "team":
+            return <TeamBlock key={index} {...block} />
+          case "jobs":
+            return <JobsBlock key={index} {...block} />
           case "text":
             return <TextBlock key={index} {...block} />
-          default:
-            return null
         }
       })}
     </>

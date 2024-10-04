@@ -61,7 +61,11 @@ export function ColorField({ field }: TextFieldClientProps) {
           button={<PaletteIcon className="size-6" />}
           disabled={readOnly}
         >
-          <HexColorPicker className="mx-auto p-5" color={value} onChange={setValue} />
+          <HexColorPicker
+            className="mx-auto p-5"
+            color={value?.startsWith("#") ? value : ""}
+            onChange={setValue}
+          />
           <div className="mt-4 grid grid-cols-7 gap-2">
             {DefaultColorPalette.map((color) => (
               <div

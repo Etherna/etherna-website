@@ -14,10 +14,10 @@ function TextColumns({
   return (
     <div
       className={cn(
-        "group/text container flex gap-8 md:gap-12 lg:gap-20",
+        "group/text container flex flex-col gap-8 md:gap-12 lg:gap-20",
         {
-          "flex-col items-center text-center": centered,
-          "items-start": !centered,
+          "items-center text-center": centered,
+          "items-start md:flex-row": !centered,
         },
         className,
       )}
@@ -43,10 +43,10 @@ const titleVariants = cva(
   {
     variants: {
       size: {
-        xs: "text-base/none md:text-lg/none lg:text-xl/none",
-        sm: "text-2xl/none md:text-3xl/none lg:text-4xl/none",
-        default: "text-3xl/none md:text-4xl/none lg:text-5xl/none",
-        lg: "text-4xl/none md:text-5xl/none lg:text-6xl/none",
+        xs: "text-base/none md:text-lg/none lg:text-xl/none [&+*]:md:mt-2 [&+*]:md:mt-4",
+        sm: "text-2xl/none md:text-3xl/none lg:text-4xl/none [&+*]:md:mt-3 [&+*]:md:mt-5",
+        default: "text-3xl/none md:text-4xl/none lg:text-5xl/none [&+*]:md:mt-6 [&+*]:md:mt-8",
+        lg: "text-4xl/none md:text-5xl/none lg:text-6xl/none [&+*]:md:mt-7 [&+*]:md:mt-9",
       },
     },
     defaultVariants: {
@@ -64,7 +64,7 @@ interface TextColumnsTitleProps
 function TextColumnsTitle({ children, className, size, ...props }: TextColumnsTitleProps) {
   const Tag = props.tag ?? "h2"
   return (
-    <Tag className={cn(titleVariants({ size }), "text-6xl", className)} {...props}>
+    <Tag className={cn(titleVariants({ size }), className)} {...props}>
       {children}
     </Tag>
   )
@@ -101,7 +101,7 @@ function TextColumnsDescription({ children, className, ...props }: React.Compone
   return (
     <div
       className={cn(
-        "mt-6 max-w-screen-sm text-secondary-foreground/70 group-data-[centered]/text:mx-auto md:mt-8",
+        "max-w-screen-sm text-secondary-foreground/70 group-data-[centered]/text:mx-auto",
         className,
       )}
       {...props}
@@ -111,15 +111,38 @@ function TextColumnsDescription({ children, className, ...props }: React.Compone
   )
 }
 
-function TextColumnsContentColumn({ children, className, ...props }: React.ComponentProps<"div">) {
+const contentColumnVariants = cva("flex w-full shrink-0 flex-col", {
+  variants: {
+    centeredSize: {
+      sm: "mx-auto max-w-screen-sm",
+      default: "",
+    },
+    inlineSize: {
+      sm: "",
+      default: "group-data-[inline]/text:md:w-1/2 group-data-[inline]/text:lg:w-1/3",
+      lg: "group-data-[inline]/text:lg:w-3/5",
+      full: "w-full",
+    },
+  },
+  defaultVariants: {
+    centeredSize: "default",
+    inlineSize: "default",
+  },
+})
+
+interface TextColumnsContentColumnProps
+  extends React.ComponentProps<"div">,
+    VariantProps<typeof contentColumnVariants> {}
+
+function TextColumnsContentColumn({
+  children,
+  className,
+  centeredSize,
+  inlineSize,
+  ...props
+}: TextColumnsContentColumnProps) {
   return (
-    <div
-      className={cn(
-        "flex w-full shrink-0 flex-col group-data-[inline]/text:md:w-1/2 group-data-[inline]/text:lg:w-1/3",
-        className,
-      )}
-      {...props}
-    >
+    <div className={cn(contentColumnVariants({ centeredSize, inlineSize }), className)} {...props}>
       {children}
     </div>
   )

@@ -277,6 +277,30 @@ export async function bundleBlocks(blocks: AnyBlock[], locale: Locale, accessTok
       case "jobs": {
         break
       }
+      case "grid": {
+        block.background.backgroundImage = await bundleMedia(
+          block.background.backgroundImage,
+          locale,
+          accessToken,
+        )
+        block.rows = await Promise.all(
+          (block.rows ?? []).map(async (row) => {
+            row.items = await Promise.all(
+              (row.items ?? []).map(async (item) => {
+                item.background.backgroundImage = await bundleMedia(
+                  item.background.backgroundImage,
+                  locale,
+                  accessToken,
+                )
+                item.link = await resolveInternalLink(item.link, locale, accessToken)
+                return item
+              }),
+            )
+            return row
+          }),
+        )
+        break
+      }
       case "bento": {
         block.background.backgroundImage = await bundleMedia(
           block.background.backgroundImage,
@@ -348,7 +372,7 @@ export async function bundleBlocks(blocks: AnyBlock[], locale: Locale, accessTok
         )
         break
       }
-      case "teams": {
+      case "team": {
         block.members = await Promise.all(
           (block.members ?? []).map(async (member) => {
             member.photo = await bundleMedia(member.photo, locale, accessToken)
@@ -484,4 +508,10 @@ export async function bundleHero(hero: Page["hero"], locale: Locale, accessToken
   hero.media = await bundleMedia(hero.media, locale, accessToken)
 
   return hero
+}
+
+export function hasBundledImage(
+  image: string | Media | null | undefined,
+): image is Media & { bundled: { image: BundledImage } } {
+  return typeof image === "object" && !!image?.bundled?.image
 }

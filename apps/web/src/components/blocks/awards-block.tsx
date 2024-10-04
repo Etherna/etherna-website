@@ -12,8 +12,8 @@ import {
   TextColumnsTitle,
 } from "../layout/text-columns"
 import { BaseBlock } from "./base-block"
-import { isEmptyLexical } from "@/lib/lexical"
-import { cn } from "@/lib/utils"
+import { isNotEmptyLexical } from "@/lib/lexical"
+import { cn, getInnerTag } from "@/lib/utils"
 
 import type { AwardsBlock, Media } from "@payload-types"
 
@@ -29,15 +29,11 @@ export function AwardsBlock({
   awards,
 }: AwardsBlock) {
   const elementId = useId()
-  const InnerTag = ("h" + (Number((heading ?? "h2").replace("h", "")) + 1)) as
-    | "h3"
-    | "h4"
-    | "h5"
-    | "h6"
+  const InnerTag = getInnerTag(heading)
 
   return (
     <BaseBlock blockId={id} blockType={blockType} background={background}>
-      <TextColumns className="container" centered={centered ?? false}>
+      <TextColumns centered={centered ?? false}>
         <TextColumnsMainColumn>
           {subtitle && <TextColumnsSubtitle>{subtitle}</TextColumnsSubtitle>}
 
@@ -47,7 +43,7 @@ export function AwardsBlock({
             </TextColumnsTitle>
           )}
 
-          {isEmptyLexical(text) && (
+          {isNotEmptyLexical(text) && (
             <TextColumnsDescription>
               <RichText nodes={text.root.children} />
             </TextColumnsDescription>
@@ -110,11 +106,11 @@ function SvgDefs({ id }: { id: string }) {
     <>
       <linearGradient id={id} x1="0" x2="0" y1="0" y2="1">
         <stop
-          className="group-hover/award:stop-color-gold/30 stop-color-foreground/30 transition-all duration-500"
+          className="transition-all duration-500 stop-color-foreground/30 group-hover/award:stop-color-gold/30"
           offset="0%"
         />
         <stop
-          className="group-hover/award:stop-color-gold stop-color-foreground transition-all duration-500"
+          className="transition-all duration-500 stop-color-foreground group-hover/award:stop-color-gold"
           offset="100%"
         />
       </linearGradient>
