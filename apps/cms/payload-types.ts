@@ -303,7 +303,9 @@ export interface TextBlock {
     };
     [k: string]: unknown;
   } | null;
+  titleSize?: ('xs' | 'sm' | 'default' | 'lg') | null;
   centered?: boolean | null;
+  forceFullWidth?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
     inverted?: boolean | null;
@@ -345,7 +347,9 @@ export interface CtaBlock {
     };
     [k: string]: unknown;
   } | null;
+  titleSize?: ('xs' | 'sm' | 'default' | 'lg') | null;
   centered?: boolean | null;
+  forceFullWidth?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
     inverted?: boolean | null;
@@ -456,7 +460,9 @@ export interface ClientsBlock {
     };
     [k: string]: unknown;
   } | null;
+  titleSize?: ('xs' | 'sm' | 'default' | 'lg') | null;
   centered?: boolean | null;
+  forceFullWidth?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
     inverted?: boolean | null;
@@ -516,7 +522,9 @@ export interface FeaturesBlock {
     };
     [k: string]: unknown;
   } | null;
+  titleSize?: ('xs' | 'sm' | 'default' | 'lg') | null;
   centered?: boolean | null;
+  forceFullWidth?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
     inverted?: boolean | null;
@@ -578,7 +586,9 @@ export interface AwardsBlock {
     };
     [k: string]: unknown;
   } | null;
+  titleSize?: ('xs' | 'sm' | 'default' | 'lg') | null;
   centered?: boolean | null;
+  forceFullWidth?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
     inverted?: boolean | null;
@@ -640,7 +650,9 @@ export interface StatsBlock {
     };
     [k: string]: unknown;
   } | null;
+  titleSize?: ('xs' | 'sm' | 'default' | 'lg') | null;
   centered?: boolean | null;
+  forceFullWidth?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
     inverted?: boolean | null;
@@ -689,7 +701,9 @@ export interface GridBlock {
     };
     [k: string]: unknown;
   } | null;
+  titleSize?: ('xs' | 'sm' | 'default' | 'lg') | null;
   centered?: boolean | null;
+  forceFullWidth?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
     inverted?: boolean | null;
@@ -788,7 +802,9 @@ export interface BentoBlock {
     };
     [k: string]: unknown;
   } | null;
+  titleSize?: ('xs' | 'sm' | 'default' | 'lg') | null;
   centered?: boolean | null;
+  forceFullWidth?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
     inverted?: boolean | null;
@@ -882,7 +898,9 @@ export interface TestimonialsBlock {
     };
     [k: string]: unknown;
   } | null;
+  titleSize?: ('xs' | 'sm' | 'default' | 'lg') | null;
   centered?: boolean | null;
+  forceFullWidth?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
     inverted?: boolean | null;
@@ -959,7 +977,9 @@ export interface FAQBlock {
     };
     [k: string]: unknown;
   } | null;
+  titleSize?: ('xs' | 'sm' | 'default' | 'lg') | null;
   centered?: boolean | null;
+  forceFullWidth?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
     inverted?: boolean | null;
@@ -1020,7 +1040,9 @@ export interface TeamBlock {
     };
     [k: string]: unknown;
   } | null;
+  titleSize?: ('xs' | 'sm' | 'default' | 'lg') | null;
   centered?: boolean | null;
+  forceFullWidth?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
     inverted?: boolean | null;
@@ -1083,7 +1105,9 @@ export interface RelatedPostsBlock {
     };
     [k: string]: unknown;
   } | null;
+  titleSize?: ('xs' | 'sm' | 'default' | 'lg') | null;
   centered?: boolean | null;
+  forceFullWidth?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
     inverted?: boolean | null;
@@ -1126,7 +1150,9 @@ export interface FormBlock {
     };
     [k: string]: unknown;
   } | null;
+  titleSize?: ('xs' | 'sm' | 'default' | 'lg') | null;
   centered?: boolean | null;
+  forceFullWidth?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
     inverted?: boolean | null;
@@ -1328,7 +1354,9 @@ export interface BrandBlock {
     };
     [k: string]: unknown;
   } | null;
+  titleSize?: ('xs' | 'sm' | 'default' | 'lg') | null;
   centered?: boolean | null;
+  forceFullWidth?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
     inverted?: boolean | null;
@@ -1385,7 +1413,9 @@ export interface JobsBlock {
     };
     [k: string]: unknown;
   } | null;
+  titleSize?: ('xs' | 'sm' | 'default' | 'lg') | null;
   centered?: boolean | null;
+  forceFullWidth?: boolean | null;
   background: {
     type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
     inverted?: boolean | null;

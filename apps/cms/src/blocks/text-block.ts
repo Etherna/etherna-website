@@ -55,10 +55,36 @@ export const TextBlock = {
       }),
     },
     {
+      name: "titleSize",
+      type: "select",
+      required: false,
+      options: [
+        { label: "Smaller", value: "xs" },
+        { label: "Small", value: "sm" },
+        { label: "Default", value: "default" },
+        { label: "Large", value: "lg" },
+      ],
+      admin: {
+        width: "30%",
+      },
+    },
+    {
       name: "centered",
       type: "checkbox",
       required: false,
       defaultValue: false,
+      admin: {
+        width: "30%",
+      },
+    },
+    {
+      name: "forceFullWidth",
+      type: "checkbox",
+      required: false,
+      defaultValue: false,
+      admin: {
+        width: "30%",
+      },
     },
     background(),
   ],
