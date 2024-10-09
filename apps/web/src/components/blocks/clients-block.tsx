@@ -25,18 +25,26 @@ export function ClientsBlock({
   background,
   heading,
   centered,
+  forceFullWidth,
+  titleSize,
   clients,
 }: ClientsBlock) {
   const elementId = useId()
 
   return (
     <BaseBlock blockId={id} blockType={blockType} background={background}>
-      <TextColumns className="gap-4 md:gap-6 lg:gap-6" centered={centered ?? false}>
+      <TextColumns
+        className="gap-4 md:gap-6 lg:gap-6"
+        centered={centered ?? false}
+        inline={!forceFullWidth && !centered}
+      >
         <TextColumnsMainColumn>
-          {subtitle && <TextColumnsSubtitle size={"sm"}>{subtitle}</TextColumnsSubtitle>}
+          {subtitle && (
+            <TextColumnsSubtitle size={titleSize ?? "sm"}>{subtitle}</TextColumnsSubtitle>
+          )}
 
           {title && (
-            <TextColumnsTitle tag={heading} size={"xs"}>
+            <TextColumnsTitle tag={heading} size={titleSize ?? "xs"}>
               {title}
             </TextColumnsTitle>
           )}

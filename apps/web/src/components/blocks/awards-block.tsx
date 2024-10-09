@@ -26,6 +26,8 @@ export function AwardsBlock({
   background,
   heading,
   centered,
+  forceFullWidth,
+  titleSize,
   awards,
 }: AwardsBlock) {
   const elementId = useId()
@@ -33,12 +35,14 @@ export function AwardsBlock({
 
   return (
     <BaseBlock blockId={id} blockType={blockType} background={background}>
-      <TextColumns centered={centered ?? false}>
+      <TextColumns centered={centered ?? false} inline={!forceFullWidth && !centered}>
         <TextColumnsMainColumn>
-          {subtitle && <TextColumnsSubtitle>{subtitle}</TextColumnsSubtitle>}
+          {subtitle && (
+            <TextColumnsSubtitle size={titleSize ?? "default"}>{subtitle}</TextColumnsSubtitle>
+          )}
 
           {title && (
-            <TextColumnsTitle tag={heading} size={"lg"}>
+            <TextColumnsTitle tag={heading} size={titleSize ?? "lg"}>
               {title}
             </TextColumnsTitle>
           )}

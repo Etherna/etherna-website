@@ -26,18 +26,21 @@ export function GridBlock({
   heading,
   centered,
   size,
+  titleSize,
   rows,
 }: GridBlock) {
   const InnerTag = getInnerTag(heading)
 
   return (
     <BaseBlock blockId={id} blockType={blockType} background={background}>
-      <TextColumns className="flex-col" centered={centered ?? false}>
+      <TextColumns className="flex-col" centered={centered ?? false} inline={false}>
         <TextColumnsMainColumn>
-          {subtitle && <TextColumnsSubtitle size={"sm"}>{subtitle}</TextColumnsSubtitle>}
+          {subtitle && (
+            <TextColumnsSubtitle size={titleSize ?? "sm"}>{subtitle}</TextColumnsSubtitle>
+          )}
 
           {title && (
-            <TextColumnsTitle tag={heading} size={"sm"}>
+            <TextColumnsTitle tag={heading} size={titleSize ?? "sm"}>
               {title}
             </TextColumnsTitle>
           )}

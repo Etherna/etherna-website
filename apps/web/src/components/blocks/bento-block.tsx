@@ -24,18 +24,26 @@ export function BentoBlock({
   background,
   heading,
   centered,
+  forceFullWidth,
+  titleSize,
   items,
 }: BentoBlock) {
   const InnerTag = getInnerTag(heading)
 
   return (
     <BaseBlock blockId={id} blockType={blockType} background={background}>
-      <TextColumns className="flex-col" centered={centered ?? false}>
+      <TextColumns
+        className="flex-col"
+        centered={centered ?? false}
+        inline={!forceFullWidth && !centered}
+      >
         <TextColumnsMainColumn>
-          {subtitle && <TextColumnsSubtitle size={"sm"}>{subtitle}</TextColumnsSubtitle>}
+          {subtitle && (
+            <TextColumnsSubtitle size={titleSize ?? "default"}>{subtitle}</TextColumnsSubtitle>
+          )}
 
           {title && (
-            <TextColumnsTitle tag={heading} size={"sm"}>
+            <TextColumnsTitle tag={heading} size={titleSize ?? "default"}>
               {title}
             </TextColumnsTitle>
           )}

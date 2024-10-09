@@ -19,15 +19,23 @@ export function TextBlock({
   blockType,
   heading,
   centered,
+  forceFullWidth,
+  titleSize,
 }: TextBlock) {
   return (
     <BaseBlock blockId={id} blockType={blockType} background={background}>
-      <TextColumns className="container" centered={centered ?? false}>
+      <TextColumns
+        className="container"
+        centered={centered ?? false}
+        inline={!forceFullWidth && !centered}
+      >
         <TextColumnsMainColumn>
-          {subtitle && <TextColumnsSubtitle>{subtitle}</TextColumnsSubtitle>}
+          {subtitle && (
+            <TextColumnsSubtitle size={titleSize ?? "default"}>{subtitle}</TextColumnsSubtitle>
+          )}
 
           {title && (
-            <TextColumnsTitle tag={heading} size={"lg"}>
+            <TextColumnsTitle tag={heading} size={titleSize ?? "lg"}>
               {title}
             </TextColumnsTitle>
           )}

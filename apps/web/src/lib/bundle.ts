@@ -16,6 +16,7 @@ export interface BundledImage extends GetImageResult {
   originalSrc: string
   svgContent?: string
   blurhash?: string
+  filename: string
 }
 
 export interface BundledFile {
@@ -90,6 +91,7 @@ export async function bundleCmsImage(
     originalSrc: src,
     svgContent,
     blurhash,
+    filename: img.filename ?? src.split("/").at(-1) ?? "unnamed",
   }
 }
 

@@ -33,7 +33,7 @@ interface Props {
       case "bento":
         return <BentoBlock {...block} />
       case "brand":
-        return <BrandBlock {...block} />
+        return <BrandBlock {...block} client:idle />
       case "clients":
         return <ClientsBlock {...block} />
       case "cta":
@@ -43,9 +43,9 @@ interface Props {
       case "features":
         return <FeaturesBlock {...block} />
       case "form":
-        return <FormBlock {...block} />
+        return <FormBlock {...block} client:idle />
       case "milestones":
-        return <MilestonesBlock {...block} />
+        return <MilestonesBlock {...block} client:idle />
       case "relatedPosts":
         return <RelatedPostsBlock {...block} />
       case "stats":
@@ -53,9 +53,9 @@ interface Props {
       case "testimonials":
         return <TestimonialsBlock {...block} />
       case "team":
-        return <TeamBlock {...block} />
+        return <TeamBlock {...block} client:idle />
       case "jobs":
-        return <JobsBlock {...block} />
+        return <JobsBlock {...block} client:idle />
       case "text":
         return <TextBlock {...block} />
     }

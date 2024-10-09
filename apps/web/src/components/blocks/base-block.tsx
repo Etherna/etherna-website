@@ -1,5 +1,6 @@
 import React from "react"
 
+import { hslValue } from "@/lib/colors"
 import { cn } from "@/lib/utils"
 
 import type { Media, TextBlock } from "@payload-types"
@@ -22,7 +23,7 @@ export function BaseBlock({
   ...props
 }: BaseBlockProps) {
   const bgImageResult = background.backgroundImage as Media | undefined
-  const bgColorsStops = (() => {
+  const stopColors = (() => {
     let stops = background.colorStops?.length
       ? background.colorStops
       : [
@@ -45,7 +46,10 @@ export function BaseBlock({
         }
       })
     }
-    return stops.map((stop) => `${stop.color} ${stop.stop}%`).join(", ")
+    return stops
+  })()
+  const bgColorsStops = (() => {
+    return stopColors.map((stop) => `${stop.color} ${stop.stop}%`).join(", ")
   })()
   const backgroundImage = (() => {
     switch (background.type) {
@@ -61,12 +65,27 @@ export function BaseBlock({
         return ""
     }
   })()
+  const currentBgColor = (() => {
+    switch (background.type) {
+      case "color":
+        return background.color
+      case "verticalGradient":
+      case "horizontalGradient":
+        return stopColors[0]?.color
+      case "none":
+      case "image":
+        return undefined
+    }
+  })()
   const blockStyles = {
     backgroundColor: background.type === "color" ? (background.color ?? "") : "",
     backgroundImage,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundPosition: "center",
+    ["--current-background" as keyof React.CSSProperties]: currentBgColor
+      ? hslValue(currentBgColor, " ")
+      : undefined,
     ...style,
   } satisfies React.CSSProperties
   const hasBackground = background.type !== "none"

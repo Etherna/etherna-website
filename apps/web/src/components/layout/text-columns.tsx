@@ -9,21 +9,22 @@ function TextColumns({
   children,
   className,
   centered,
+  inline = true,
   ...props
-}: React.ComponentProps<"div"> & { centered?: boolean }) {
+}: React.ComponentProps<"div"> & { centered?: boolean; inline?: boolean }) {
   return (
     <div
       className={cn(
         "group/text container flex flex-col gap-8 md:gap-12 lg:gap-20",
         {
           "items-center text-center": centered,
-          "items-start md:flex-row": !centered,
+          "items-start md:flex-row": inline,
         },
         className,
       )}
       {...props}
       data-centered={centered || undefined}
-      data-inline={!centered || undefined}
+      data-inline={inline || undefined}
     >
       {children}
     </div>
@@ -42,29 +43,97 @@ const titleVariants = cva(
   "mt-[0.35em] text-gradient font-bold max-w-screen-sm group-data-[centered]/text:mx-auto",
   {
     variants: {
+      tag: {
+        h2: "",
+        h3: "",
+        h4: "",
+        h5: "",
+        h6: "",
+      },
       size: {
-        xs: "text-base/none md:text-lg/none lg:text-xl/none [&+*]:md:mt-2 [&+*]:md:mt-4",
-        sm: "text-2xl/none md:text-3xl/none lg:text-4xl/none [&+*]:md:mt-3 [&+*]:md:mt-5",
-        default: "text-3xl/none md:text-4xl/none lg:text-5xl/none [&+*]:md:mt-6 [&+*]:md:mt-8",
-        lg: "text-4xl/none md:text-5xl/none lg:text-6xl/none [&+*]:md:mt-7 [&+*]:md:mt-9",
+        xs: "[&+*]:md:mt-2 [&+*]:md:mt-4",
+        sm: "[&+*]:md:mt-3 [&+*]:md:mt-5",
+        default: "[&+*]:md:mt-6 [&+*]:md:mt-8",
+        lg: "[&+*]:md:mt-7 [&+*]:md:mt-9",
       },
     },
     defaultVariants: {
+      tag: "h2",
       size: "default",
     },
+    compoundVariants: [
+      {
+        tag: "h2",
+        size: "xs",
+        className: "text-base/none md:text-lg/none lg:text-xl/none",
+      },
+      {
+        tag: "h2",
+        size: "sm",
+        className: "text-2xl/none md:text-3xl/none lg:text-4xl/none",
+      },
+      {
+        tag: "h2",
+        size: "default",
+        className: "text-3xl/none md:text-4xl/none lg:text-5xl/none",
+      },
+      {
+        tag: "h2",
+        size: "lg",
+        className: "text-4xl/none md:text-5xl/none lg:text-6xl/none",
+      },
+      {
+        tag: "h3",
+        size: "xs",
+        className: "text-base/none md:text-lg/none lg:text-xl/none",
+      },
+      {
+        tag: "h3",
+        size: "sm",
+        className: "text-xl/none md:text-2xl/none lg:text-3xl/none",
+      },
+      {
+        tag: "h3",
+        size: "default",
+        className: "text-xl/none md:text-2xl/none lg:text-4xl/none",
+      },
+      {
+        tag: "h3",
+        size: "lg",
+        className: "text-2xl/none md:text-3xl/none lg:text-5xl/none",
+      },
+      {
+        tag: "h4",
+        size: "xs",
+        className: "text-sm/none md:text-base/none lg:text-lg/none",
+      },
+      {
+        tag: "h4",
+        size: "sm",
+        className: "text-base/none md:text-lg/none lg:text-xl/none",
+      },
+      {
+        tag: "h4",
+        size: "default",
+        className: "text-lg/none md:text-xl/none lg:text-2xl/none",
+      },
+      {
+        tag: "h4",
+        size: "lg",
+        className: "text-xl/none md:text-2xl/none lg:text-4xl/none",
+      },
+    ],
   },
 )
 
 interface TextColumnsTitleProps
   extends React.ComponentProps<"h2">,
-    VariantProps<typeof titleVariants> {
-  tag?: "h2" | "h3" | "h4" | "h5" | "h6"
-}
+    VariantProps<typeof titleVariants> {}
 
-function TextColumnsTitle({ children, className, size, ...props }: TextColumnsTitleProps) {
-  const Tag = props.tag ?? "h2"
+function TextColumnsTitle({ children, className, size, tag, ...props }: TextColumnsTitleProps) {
+  const Tag = tag ?? "h2"
   return (
-    <Tag className={cn(titleVariants({ size }), className)} {...props}>
+    <Tag className={cn(titleVariants({ size, tag }), className)} {...props}>
       {children}
     </Tag>
   )
@@ -75,8 +144,11 @@ const subtitleVariants = cva(
   {
     variants: {
       size: {
+        xs: "text-sm/none",
         sm: "text-sm/none",
         default: "text-lg/none",
+        lg: "text-lg/none",
+        xl: "text-lg/none",
       },
     },
     defaultVariants: {

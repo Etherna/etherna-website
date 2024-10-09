@@ -4,6 +4,8 @@ import { fontFamily } from "tailwindcss/defaultTheme"
 import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette"
 import plugin from "tailwindcss/plugin"
 
+import { hslValue } from "./src/lib/colors"
+
 import type { Config } from "tailwindcss"
 
 export default {
@@ -96,7 +98,7 @@ export default {
         serif: ['DM Serif Display"', ...fontFamily.serif],
       },
       fontSize: {
-        "2sx": ["0.625rem", { lineHeight: "1rem" }],
+        "2xs": ["0.625rem", { lineHeight: "1rem" }],
       },
       animation: {
         "color-image": "color-image 0.5s ease-in-out forwards",
@@ -181,6 +183,7 @@ export default {
   plugins: [
     require("@tailwindcss/typography"),
     require("tailwindcss-animate"),
+    require("tailwindcss-interaction-media"),
     plugin(({ addUtilities, addVariant, matchUtilities, theme }) => {
       addUtilities({
         ".absolute-center": {
@@ -208,7 +211,8 @@ export default {
       matchUtilities(
         {
           "reset-current-bg": (value) => ({
-            "--current-background": value.match(/^hsl\((.+)\)$/)?.[1] ?? value,
+            "--current-background":
+              value.match(/^hsl\((.+)\)$/)?.[1] ?? hslValue(value, " ") ?? value,
           }),
         },
         {
