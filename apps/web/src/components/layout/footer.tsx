@@ -102,7 +102,7 @@ function FooterRowGroup({
           })}
           asChild
         >
-          {group.title}
+          <span>{group.title}</span>
         </AccordionTrigger>
         <AccordionContent asChild>
           <ul className="mt-2 flex flex-col">
