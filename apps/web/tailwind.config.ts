@@ -24,12 +24,13 @@ export default {
       center: true,
       padding: {
         DEFAULT: "1rem",
-        lg: "1.25rem",
+        md: "1.25rem",
+        lg: "1.5rem",
       },
       screens: {
         sm: "640px",
         md: "768px",
-        lg: "1024px",
+        lg: "1080px",
       },
     },
     extend: {
