@@ -41,7 +41,7 @@ export function Header({
   const [menuOpen, setMenuOpen] = React.useState(false)
 
   return (
-    <header className={cn("fixed top-4 z-10 flex w-full", className)} {...props}>
+    <header className={cn("fixed top-4 z-10 flex w-screen", className)} {...props}>
       <div className="container">
         <div
           className={cn(

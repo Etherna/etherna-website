@@ -364,6 +364,7 @@ export async function bundleBlocks(blocks: AnyBlock[], locale: Locale, accessTok
             return link
           }),
         )
+        block.media = await bundleMedia(block.media, locale, accessToken)
         break
       }
       case "faq": {

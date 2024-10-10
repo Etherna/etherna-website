@@ -31,7 +31,7 @@ export function Footer({
   ...props
 }: FooterProps) {
   return (
-    <footer className={cn("bg-muted pb-8 pt-12", className)} {...props}>
+    <footer className={cn("w-screen bg-muted pb-8 pt-12", className)} {...props}>
       <div className="container flex flex-col gap-6 md:gap-12">
         <h2 className="sr-only">Footer</h2>
         <FooterRowHeader />

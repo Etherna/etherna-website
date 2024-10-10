@@ -64,7 +64,7 @@
     --popover-foreground: 210 40% 98%;
 
     --primary: 186 90% 35%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary-foreground: 222.2 100% 100%;
 
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -107,7 +107,7 @@
     @apply border-border;
   }
   html {
-    @apply font-sans font-medium tracking-tight antialiased;
+    @apply w-screen overflow-x-hidden font-sans font-medium tracking-tight antialiased;
     @screen xl {
       font-size: 112.5%;
     }

@@ -15,10 +15,10 @@ function TextColumns({
   return (
     <div
       className={cn(
-        "group/text container flex flex-col gap-8 md:gap-12 lg:gap-20",
+        "group/text container flex flex-col gap-8 lg:gap-12 xl:gap-20",
         {
           "items-center text-center": centered,
-          "items-start md:flex-row": inline,
+          "items-start lg:flex-row": inline,
         },
         className,
       )}
@@ -190,9 +190,9 @@ const contentColumnVariants = cva("flex w-full shrink-0 flex-col", {
       default: "",
     },
     inlineSize: {
-      sm: "",
-      default: "group-data-[inline]/text:md:w-1/2 group-data-[inline]/text:lg:w-1/3",
-      lg: "group-data-[inline]/text:lg:w-3/5",
+      sm: "group-data-[inline]/text:lg:w-1/3 group-data-[inline]/text:xl:w-1/4",
+      default: "group-data-[inline]/text:lg:w-1/2 group-data-[inline]/text:xl:w-1/3",
+      lg: "group-data-[inline]/text:lg:w-3/5 group-data-[inline]/text:xl:w-3/5",
       full: "w-full",
     },
   },

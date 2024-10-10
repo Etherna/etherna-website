@@ -49,7 +49,7 @@ export function BaseBlock({
     return stops
   })()
   const bgColorsStops = (() => {
-    return stopColors.map((stop) => `${stop.color} ${stop.stop}%`).join(", ")
+    return stopColors.map((stop) => `${stop.color} ${Math.round(stop.stop * 100)}%`).join(", ")
   })()
   const backgroundImage = (() => {
     switch (background.type) {
@@ -94,7 +94,7 @@ export function BaseBlock({
     <section
       {...props}
       className={cn(
-        "flex w-full flex-col",
+        "flex w-screen flex-col",
         {
           dark: background.dark,
           "py-4 md:py-6 lg:py-8": hasBackground && spacing === "sm",
