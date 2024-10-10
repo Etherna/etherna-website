@@ -35,7 +35,7 @@ export function CtaBlock({
   return (
     <BaseBlock blockId={id} blockType={blockType} background={background}>
       <TextColumns
-        className="gap-6 md:gap-8 lg:gap-10"
+        className="gap-6 md:flex-row md:gap-8 lg:gap-10"
         centered={centered ?? false}
         inline={!forceFullWidth && !centered}
       >
@@ -56,9 +56,9 @@ export function CtaBlock({
             </TextColumnsDescription>
           )}
         </TextColumnsMainColumn>
-        <TextColumnsContentColumn className="lg:pt-2" inlineSize={"sm"}>
+        <TextColumnsContentColumn className="md:w-1/3 md:pt-2" inlineSize={"sm"}>
           <div
-            className={cn("flex gap-3", {
+            className={cn("flex max-w-sm gap-3", {
               "mx-auto": centered,
               "flex-col": verticalButtons,
               "items-center": !verticalButtons,

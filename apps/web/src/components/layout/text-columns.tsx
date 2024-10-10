@@ -146,9 +146,9 @@ const subtitleVariants = cva(
       size: {
         xs: "text-sm/none",
         sm: "text-sm/none",
-        default: "text-lg/none",
-        lg: "text-lg/none",
-        xl: "text-lg/none",
+        default: "textbase lg:text-lg/none",
+        lg: "textbase lg:text-lg/none",
+        xl: "textbase lg:text-lg/none",
       },
     },
     defaultVariants: {

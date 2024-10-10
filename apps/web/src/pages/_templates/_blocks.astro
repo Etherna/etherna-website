@@ -39,7 +39,7 @@ interface Props {
       case "cta":
         return <CtaBlock {...block} />
       case "faq":
-        return <FAQBlock {...block} />
+        return <FAQBlock {...block} client:idle />
       case "features":
         return <FeaturesBlock {...block} />
       case "form":
