@@ -13,6 +13,7 @@ import { hasBundledImage } from "@/lib/bundle"
 import { isNotEmptyLexical } from "@/lib/lexical"
 import { cn, getInnerTag } from "@/lib/utils"
 
+import type { BlockProps } from "./base-block"
 import type { FeaturesBlock } from "@payload-types"
 
 export function FeaturesBlock({
@@ -27,7 +28,7 @@ export function FeaturesBlock({
   forceFullWidth,
   titleSize,
   features,
-}: FeaturesBlock) {
+}: BlockProps<FeaturesBlock>) {
   const isInline = !forceFullWidth && !centered
   const InnerTag = getInnerTag(heading)
 

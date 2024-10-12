@@ -15,6 +15,7 @@ import { BaseBlock } from "./base-block"
 import { isNotEmptyLexical } from "@/lib/lexical"
 import { cn, getInnerTag } from "@/lib/utils"
 
+import type { BlockProps } from "./base-block"
 import type { AwardsBlock, Media } from "@payload-types"
 
 export function AwardsBlock({
@@ -29,7 +30,7 @@ export function AwardsBlock({
   forceFullWidth,
   titleSize,
   awards,
-}: AwardsBlock) {
+}: BlockProps<AwardsBlock>) {
   const elementId = useId()
   const InnerTag = getInnerTag(heading)
 

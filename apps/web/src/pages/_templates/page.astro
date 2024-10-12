@@ -27,5 +27,5 @@ const { page, localizedPaths } = await fetchPage({
   localizedPaths={localizedPaths}
 >
   <HeroBlock {...page.hero} client:idle />
-  <Blocks blocks={page.layout} />
+  <Blocks blocks={page.layout} locale={Astro.props.locale} />
 </Root>

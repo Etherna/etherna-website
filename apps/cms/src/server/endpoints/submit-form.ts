@@ -2,6 +2,19 @@ import mailchimp from "@mailchimp/mailchimp_marketing"
 
 import type { Endpoint } from "payload"
 
+class CorsResponse extends Response {
+  constructor(body: BodyInit, init?: ResponseInit) {
+    super(body, {
+      ...init,
+      headers: {
+        ...init?.headers,
+        "Access-Control-Allow-Origin": process.env.PAYLOAD_PUBLIC_FRONTEND_URL || "",
+        "Access-Control-Allow-Methods": "POST",
+      },
+    })
+  }
+}
+
 export const submitForm: Endpoint = {
   method: "post",
   path: "/submit-form",
@@ -9,7 +22,7 @@ export const submitForm: Endpoint = {
     const submission = (await req.json?.()) as Record<string, string>
 
     if (!submission.formId) {
-      return new Response(JSON.stringify({ status: "error", message: "formId is required" }), {
+      return new CorsResponse(JSON.stringify({ status: "error", message: "formId is required" }), {
         status: 400,
       })
     }
@@ -26,7 +39,7 @@ export const submitForm: Endpoint = {
       }
 
       if (field.required && !submission[field.name]) {
-        return new Response(
+        return new CorsResponse(
           JSON.stringify({ status: "error", message: `${field.name} is required` }),
           { status: 400 },
         )
@@ -36,7 +49,7 @@ export const submitForm: Endpoint = {
         submission[field.name] &&
         !(submission[field.name] as string).match(/^[^@]+@[^@]+\.[^@]+$/)
       ) {
-        return new Response(
+        return new CorsResponse(
           JSON.stringify({ status: "error", message: `${field.name} is not a valid email` }),
           {
             status: 400,
@@ -49,7 +62,7 @@ export const submitForm: Endpoint = {
 
     if (event === "registration") {
       if (!form.mailchimpList) {
-        return new Response(
+        return new CorsResponse(
           JSON.stringify({ status: "error", message: "mailchimpList is required" }),
           { status: 400 },
         )
@@ -82,9 +95,9 @@ export const submitForm: Endpoint = {
       } catch (err) {
         const error = err as { response: { body: Record<string, unknown> } }
         if (error.response.body.title === "Member Exists") {
-          return new Response(JSON.stringify({ status: "ok", code: "EXIST" }), { status: 200 })
+          return new CorsResponse(JSON.stringify({ status: "ok", code: "EXIST" }), { status: 200 })
         }
-        return new Response(
+        return new CorsResponse(
           JSON.stringify({ status: "error", message: error.response.body.title }),
           { status: 400 },
         )
@@ -107,6 +120,6 @@ export const submitForm: Endpoint = {
       })
     }
 
-    return new Response(JSON.stringify({ status: "ok", code: "CREATE" }), { status: 200 })
+    return new CorsResponse(JSON.stringify({ status: "ok", code: "CREATE" }), { status: 200 })
   },
 }

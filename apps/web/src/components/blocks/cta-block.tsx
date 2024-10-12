@@ -14,6 +14,7 @@ import { hasBundledImage } from "@/lib/bundle"
 import { isNotEmptyLexical } from "@/lib/lexical"
 import { cn } from "@/lib/utils"
 
+import type { BlockProps } from "./base-block"
 import type { CtaBlock } from "@payload-types"
 
 export function CtaBlock({
@@ -29,7 +30,7 @@ export function CtaBlock({
   titleSize,
   links,
   media,
-}: CtaBlock) {
+}: BlockProps<CtaBlock>) {
   const verticalButtons = !forceFullWidth && !centered
 
   return (

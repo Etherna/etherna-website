@@ -1,6 +1,7 @@
 import path from "path"
 import { fileURLToPath } from "url"
 import { postgresAdapter } from "@payloadcms/db-postgres"
+import { nodemailerAdapter } from "@payloadcms/email-nodemailer"
 import { formBuilderPlugin } from "@payloadcms/plugin-form-builder"
 import { nestedDocsPlugin } from "@payloadcms/plugin-nested-docs"
 import { redirectsPlugin } from "@payloadcms/plugin-redirects"
@@ -17,6 +18,7 @@ import {
   UnderlineFeature,
 } from "@payloadcms/richtext-lexical"
 import { migrations } from "migrations"
+import nodemailerSendgrid from "nodemailer-sendgrid"
 import { buildConfig } from "payload"
 import { Locales } from "payload.i18n"
 import sharp from "sharp"
@@ -91,6 +93,15 @@ export default buildConfig({
       ],
     },
   },
+  email: process.env.SENDGRID_TOKEN
+    ? nodemailerAdapter({
+        defaultFromAddress: process.env.PAYLOAD_EMAIL_FROM || "no-reply@etherna.io",
+        defaultFromName: "Etherna Website",
+        transportOptions: nodemailerSendgrid({
+          apiKey: process.env.SENDGRID_TOKEN,
+        }),
+      })
+    : undefined,
   // This config helps us configure global or default features that the other editors can inherit
   editor: lexicalEditor({
     features: () => {
@@ -148,7 +159,7 @@ export default buildConfig({
   },
   collections: [Pages, Posts, Categories, Jobs, Media, Users],
   globals: [Header, Footer, Company],
-  cors: ["*"],
+  cors: [process.env.PAYLOAD_PUBLIC_FRONTEND_URL || ""].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
   endpoints: [fetchWorkflow, runDeploy, submitForm],
   plugins: [

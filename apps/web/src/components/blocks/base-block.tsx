@@ -3,14 +3,21 @@ import React from "react"
 import { hslValue } from "@/lib/colors"
 import { cn } from "@/lib/utils"
 
+import type { Locale } from "@/lang/types"
 import type { Media, TextBlock } from "@payload-types"
 
-interface BaseBlockProps extends React.ComponentProps<"section"> {
+export interface BaseBlockProps extends React.ComponentProps<"section"> {
   background: TextBlock["background"]
   blockType: string
   blockId?: TextBlock["id"]
   spacing?: "none" | "sm" | "default" | "lg"
 }
+
+export type BlockProps<T> = Prettify<
+  T & {
+    locale: Locale
+  }
+>
 
 export function BaseBlock({
   children,

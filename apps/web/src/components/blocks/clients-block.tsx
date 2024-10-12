@@ -14,6 +14,7 @@ import { BaseBlock } from "./base-block"
 import { isNotEmptyLexical } from "@/lib/lexical"
 import { cn } from "@/lib/utils"
 
+import type { BlockProps } from "./base-block"
 import type { ClientsBlock, Media } from "@payload-types"
 
 export function ClientsBlock({
@@ -28,13 +29,13 @@ export function ClientsBlock({
   forceFullWidth,
   titleSize,
   clients,
-}: ClientsBlock) {
+}: BlockProps<ClientsBlock>) {
   const elementId = useId()
 
   return (
     <BaseBlock blockId={id} blockType={blockType} background={background}>
       <TextColumns
-        className="gap-4 md:gap-6 lg:gap-6"
+        className="gap-4 md:gap-6 lg:gap-6 xl:gap-6"
         centered={centered ?? false}
         inline={!forceFullWidth && !centered}
       >

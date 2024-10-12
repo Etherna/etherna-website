@@ -11,6 +11,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "..
 import { BaseBlock } from "./base-block"
 import { isNotEmptyLexical } from "@/lib/lexical"
 
+import type { BlockProps } from "./base-block"
 import type { FAQBlock } from "@payload-types"
 
 export function FAQBlock({
@@ -25,7 +26,7 @@ export function FAQBlock({
   forceFullWidth,
   titleSize,
   faqs,
-}: FAQBlock) {
+}: BlockProps<FAQBlock>) {
   return (
     <BaseBlock blockId={id} blockType={blockType} background={background}>
       <TextColumns
@@ -53,7 +54,7 @@ export function FAQBlock({
         <TextColumnsContentColumn inlineSize={"lg"}>
           <Accordion type="multiple">
             {faqs.map((faq, index) => (
-              <AccordionItem value={index.toString()}>
+              <AccordionItem key={index} value={index.toString()}>
                 <AccordionTrigger>{faq.question}</AccordionTrigger>
                 <AccordionContent>
                   <RichText nodes={faq.text?.root.children ?? []} />

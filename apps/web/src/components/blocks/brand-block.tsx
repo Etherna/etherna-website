@@ -21,6 +21,7 @@ import { hslValue, rgbValue } from "@/lib/colors"
 import { isNotEmptyLexical } from "@/lib/lexical"
 import { cn } from "@/lib/utils"
 
+import type { BlockProps } from "./base-block"
 import type { BrandBlock } from "@payload-types"
 
 export function BrandBlock({
@@ -36,7 +37,7 @@ export function BrandBlock({
   titleSize,
   colors,
   logos,
-}: BrandBlock) {
+}: BlockProps<BrandBlock>) {
   const colorsList = colors ?? []
   const logosList = logos ?? []
 
@@ -187,7 +188,7 @@ function DownloadButton({
   return (
     <Button
       className={cn(
-        "text-2xs pointer-coarse:text-xs pointer-coarse:h-8 h-6 gap-1 rounded-[6px] px-1 font-semibold [&:not(:first-child)]:-ml-px [&:not(:first-child)]:rounded-l-none [&:not(:last-child)]:rounded-r-none",
+        "h-6 gap-1 rounded-[6px] px-1 text-2xs font-semibold pointer-coarse:h-8 pointer-coarse:text-xs [&:not(:first-child)]:-ml-px [&:not(:first-child)]:rounded-l-none [&:not(:last-child)]:rounded-r-none",
         className,
       )}
       variant={"outline"}
@@ -200,7 +201,7 @@ function DownloadButton({
       }}
       {...props}
     >
-      <DownloadIcon className="pointer-coarse:size-4 size-3" />
+      <DownloadIcon className="size-3 pointer-coarse:size-4" />
       {children}
     </Button>
   )
@@ -215,7 +216,7 @@ function CopyButton({
 
   return (
     <Button
-      className={cn("pointer-coarse:h-8 pointer-coarse:w-8 h-6 w-6 rounded-[6px] p-1", className)}
+      className={cn("h-6 w-6 rounded-[6px] p-1 pointer-coarse:h-8 pointer-coarse:w-8", className)}
       variant={"outline"}
       size={"sm"}
       onClick={() => {
@@ -226,9 +227,9 @@ function CopyButton({
       {...props}
     >
       {copied ? (
-        <CheckIcon className="pointer-coarse:size-4 size-3 text-green-500" strokeWidth={3} />
+        <CheckIcon className="size-3 text-green-500 pointer-coarse:size-4" strokeWidth={3} />
       ) : (
-        <ClipboardIcon className="pointer-coarse:size-4 size-3" />
+        <ClipboardIcon className="size-3 pointer-coarse:size-4" />
       )}
     </Button>
   )

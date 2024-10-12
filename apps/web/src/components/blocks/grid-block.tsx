@@ -14,6 +14,7 @@ import { hasBundledImage } from "@/lib/bundle"
 import { isNotEmptyLexical } from "@/lib/lexical"
 import { cn, getInnerTag } from "@/lib/utils"
 
+import type { BlockProps } from "./base-block"
 import type { GridBlock } from "@payload-types"
 
 export function GridBlock({
@@ -28,7 +29,7 @@ export function GridBlock({
   size,
   titleSize,
   rows,
-}: GridBlock) {
+}: BlockProps<GridBlock>) {
   const InnerTag = getInnerTag(heading)
 
   return (

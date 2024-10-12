@@ -13,6 +13,7 @@ import { hasBundledImage } from "@/lib/bundle"
 import { isNotEmptyLexical } from "@/lib/lexical"
 import { cn, getInnerTag } from "@/lib/utils"
 
+import type { BlockProps } from "./base-block"
 import type { BentoBlock } from "@payload-types"
 
 export function BentoBlock({
@@ -27,7 +28,7 @@ export function BentoBlock({
   forceFullWidth,
   titleSize,
   items,
-}: BentoBlock) {
+}: BlockProps<BentoBlock>) {
   const InnerTag = getInnerTag(heading)
 
   return (

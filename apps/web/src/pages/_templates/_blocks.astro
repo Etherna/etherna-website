@@ -17,9 +17,11 @@ import { StatsBlock } from "@/components/blocks/stats-block"
 import { TeamBlock } from "@/components/blocks/team-block"
 import { TestimonialsBlock } from "@/components/blocks/testimonials-block"
 import { TextBlock } from "@/components/blocks/text-block"
+import { Locale } from "@/lang/types"
 
 interface Props {
   blocks: Page["layout"]
+  locale: Locale
 }
 ---
 
@@ -27,37 +29,37 @@ interface Props {
   Astro.props.blocks?.map((block) => {
     switch (block.blockType) {
       case "awards":
-        return <AwardsBlock {...block} />
+        return <AwardsBlock {...block} locale={Astro.props.locale} />
       case "grid":
-        return <GridBlock {...block} />
+        return <GridBlock {...block} locale={Astro.props.locale} />
       case "bento":
-        return <BentoBlock {...block} />
+        return <BentoBlock {...block} locale={Astro.props.locale} />
       case "brand":
-        return <BrandBlock {...block} client:idle />
+        return <BrandBlock {...block} locale={Astro.props.locale} client:idle />
       case "clients":
-        return <ClientsBlock {...block} />
+        return <ClientsBlock {...block} locale={Astro.props.locale} />
       case "cta":
-        return <CtaBlock {...block} />
+        return <CtaBlock {...block} locale={Astro.props.locale} />
       case "faq":
-        return <FAQBlock {...block} client:idle />
+        return <FAQBlock {...block} locale={Astro.props.locale} client:idle />
       case "features":
-        return <FeaturesBlock {...block} />
+        return <FeaturesBlock {...block} locale={Astro.props.locale} />
       case "form":
-        return <FormBlock {...block} client:idle />
+        return <FormBlock {...block} locale={Astro.props.locale} client:idle />
       case "milestones":
-        return <MilestonesBlock {...block} client:idle />
+        return <MilestonesBlock {...block} locale={Astro.props.locale} client:idle />
       case "relatedPosts":
-        return <RelatedPostsBlock {...block} />
+        return <RelatedPostsBlock {...block} locale={Astro.props.locale} />
       case "stats":
-        return <StatsBlock {...block} />
+        return <StatsBlock {...block} locale={Astro.props.locale} />
       case "testimonials":
-        return <TestimonialsBlock {...block} />
+        return <TestimonialsBlock {...block} locale={Astro.props.locale} />
       case "team":
-        return <TeamBlock {...block} client:idle />
+        return <TeamBlock {...block} locale={Astro.props.locale} client:idle />
       case "jobs":
-        return <JobsBlock {...block} client:idle />
+        return <JobsBlock {...block} locale={Astro.props.locale} client:idle />
       case "text":
-        return <TextBlock {...block} />
+        return <TextBlock {...block} locale={Astro.props.locale} />
     }
   })
 }

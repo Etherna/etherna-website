@@ -20,6 +20,7 @@
     "@mailchimp/mailchimp_marketing": "3.0.80",
     "@octokit/rest": "21.0.2",
     "@payloadcms/db-postgres": "beta",
+    "@payloadcms/email-nodemailer": "beta",
     "@payloadcms/next": "beta",
     "@payloadcms/plugin-form-builder": "beta",
     "@payloadcms/plugin-nested-docs": "beta",
@@ -32,6 +33,8 @@
     "date-fns": "4.1.0",
     "md5-ts": "0.1.6",
     "next": "canary",
+    "nodemailer": "6.9.15",
+    "nodemailer-sendgrid": "1.0.3",
     "payload-plugin-scheduler": "workspace:*",
     "react": "rc",
     "react-colorful": "5.6.1",
@@ -41,8 +44,9 @@
   "devDependencies": {
     "@payloadcms/eslint-config": "1.1.1",
     "@types/mailchimp__mailchimp_marketing": "3.0.20",
-    "@types/react": "npm:types-react@rc",
-    "@types/react-dom": "npm:types-react-dom@rc",
+    "@types/nodemailer-sendgrid": "1.0.3",
+    "@types/react": "npm:types-react@19.0.0-rc.1",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*"
   },

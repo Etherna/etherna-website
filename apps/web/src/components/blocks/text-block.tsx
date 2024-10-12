@@ -8,6 +8,7 @@ import {
 } from "../layout/text-columns"
 import { BaseBlock } from "./base-block"
 
+import type { BlockProps } from "./base-block"
 import type { TextBlock } from "@payload-types"
 
 export function TextBlock({
@@ -21,7 +22,7 @@ export function TextBlock({
   centered,
   forceFullWidth,
   titleSize,
-}: TextBlock) {
+}: BlockProps<TextBlock>) {
   return (
     <BaseBlock blockId={id} blockType={blockType} background={background}>
       <TextColumns
