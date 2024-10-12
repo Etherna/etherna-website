@@ -65,8 +65,8 @@ export function FeaturesBlock({
           >
             {features.map((feature, index) => (
               <li key={index} className="items- flex w-full flex-col gap-2 text-left">
-                <div className="relative size-20 overflow-hidden rounded-lg bg-gradient-to-t from-foreground/20 to-foreground/10 p-0.5">
-                  <div className="h-full w-full rounded-md bg-gradient-to-b from-muted to-card p-0.5">
+                <div className="rounded-4xl relative size-20 overflow-hidden bg-gradient-to-b from-foreground/20 to-foreground/5 p-px">
+                  <div className="h-full w-full rounded-3xl bg-gradient-to-b from-muted to-background/80 p-0.5">
                     {hasBundledImage(feature.icon) && feature.icon.bundled.image.svgContent && (
                       <Svg className="h-full w-full" svg={feature.icon.bundled.image.svgContent} />
                     )}

@@ -1,6 +1,8 @@
 import { lexicalEditor } from "@payloadcms/richtext-lexical"
 
+import { populatePublishedAt } from "./hooks/populate-published-at"
 import { triggerDeploy } from "./hooks/trigger-deploy"
+import { someAccess } from "@/lib/access"
 import { admin } from "@/policies/admin"
 import { authenticated } from "@/policies/authenticated"
 import { published } from "@/policies/published"
@@ -13,7 +15,7 @@ export const Jobs: CollectionConfig = {
     admin: authenticated,
     create: admin,
     delete: admin,
-    read: published,
+    read: someAccess(authenticated, published),
     readVersions: admin,
     update: admin,
     unlock: admin,
@@ -70,6 +72,7 @@ export const Jobs: CollectionConfig = {
     },
   ],
   hooks: {
+    beforeChange: [populatePublishedAt],
     afterChange: [triggerDeploy],
   },
   versions: {

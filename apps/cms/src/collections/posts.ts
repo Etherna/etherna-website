@@ -20,6 +20,7 @@ import {
 } from "@payloadcms/richtext-lexical"
 
 import { populateAuthors } from "./hooks/populate-authors"
+import { populatePublishedAt } from "./hooks/populate-published-at"
 import { triggerDeploy } from "./hooks/trigger-deploy"
 import { CodeBlock } from "@/blocks/code-block"
 import { slugField } from "@/fields/slug"
@@ -243,6 +244,7 @@ export const Posts: CollectionConfig = {
     },
   ],
   hooks: {
+    beforeChange: [populatePublishedAt],
     afterChange: [triggerDeploy],
     afterRead: [populateAuthors],
   },

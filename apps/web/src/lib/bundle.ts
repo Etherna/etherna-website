@@ -8,9 +8,10 @@ import { localized } from "@/lang/utils"
 
 import type { NodeType } from "./lexical"
 import type { Locale } from "@/lang/types"
-import type { AwardsBlock, Form, Media, Page, Post } from "@payload-types"
+import type { AwardsBlock, Form, Job, JobsBlock, Media, Page, Post } from "@payload-types"
 import type { LinkFields } from "@payloadcms/richtext-lexical"
 import type { GetImageResult } from "astro"
+import type { PaginatedDocs } from "payload"
 
 export interface BundledImage extends GetImageResult {
   originalSrc: string
@@ -277,6 +278,18 @@ export async function bundleBlocks(blocks: AnyBlock[], locale: Locale, accessTok
         break
       }
       case "jobs": {
+        const jobsBlock = block as JobsBlock & { jobs?: Job[] }
+        jobsBlock.background.backgroundImage = await bundleMedia(
+          block.background.backgroundImage,
+          locale,
+          accessToken,
+        )
+        jobsBlock.jobs = await fetchPayloadRequest<PaginatedDocs<Job>>({
+          method: "GET",
+          path: "/jobs",
+          accessToken,
+          params: { locale, limit: 1000 },
+        }).then((resp) => resp.docs)
         break
       }
       case "grid": {
