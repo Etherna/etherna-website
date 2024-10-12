@@ -106,7 +106,7 @@ export function JobsBlock({
                           <p className="text-sm text-muted-foreground">{job.salary}/year</p>
                         )}
                       </div>
-                      <ArrowRightIcon className="size-4 shrink-0 text-muted-foreground/50 transition-all duration-300 group-hover/job:scale-110 group-hover/job:text-foreground" />
+                      <ArrowRightIcon className="size-4 shrink-0 text-muted-foreground/50 transition-all duration-300 group-hover/job:-rotate-[30deg] group-hover/job:scale-110 group-hover/job:text-foreground" />
                     </Button>
                   </DialogTrigger>
                   <DialogContent className="max-w-2xl">
