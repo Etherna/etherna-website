@@ -91,7 +91,7 @@ export function BaseBlock({
     backgroundSize: "cover",
     backgroundPosition: "center",
     ["--current-background" as keyof React.CSSProperties]: currentBgColor
-      ? hslValue(currentBgColor, " ")
+      ? (currentBgColor.match(/^hsl\((.+)\)$/)?.[1] ?? hslValue(currentBgColor, " "))
       : undefined,
     ...style,
   } satisfies React.CSSProperties
