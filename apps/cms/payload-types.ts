@@ -918,7 +918,7 @@ export interface TestimonialsBlock {
   testimonials: {
     name: string;
     role: string;
-    quote: {
+    quote?: {
       root: {
         type: string;
         children: {
@@ -932,7 +932,7 @@ export interface TestimonialsBlock {
         version: number;
       };
       [k: string]: unknown;
-    };
+    } | null;
     avatar?: (string | null) | Media;
     link?: {
       type?: ('reference' | 'custom') | null;

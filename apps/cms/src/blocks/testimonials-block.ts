@@ -34,7 +34,7 @@ export const TestimonialsBlock = {
         {
           name: "quote",
           type: "richText",
-          required: true,
+          localized: true,
           editor: lexicalEditor({
             features: ({ rootFeatures }) => {
               return [...rootFeatures]

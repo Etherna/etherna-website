@@ -53,7 +53,7 @@ interface Props {
       case "stats":
         return <StatsBlock {...block} locale={Astro.props.locale} />
       case "testimonials":
-        return <TestimonialsBlock {...block} locale={Astro.props.locale} />
+        return <TestimonialsBlock {...block} locale={Astro.props.locale} client:idle />
       case "team":
         return <TeamBlock {...block} locale={Astro.props.locale} client:idle />
       case "jobs":

@@ -3,7 +3,11 @@ import type { Media } from "payload-types"
 
 export const validateMimeTypes =
   (accept: string[]): Validate =>
-  async (value, { req }) => {
+  async (value, { req, required }) => {
+    if (!required) {
+      return true
+    }
+
     const img =
       typeof value === "object"
         ? (value as Media)
