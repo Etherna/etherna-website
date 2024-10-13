@@ -103,8 +103,18 @@ export function TeamBlock({
                   </DialogTrigger>
                   <DialogContent className="max-w-2xl">
                     <DialogHeader>
-                      <DialogTitle>{member.name}</DialogTitle>
-                      <DialogDescription>{member.role}</DialogDescription>
+                      <div className="flex items-center gap-4">
+                        {hasBundledImage(member.photo) && (
+                          <Image
+                            className="size-12 shrink-0 rounded-full object-cover"
+                            image={member.photo.bundled.image}
+                          />
+                        )}
+                        <div className="flex-1">
+                          <DialogTitle>{member.name}</DialogTitle>
+                          <DialogDescription>{member.role}</DialogDescription>
+                        </div>
+                      </div>
                     </DialogHeader>
                     <ScrollArea className="prose mt-8 max-h-[80vh] text-sm lg:max-h-[60vh]">
                       <RichText nodes={member.bio?.root.children ?? []} />
