@@ -1,12 +1,353 @@
+import { useCallback, useEffect, useRef, useState } from "react"
+import { motion, useMotionValue, useMotionValueEvent, useScroll, useSpring } from "framer-motion"
+
+import { CheckIcon, ClockIcon, MilestoneIcon } from "lucide-react"
+
+import { Image } from "../common/image"
+import { RichText } from "../common/rich-text"
+import { TextColumns, TextColumnsMainColumn, TextColumnsTitle } from "../layout/text-columns"
+import { AspectRatio } from "../ui/aspect-ratio"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "../ui/carousel"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog"
+import { ScrollArea } from "../ui/scroll-area"
 import { BaseBlock } from "./base-block"
+import { milestonesDictionary } from "@/lang/dictionaries/milestones"
+import { t } from "@/lang/t"
+import { hasBundledImage } from "@/lib/bundle"
+import { cn } from "@/lib/utils"
 
 import type { BlockProps } from "./base-block"
+import type { Locale } from "@/lang/types"
 import type { MilestonesBlock } from "@payload-types"
 
-export function MilestonesBlock(props: BlockProps<MilestonesBlock>) {
+export function MilestonesBlock({
+  id,
+  blockType,
+  title,
+  background,
+  milestones,
+  type,
+  locale,
+}: BlockProps<MilestonesBlock>) {
   return (
-    <BaseBlock blockId={props.id} blockType={props.blockType} background={props.background}>
-      <div className="container"></div>
+    <BaseBlock blockId={id} blockType={blockType} background={background}>
+      <TextColumns centered={true} inline={false}>
+        <TextColumnsMainColumn>
+          {title && (
+            <TextColumnsTitle tag={"h2"} size={"sm"}>
+              {title}
+            </TextColumnsTitle>
+          )}
+        </TextColumnsMainColumn>
+      </TextColumns>
+
+      <div className="mt-8 overflow-hidden lg:mt-12 xl:mt-16">
+        {type === "timeline" && <Milestones milestones={milestones} locale={locale} />}
+        {type === "roadmap" && <Roadmap milestones={milestones} locale={locale} />}
+      </div>
     </BaseBlock>
+  )
+}
+
+function Milestones({
+  milestones,
+  locale,
+}: Pick<MilestonesBlock, "milestones"> & { locale: Locale }) {
+  const containerElRef = useRef<HTMLDivElement>(null)
+  const scrollerElRef = useRef<HTMLUListElement | null>(null)
+  const startPointRef = useRef<[number, number] | null>(null)
+  const manualScrollAmountRef = useRef(0)
+  const scrollAmountRef = useRef(0)
+  const { scrollYProgress } = useScroll({
+    target: scrollerElRef as React.RefObject<HTMLUListElement>,
+    offset: ["start end", "end start"],
+  })
+
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    const scrollAmount = window.innerWidth * 0.2 * v
+    scrollAmountRef.current = scrollAmount
+    updateScroll()
+  })
+
+  const scrollValue = useMotionValue(0)
+  const spring = useSpring(scrollValue, {
+    bounce: 0,
+  })
+
+  const updateScroll = () => {
+    scrollValue.set(scrollAmountRef.current + manualScrollAmountRef.current)
+  }
+
+  const onMouseMove = useCallback((event: MouseEvent) => {
+    if (!startPointRef.current) return
+    const [startX, startTranslateX] = startPointRef.current
+    manualScrollAmountRef.current = startTranslateX + event.clientX - startX
+
+    updateScroll()
+  }, [])
+
+  const onMouseUp = useCallback(() => {
+    document.removeEventListener("mousemove", onMouseMove)
+    document.removeEventListener("mouseup", onMouseUp)
+  }, [])
+
+  const onMouseDown = (event: React.MouseEvent) => {
+    startPointRef.current = [event.clientX, manualScrollAmountRef.current]
+    document.addEventListener("mousemove", onMouseMove)
+    document.addEventListener("mouseup", onMouseUp)
+  }
+
+  return (
+    <div
+      ref={containerElRef}
+      className="relative isolate z-0 w-full cursor-grab overflow-hidden transition-transform duration-75"
+      onMouseDown={onMouseDown}
+    >
+      <motion.ul
+        ref={scrollerElRef}
+        className="flex h-64 px-[25vw]"
+        style={{
+          x: spring,
+        }}
+      >
+        {milestones.map((milestone, index) => (
+          <li
+            key={index}
+            className={cn("flex shrink-0 basis-3/4 select-none flex-col gap-y-2 md:basis-[320px]", {
+              "flex-col-reverse": index % 2 !== 0,
+            })}
+            data-current={milestone.status === "active" ? "true" : undefined}
+          >
+            <div
+              className={cn("flex flex-1 flex-col px-4", {
+                "flex-col-reverse": index % 2 !== 0,
+              })}
+            >
+              <Dialog>
+                <DialogTrigger asChild>
+                  <h3
+                    className={cn(
+                      "cursor-pointer py-1 text-center text-muted-foreground/50 underline-offset-4 hover:underline",
+                      {
+                        "font-semibold text-primary": milestone.status === "active",
+                        "text-muted-foreground": milestone.status === "completed",
+                      },
+                    )}
+                  >
+                    {milestone.title}
+                  </h3>
+                </DialogTrigger>
+                <MilestoneDialogContent milestone={milestone} locale={locale} />
+              </Dialog>
+              <div
+                className={cn("mx-auto w-0.5 flex-1 rounded-full bg-muted", {
+                  "bg-muted-foreground": milestone.status === "completed",
+                  "bg-primary": milestone.status === "active",
+                })}
+              />
+            </div>
+            <div
+              className={cn(
+                "mx-auto flex size-5 shrink-0 items-center justify-center rounded-full border border-black/5 bg-muted text-muted-foreground",
+                {
+                  "bg-muted-foreground text-muted": milestone.status === "completed",
+                  "bg-primary text-primary-foreground": milestone.status === "active",
+                },
+              )}
+            >
+              {milestone.status === "completed" && <CheckIcon className="size-3" />}
+              {milestone.status === "active" && <ClockIcon className="size-3" />}
+              {milestone.status === "upcoming" && <MilestoneIcon className="size-3" />}
+            </div>
+            <div
+              className={cn("flex flex-1 flex-col", {
+                "flex-col-reverse": index % 2 !== 0,
+              })}
+            >
+              <div
+                className={cn(
+                  "mx-auto flex items-center gap-1 rounded-full bg-muted px-1.5 py-px text-xs text-muted-foreground",
+                  {
+                    "bg-muted-foreground text-muted": milestone.status === "completed",
+                    "bg-primary text-primary-foreground": milestone.status === "active",
+                  },
+                )}
+              >
+                <span>{milestone.date}</span>
+              </div>
+            </div>
+          </li>
+        ))}
+      </motion.ul>
+
+      <div className="absolute left-0 top-1/2 -z-[1] flex w-full -translate-y-1/2 flex-col gap-1">
+        <div className="h-px w-full rounded-full bg-muted-foreground/20" />
+        <div className="h-px w-full rounded-full bg-muted-foreground" />
+        <div className="h-px w-full rounded-full bg-muted-foreground/20" />
+      </div>
+    </div>
+  )
+}
+
+function Roadmap({ milestones, locale }: Pick<MilestonesBlock, "milestones"> & { locale: Locale }) {
+  const [selectedIndex, setSelectedIndex] = useState<number>()
+  const [startIndex, setStartIndex] = useState<number>()
+
+  useEffect(() => {
+    // fix embla carousel misalignemnt
+    setTimeout(() => {
+      setStartIndex(
+        Math.max(
+          0,
+          milestones.findIndex((m) => m.status === "active"),
+        ),
+      )
+    }, 100)
+  }, [milestones])
+
+  return (
+    <div>
+      <Carousel
+        className="relative w-full pt-12"
+        opts={{
+          startIndex,
+          align: "center",
+          containScroll: false,
+        }}
+      >
+        <div className="absolute left-1/2 top-0 flex -translate-x-1/2 items-center gap-3">
+          <CarouselPrevious className="static transform-none" />
+          <CarouselNext className="static transform-none" />
+        </div>
+        <CarouselContent className="ml-0 gap-0">
+          {milestones.map((milestone, index) => (
+            <CarouselItem
+              key={index}
+              className="group/milestone basis-3/4 pl-0 md:basis-1/3 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6"
+              onMouseEnter={() => setSelectedIndex(index)}
+              onMouseLeave={() => setSelectedIndex(undefined)}
+            >
+              <Dialog onOpenChange={(open) => !open && setSelectedIndex(undefined)}>
+                <DialogTrigger asChild>
+                  <AspectRatio
+                    className="relative isolate cursor-pointer bg-muted transition-colors duration-300"
+                    ratio={0.75}
+                  >
+                    <motion.div
+                      className="absolute inset-x-0 -z-[1] bg-foreground"
+                      initial={"initial"}
+                      animate={
+                        selectedIndex === index
+                          ? "visible"
+                          : selectedIndex !== undefined
+                            ? "hidden"
+                            : "initial"
+                      }
+                      variants={{
+                        initial: { height: 0, bottom: 0 },
+                        hidden: { height: 0, bottom: "100%", top: 0 },
+                        visible: { height: "100%", bottom: 0, top: 0 },
+                      }}
+                      transition={{ type: "spring", bounce: 0 }}
+                    />
+
+                    {hasBundledImage(milestone.media) && (
+                      <Image
+                        className="absolute -z-[1] h-full w-full object-cover transition-all duration-500 group-hover/milestone:opacity-80 group-hover/milestone:invert"
+                        image={milestone.media.bundled.image}
+                      />
+                    )}
+
+                    <div
+                      className={cn("flex flex-col items-center gap-1 p-3", {
+                        dark: selectedIndex === index,
+                      })}
+                    >
+                      <MilestoneStatus status={milestone.status} locale={locale} />
+                      <h3 className="text-center font-semibold text-foreground">
+                        {milestone.title}
+                      </h3>
+                      <p className="text-center text-sm text-muted-foreground">{milestone.date}</p>
+                    </div>
+                  </AspectRatio>
+                </DialogTrigger>
+                <MilestoneDialogContent milestone={milestone} locale={locale} />
+              </Dialog>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
+    </div>
+  )
+}
+
+function MilestoneDialogContent({
+  milestone,
+  locale,
+}: {
+  milestone: MilestonesBlock["milestones"][number]
+  locale: Locale
+}) {
+  return (
+    <DialogContent className="max-w-2xl overflow-hidden">
+      {hasBundledImage(milestone.media) && (
+        <Image
+          className="absolute -bottom-[5%] -right-[10%] -top-[15%] -z-[1] h-[120%] w-auto max-w-[50%] object-cover object-top opacity-10"
+          image={{
+            ...milestone.media.bundled.image,
+            blurhash: undefined,
+          }}
+        />
+      )}
+      <DialogHeader>
+        <DialogTitle>
+          <span className="mr-3">{milestone.title}</span>
+          <MilestoneStatus status={milestone.status} locale={locale} />
+        </DialogTitle>
+        <DialogDescription>{milestone.date}</DialogDescription>
+      </DialogHeader>
+      <ScrollArea className="prose mt-4 max-h-[80vh] text-sm lg:max-h-[60vh]">
+        <RichText nodes={milestone.text?.root.children ?? []} />
+      </ScrollArea>
+    </DialogContent>
+  )
+}
+
+function MilestoneStatus({
+  status,
+  locale,
+}: {
+  status: MilestonesBlock["milestones"][number]["status"]
+  locale: Locale
+}) {
+  return (
+    <span
+      className={cn(
+        "inline-flex items-center gap-1 rounded-full border px-1.5 py-px text-xs font-medium",
+        {
+          "border-primary text-primary": status === "active",
+          "border-muted-foreground text-muted-foreground": status === "completed",
+          "border-muted-foreground/50 text-muted-foreground/50": status === "upcoming",
+        },
+      )}
+    >
+      {status === "completed" && <CheckIcon className="size-3" />}
+      {status === "active" && <ClockIcon className="size-3" />}
+      {status === "upcoming" && <MilestoneIcon className="size-3" />}
+      <span>{t(milestonesDictionary[status], { locale })}</span>
+    </span>
   )
 }

@@ -133,8 +133,8 @@ export function TestimonialsBlock({
           })}
         </CarouselContent>
         <div className="absolute bottom-0 left-1/2 flex -translate-x-1/2 items-center justify-center gap-3">
-          <CarouselPrevious className="static" />
-          <CarouselNext className="static" />
+          <CarouselPrevious className="static transform-none" />
+          <CarouselNext className="static transform-none" />
         </div>
       </Carousel>
     </BaseBlock>
