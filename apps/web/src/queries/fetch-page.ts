@@ -1,7 +1,7 @@
 import { bundleBlocks, bundleHero, bundleMedia } from "@/lib/bundle"
 import { fetchPayloadRequest } from "@/lib/payload"
 
-import type { Locale, LocalizedPath } from "@/lang/types"
+import type { Locale, LocalizedPath } from "@/i18n/types"
 import type { Page } from "@payload-types"
 
 interface FetchPageParams {

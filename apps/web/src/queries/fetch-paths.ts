@@ -1,7 +1,7 @@
 import { fetchPayloadRequest } from "@/lib/payload"
 import { route } from "@/lib/routes"
 
-import type { Locale } from "@/lang/types"
+import type { Locale } from "@/i18n/types"
 import type { Category, Page, Post } from "@payload-types"
 import type { PaginatedDocs } from "payload"
 
@@ -106,6 +106,7 @@ export async function fetchPaths(locales: Locale[]) {
           props: {
             id: "",
             page,
+            category: categorySlug,
           },
           params: {
             lang: locale,

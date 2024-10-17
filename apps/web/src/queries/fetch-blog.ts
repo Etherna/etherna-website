@@ -1,6 +1,6 @@
 import { fetchPayloadRequest } from "@/lib/payload"
 
-import type { Locale, LocalizedPath } from "@/lang/types"
+import type { Locale, LocalizedPath } from "@/i18n/types"
 import type { Category, Post } from "@payload-types"
 import type { PaginatedDocs } from "payload"
 

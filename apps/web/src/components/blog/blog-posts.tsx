@@ -1,4 +1,10 @@
+import { useStore } from "@nanostores/react"
+
+import { Button } from "../ui/button"
+import { t } from "@/i18n"
+import { blogDictionary } from "@/i18n/dictionaries/blog"
 import { cn } from "@/lib/utils"
+import { $locale } from "@/stores/locale-store"
 
 function BlogPosts({ className, children, ...props }: React.ComponentProps<"ol">) {
   return (
@@ -36,6 +42,46 @@ function BlogPostsThumbnail({ className, src, alt, ...props }: React.ComponentPr
   )
 }
 
+function BlogPostsPagination({
+  className,
+  totalDocs,
+  totalPages,
+  page,
+  ...props
+}: React.ComponentProps<"nav"> & {
+  totalDocs: number
+  totalPages: number
+  page: number
+}) {
+  const locale = useStore($locale) ?? "en"
+
+  if (totalPages <= 1) {
+    return null
+  }
+
+  return (
+    <nav className={cn("flex justify-center gap-4 text-sm", className)} {...props}>
+      {page > 1 && (
+        <Button variant={"ghost"} size="lg" asChild>
+          <a href={`/blog/page/${page - 1}`} className="">
+            ← {t(blogDictionary.previous, { locale })}
+          </a>
+        </Button>
+      )}
+
+      <span className="">{t(blogDictionary.pageOf, { locale, page, totalPages })}</span>
+
+      {page < totalPages && (
+        <Button variant={"ghost"} size="lg" asChild>
+          <a href={`/blog/page/${page + 1}`} className="">
+            {t(blogDictionary.next, { locale })} →
+          </a>
+        </Button>
+      )}
+    </nav>
+  )
+}
+
 function BlogPostTitle({ className, children, ...props }: React.ComponentProps<"h2">) {
   return (
     <h2 className={cn("text-2xl font-bold", className)} {...props}>
@@ -52,4 +98,12 @@ function BlogPostDate({ className, children, ...props }: React.ComponentProps<"t
   )
 }
 
-export { BlogPosts, BlogPostsItem, BlogPostsLink, BlogPostsThumbnail, BlogPostTitle, BlogPostDate }
+export {
+  BlogPosts,
+  BlogPostsItem,
+  BlogPostsLink,
+  BlogPostsThumbnail,
+  BlogPostTitle,
+  BlogPostDate,
+  BlogPostsPagination,
+}

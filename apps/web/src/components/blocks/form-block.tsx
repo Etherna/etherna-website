@@ -20,13 +20,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { Spinner } from "../ui/spinner"
 import { Textarea } from "../ui/textarea"
 import { BaseBlock } from "./base-block"
-import { formDictionary } from "@/lang/dictionaries/form"
-import { t } from "@/lang/t"
+import { t } from "@/i18n"
+import { formDictionary } from "@/i18n/dictionaries/form"
 import { isNotEmptyLexical } from "@/lib/lexical"
 import { cn } from "@/lib/utils"
 
 import type { BlockProps } from "./base-block"
-import type { Locale } from "@/lang/types"
+import type { Locale } from "@/i18n/types"
 import type { FormBlock, Form as FormType } from "@payload-types"
 
 type Field = NonNullable<FormType["fields"]>[number]

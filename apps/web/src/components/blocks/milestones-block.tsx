@@ -24,13 +24,13 @@ import {
 } from "../ui/dialog"
 import { ScrollArea } from "../ui/scroll-area"
 import { BaseBlock } from "./base-block"
-import { milestonesDictionary } from "@/lang/dictionaries/milestones"
-import { t } from "@/lang/t"
+import { t } from "@/i18n"
+import { milestonesDictionary } from "@/i18n/dictionaries/milestones"
 import { hasBundledImage } from "@/lib/bundle"
 import { cn } from "@/lib/utils"
 
 import type { BlockProps } from "./base-block"
-import type { Locale } from "@/lang/types"
+import type { Locale } from "@/i18n/types"
 import type { MilestonesBlock } from "@payload-types"
 
 export function MilestonesBlock({

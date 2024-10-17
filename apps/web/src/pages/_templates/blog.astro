@@ -11,17 +11,18 @@ import {
   BlogPosts,
   BlogPostsItem,
   BlogPostsLink,
+  BlogPostsPagination,
   BlogPostsThumbnail,
   BlogPostTitle,
 } from "@/components/blog/blog-posts"
 import { PostAuthors, PostAuthorsItem } from "@/components/blog/post-authors"
-import { blogDictionary } from "@/lang/dictionaries/blog"
-import { t } from "@/lang/t"
+import { t } from "@/i18n"
+import { blogDictionary } from "@/i18n/dictionaries/blog"
 import { route } from "@/lib/routes"
 import { fetchBlog } from "@/queries/fetch-blog"
 import { PAGINATION_LIMIT } from "@/queries/fetch-paths"
 
-import type { Locale } from "@/lang/types"
+import type { Locale } from "@/i18n/types"
 import type { Media, User } from "@payload-types"
 
 interface Props {
@@ -40,6 +41,7 @@ const { posts, categories, localizedPaths } = await fetchBlog({
   page,
   limit: PAGINATION_LIMIT,
 })
+const activeCategory = categories.docs.find((cat) => cat.slug === category)
 ---
 
 <Root
@@ -51,12 +53,18 @@ const { posts, categories, localizedPaths } = await fetchBlog({
 >
   <BlogHeader>
     <BlogTitle>Blog</BlogTitle>
-    <BlogCategories>
+    <BlogCategories label={activeCategory?.title} client:idle>
+      <BlogCategoriesItem>
+        <BlogCategoriesLink href={route("/blog")} data-active={!activeCategory || undefined}>
+          All posts
+        </BlogCategoriesLink>
+      </BlogCategoriesItem>
       {
         categories.docs.map((category) => (
           <BlogCategoriesItem>
             <BlogCategoriesLink
               href={route("/blog/category/:category", { category: category.slug ?? "-" })}
+              data-active={category.slug === activeCategory?.slug || undefined}
             >
               {category.title}
             </BlogCategoriesLink>
@@ -64,30 +72,36 @@ const { posts, categories, localizedPaths } = await fetchBlog({
         ))
       }
     </BlogCategories>
-
-    <BlogPosts>
-      {
-        posts.docs.map((post) => (
-          <BlogPostsItem>
-            <BlogPostsLink href={route("/blog/:slug", { slug: post.slug ?? "-" })}>
-              <BlogPostsThumbnail />
-              <BlogPostTitle>{post.title}</BlogPostTitle>
-              {post.authors && (
-                <PostAuthors>
-                  {(post.authors as User[]).map((author) => (
-                    <PostAuthorsItem
-                      name={author.name ?? author.id}
-                      role={author.role}
-                      avatar={(author.avatar as Media)?.bundled?.image}
-                    />
-                  ))}
-                </PostAuthors>
-              )}
-              <BlogPostDate>{post.publishedAt}</BlogPostDate>
-            </BlogPostsLink>
-          </BlogPostsItem>
-        ))
-      }
-    </BlogPosts>
   </BlogHeader>
+
+  <BlogPosts>
+    {
+      posts.docs.map((post) => (
+        <BlogPostsItem>
+          <BlogPostsLink href={route("/blog/:slug", { slug: post.slug ?? "-" })}>
+            <BlogPostsThumbnail />
+            <BlogPostTitle>{post.title}</BlogPostTitle>
+            {post.authors && (
+              <PostAuthors>
+                {(post.authors as User[]).map((author) => (
+                  <PostAuthorsItem
+                    name={author.name ?? author.id}
+                    role={author.role}
+                    avatar={(author.avatar as Media)?.bundled?.image}
+                  />
+                ))}
+              </PostAuthors>
+            )}
+            <BlogPostDate>{post.publishedAt}</BlogPostDate>
+          </BlogPostsLink>
+        </BlogPostsItem>
+      ))
+    }
+  </BlogPosts>
+
+  <BlogPostsPagination
+    totalDocs={posts.totalDocs}
+    totalPages={posts.totalPages}
+    page={posts.page ?? 1}
+  />
 </Root>

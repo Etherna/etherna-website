@@ -1,6 +1,6 @@
 import qs from "qs"
 
-import type { Locale } from "@/lang/types"
+import type { Locale } from "@/i18n/types"
 import type { Where } from "payload"
 
 type Method = "GET" | "POST" | "PUT" | "DELETE" | "PATCH"

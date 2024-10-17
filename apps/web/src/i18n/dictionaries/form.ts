@@ -1,6 +1,6 @@
-import type { Dictionary } from "../types"
+import { defineDictionary } from ".."
 
-export const formDictionary = {
+export const formDictionary = defineDictionary({
   required: {
     en: "This field is required",
     it: "Questo campo è obbligatorio",
@@ -13,4 +13,4 @@ export const formDictionary = {
     en: "This field must be a valid number",
     it: "Questo campo deve essere un numero valido",
   },
-} as const satisfies Dictionary
+})

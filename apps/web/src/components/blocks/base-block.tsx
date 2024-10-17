@@ -3,7 +3,7 @@ import React from "react"
 import { hslValue } from "@/lib/colors"
 import { cn } from "@/lib/utils"
 
-import type { Locale } from "@/lang/types"
+import type { Locale } from "@/i18n/types"
 import type { Media, TextBlock } from "@payload-types"
 
 export interface BaseBlockProps extends React.ComponentProps<"section"> {

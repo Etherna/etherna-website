@@ -7,7 +7,7 @@ import { route } from "./routes"
 import { localized } from "@/lang/utils"
 
 import type { NodeType } from "./lexical"
-import type { Locale } from "@/lang/types"
+import type { Locale } from "@/i18n/types"
 import type { AwardsBlock, Form, Job, JobsBlock, Media, Page, Post } from "@payload-types"
 import type { LinkFields } from "@payloadcms/richtext-lexical"
 import type { GetImageResult } from "astro"

@@ -1,6 +1,6 @@
 import { EnFlag, ItFlag } from "../assets/flags"
 
-import type { Locale } from "@/lang/types"
+import type { Locale } from "@/i18n/types"
 
 interface LocaleFlagProps extends React.ComponentProps<"svg"> {
   locale: Locale

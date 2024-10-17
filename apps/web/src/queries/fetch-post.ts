@@ -1,7 +1,7 @@
 import { bundleLexical, bundleMedia } from "@/lib/bundle"
 import { fetchPayloadRequest } from "@/lib/payload"
 
-import type { Locale, LocalizedPath } from "@/lang/types"
+import type { Locale, LocalizedPath } from "@/i18n/types"
 import type { NodeType } from "@/lib/lexical"
 import type { Post } from "@payload-types"
 

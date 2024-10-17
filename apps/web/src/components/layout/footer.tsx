@@ -6,7 +6,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "..
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { cn } from "@/lib/utils"
 
-import type { Locale, LocalizedPath } from "@/lang/types"
+import type { Locale, LocalizedPath } from "@/i18n/types"
 import type { Footer } from "@payload-types"
 
 type FooterGroups = NonNullable<Footer["groups"]>

@@ -1,7 +1,7 @@
 import { resolveInternalLink } from "@/lib/bundle"
 import { fetchPayloadRequest } from "@/lib/payload"
 
-import type { Locale } from "@/lang/types"
+import type { Locale } from "@/i18n/types"
 import type { Company, Footer } from "@payload-types"
 
 interface FetchFooterParams {

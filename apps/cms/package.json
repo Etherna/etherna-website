@@ -32,7 +32,7 @@
     "bson-objectid": "2.0.4",
     "date-fns": "4.1.0",
     "md5-ts": "0.1.6",
-    "next": "15.0.0-canary.190",
+    "next": "15.0.0-rc.1",
     "nodemailer": "6.9.15",
     "nodemailer-sendgrid": "1.0.3",
     "payload-plugin-scheduler": "workspace:*",

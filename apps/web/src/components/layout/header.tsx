@@ -20,7 +20,7 @@ import { localized } from "@/lang/utils"
 import { route } from "@/lib/routes"
 import { cn } from "@/lib/utils"
 
-import type { Locale, LocalizedPath } from "@/lang/types"
+import type { Locale, LocalizedPath } from "@/i18n/types"
 import type { Header } from "@payload-types"
 
 interface HeaderProps extends React.ComponentProps<"header"> {

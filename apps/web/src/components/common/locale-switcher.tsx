@@ -8,14 +8,14 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu"
 import { LocaleFlag } from "./locale-flag"
+import { t } from "@/i18n"
+import { langsDictionary } from "@/i18n/dictionaries/langs"
 import { LOCALES } from "@/lang/consts"
-import { langsDictionary } from "@/lang/dictionaries/langs"
-import { t } from "@/lang/t"
 import { localized } from "@/lang/utils"
 import { route } from "@/lib/routes"
 import { cn } from "@/lib/utils"
 
-import type { Locale, LocalizedPath } from "@/lang/types"
+import type { Locale, LocalizedPath } from "@/i18n/types"
 
 interface LocaleSwitcherProps {
   variant?: "default" | "compact"

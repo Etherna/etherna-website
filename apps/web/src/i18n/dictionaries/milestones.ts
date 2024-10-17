@@ -1,6 +1,6 @@
-import type { Dictionary } from "../types"
+import { defineDictionary } from ".."
 
-export const milestonesDictionary = {
+export const milestonesDictionary = defineDictionary({
   completed: {
     en: "Completed",
     it: "Completato",
@@ -13,4 +13,4 @@ export const milestonesDictionary = {
     en: "Upcoming",
     it: "Prossimamente",
   },
-} as const satisfies Dictionary
+})

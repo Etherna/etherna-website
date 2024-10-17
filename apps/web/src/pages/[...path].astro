@@ -1,8 +1,9 @@
 ---
 import Template from "./_templates/_template.astro"
+import { Locale } from "@/i18n/types"
 import { DEFAULT_LOCALE } from "@/lang/consts"
-import { Locale } from "@/lang/types"
 import { fetchPaths } from "@/queries/fetch-paths"
+import { $locale } from "@/stores/locale-store"
 
 export async function getStaticPaths() {
   return await fetchPaths([DEFAULT_LOCALE])
@@ -11,6 +12,8 @@ export async function getStaticPaths() {
 const locale = (Astro.params.lang ?? DEFAULT_LOCALE) as Locale
 const path = Astro.params.path || "/"
 const { id, page, category } = Astro.props
+
+$locale.set(DEFAULT_LOCALE)
 ---
 
 <Template locale={locale} path={path} id={id} page={page} category={category} />
