@@ -16,7 +16,7 @@
     "migrate": "turbo run migrate",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
-    "clean": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' \\; && find . -name '.turbo' -type d -prune -exec rm -rf '{}' \\;",
+    "clean": "find . \\( -name 'node_modules' -o -name '.turbo' -o -name '.next' -o -name 'dist' \\)  -type d -prune -exec rm -rf '{}' +",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "dependencies": {
@@ -24,7 +24,7 @@
     "clsx": "2.1.1",
     "lexical": "0.18.0",
     "lucide-react": "0.452.0",
-    "payload": "3.0.0-beta.113",
+    "payload": "3.0.0-beta.116",
     "tailwind-merge": "2.5.3",
     "tslib": "2.7.0"
   },
@@ -45,7 +45,7 @@
     "turbo": "2.1.3",
     "typescript": "5.6.3"
   },
-  "packageManager": "pnpm@9.12.1",
+  "packageManager": "pnpm@9.12.2",
   "engines": {
     "node": ">=22"
   }

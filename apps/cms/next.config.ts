@@ -1,13 +1,15 @@
 import { withPayload } from "@payloadcms/next/withPayload"
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+export default withPayload({
   reactStrictMode: true,
   output: "standalone",
+  experimental: {
+    ppr: true,
+  },
   images: {
     remotePatterns: [
       {
-        hostname: new URL(process.env.PAYLOAD_PUBLIC_SERVER_URL).hostname,
+        hostname: new URL(process.env.PAYLOAD_PUBLIC_SERVER_URL ?? "").hostname,
       },
       {
         protocol: "https",
@@ -15,6 +17,4 @@ const nextConfig = {
       },
     ],
   },
-}
-
-export default withPayload(nextConfig)
+})
