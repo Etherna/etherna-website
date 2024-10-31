@@ -265,7 +265,9 @@ export interface Media {
  */
 export interface User {
   id: string;
-  name?: string | null;
+  name: string;
+  firstName: string;
+  lastName: string;
   avatar?: (string | null) | Media;
   role?: string | null;
   policies: ('postsEditor' | 'postsContributor' | 'webDesigner' | 'administrator')[];

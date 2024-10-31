@@ -16,7 +16,7 @@ import {
   navigationMenuTriggerStyle,
 } from "../ui/navigation-menu"
 import { ScrollArea } from "../ui/scroll-area"
-import { localized } from "@/lang/utils"
+import { localized } from "@/i18n/utils"
 import { route } from "@/lib/routes"
 import { cn } from "@/lib/utils"
 

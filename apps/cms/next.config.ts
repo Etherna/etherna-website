@@ -3,9 +3,6 @@ import { withPayload } from "@payloadcms/next/withPayload"
 export default withPayload({
   reactStrictMode: true,
   output: "standalone",
-  experimental: {
-    ppr: true,
-  },
   images: {
     remotePatterns: [
       {

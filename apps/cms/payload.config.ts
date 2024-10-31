@@ -20,7 +20,7 @@ import {
 import { migrations } from "migrations"
 import nodemailerSendgrid from "nodemailer-sendgrid"
 import { buildConfig } from "payload"
-import { Locales } from "payload.i18n"
+import { DEFAULT_LOCALE, Locales } from "payload.i18n"
 import sharp from "sharp"
 
 import { schedulerPlugin } from "../../packages/payload-plugin-scheduler/src/index" // PATCH for ERR_MODULE_NOT_FOUND
@@ -38,6 +38,7 @@ import { Header } from "@/globals/header"
 import { HighlightFeature } from "@/lexical/highlight/highlight-feature.server"
 import { admin } from "@/policies/admin"
 import { deployIfNeeded } from "@/schedules/deploy-if-needed"
+import { deleteLocale } from "@/server/endpoints/delete-locale"
 import { fetchWorkflow } from "@/server/endpoints/fetch-workflow"
 import { runDeploy } from "@/server/endpoints/run-deploy"
 import { submitForm } from "@/server/endpoints/submit-form"
@@ -62,10 +63,13 @@ export default buildConfig({
         path: "@/components/avatar#UserAvatar",
       },
     },
-    autoLogin: {
-      email: process.env.PAYLOAD_AUTOLOGIN_EMAIL,
-      password: process.env.PAYLOAD_AUTOLOGIN_PASSWORD,
-    },
+    autoLogin:
+      process.env.NODE_ENV === "development"
+        ? {
+            email: process.env.PAYLOAD_AUTOLOGIN_EMAIL,
+            password: process.env.PAYLOAD_AUTOLOGIN_PASSWORD,
+          }
+        : undefined,
     importMap: {
       baseDir: path.resolve(dirname),
     },
@@ -153,7 +157,7 @@ export default buildConfig({
     },
   }),
   localization: {
-    defaultLocale: "en",
+    defaultLocale: DEFAULT_LOCALE,
     locales: Locales,
     fallback: true,
   },
@@ -161,7 +165,7 @@ export default buildConfig({
   globals: [Header, Footer, Company],
   cors: [process.env.PAYLOAD_PUBLIC_FRONTEND_URL || ""].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
-  endpoints: [fetchWorkflow, runDeploy, submitForm],
+  endpoints: [fetchWorkflow, runDeploy, submitForm, deleteLocale],
   plugins: [
     redirectsPlugin({
       collections: ["pages", "posts"],

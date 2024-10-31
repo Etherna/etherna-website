@@ -5,7 +5,7 @@ import type { Locale } from "@/i18n/types"
 import type { Category, Page, Post } from "@payload-types"
 import type { PaginatedDocs } from "payload"
 
-export const PAGINATION_LIMIT = import.meta.env.DEV ? 2 : 20
+export const PAGINATION_LIMIT = import.meta.env.DEV ? 3 : 20
 
 export async function fetchPaths(locales: Locale[]) {
   const paths: {
@@ -19,18 +19,23 @@ export async function fetchPaths(locales: Locale[]) {
       posts: await fetchPayloadRequest<PaginatedDocs<Post>>({
         method: "GET",
         path: "/posts",
-        params: { locale, depth: 2 },
+        params: { locale, depth: 2, limit: 0 },
       }),
       pages: await fetchPayloadRequest<PaginatedDocs<Page>>({
         method: "GET",
         path: "/pages",
-        params: { locale, depth: 5, limit: -1 }, // max nested docs
+        params: { locale, depth: 5, limit: 0 }, // max nested docs
+      }),
+      categories: await fetchPayloadRequest<PaginatedDocs<Category>>({
+        method: "GET",
+        path: "/categories",
+        params: { locale, limit: 0 },
       }),
     })),
   )
 
   for (const result of results) {
-    const { locale, posts, pages } = result
+    const { locale, posts, pages, categories } = result
 
     for (const page of pages.docs) {
       const segments = (function joinPath(segments: string[], page: Page) {
@@ -68,7 +73,8 @@ export async function fetchPaths(locales: Locale[]) {
       })
     }
 
-    for (let page = 2; page <= posts.totalPages; page++) {
+    const postsPages = Math.ceil(posts.totalDocs / PAGINATION_LIMIT)
+    for (let page = 2; page <= postsPages; page++) {
       paths.push({
         props: {
           id: "",
@@ -81,42 +87,28 @@ export async function fetchPaths(locales: Locale[]) {
       })
     }
 
-    const categoriesPosts = posts.docs.reduce(
-      (acc, post) => {
-        for (const category of post.categories ?? []) {
-          const slug = (category as Category).slug ?? "-"
-          const groupIndex = acc.findIndex((group) => group.categorySlug === slug)
-          const group = acc[groupIndex]
-          if (group) {
-            group.posts.push(post)
-          } else {
-            acc.push({ categorySlug: slug, posts: [post] })
-          }
-        }
-        return acc
-      },
-      [] as { categorySlug: string; posts: Post[] }[],
-    )
-
-    for (const { categorySlug, posts } of categoriesPosts) {
-      const totalPages = Math.ceil(posts.length / PAGINATION_LIMIT)
+    for (const { slug, id } of categories.docs) {
+      const postsCount = posts.docs.filter((post) =>
+        post.categories?.some((c) => (c as Category).id === id),
+      ).length
+      const totalPages = Math.ceil(postsCount / PAGINATION_LIMIT)
 
       for (let page = 1; page <= totalPages; page++) {
         paths.push({
           props: {
-            id: "",
+            id,
             page,
-            category: categorySlug,
+            category: slug ?? "-",
           },
           params: {
             lang: locale,
             path:
               page === 1
                 ? route("/blog/category/:category", {
-                    category: categorySlug,
+                    category: slug ?? "-",
                   })
                 : route("/blog/category/:category/page/:page", {
-                    category: categorySlug,
+                    category: slug ?? "-",
                     page: page.toString(),
                   }),
           },

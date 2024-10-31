@@ -14,7 +14,7 @@ interface FetchPostParams {
 export async function fetchPost(params: FetchPostParams) {
   const { id, locale, accessToken } = params
 
-  const postData = await fetchPayloadRequest<Post>({
+  const postData = await fetchPayloadRequest<Post & { locale: Locale }>({
     method: "GET",
     path: `/posts/${id}`,
     params: { locale, depth: 1 },
@@ -24,11 +24,13 @@ export async function fetchPost(params: FetchPostParams) {
   const post = {
     ...postData,
     thumbnail: await bundleMedia(postData.thumbnail, locale, accessToken),
-    populatedAuthors: await Promise.all(
-      (postData.populatedAuthors ?? []).map(async (author) => ({
-        ...author,
-        avatar: await bundleMedia(author.avatar, locale, accessToken),
-      })),
+    authors: await Promise.all(
+      (postData.authors ?? [])
+        .filter((a) => typeof a === "object")
+        .map(async (author) => ({
+          ...author,
+          avatar: await bundleMedia(author.avatar, locale, accessToken),
+        })),
     ),
     content: {
       ...postData.content,

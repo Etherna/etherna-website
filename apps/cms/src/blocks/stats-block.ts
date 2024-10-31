@@ -14,6 +14,7 @@ export const StatsBlock = {
     {
       name: "stats",
       type: "array",
+      admin: {},
       fields: [
         {
           name: "label",

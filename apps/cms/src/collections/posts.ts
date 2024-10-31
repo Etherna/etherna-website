@@ -18,11 +18,13 @@ import {
   UnorderedListFeature,
   UploadFeature,
 } from "@payloadcms/richtext-lexical"
+import { DEFAULT_LOCALE } from "payload.i18n"
 
 import { populateAuthors } from "./hooks/populate-authors"
 import { populatePublishedAt } from "./hooks/populate-published-at"
 import { triggerDeploy } from "./hooks/trigger-deploy"
 import { CodeBlock } from "@/blocks/code-block"
+import { deleteLocaleField } from "@/fields/delete-locale"
 import { slugField } from "@/fields/slug"
 import { someAccess } from "@/lib/access"
 import { generatePreviewUrl } from "@/lib/preview"
@@ -213,6 +215,7 @@ export const Posts: CollectionConfig = {
       hasMany: true,
       relationTo: "users",
     },
+    deleteLocaleField(),
     // This field is only used to populate the user data via the `populateAuthors` hook
     // This is because the `user` collection has access control locked to protect user privacy
     // GraphQL will also not return mutated user data that differs from the underlying schema
@@ -247,6 +250,19 @@ export const Posts: CollectionConfig = {
     beforeChange: [populatePublishedAt],
     afterChange: [triggerDeploy],
     afterRead: [populateAuthors],
+    beforeRead: [
+      ({ doc, req }) => {
+        let locale = req.locale ?? DEFAULT_LOCALE
+
+        if (!(locale in doc.slug)) {
+          locale = DEFAULT_LOCALE
+        }
+
+        doc.locale = locale
+
+        return doc
+      },
+    ],
   },
   versions: {
     drafts: {

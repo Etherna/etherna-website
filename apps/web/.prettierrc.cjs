@@ -10,7 +10,6 @@ module.exports = {
   arrowParens: "always",
   trailingComma: "all",
   importOrder: [
-    "",
     "^astro",
     "^react",
     "<THIRD_PARTY_MODULES>",
@@ -24,6 +23,7 @@ module.exports = {
     "^@/",
     "",
     "<TYPES>^[./]",
+    "<TYPES>^astro",
     "<TYPES>^react",
     "<TYPES>^@/",
     "<TYPES>",

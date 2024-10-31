@@ -1,5 +1,13 @@
 import { cn } from "@/lib/utils"
 
+function BlogContent({ className, children, ...props }: React.ComponentProps<"section">) {
+  return (
+    <section className={cn("mb-12 flex flex-col gap-12", className)} {...props}>
+      {children}
+    </section>
+  )
+}
+
 function BlogHeader({ className, children, ...props }: React.ComponentProps<"header">) {
   return (
     <header className={cn("pt-24", className)} {...props}>
@@ -16,4 +24,4 @@ function BlogTitle({ className, children, ...props }: React.ComponentProps<"h1">
   )
 }
 
-export { BlogHeader, BlogTitle }
+export { BlogContent, BlogHeader, BlogTitle }

@@ -1,4 +1,4 @@
-import { EnFlag, ItFlag } from "../assets/flags"
+import { EnFlag, ItFlag } from "@/components/assets/flags"
 
 import type { Locale } from "@/i18n/types"
 

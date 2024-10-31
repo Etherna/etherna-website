@@ -22,3 +22,27 @@ export function isNotEmptyLexical(
 ): content is LexicalRichText {
   return !isEmptyLexical(content)
 }
+
+export function stripLexicalTags(content: LexicalRichText | null | undefined) {
+  const lines: string[] = []
+
+  function walk(node: NodeType) {
+    if (node.type === "text") {
+      lines.push(node.text)
+    } else if (node.type === "block") {
+      if ("code" in node) {
+        lines.push(node.code as string)
+      }
+    }
+
+    if ("children" in node) {
+      node.children?.forEach((node) => walk(node as NodeType))
+    }
+  }
+
+  if (content) {
+    content.root.children.forEach((node) => walk(node as NodeType))
+  }
+
+  return lines.join("\n")
+}

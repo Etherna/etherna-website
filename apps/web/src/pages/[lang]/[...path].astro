@@ -1,5 +1,5 @@
 ---
-import { OTHER_LOCALES } from "@/lang/consts"
+import { OTHER_LOCALES } from "@/i18n/consts"
 import Template from "@/pages/_templates/_template.astro"
 import { fetchPaths } from "@/queries/fetch-paths"
 import { $locale } from "@/stores/locale-store"
@@ -10,9 +10,9 @@ export async function getStaticPaths() {
 
 const locale = Astro.params.lang
 const path = Astro.params.path || "/"
-const id = Astro.props.id
+const props = Astro.props
 
 $locale.set(locale)
 ---
 
-<Template locale={locale} path={path} id={id} />
+<Template locale={locale} path={path} {...props} />

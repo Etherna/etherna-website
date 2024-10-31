@@ -25,4 +25,22 @@ export const blogDictionary = defineDictionary({
     en: "Next",
     it: "Successivo",
   },
+  plusOthers: {
+    _zero: {
+      en: "",
+      it: "",
+    },
+    _one: {
+      en: "+1 other",
+      it: "+1 altro",
+    },
+    _many: {
+      en: "+{count} others",
+      it: "+{count} altri",
+    },
+  },
+  minutesRead: {
+    en: "{minutes} min read",
+    it: "{minutes} min di lettura",
+  },
 })

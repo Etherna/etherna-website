@@ -1,6 +1,7 @@
 import { useId } from "react"
 
-import { LaurelWreathIcon } from "../assets/icons"
+import { LaurelWreathIcon } from "@/components/assets/icons"
+
 import { RichText } from "../common/rich-text"
 import { Svg } from "../common/svg"
 import {

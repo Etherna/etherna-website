@@ -1,4 +1,11 @@
-export const getWordsCount = (text: string) => {
+import { formatDate } from "date-fns"
+import { enUS } from "date-fns/locale/en-US"
+import { it } from "date-fns/locale/it"
+
+import type { Locale } from "@/i18n/types"
+import type { Post } from "@payload-types"
+
+export function getWordsCount(text: string) {
   const separators = [
     "000d", // \r - carriage return
     "000a", // \n - new line
@@ -120,4 +127,26 @@ export const getWordsCount = (text: string) => {
   }
 
   return count
+}
+
+export function getMinutesRead(text: string) {
+  const wordsCount = getWordsCount(text)
+  const wordsPerMinute = 200
+  const minutes = wordsCount / wordsPerMinute
+
+  return Math.round(minutes) || 1
+}
+
+export function formatPostDate(post: Post, locale: Locale) {
+  const date = post.editedAt ?? post.publishedAt ?? new Date().toISOString()
+  return formatDate(new Date(date), "PP", {
+    locale: (() => {
+      switch (locale) {
+        case "en":
+          return enUS
+        case "it":
+          return it
+      }
+    })(),
+  })
 }

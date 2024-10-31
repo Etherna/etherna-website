@@ -75,11 +75,17 @@ export const Pages: CollectionConfig = {
       type: "tabs",
       tabs: [
         {
+          label: "Hero",
+          fields: [hero],
+        },
+        {
+          label: "Content",
           fields: [
-            hero,
             {
               name: "layout",
               type: "blocks",
+              defaultValue: [],
+              required: false,
               blocks: [
                 TextBlock,
                 CtaBlock,
@@ -98,12 +104,8 @@ export const Pages: CollectionConfig = {
                 BrandBlock,
                 JobsBlock,
               ],
-              defaultValue: [],
-              localized: true,
-              required: false,
             },
           ],
-          label: "Content",
         },
         {
           name: "meta",

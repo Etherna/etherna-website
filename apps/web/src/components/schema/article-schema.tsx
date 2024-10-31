@@ -1,14 +1,13 @@
 import { JsonLd } from "react-schemaorg"
+import { formatDate } from "date-fns"
 
 import ethernaLogo from "@/assets/logo-etherna.png"
 
-import { dayjs } from "@/lib/dayjs"
-
-import type { ParsedPostAuthor } from "@/queries/fetch-post-data"
+import type { User } from "@payload-types"
 import type { Article } from "schema-dts"
 
 export interface ArticleSchemaProps {
-  author: ParsedPostAuthor
+  authors: User[]
   title?: string | null
   image?: string | null
   url: string
@@ -21,7 +20,7 @@ export interface ArticleSchemaProps {
 }
 
 export function ArticleSchema({
-  author,
+  authors,
   title,
   wordCount,
   excerpt,
@@ -39,12 +38,15 @@ export function ArticleSchema({
         "@type": "Article",
         headline: title ?? undefined,
         inLanguage: lang ?? undefined,
-        author: `${author.firstName} ${author.lastName}`.trim(),
+        author: authors.map((author) => ({
+          "@type": "Person",
+          name: author.name,
+        })),
         image: image ?? undefined,
         description: excerpt ?? undefined,
-        dateCreated: publishDate ? dayjs(publishDate).format("YYYY-MM-DD") : undefined,
-        datePublished: publishDate ? dayjs(publishDate).format("YYYY-MM-DD") : undefined,
-        dateModified: updateDate ? dayjs(updateDate).format("YYYY-MM-DD") : undefined,
+        dateCreated: publishDate ? formatDate(publishDate, "yyyy-MM-dd") : undefined,
+        datePublished: publishDate ? formatDate(publishDate, "yyyy-MM-dd") : undefined,
+        dateModified: updateDate ? formatDate(updateDate, "yyyy-MM-dd") : undefined,
         wordCount: wordCount ?? undefined,
         keywords: keywords?.split(/[ ,;]/).join(" "),
         publisher: {

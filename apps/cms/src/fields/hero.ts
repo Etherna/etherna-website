@@ -14,7 +14,7 @@ export const hero: Field = {
       type: "select",
       defaultValue: "lowImpact",
       label: "Type",
-      localized: true,
+      required: true,
       options: [
         {
           label: "None",
@@ -33,7 +33,6 @@ export const hero: Field = {
           value: "lowImpact",
         },
       ],
-      required: true,
     },
     {
       name: "title",
@@ -66,7 +65,6 @@ export const hero: Field = {
             localized: true,
             admin: {
               width: "50%",
-
               condition: (_, { type } = {}) => type !== "none",
             },
           },
@@ -90,11 +88,11 @@ export const hero: Field = {
       name: "media",
       type: "upload",
       localized: true,
+      required: false,
       admin: {
         condition: (_, { type } = {}) => ["highImpact", "mediumImpact"].includes(type),
       },
       relationTo: "media",
-      required: false,
     },
     {
       name: "backgroundImage",

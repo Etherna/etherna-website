@@ -4,7 +4,7 @@ import { getImage } from "astro:assets"
 import { serverImageToBlurhash } from "./blurhash"
 import { fetchPayloadRequest } from "./payload"
 import { route } from "./routes"
-import { localized } from "@/lang/utils"
+import { localized } from "@/i18n/utils"
 
 import type { NodeType } from "./lexical"
 import type { Locale } from "@/i18n/types"

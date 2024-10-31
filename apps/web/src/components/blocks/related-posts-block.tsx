@@ -9,7 +9,7 @@ import {
   TextColumnsTitle,
 } from "../layout/text-columns"
 import { BaseBlock } from "./base-block"
-import { localized } from "@/lang/utils"
+import { localized } from "@/i18n/utils"
 import { hasBundledImage } from "@/lib/bundle"
 import { isNotEmptyLexical } from "@/lib/lexical"
 import { route } from "@/lib/routes"

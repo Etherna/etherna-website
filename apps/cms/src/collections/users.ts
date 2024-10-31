@@ -19,7 +19,7 @@ export const Users: CollectionConfig = {
     unlock: admin,
   },
   admin: {
-    defaultColumns: ["name", "email", "role", "policies"],
+    defaultColumns: ["firstName", "lastName", "email", "role", "policies"],
     useAsTitle: "name",
   },
   auth: true,
@@ -27,6 +27,27 @@ export const Users: CollectionConfig = {
     {
       name: "name",
       type: "text",
+      required: true,
+      admin: {
+        hidden: true,
+      },
+      hooks: {
+        beforeChange: [
+          async ({ data }) => [data?.firstName, data?.lastName].filter(Boolean).join(" "),
+        ],
+      },
+    },
+    {
+      name: "firstName",
+      type: "text",
+      defaultValue: "",
+      required: true,
+    },
+    {
+      name: "lastName",
+      type: "text",
+      defaultValue: "",
+      required: true,
     },
     {
       name: "avatar",
