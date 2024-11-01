@@ -128,6 +128,7 @@ export interface Page {
   layout?:
     | (
         | TextBlock
+        | ProseBlock
         | CtaBlock
         | MilestonesBlock
         | ClientsBlock
@@ -325,6 +326,44 @@ export interface TextBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'text';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProseBlock".
+ */
+export interface ProseBlock {
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  background: {
+    type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
+    inverted?: boolean | null;
+    dark?: boolean | null;
+    backgroundImage?: (string | null) | Media;
+    color?: string | null;
+    colorStops?:
+      | {
+          color: string;
+          stop: number;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'prose';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -1,3 +1,4 @@
+import { ProseBlock } from "../blocks/prose-block"
 import { AwardsBlock } from "@/components/blocks/awards-block"
 import { BentoBlock } from "@/components/blocks/bento-block"
 import { BrandBlock } from "@/components/blocks/brand-block"
@@ -15,49 +16,53 @@ import { TeamBlock } from "@/components/blocks/team-block"
 import { TestimonialsBlock } from "@/components/blocks/testimonials-block"
 import { TextBlock } from "@/components/blocks/text-block"
 
+import type { Locale } from "@/i18n/types"
 import type { Page } from "@payload-types"
 
 interface BlocksProps {
   blocks: Page["layout"]
+  locale: Locale
 }
 
-export function Blocks({ blocks }: BlocksProps) {
+export function Blocks({ blocks, locale }: BlocksProps) {
   return (
     <>
       {blocks?.map((block, index) => {
         switch (block.blockType) {
           case "awards":
-            return <AwardsBlock key={index} {...block} />
+            return <AwardsBlock key={index} locale={locale} {...block} />
           case "grid":
-            return <GridBlock key={index} {...block} />
+            return <GridBlock key={index} locale={locale} {...block} />
           case "bento":
-            return <BentoBlock key={index} {...block} />
+            return <BentoBlock key={index} locale={locale} {...block} />
           case "brand":
-            return <BrandBlock key={index} {...block} />
+            return <BrandBlock key={index} locale={locale} {...block} />
           case "clients":
-            return <ClientsBlock key={index} {...block} />
+            return <ClientsBlock key={index} locale={locale} {...block} />
           case "cta":
-            return <CtaBlock key={index} {...block} />
+            return <CtaBlock key={index} locale={locale} {...block} />
           case "faq":
-            return <FAQBlock key={index} {...block} />
+            return <FAQBlock key={index} locale={locale} {...block} />
           case "features":
-            return <FeaturesBlock key={index} {...block} />
+            return <FeaturesBlock key={index} locale={locale} {...block} />
           case "form":
-            return <FormBlock key={index} {...block} />
+            return <FormBlock key={index} locale={locale} {...block} />
           case "milestones":
-            return <MilestonesBlock key={index} {...block} />
+            return <MilestonesBlock key={index} locale={locale} {...block} />
+          case "prose":
+            return <ProseBlock key={index} locale={locale} {...block} />
           case "relatedPosts":
-            return <RelatedPostsBlock key={index} {...block} />
+            return <RelatedPostsBlock key={index} locale={locale} {...block} />
           case "stats":
-            return <StatsBlock key={index} {...block} />
+            return <StatsBlock key={index} locale={locale} {...block} />
           case "testimonials":
-            return <TestimonialsBlock key={index} {...block} />
+            return <TestimonialsBlock key={index} locale={locale} {...block} />
           case "team":
-            return <TeamBlock key={index} {...block} />
+            return <TeamBlock key={index} locale={locale} {...block} />
           case "jobs":
-            return <JobsBlock key={index} {...block} />
+            return <JobsBlock key={index} locale={locale} {...block} />
           case "text":
-            return <TextBlock key={index} {...block} />
+            return <TextBlock key={index} locale={locale} {...block} />
         }
       })}
     </>

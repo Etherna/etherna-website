@@ -35,6 +35,7 @@ import { Users } from "@/collections/users"
 import { Company } from "@/globals/company"
 import { Footer } from "@/globals/footer"
 import { Header } from "@/globals/header"
+import { CollapsibleFeature } from "@/lexical/collapsible/collapsible-feature.server"
 import { HighlightFeature } from "@/lexical/highlight/highlight-feature.server"
 import { admin } from "@/policies/admin"
 import { deployIfNeeded } from "@/schedules/deploy-if-needed"
@@ -118,6 +119,7 @@ export default buildConfig({
         HighlightFeature(),
         HorizontalRuleFeature(),
         InlineToolbarFeature(),
+        // CollapsibleFeature(),
         LinkFeature({
           enabledCollections: ["pages", "posts"],
           fields: ({ defaultFields }) => {

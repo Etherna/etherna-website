@@ -6,13 +6,20 @@ import { Footer } from "./_footer"
 import { Header } from "./_header"
 import { Page } from "./_page"
 import { Post } from "./_post"
+import { DEFAULT_LOCALE, LOCALES } from "@/i18n/consts"
 import { route } from "@/lib/routes"
+
+import type { Locale } from "@/i18n/types"
 
 export function PreviewPage() {
   const pathname = window.location.pathname
+  const searchParams = new URLSearchParams(window.location.search)
 
   const matchPage = route.test(pathname, ["/", "/:path"])
   const matchPost = route.test(pathname, ["/blog/:slug"])
+
+  const localeValue = searchParams.get("locale") as Locale
+  const locale = LOCALES.includes(localeValue) ? localeValue : DEFAULT_LOCALE
 
   return (
     <>

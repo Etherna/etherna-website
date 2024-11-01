@@ -19,6 +19,7 @@ import { FormBlock } from "@/blocks/form-block"
 import { GridBlock } from "@/blocks/grid-block"
 import { JobsBlock } from "@/blocks/jobs-block"
 import { MilestonesBlock } from "@/blocks/milestones-block"
+import { ProseBlock } from "@/blocks/prose-block"
 import { RelatedPostsBlock } from "@/blocks/related-posts-block"
 import { StatsBlock } from "@/blocks/stats-block"
 import { TeamBlock } from "@/blocks/team-block"
@@ -88,6 +89,7 @@ export const Pages: CollectionConfig = {
               required: false,
               blocks: [
                 TextBlock,
+                ProseBlock,
                 CtaBlock,
                 MilestonesBlock,
                 ClientsBlock,

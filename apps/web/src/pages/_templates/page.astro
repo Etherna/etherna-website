@@ -19,7 +19,7 @@ const { page, localizedPaths } = await fetchPage({
 ---
 
 <Root
-  title={page.meta?.title ?? page.title}
+  title={page.meta?.title || page.title}
   description={page.meta?.description}
   image={page.meta?.image?.bundled?.image?.src}
   locale={Astro.props.locale}

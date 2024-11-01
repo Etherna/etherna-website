@@ -12,6 +12,7 @@ import { FormBlock } from "@/components/blocks/form-block"
 import { GridBlock } from "@/components/blocks/grid-block"
 import { JobsBlock } from "@/components/blocks/jobs-block"
 import { MilestonesBlock } from "@/components/blocks/milestones-block"
+import { ProseBlock } from "@/components/blocks/prose-block"
 import { RelatedPostsBlock } from "@/components/blocks/related-posts-block"
 import { StatsBlock } from "@/components/blocks/stats-block"
 import { TeamBlock } from "@/components/blocks/team-block"
@@ -48,6 +49,8 @@ interface Props {
         return <FormBlock {...block} locale={Astro.props.locale} client:idle />
       case "milestones":
         return <MilestonesBlock {...block} locale={Astro.props.locale} client:idle />
+      case "prose":
+        return <ProseBlock {...block} locale={Astro.props.locale} />
       case "relatedPosts":
         return <RelatedPostsBlock {...block} locale={Astro.props.locale} />
       case "stats":

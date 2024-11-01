@@ -54,7 +54,7 @@ const mainCategory = post.categories?.[0] as Category | undefined
 ---
 
 <Root
-  title={post.meta?.title ?? post.title}
+  title={post.meta?.title || post.title}
   description={post.meta?.description}
   image={post.meta?.image?.bundled?.image?.src}
   path={Astro.props.path}
