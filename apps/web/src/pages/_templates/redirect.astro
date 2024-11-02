@@ -1,0 +1,28 @@
+---
+interface Props {
+  redirectUrl: string
+}
+
+const url = Astro.props.redirectUrl
+---
+
+<html>
+  <head>
+    <meta http-equiv="refresh" content={`0;url=${url}`} />
+  </head>
+  <body>
+    <a id="display-link" href={url} rel="noopener noreferrer" style="display:none; color:#db0f9e;">
+      click here if redirect isn't working
+    </a>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const link = document.getElementById("display-link")
+        if (link) {
+          setTimeout(() => {
+            link.style.display = "block"
+          }, 500)
+        }
+      })
+    </script>
+  </body>
+</html>

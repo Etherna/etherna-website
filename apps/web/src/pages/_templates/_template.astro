@@ -3,6 +3,7 @@ import Blog from "./blog.astro"
 import Page from "./page.astro"
 import Post from "./post.astro"
 import Preview from "./preview.astro"
+import Redirect from "./redirect.astro"
 import { route } from "@/lib/routes"
 
 import type { Locale } from "@/i18n/types"
@@ -13,22 +14,27 @@ interface Props {
   locale: Locale
   category?: string
   page?: number
+  redirectUrl?: string
 }
 
 const pathname = Astro.props.path
 
-const matchPreview = route.test(pathname, ["/_preview"])
-const matchPage = route.test(pathname, ["/", "/:path"])
-const matchBlog = route.test(pathname, [
-  "/blog",
-  "/blog/page/:page",
-  "/blog/category/:category",
-  "/blog/category/:category/page/:page",
-])
-const matchPost = route.test(pathname, ["/blog/:slug"])
+const matchRedirect = !!Astro.props.redirectUrl
+const matchPreview = !matchRedirect && route.test(pathname, ["/_preview"])
+const matchPage = !matchRedirect && route.test(pathname, ["/", "/:path"])
+const matchBlog =
+  !matchRedirect &&
+  route.test(pathname, [
+    "/blog",
+    "/blog/page/:page",
+    "/blog/category/:category",
+    "/blog/category/:category/page/:page",
+  ])
+const matchPost = !matchRedirect && route.test(pathname, ["/blog/:slug"])
 ---
 
 {matchPreview && <Preview {...Astro.props} />}
 {matchPage && <Page {...Astro.props} />}
 {matchBlog && <Blog {...Astro.props} />}
 {matchPost && <Post {...Astro.props} />}
+{matchRedirect && <Redirect {...Astro.props} />}

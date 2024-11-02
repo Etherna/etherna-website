@@ -1,19 +1,20 @@
+import { resolveInternalLink } from "@/lib/bundle"
 import { fetchPayloadRequest } from "@/lib/payload"
 import { route } from "@/lib/routes"
 
 import type { Locale } from "@/i18n/types"
-import type { Category, Page, Post } from "@payload-types"
+import type { Category, Page, Post, Redirect } from "@payload-types"
 import type { PaginatedDocs } from "payload"
 
 export const PAGINATION_LIMIT = import.meta.env.DEV ? 3 : 20
 
 export async function fetchPaths(locales: Locale[]) {
   const paths: {
-    props: { id: string; page?: number; category?: string }
+    props: { id: string; page?: number; category?: string; redirectUrl?: string }
     params: { lang: Locale; path: string }
   }[] = []
 
-  const results = await Promise.all(
+  const localizedPagesResults = await Promise.all(
     locales.map(async (locale) => ({
       locale,
       posts: await fetchPayloadRequest<PaginatedDocs<Post>>({
@@ -33,8 +34,13 @@ export async function fetchPaths(locales: Locale[]) {
       }),
     })),
   )
+  const redirects = await fetchPayloadRequest<PaginatedDocs<Redirect>>({
+    method: "GET",
+    path: "/redirects",
+    params: { limit: 0 },
+  })
 
-  for (const result of results) {
+  for (const result of localizedPagesResults) {
     const { locale, posts, pages, categories } = result
 
     for (const page of pages.docs) {
@@ -130,6 +136,14 @@ export async function fetchPaths(locales: Locale[]) {
         },
       })
     }
+  }
+
+  for (const redirect of redirects.docs) {
+    const redirectUrl = (await resolveInternalLink(redirect.to, "en"))?.url ?? ""
+    paths.push({
+      props: { id: redirect.id, redirectUrl },
+      params: { lang: "en", path: redirect.from },
+    })
   }
 
   return paths
