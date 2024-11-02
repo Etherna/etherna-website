@@ -111,7 +111,7 @@ export const Company: GlobalConfig = {
               required: true,
             },
             {
-              name: "companyFoundedDate",
+              name: "companyFoundingDate",
               type: "date",
               required: true,
               admin: {

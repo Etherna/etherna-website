@@ -1765,7 +1765,7 @@ export interface Company {
     | null;
   companyName: string;
   companyEmail: string;
-  companyFoundedDate: string;
+  companyFoundingDate: string;
   companyAddress: {
     streetAddress: string;
     state: string;
