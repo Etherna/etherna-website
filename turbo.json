@@ -28,6 +28,8 @@
         "DB_USER",
         "DB_PASSWORD",
         "DB_SSL",
+        "MAILCHIMP_TOKEN",
+        "MAILCHIMP_SERVER",
         "RATE_LIMITER_ENABLED",
         "RATE_LIMITER_STORE",
         "RATE_LIMITER_POINTS",

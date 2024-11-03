@@ -7,6 +7,7 @@ import { SpinnerLight } from "@/components/assets/animated"
 import { Alert } from "@/components/common/alert"
 import { Button } from "@/components/common/button"
 import { cn } from "@/utils/classnames"
+import { userLocale } from "@/utils/lang"
 import { routes } from "@/utils/routes"
 import { validateEmail } from "@/utils/validation"
 
@@ -35,12 +36,14 @@ export function NewsletterForm() {
         return
       }
 
+      const audienceId = import.meta.env.PUBLIC_MAILCHIMP_AUDIENCE_ID
       const apiEndpoint = `${import.meta.env.DIRECTUS_URL}/${
         import.meta.env.DIRECTUS_PROJECT
-      }/custom/newsletter`
+      }/subscribe/${audienceId}`
       await axios.post(apiEndpoint, {
         email,
-        firstName,
+        fname: firstName,
+        mailchimpTags: `website,${userLocale()}`,
       })
 
       sessionStorage.setItem("subscriber:email", email)
