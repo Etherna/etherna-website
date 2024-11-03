@@ -60,7 +60,7 @@ export default defineEndpoint({
 
         res.json({ status: "ok", code: "DONE" })
       } catch (err) {
-        if (isAxiosError(err) && err.response?.data.toString().includes("Member Exists")) {
+        if (isAxiosError(err) && err.response?.data.title === "Member Exists") {
           res.status(200).json({ status: "ok", code: "EXIST" })
           return
         }

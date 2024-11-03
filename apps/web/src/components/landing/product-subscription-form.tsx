@@ -13,11 +13,12 @@ import { validateEmail } from "@/utils/validation"
 
 import type { InputHTMLAttributes } from "react"
 
-export function NewsletterForm() {
+export function ProductSubscriptionForm() {
   const [firstName, setFirstName] = useState("")
   const [email, setEmail] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string>()
+  const [isSuccess, setIsSuccess] = useState(false)
   const { t } = useTranslation("landing")
 
   const sendFormRequest = async () => {
@@ -36,20 +37,21 @@ export function NewsletterForm() {
         return
       }
 
-      const audienceId = import.meta.env.PUBLIC_MAILCHIMP_AUDIENCE_ID
+      const audienceId = import.meta.env.PUBLIC_MAILCHIMP_PRODUCT_AUDIENCE_ID
       const apiEndpoint = `${import.meta.env.PUBLIC_DIRECTUS_URL}/subscribe/${audienceId}`
       await axios.post(apiEndpoint, {
         email,
         fname: firstName,
-        mailchimpTags: `website,${userLocale()}`,
+        mailchimpTags: `anthill,website,${userLocale()}`,
       })
 
       sessionStorage.setItem("subscriber:email", email)
 
       setError(undefined)
       setIsSubmitting(false)
-
-      window.location.href = routes.thankyouPath()
+      setIsSuccess(true)
+      setEmail("")
+      setFirstName("")
     } catch (err) {
       console.error(err)
       setError(t("subcribeErrorDescription"))
@@ -59,18 +61,18 @@ export function NewsletterForm() {
 
   return (
     <>
-      <form className="mx-auto mt-6 flex w-full max-w-lg flex-col lg:max-w-none lg:flex-row lg:justify-center">
+      <form className="flex w-full flex-col gap-4">
         <NewsletterFormField
           type="text"
-          className="rounded-t-lg focus:rounded-t-lg lg:rounded-none lg:rounded-l-lg lg:focus:rounded-none lg:focus:rounded-l-lg"
+          className="w-full rounded-md lg:max-w-full"
           placeholder={t("namePlaceholder")}
-          value={firstName}
           autoComplete="name"
+          value={firstName}
           onChange={e => setFirstName(e.target.value)}
         />
         <NewsletterFormField
           type="email"
-          className="-mt-px lg:mt-0"
+          className="w-full rounded-md lg:max-w-full"
           placeholder={t("emailPlaceholder")}
           autoComplete="email"
           inputMode="email"
@@ -79,16 +81,13 @@ export function NewsletterForm() {
         />
 
         <Button
-          className={cn(
-            "-mt-px flex items-center whitespace-nowrap py-3 lg:mt-0",
-            "rounded-b-lg rounded-t-none lg:rounded-lg lg:rounded-l-none"
-          )}
+          className="h-10 w-full justify-center text-center"
           type="primary"
           disabled={isSubmitting}
           onClick={sendFormRequest}
         >
           {isSubmitting && <SpinnerLight className="mr-2 h-6 w-6" />}
-          {t("subcribeNewsletter")}
+          Subscribe
         </Button>
       </form>
 
@@ -96,6 +95,14 @@ export function NewsletterForm() {
         <div className="my-4 w-full max-w-4xl">
           <Alert type="danger" title={t("subcribeErrorTitle")} onClose={() => setError(undefined)}>
             {error}
+          </Alert>
+        </div>
+      )}
+
+      {isSuccess && (
+        <div className="my-4 w-full max-w-4xl">
+          <Alert type="success" title="Almost done!">
+            Thank you for your submission. Please check your inbox for a confirmation email.
           </Alert>
         </div>
       )}
