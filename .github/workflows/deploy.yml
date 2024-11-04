@@ -20,6 +20,8 @@ jobs:
     env:
       PUBLIC_SITE_URL: "https://info.etherna.io"
       PUBLIC_DIRECTUS_URL: "https://cms.etherna.io"
+      PUBLIC_MAILCHIMP_AUDIENCE_ID: "474e245439"
+      PUBLIC_MAILCHIMP_PRODUCT_AUDIENCE_ID: "bf5f1dc2ea"
       ANALYTICS_URL: "https://analytics.etherna.io"
       ANALYTICS_SITE_ID: "1"
 
