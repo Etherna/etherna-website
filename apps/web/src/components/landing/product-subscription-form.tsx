@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { useTranslation } from "react-i18next"
 import axios from "axios"
 
 import { SpinnerLight } from "@/components/assets/animated"
@@ -8,7 +7,6 @@ import { Alert } from "@/components/common/alert"
 import { Button } from "@/components/common/button"
 import { cn } from "@/utils/classnames"
 import { userLocale } from "@/utils/lang"
-import { routes } from "@/utils/routes"
 import { validateEmail } from "@/utils/validation"
 
 import type { InputHTMLAttributes } from "react"
@@ -19,7 +17,6 @@ export function ProductSubscriptionForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string>()
   const [isSuccess, setIsSuccess] = useState(false)
-  const { t } = useTranslation("landing")
 
   const sendFormRequest = async () => {
     setIsSubmitting(true)
@@ -28,12 +25,12 @@ export function ProductSubscriptionForm() {
       // fields validation
       if (firstName.length < 2) {
         setIsSubmitting(false)
-        setError(t("subcribeErrorName"))
+        setError("Please enter your name.")
         return
       }
       if (email.length === 0 || !validateEmail(email)) {
         setIsSubmitting(false)
-        setError(t("subcribeErrorEmail"))
+        setError("Please enter a valid email address.")
         return
       }
 
@@ -54,7 +51,7 @@ export function ProductSubscriptionForm() {
       setFirstName("")
     } catch (err) {
       console.error(err)
-      setError(t("subcribeErrorDescription"))
+      setError("An error occurred. Please try again.")
       setIsSubmitting(false)
     }
   }
@@ -65,7 +62,7 @@ export function ProductSubscriptionForm() {
         <NewsletterFormField
           type="text"
           className="w-full rounded-md lg:max-w-full"
-          placeholder={t("namePlaceholder")}
+          placeholder={"Your name"}
           autoComplete="name"
           value={firstName}
           onChange={e => setFirstName(e.target.value)}
@@ -73,7 +70,7 @@ export function ProductSubscriptionForm() {
         <NewsletterFormField
           type="email"
           className="w-full rounded-md lg:max-w-full"
-          placeholder={t("emailPlaceholder")}
+          placeholder={"Your main email"}
           autoComplete="email"
           inputMode="email"
           value={email}
@@ -93,7 +90,7 @@ export function ProductSubscriptionForm() {
 
       {error && (
         <div className="my-4 w-full max-w-4xl">
-          <Alert type="danger" title={t("subcribeErrorTitle")} onClose={() => setError(undefined)}>
+          <Alert type="danger" title={"Subscription error"} onClose={() => setError(undefined)}>
             {error}
           </Alert>
         </div>
