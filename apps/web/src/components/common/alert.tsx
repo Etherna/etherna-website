@@ -13,7 +13,7 @@ export function Alert({ children, className, type = "success", title, onClose }:
   return (
     <div
       className={cn(
-        "block w-full rounded border px-4 py-3",
+        "block w-full rounded border px-4 py-3 text-left",
         {
           "border-green-200 bg-green-100 text-green-600": type === "success",
           "border-red-200 bg-red-100 text-red-600": type === "danger",
@@ -39,7 +39,7 @@ export function Alert({ children, className, type = "success", title, onClose }:
           </button>
         )}
       </div>
-      <span>{children}</span>
+      <span className="">{children}</span>
     </div>
   )
 }

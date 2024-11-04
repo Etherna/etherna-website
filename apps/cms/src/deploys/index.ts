@@ -1,6 +1,8 @@
 import { defineEndpoint } from "@directus/extensions"
 import { Octokit } from "@octokit/rest"
 
+require("dotenv").config()
+
 export default defineEndpoint({
   id: "deploys",
   handler(router, context) {
