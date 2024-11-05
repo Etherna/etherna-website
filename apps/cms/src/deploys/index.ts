@@ -1,7 +1,8 @@
 import { defineEndpoint } from "@directus/extensions"
 import { Octokit } from "@octokit/rest"
+import { config } from "dotenv"
 
-require("dotenv").config()
+config()
 
 export default defineEndpoint({
   id: "deploys",

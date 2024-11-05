@@ -1,19 +1,14 @@
 import { defineEndpoint } from "@directus/extensions"
-import mailchimp from "@mailchimp/mailchimp_marketing"
 import axios, { isAxiosError } from "axios"
+import { config } from "dotenv"
 
-require("dotenv").config()
+config()
 
 export default defineEndpoint({
   id: "subscribe",
   handler(router, context) {
     router.post("/:list", async (req, res) => {
       try {
-        mailchimp.setConfig({
-          apiKey: process.env.MAILCHIMP_TOKEN,
-          server: process.env.MAILCHIMP_SERVER,
-        })
-
         const submission = req.body as {
           email: string
           fname: string
@@ -36,7 +31,7 @@ export default defineEndpoint({
             FNAME: submission.fname,
             LNAME: submission.lname ?? "",
           },
-        } satisfies mailchimp.lists.AddListMemberBody
+        }
 
         const url = `https://${process.env.MAILCHIMP_SERVER}.api.mailchimp.com/3.0/lists/${listId}/members`
         const resp = await axios.post(

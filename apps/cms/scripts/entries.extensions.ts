@@ -26,9 +26,7 @@ export function getExtensionsEntries() {
           format,
           exports,
         },
-        external: isApiExtension
-          ? [...API_SHARED_DEPS, "@mailchimp/mailchimp_marketing"]
-          : APP_SHARED_DEPS,
+        external: isApiExtension ? API_SHARED_DEPS : APP_SHARED_DEPS,
         plugins: isApiExtension ? API_PLUGINS : APP_PLUGINS,
         logLevel: "warn",
         onwarn: (warning, warn) => {

@@ -15,4 +15,4 @@ COPY --from=build ./usr/src/app/apps/cms/extensions ./extensions
 COPY --from=build ./usr/src/app/apps/cms/migrations ./migrations
 RUN mkdir -p uploads
 RUN chown -R node:node uploads
-CMD node cli.js bootstrap && node cli.js database migrate:latest && node cli.js schema apply --yes ./snapshot.yaml && node cli.js start
+CMD node cli.js bootstrap && node cli.js database migrate:latest && node cli.js start
