@@ -21,9 +21,8 @@ import { migrations } from "migrations"
 import nodemailerSendgrid from "nodemailer-sendgrid"
 import { buildConfig } from "payload"
 import { DEFAULT_LOCALE, Locales } from "payload.i18n"
+import { schedulerPlugin } from "plugins/scheduler"
 import sharp from "sharp"
-
-import { schedulerPlugin } from "../../packages/payload-plugin-scheduler/src/index" // PATCH for ERR_MODULE_NOT_FOUND
 
 import { Categories } from "@/collections/categories"
 import { triggerDeploy } from "@/collections/hooks/trigger-deploy"
@@ -35,7 +34,6 @@ import { Users } from "@/collections/users"
 import { Company } from "@/globals/company"
 import { Footer } from "@/globals/footer"
 import { Header } from "@/globals/header"
-import { CollapsibleFeature } from "@/lexical/collapsible/collapsible-feature.server"
 import { HighlightFeature } from "@/lexical/highlight/highlight-feature.server"
 import { admin } from "@/policies/admin"
 import { deployIfNeeded } from "@/schedules/deploy-if-needed"
@@ -121,7 +119,7 @@ export default buildConfig({
         InlineToolbarFeature(),
         // CollapsibleFeature(),
         LinkFeature({
-          enabledCollections: ["pages", "posts"],
+          enabledCollections: ["pages", "posts", "redirects"],
           fields: ({ defaultFields }) => {
             const defaultFieldsWithoutUrl = defaultFields.filter((field) => {
               if ("name" in field && field.name === "url") return false
@@ -172,6 +170,9 @@ export default buildConfig({
     redirectsPlugin({
       collections: ["pages", "posts"],
       overrides: {
+        admin: {
+          useAsTitle: "from",
+        },
         fields: ({ defaultFields }) => {
           return defaultFields.map((field) => {
             if ("name" in field && field.name === "from") {

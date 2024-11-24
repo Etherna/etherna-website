@@ -1,7 +1,7 @@
 "use client"
 
 import { HexColorPicker } from "react-colorful"
-import { Popup, TextInput, useField, useFieldProps } from "@payloadcms/ui"
+import { Popup, TextInput, useField } from "@payloadcms/ui"
 
 import { PaletteIcon } from "lucide-react"
 
@@ -24,9 +24,8 @@ const DefaultColorPalette = [
   "#FFFFFF", // White
 ]
 
-export function ColorField({ field }: TextFieldClientProps) {
+export function ColorField({ field, readOnly, path }: TextFieldClientProps) {
   const { label } = field
-  const { path, readOnly } = useFieldProps()
   const { value, setValue } = useField<string>({ path })
 
   return (

@@ -7,10 +7,10 @@ import { route } from "./routes"
 import { localized } from "@/i18n/utils"
 
 import type { NodeType } from "./lexical"
-import type { Locale } from "@/i18n/types"
-import type { AwardsBlock, Form, Job, JobsBlock, Media, Page, Post } from "@payload-types"
-import type { LinkFields } from "@payloadcms/richtext-lexical"
 import type { GetImageResult } from "astro"
+import type { Locale } from "@/i18n/types"
+import type { AwardsBlock, Form, Job, JobsBlock, Media, Page, Post, Redirect } from "@payload-types"
+import type { LinkFields } from "@payloadcms/richtext-lexical"
 import type { PaginatedDocs } from "payload"
 
 export interface BundledImage extends GetImageResult {
@@ -215,6 +215,21 @@ export async function resolveInternalLink<T extends LinkFields | BlockLink>(
           }),
           locale,
         )
+        break
+      }
+      case "redirects": {
+        const redirect =
+          typeof docValue === "string"
+            ? await fetchPayloadRequest<Redirect>({
+                method: "GET",
+                path: `/redirects/${docValue}`,
+                params: {},
+                accessToken,
+              })
+            : (docValue as unknown as Redirect)
+        link.url = route("/:path", {
+          path: redirect.from.replace(/^\//, ""),
+        })
         break
       }
       default:
@@ -441,6 +456,9 @@ export async function bundleBlocks(blocks: AnyBlock[], locale: Locale, accessTok
             return milestone
           }),
         )
+        break
+      }
+      case "prose": {
         break
       }
       case "relatedPosts": {

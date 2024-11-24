@@ -21,11 +21,13 @@ export const FeaturesBlock = {
         {
           name: "title",
           type: "text",
+          localized: true,
           required: false,
         },
         {
           name: "description",
           type: "richText",
+          localized: true,
           required: false,
         },
         {

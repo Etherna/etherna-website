@@ -26,11 +26,13 @@ export const TeamBlock = {
           name: "role",
           type: "text",
           required: false,
+          localized: true,
         },
         {
           name: "bio",
           type: "richText",
           required: false,
+          localized: true,
         },
         {
           name: "photo",

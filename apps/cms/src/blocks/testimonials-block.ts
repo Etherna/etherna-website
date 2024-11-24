@@ -30,6 +30,7 @@ export const TestimonialsBlock = {
           name: "role",
           type: "text",
           required: true,
+          localized: true,
         },
         {
           name: "quote",

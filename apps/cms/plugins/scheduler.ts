@@ -16,7 +16,7 @@ export const schedulerPlugin =
   (incomingConfig: Config): Config => {
     const config = { ...incomingConfig }
 
-    config.onInit = async payload => {
+    config.onInit = async (payload) => {
       await incomingConfig.onInit?.(payload)
 
       for (const schedule of schedulerConfig.jobs) {

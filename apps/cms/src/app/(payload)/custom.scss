@@ -5,3 +5,8 @@
 body .rich-text-lexical .editor-container {
   @apply font-sans;
 }
+
+.collapsible__toggle-wrap,
+.collapsible__content {
+  @apply bg-zinc-200/30 dark:bg-zinc-800/50;
+}

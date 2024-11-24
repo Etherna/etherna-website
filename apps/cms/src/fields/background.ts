@@ -14,7 +14,6 @@ export const background = (overrides?: Partial<GroupField>) =>
         label: "Type",
         type: "select",
         defaultValue: "none",
-        localized: true,
         required: true,
         options: [
           {

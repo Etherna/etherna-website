@@ -57,19 +57,22 @@ export function ClientsBlock({
           )}
         </TextColumnsMainColumn>
         <TextColumnsContentColumn inlineSize={"lg"}>
-          <ul className="grid w-full grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-x-3 gap-y-6 md:grid-cols-[repeat(auto-fill,minmax(180px,1fr))]">
+          <ul className="flex w-full flex-wrap items-center justify-around gap-x-3 gap-y-6">
             {clients.map((client, index) => {
               const gradientId = `${elementId}_ClientsGradient_${index}`
               return (
                 <li
                   key={index}
-                  className={cn("flex w-full", {
+                  className={cn("flex h-8 lg:h-10", {
                     "group/client": !!client.link?.url,
                   })}
                 >
-                  <a href={client.link?.url || undefined} className="flex w-full items-center">
+                  <a
+                    href={client.link?.url || undefined}
+                    className="flex h-full w-full items-center"
+                  >
                     <Svg
-                      className="h-auto max-h-[50px] max-w-[70%]"
+                      className="mx-auto h-full max-w-[70%]"
                       svg={(client.logo as Media).bundled?.image?.svgContent}
                       defs={<SvgDefs id={gradientId} />}
                       style={{

@@ -47,7 +47,7 @@ export function MilestonesBlock({
       <TextColumns centered={true} inline={false}>
         <TextColumnsMainColumn>
           {title && (
-            <TextColumnsTitle tag={"h2"} size={"sm"}>
+            <TextColumnsTitle tag={"h2"} size={"xs"}>
               {title}
             </TextColumnsTitle>
           )}
@@ -77,7 +77,7 @@ function Milestones({
   })
 
   useMotionValueEvent(scrollYProgress, "change", (v) => {
-    const scrollAmount = window.innerWidth * 0.2 * v
+    const scrollAmount = window.innerWidth * 0.5 * v
     scrollAmountRef.current = scrollAmount
     updateScroll()
   })
@@ -88,7 +88,7 @@ function Milestones({
   })
 
   const updateScroll = () => {
-    scrollValue.set(scrollAmountRef.current + manualScrollAmountRef.current)
+    scrollValue.set(-scrollAmountRef.current + manualScrollAmountRef.current)
   }
 
   const onMouseMove = useCallback((event: MouseEvent) => {

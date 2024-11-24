@@ -24,6 +24,21 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
+  collectionsJoins: {};
+  collectionsSelect: {
+    pages: PagesSelect<false> | PagesSelect<true>;
+    posts: PostsSelect<false> | PostsSelect<true>;
+    categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    jobs: JobsSelect<false> | JobsSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
+    redirects: RedirectsSelect<false> | RedirectsSelect<true>;
+    forms: FormsSelect<false> | FormsSelect<true>;
+    'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
+  };
   db: {
     defaultIDType: string;
   };
@@ -32,9 +47,18 @@ export interface Config {
     footer: Footer;
     company: Company;
   };
+  globalsSelect: {
+    header: HeaderSelect<false> | HeaderSelect<true>;
+    footer: FooterSelect<false> | FooterSelect<true>;
+    company: CompanySelect<false> | CompanySelect<true>;
+  };
   locale: 'en' | 'it';
   user: User & {
     collection: 'users';
+  };
+  jobs: {
+    tasks: unknown;
+    workflows: unknown;
   };
 }
 export interface UserAuthOperations {
@@ -93,6 +117,10 @@ export interface Page {
               | ({
                   relationTo: 'posts';
                   value: string | Post;
+                } | null)
+              | ({
+                  relationTo: 'redirects';
+                  value: string | Redirect;
                 } | null);
             url?: string | null;
             label: string;
@@ -114,6 +142,10 @@ export interface Page {
               | ({
                   relationTo: 'posts';
                   value: string | Post;
+                } | null)
+              | ({
+                  relationTo: 'redirects';
+                  value: string | Redirect;
                 } | null);
             url?: string | null;
             label: string;
@@ -285,6 +317,29 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "redirects".
+ */
+export interface Redirect {
+  id: string;
+  from: string;
+  to?: {
+    type?: ('reference' | 'custom') | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null);
+    url?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TextBlock".
  */
 export interface TextBlock {
@@ -418,6 +473,10 @@ export interface CtaBlock {
             | ({
                 relationTo: 'posts';
                 value: string | Post;
+              } | null)
+            | ({
+                relationTo: 'redirects';
+                value: string | Redirect;
               } | null);
           url?: string | null;
           label: string;
@@ -531,6 +590,10 @@ export interface ClientsBlock {
         | ({
             relationTo: 'posts';
             value: string | Post;
+          } | null)
+        | ({
+            relationTo: 'redirects';
+            value: string | Redirect;
           } | null);
       url?: string | null;
     };
@@ -659,6 +722,10 @@ export interface AwardsBlock {
         | ({
             relationTo: 'posts';
             value: string | Post;
+          } | null)
+        | ({
+            relationTo: 'redirects';
+            value: string | Redirect;
           } | null);
       url?: string | null;
     };
@@ -807,6 +874,10 @@ export interface GridBlock {
                   | ({
                       relationTo: 'posts';
                       value: string | Post;
+                    } | null)
+                  | ({
+                      relationTo: 'redirects';
+                      value: string | Redirect;
                     } | null);
                 url?: string | null;
               };
@@ -906,6 +977,10 @@ export interface BentoBlock {
             | ({
                 relationTo: 'posts';
                 value: string | Post;
+              } | null)
+            | ({
+                relationTo: 'redirects';
+                value: string | Redirect;
               } | null);
           url?: string | null;
         };
@@ -986,6 +1061,10 @@ export interface TestimonialsBlock {
         | ({
             relationTo: 'posts';
             value: string | Post;
+          } | null)
+        | ({
+            relationTo: 'redirects';
+            value: string | Redirect;
           } | null);
       url?: string | null;
     };
@@ -1507,29 +1586,6 @@ export interface Job {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "redirects".
- */
-export interface Redirect {
-  id: string;
-  from: string;
-  to?: {
-    type?: ('reference' | 'custom') | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: string | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: string | Post;
-        } | null);
-    url?: string | null;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "form-submissions".
  */
 export interface FormSubmission {
@@ -1632,6 +1688,1040 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  title?: T;
+  hero?:
+    | T
+    | {
+        type?: T;
+        title?: T;
+        description?: T;
+        badges?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
+        media?: T;
+        backgroundImage?: T;
+      };
+  layout?:
+    | T
+    | {
+        text?:
+          | T
+          | {
+              title?: T;
+              heading?: T;
+              subtitle?: T;
+              text?: T;
+              titleSize?: T;
+              centered?: T;
+              forceFullWidth?: T;
+              background?:
+                | T
+                | {
+                    type?: T;
+                    inverted?: T;
+                    dark?: T;
+                    backgroundImage?: T;
+                    color?: T;
+                    colorStops?:
+                      | T
+                      | {
+                          color?: T;
+                          stop?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        prose?:
+          | T
+          | {
+              content?: T;
+              background?:
+                | T
+                | {
+                    type?: T;
+                    inverted?: T;
+                    dark?: T;
+                    backgroundImage?: T;
+                    color?: T;
+                    colorStops?:
+                      | T
+                      | {
+                          color?: T;
+                          stop?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        cta?:
+          | T
+          | {
+              title?: T;
+              heading?: T;
+              subtitle?: T;
+              text?: T;
+              titleSize?: T;
+              centered?: T;
+              forceFullWidth?: T;
+              background?:
+                | T
+                | {
+                    type?: T;
+                    inverted?: T;
+                    dark?: T;
+                    backgroundImage?: T;
+                    color?: T;
+                    colorStops?:
+                      | T
+                      | {
+                          color?: T;
+                          stop?: T;
+                          id?: T;
+                        };
+                  };
+              links?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                          appearance?: T;
+                        };
+                    id?: T;
+                  };
+              media?: T;
+              id?: T;
+              blockName?: T;
+            };
+        milestones?:
+          | T
+          | {
+              title?: T;
+              type?: T;
+              milestones?:
+                | T
+                | {
+                    title?: T;
+                    date?: T;
+                    status?: T;
+                    text?: T;
+                    media?: T;
+                    id?: T;
+                  };
+              background?:
+                | T
+                | {
+                    type?: T;
+                    inverted?: T;
+                    dark?: T;
+                    backgroundImage?: T;
+                    color?: T;
+                    colorStops?:
+                      | T
+                      | {
+                          color?: T;
+                          stop?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        clients?:
+          | T
+          | {
+              title?: T;
+              heading?: T;
+              subtitle?: T;
+              text?: T;
+              titleSize?: T;
+              centered?: T;
+              forceFullWidth?: T;
+              background?:
+                | T
+                | {
+                    type?: T;
+                    inverted?: T;
+                    dark?: T;
+                    backgroundImage?: T;
+                    color?: T;
+                    colorStops?:
+                      | T
+                      | {
+                          color?: T;
+                          stop?: T;
+                          id?: T;
+                        };
+                  };
+              clients?:
+                | T
+                | {
+                    logo?: T;
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        features?:
+          | T
+          | {
+              title?: T;
+              heading?: T;
+              subtitle?: T;
+              text?: T;
+              titleSize?: T;
+              centered?: T;
+              forceFullWidth?: T;
+              background?:
+                | T
+                | {
+                    type?: T;
+                    inverted?: T;
+                    dark?: T;
+                    backgroundImage?: T;
+                    color?: T;
+                    colorStops?:
+                      | T
+                      | {
+                          color?: T;
+                          stop?: T;
+                          id?: T;
+                        };
+                  };
+              features?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    icon?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        awards?:
+          | T
+          | {
+              title?: T;
+              heading?: T;
+              subtitle?: T;
+              text?: T;
+              titleSize?: T;
+              centered?: T;
+              forceFullWidth?: T;
+              background?:
+                | T
+                | {
+                    type?: T;
+                    inverted?: T;
+                    dark?: T;
+                    backgroundImage?: T;
+                    color?: T;
+                    colorStops?:
+                      | T
+                      | {
+                          color?: T;
+                          stop?: T;
+                          id?: T;
+                        };
+                  };
+              awards?:
+                | T
+                | {
+                    issuer?: T;
+                    name?: T;
+                    logo?: T;
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        stats?:
+          | T
+          | {
+              title?: T;
+              heading?: T;
+              subtitle?: T;
+              text?: T;
+              titleSize?: T;
+              centered?: T;
+              forceFullWidth?: T;
+              background?:
+                | T
+                | {
+                    type?: T;
+                    inverted?: T;
+                    dark?: T;
+                    backgroundImage?: T;
+                    color?: T;
+                    colorStops?:
+                      | T
+                      | {
+                          color?: T;
+                          stop?: T;
+                          id?: T;
+                        };
+                  };
+              stats?:
+                | T
+                | {
+                    label?: T;
+                    value?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        grid?:
+          | T
+          | {
+              title?: T;
+              heading?: T;
+              subtitle?: T;
+              text?: T;
+              titleSize?: T;
+              centered?: T;
+              forceFullWidth?: T;
+              background?:
+                | T
+                | {
+                    type?: T;
+                    inverted?: T;
+                    dark?: T;
+                    backgroundImage?: T;
+                    color?: T;
+                    colorStops?:
+                      | T
+                      | {
+                          color?: T;
+                          stop?: T;
+                          id?: T;
+                        };
+                  };
+              size?: T;
+              rows?:
+                | T
+                | {
+                    items?:
+                      | T
+                      | {
+                          title?: T;
+                          description?: T;
+                          background?:
+                            | T
+                            | {
+                                type?: T;
+                                inverted?: T;
+                                dark?: T;
+                                backgroundImage?: T;
+                                color?: T;
+                                colorStops?:
+                                  | T
+                                  | {
+                                      color?: T;
+                                      stop?: T;
+                                      id?: T;
+                                    };
+                              };
+                          effect?: T;
+                          accentColor?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                              };
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        bento?:
+          | T
+          | {
+              title?: T;
+              heading?: T;
+              subtitle?: T;
+              text?: T;
+              titleSize?: T;
+              centered?: T;
+              forceFullWidth?: T;
+              background?:
+                | T
+                | {
+                    type?: T;
+                    inverted?: T;
+                    dark?: T;
+                    backgroundImage?: T;
+                    color?: T;
+                    colorStops?:
+                      | T
+                      | {
+                          color?: T;
+                          stop?: T;
+                          id?: T;
+                        };
+                  };
+              items?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    background?:
+                      | T
+                      | {
+                          type?: T;
+                          inverted?: T;
+                          dark?: T;
+                          backgroundImage?: T;
+                          color?: T;
+                          colorStops?:
+                            | T
+                            | {
+                                color?: T;
+                                stop?: T;
+                                id?: T;
+                              };
+                        };
+                    accentColor?: T;
+                    rowSpan?: T;
+                    colSpan?: T;
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        testimonials?:
+          | T
+          | {
+              title?: T;
+              heading?: T;
+              subtitle?: T;
+              text?: T;
+              titleSize?: T;
+              centered?: T;
+              forceFullWidth?: T;
+              background?:
+                | T
+                | {
+                    type?: T;
+                    inverted?: T;
+                    dark?: T;
+                    backgroundImage?: T;
+                    color?: T;
+                    colorStops?:
+                      | T
+                      | {
+                          color?: T;
+                          stop?: T;
+                          id?: T;
+                        };
+                  };
+              testimonials?:
+                | T
+                | {
+                    name?: T;
+                    role?: T;
+                    quote?: T;
+                    avatar?: T;
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        faq?:
+          | T
+          | {
+              title?: T;
+              heading?: T;
+              subtitle?: T;
+              text?: T;
+              titleSize?: T;
+              centered?: T;
+              forceFullWidth?: T;
+              background?:
+                | T
+                | {
+                    type?: T;
+                    inverted?: T;
+                    dark?: T;
+                    backgroundImage?: T;
+                    color?: T;
+                    colorStops?:
+                      | T
+                      | {
+                          color?: T;
+                          stop?: T;
+                          id?: T;
+                        };
+                  };
+              faqs?:
+                | T
+                | {
+                    question?: T;
+                    text?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        team?:
+          | T
+          | {
+              title?: T;
+              heading?: T;
+              subtitle?: T;
+              text?: T;
+              titleSize?: T;
+              centered?: T;
+              forceFullWidth?: T;
+              background?:
+                | T
+                | {
+                    type?: T;
+                    inverted?: T;
+                    dark?: T;
+                    backgroundImage?: T;
+                    color?: T;
+                    colorStops?:
+                      | T
+                      | {
+                          color?: T;
+                          stop?: T;
+                          id?: T;
+                        };
+                  };
+              members?:
+                | T
+                | {
+                    name?: T;
+                    role?: T;
+                    bio?: T;
+                    photo?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        relatedPosts?:
+          | T
+          | {
+              title?: T;
+              heading?: T;
+              subtitle?: T;
+              text?: T;
+              titleSize?: T;
+              centered?: T;
+              forceFullWidth?: T;
+              background?:
+                | T
+                | {
+                    type?: T;
+                    inverted?: T;
+                    dark?: T;
+                    backgroundImage?: T;
+                    color?: T;
+                    colorStops?:
+                      | T
+                      | {
+                          color?: T;
+                          stop?: T;
+                          id?: T;
+                        };
+                  };
+              relatedPosts?: T;
+              id?: T;
+              blockName?: T;
+            };
+        form?:
+          | T
+          | {
+              title?: T;
+              heading?: T;
+              subtitle?: T;
+              text?: T;
+              titleSize?: T;
+              centered?: T;
+              forceFullWidth?: T;
+              background?:
+                | T
+                | {
+                    type?: T;
+                    inverted?: T;
+                    dark?: T;
+                    backgroundImage?: T;
+                    color?: T;
+                    colorStops?:
+                      | T
+                      | {
+                          color?: T;
+                          stop?: T;
+                          id?: T;
+                        };
+                  };
+              form?: T;
+              id?: T;
+              blockName?: T;
+            };
+        brand?:
+          | T
+          | {
+              title?: T;
+              heading?: T;
+              subtitle?: T;
+              text?: T;
+              titleSize?: T;
+              centered?: T;
+              forceFullWidth?: T;
+              background?:
+                | T
+                | {
+                    type?: T;
+                    inverted?: T;
+                    dark?: T;
+                    backgroundImage?: T;
+                    color?: T;
+                    colorStops?:
+                      | T
+                      | {
+                          color?: T;
+                          stop?: T;
+                          id?: T;
+                        };
+                  };
+              logos?:
+                | T
+                | {
+                    svgLogo?: T;
+                    pngLogo?: T;
+                    variant?: T;
+                    id?: T;
+                  };
+              colors?:
+                | T
+                | {
+                    name?: T;
+                    color?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        jobs?:
+          | T
+          | {
+              title?: T;
+              heading?: T;
+              subtitle?: T;
+              text?: T;
+              titleSize?: T;
+              centered?: T;
+              forceFullWidth?: T;
+              background?:
+                | T
+                | {
+                    type?: T;
+                    inverted?: T;
+                    dark?: T;
+                    backgroundImage?: T;
+                    color?: T;
+                    colorStops?:
+                      | T
+                      | {
+                          color?: T;
+                          stop?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  meta?:
+    | T
+    | {
+        overview?: T;
+        title?: T;
+        image?: T;
+        description?: T;
+        preview?: T;
+      };
+  slug?: T;
+  slugLock?: T;
+  publishedAt?: T;
+  parent?: T;
+  breadcrumbs?:
+    | T
+    | {
+        doc?: T;
+        url?: T;
+        label?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts_select".
+ */
+export interface PostsSelect<T extends boolean = true> {
+  title?: T;
+  content?: T;
+  relatedPosts?: T;
+  categories?: T;
+  meta?:
+    | T
+    | {
+        overview?: T;
+        title?: T;
+        image?: T;
+        description?: T;
+        preview?: T;
+      };
+  slug?: T;
+  slugLock?: T;
+  publishedAt?: T;
+  editedAt?: T;
+  thumbnail?: T;
+  authors?: T;
+  deleteLocale?: T;
+  populatedAuthors?:
+    | T
+    | {
+        id?: T;
+        name?: T;
+        avatar?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories_select".
+ */
+export interface CategoriesSelect<T extends boolean = true> {
+  title?: T;
+  color?: T;
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobs_select".
+ */
+export interface JobsSelect<T extends boolean = true> {
+  name?: T;
+  location?: T;
+  salary?: T;
+  type?: T;
+  description?: T;
+  publishedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  alt?: T;
+  caption?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+  name?: T;
+  firstName?: T;
+  lastName?: T;
+  avatar?: T;
+  role?: T;
+  policies?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "redirects_select".
+ */
+export interface RedirectsSelect<T extends boolean = true> {
+  from?: T;
+  to?:
+    | T
+    | {
+        type?: T;
+        reference?: T;
+        url?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "forms_select".
+ */
+export interface FormsSelect<T extends boolean = true> {
+  title?: T;
+  fields?:
+    | T
+    | {
+        checkbox?:
+          | T
+          | {
+              name?: T;
+              label?: T;
+              width?: T;
+              required?: T;
+              defaultValue?: T;
+              id?: T;
+              blockName?: T;
+            };
+        email?:
+          | T
+          | {
+              name?: T;
+              label?: T;
+              width?: T;
+              required?: T;
+              id?: T;
+              blockName?: T;
+            };
+        message?:
+          | T
+          | {
+              message?: T;
+              id?: T;
+              blockName?: T;
+            };
+        number?:
+          | T
+          | {
+              name?: T;
+              label?: T;
+              width?: T;
+              defaultValue?: T;
+              required?: T;
+              id?: T;
+              blockName?: T;
+            };
+        select?:
+          | T
+          | {
+              name?: T;
+              label?: T;
+              width?: T;
+              defaultValue?: T;
+              options?:
+                | T
+                | {
+                    label?: T;
+                    value?: T;
+                    id?: T;
+                  };
+              required?: T;
+              id?: T;
+              blockName?: T;
+            };
+        text?:
+          | T
+          | {
+              name?: T;
+              label?: T;
+              width?: T;
+              defaultValue?: T;
+              required?: T;
+              id?: T;
+              blockName?: T;
+            };
+        textarea?:
+          | T
+          | {
+              name?: T;
+              label?: T;
+              width?: T;
+              defaultValue?: T;
+              required?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  submitButtonLabel?: T;
+  confirmationType?: T;
+  confirmationMessage?: T;
+  redirect?:
+    | T
+    | {
+        type?: T;
+        reference?: T;
+        url?: T;
+      };
+  emails?:
+    | T
+    | {
+        emailTo?: T;
+        cc?: T;
+        bcc?: T;
+        replyTo?: T;
+        emailFrom?: T;
+        subject?: T;
+        message?: T;
+        id?: T;
+      };
+  event?: T;
+  mailchimpList?: T;
+  mailchimpTags?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "form-submissions_select".
+ */
+export interface FormSubmissionsSelect<T extends boolean = true> {
+  form?: T;
+  submissionData?:
+    | T
+    | {
+        field?: T;
+        value?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents_select".
+ */
+export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
+  document?: T;
+  globalSlug?: T;
+  user?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-preferences_select".
+ */
+export interface PayloadPreferencesSelect<T extends boolean = true> {
+  user?: T;
+  key?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-migrations_select".
+ */
+export interface PayloadMigrationsSelect<T extends boolean = true> {
+  name?: T;
+  batch?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header".
  */
 export interface Header {
@@ -1650,6 +2740,10 @@ export interface Header {
             | ({
                 relationTo: 'posts';
                 value: string | Post;
+              } | null)
+            | ({
+                relationTo: 'redirects';
+                value: string | Redirect;
               } | null);
           url?: string | null;
           label: string;
@@ -1667,6 +2761,10 @@ export interface Header {
                     | ({
                         relationTo: 'posts';
                         value: string | Post;
+                      } | null)
+                    | ({
+                        relationTo: 'redirects';
+                        value: string | Redirect;
                       } | null);
                   url?: string | null;
                   label: string;
@@ -1703,6 +2801,10 @@ export interface Footer {
                   | ({
                       relationTo: 'posts';
                       value: string | Post;
+                    } | null)
+                  | ({
+                      relationTo: 'redirects';
+                      value: string | Redirect;
                     } | null);
                 url?: string | null;
                 label: string;
@@ -1726,6 +2828,10 @@ export interface Footer {
             | ({
                 relationTo: 'posts';
                 value: string | Post;
+              } | null)
+            | ({
+                relationTo: 'redirects';
+                value: string | Redirect;
               } | null);
           url?: string | null;
           label: string;
@@ -1774,6 +2880,115 @@ export interface Company {
   };
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header_select".
+ */
+export interface HeaderSelect<T extends boolean = true> {
+  navItems?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              icon?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              sublinks?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          icon?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    id?: T;
+                  };
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  groups?:
+    | T
+    | {
+        title?: T;
+        groupItems?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  legalLinks?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "company_select".
+ */
+export interface CompanySelect<T extends boolean = true> {
+  socials?:
+    | T
+    | {
+        social?: T;
+        link?: T;
+        id?: T;
+      };
+  companyName?: T;
+  companyEmail?: T;
+  companyFoundingDate?: T;
+  companyAddress?:
+    | T
+    | {
+        streetAddress?: T;
+        state?: T;
+        zip?: T;
+        country?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

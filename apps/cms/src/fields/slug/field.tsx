@@ -1,14 +1,7 @@
 "use client"
 
 import React, { useCallback, useEffect } from "react"
-import {
-  Button,
-  FieldLabel,
-  TextInput,
-  useField,
-  useFieldProps,
-  useFormFields,
-} from "@payloadcms/ui"
+import { Button, FieldLabel, TextInput, useField, useForm, useFormFields } from "@payloadcms/ui"
 
 import { slugify } from "@/lib/string"
 
@@ -23,43 +16,53 @@ export function SlugField({
   field,
   fieldToUse,
   checkboxFieldPath: checkboxFieldPathFromProps,
+  readOnly: readOnlyFromProps,
+  path,
 }: SlugFieldProps) {
   const { label } = field
-  const { path, readOnly: readOnlyFromProps } = useFieldProps()
 
-  const checkboxFieldPath = path.includes(".")
+  const checkboxFieldPath = path?.includes(".")
     ? `${path}.${checkboxFieldPathFromProps}`
     : checkboxFieldPathFromProps
 
-  const { value, setValue } = useField<string>({ path })
+  const { value, setValue } = useField<string>({ path: path || field.name })
 
-  const { value: checkboxValue, setValue: setCheckboxValue } = useField<boolean>({
-    path: checkboxFieldPath,
+  const { dispatchFields } = useForm()
+
+  // The value of the checkbox
+  // We're using separate useFormFields to minimise re-renders
+  const checkboxValue = useFormFields(([fields]) => {
+    return fields[checkboxFieldPath]?.value as string
   })
 
-  const fieldToUseValue = useFormFields(([fields, _dispatch]) => {
+  // The value of the field we're listening to for the slug
+  const targetFieldValue = useFormFields(([fields]) => {
     return fields[fieldToUse]?.value as string
   })
 
   useEffect(() => {
     if (checkboxValue) {
-      if (fieldToUseValue) {
-        const formattedSlug = slugify(fieldToUseValue)
+      if (targetFieldValue) {
+        const formattedSlug = slugify(targetFieldValue)
 
         if (value !== formattedSlug) setValue(formattedSlug)
       } else {
         if (value !== "") setValue("")
       }
     }
-  }, [fieldToUseValue, checkboxValue, setValue, value])
+  }, [targetFieldValue, checkboxValue, setValue, value])
 
   const handleLock = useCallback(
     (e: React.MouseEvent) => {
       e.preventDefault()
 
-      setCheckboxValue(!checkboxValue)
+      dispatchFields({
+        type: "UPDATE",
+        path: checkboxFieldPath,
+        value: !checkboxValue,
+      })
     },
-    [checkboxValue, setCheckboxValue],
+    [checkboxValue, checkboxFieldPath, dispatchFields],
   )
 
   const readOnly = readOnlyFromProps || checkboxValue
@@ -67,14 +70,19 @@ export function SlugField({
   return (
     <div className="field-type slug-field-component">
       <div className="flex items-center justify-between">
-        <FieldLabel field={field} htmlFor={`field-${path}`} label={label} />
+        <FieldLabel htmlFor={`field-${path}`} label={label} />
 
         <Button className="!m-0 pb-1.5" buttonStyle="none" onClick={handleLock}>
           {checkboxValue ? "Unlock" : "Lock"}
         </Button>
       </div>
 
-      <TextInput label={""} value={value} onChange={setValue} path={path} readOnly={readOnly} />
+      <TextInput
+        value={value}
+        onChange={setValue}
+        path={path || field.name}
+        readOnly={Boolean(readOnly)}
+      />
     </div>
   )
 }

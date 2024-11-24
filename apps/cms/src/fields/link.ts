@@ -106,7 +106,7 @@ export const link: LinkType = ({
       },
       label: "Document to link to",
       maxDepth: 1,
-      relationTo: ["pages", "posts"],
+      relationTo: ["pages", "posts", "redirects"],
       required,
     },
     {

@@ -40,7 +40,7 @@ export function BaseBlock({
           },
           {
             color: "hsl(var(--card) / 0)",
-            stop: 100,
+            stop: 1,
           },
         ]
     if (background.inverted) {

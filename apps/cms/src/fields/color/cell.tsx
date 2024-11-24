@@ -1,17 +1,15 @@
 "use client"
 
-import { useTableCell } from "@payloadcms/ui"
+import type {} from "payload"
 
-import type { CellComponentProps } from "payload"
-
-export function ColorCell(_props: CellComponentProps) {
-  const cell = useTableCell()
+export function ColorCell(props: any) {
+  console.log(props)
 
   return (
     <div
       className="size-6 rounded"
       style={{
-        backgroundColor: cell.cellData,
+        backgroundColor: props.cellData,
       }}
     />
   )

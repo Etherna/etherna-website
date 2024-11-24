@@ -2,6 +2,13 @@
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
   "tasks": {
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "web:dev": {
+      "dependsOn": ["astro-plugin-dynamic-base#dev", "astro-plugin-files#dev"]
+    },
     "build": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
@@ -29,10 +36,6 @@
     },
     "start": {},
     "lint": {},
-    "typecheck": {},
-    "dev": {
-      "cache": false,
-      "persistent": true
-    }
+    "typecheck": {}
   }
 }
