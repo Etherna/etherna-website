@@ -27,7 +27,7 @@ export function FeaturesBlock({
   centered,
   forceFullWidth,
   titleSize,
-  features,
+  items,
 }: BlockProps<FeaturesBlock>) {
   const isInline = !forceFullWidth && !centered
   const InnerTag = getInnerTag(heading)
@@ -63,9 +63,9 @@ export function FeaturesBlock({
               "gap-y-12 sm:grid-cols-3 md:grid-cols-3 lg:gap-x-12": !isInline,
             })}
           >
-            {features.map((feature, index) => (
+            {items.map((feature, index) => (
               <li key={index} className="items- flex w-full flex-col gap-2 text-left">
-                <div className="rounded-4xl relative size-20 overflow-hidden bg-gradient-to-b from-foreground/20 to-foreground/5 p-px">
+                <div className="relative size-20 overflow-hidden rounded-4xl bg-gradient-to-b from-foreground/20 to-foreground/5 p-px">
                   <div className="h-full w-full rounded-3xl bg-gradient-to-b from-muted to-background/80 p-0.5">
                     {hasBundledImage(feature.icon) && feature.icon.bundled.image.svgContent && (
                       <Svg className="h-full w-full" svg={feature.icon.bundled.image.svgContent} />

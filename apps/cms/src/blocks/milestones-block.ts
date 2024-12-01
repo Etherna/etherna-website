@@ -5,7 +5,7 @@ import { background } from "@/fields/background"
 import type { Block } from "payload"
 
 export const MilestonesBlock = {
-  slug: "milestones",
+  slug: "mlst",
   interfaceName: "MilestonesBlock",
   labels: {
     singular: "Milestones",
@@ -33,7 +33,7 @@ export const MilestonesBlock = {
       ],
     },
     {
-      name: "milestones",
+      name: "items",
       type: "array",
       required: true,
       fields: [

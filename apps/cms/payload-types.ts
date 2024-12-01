@@ -497,7 +497,7 @@ export interface CtaBlock {
 export interface MilestonesBlock {
   title?: string | null;
   type: 'timeline' | 'roadmap';
-  milestones: {
+  items: {
     title: string;
     date: string;
     status: 'completed' | 'active' | 'upcoming';
@@ -535,7 +535,7 @@ export interface MilestonesBlock {
   };
   id?: string | null;
   blockName?: string | null;
-  blockType: 'milestones';
+  blockType: 'mlst';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -643,7 +643,7 @@ export interface FeaturesBlock {
         }[]
       | null;
   };
-  features: {
+  items: {
     title?: string | null;
     description?: {
       root: {
@@ -1031,7 +1031,7 @@ export interface TestimonialsBlock {
         }[]
       | null;
   };
-  testimonials: {
+  items: {
     name: string;
     role: string;
     quote?: {
@@ -1072,7 +1072,7 @@ export interface TestimonialsBlock {
   }[];
   id?: string | null;
   blockName?: string | null;
-  blockType: 'testimonials';
+  blockType: 'tstm';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1831,12 +1831,12 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        milestones?:
+        mlst?:
           | T
           | {
               title?: T;
               type?: T;
-              milestones?:
+              items?:
                 | T
                 | {
                     title?: T;
@@ -1934,7 +1934,7 @@ export interface PagesSelect<T extends boolean = true> {
                           id?: T;
                         };
                   };
-              features?:
+              items?:
                 | T
                 | {
                     title?: T;
@@ -2157,7 +2157,7 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        testimonials?:
+        tstm?:
           | T
           | {
               title?: T;
@@ -2183,7 +2183,7 @@ export interface PagesSelect<T extends boolean = true> {
                           id?: T;
                         };
                   };
-              testimonials?:
+              items?:
                 | T
                 | {
                     name?: T;
@@ -2414,11 +2414,9 @@ export interface PagesSelect<T extends boolean = true> {
   meta?:
     | T
     | {
-        overview?: T;
         title?: T;
         image?: T;
         description?: T;
-        preview?: T;
       };
   slug?: T;
   slugLock?: T;
@@ -2448,11 +2446,9 @@ export interface PostsSelect<T extends boolean = true> {
   meta?:
     | T
     | {
-        overview?: T;
         title?: T;
         image?: T;
         description?: T;
-        preview?: T;
       };
   slug?: T;
   slugLock?: T;
@@ -2460,7 +2456,6 @@ export interface PostsSelect<T extends boolean = true> {
   editedAt?: T;
   thumbnail?: T;
   authors?: T;
-  deleteLocale?: T;
   populatedAuthors?:
     | T
     | {

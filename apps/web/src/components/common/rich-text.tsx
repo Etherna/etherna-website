@@ -1,4 +1,8 @@
 import React from "react"
+
+import { CodeBlock } from "../blocks/code-block"
+import { Document } from "../common/document"
+import { Image } from "../common/image"
 import {
   IS_BOLD,
   IS_CODE,
@@ -8,11 +12,7 @@ import {
   IS_SUBSCRIPT,
   IS_SUPERSCRIPT,
   IS_UNDERLINE,
-} from "lexical"
-
-import { CodeBlock } from "../blocks/code-block"
-import { Document } from "../common/document"
-import { Image } from "../common/image"
+} from "@/lib/lexical"
 
 import type { BundledUploadFields } from "@/lib/bundle"
 import type { NodeType } from "@/lib/lexical"

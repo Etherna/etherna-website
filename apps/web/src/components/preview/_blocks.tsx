@@ -47,7 +47,7 @@ export function Blocks({ blocks, locale }: BlocksProps) {
             return <FeaturesBlock key={index} locale={locale} {...block} />
           case "form":
             return <FormBlock key={index} locale={locale} {...block} />
-          case "milestones":
+          case "mlst":
             return <MilestonesBlock key={index} locale={locale} {...block} />
           case "prose":
             return <ProseBlock key={index} locale={locale} {...block} />
@@ -55,7 +55,7 @@ export function Blocks({ blocks, locale }: BlocksProps) {
             return <RelatedPostsBlock key={index} locale={locale} {...block} />
           case "stats":
             return <StatsBlock key={index} locale={locale} {...block} />
-          case "testimonials":
+          case "tstm":
             return <TestimonialsBlock key={index} locale={locale} {...block} />
           case "team":
             return <TeamBlock key={index} locale={locale} {...block} />

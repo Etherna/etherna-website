@@ -13,7 +13,7 @@ export const FeaturesBlock = {
   fields: [
     ...TextBlock.fields,
     {
-      name: "features",
+      name: "items",
       type: "array",
       required: true,
       minRows: 1,

@@ -47,7 +47,7 @@ interface Props {
         return <FeaturesBlock {...block} locale={Astro.props.locale} />
       case "form":
         return <FormBlock {...block} locale={Astro.props.locale} client:idle />
-      case "milestones":
+      case "mlst":
         return <MilestonesBlock {...block} locale={Astro.props.locale} client:idle />
       case "prose":
         return <ProseBlock {...block} locale={Astro.props.locale} />
@@ -55,7 +55,7 @@ interface Props {
         return <RelatedPostsBlock {...block} locale={Astro.props.locale} />
       case "stats":
         return <StatsBlock {...block} locale={Astro.props.locale} />
-      case "testimonials":
+      case "tstm":
         return <TestimonialsBlock {...block} locale={Astro.props.locale} client:idle />
       case "team":
         return <TeamBlock {...block} locale={Astro.props.locale} client:idle />

@@ -7,7 +7,7 @@ import { link } from "@/fields/link"
 import type { Block } from "payload"
 
 export const TestimonialsBlock = {
-  slug: "testimonials",
+  slug: "tstm",
   interfaceName: "TestimonialsBlock",
   labels: {
     singular: "Testimonials",
@@ -16,7 +16,7 @@ export const TestimonialsBlock = {
   fields: [
     ...TextBlock.fields,
     {
-      name: "testimonials",
+      name: "items",
       type: "array",
       required: true,
       minRows: 1,

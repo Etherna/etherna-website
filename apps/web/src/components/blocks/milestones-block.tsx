@@ -38,7 +38,7 @@ export function MilestonesBlock({
   blockType,
   title,
   background,
-  milestones,
+  items,
   type,
   locale,
 }: BlockProps<MilestonesBlock>) {
@@ -55,17 +55,14 @@ export function MilestonesBlock({
       </TextColumns>
 
       <div className="mt-8 overflow-hidden lg:mt-12 xl:mt-16">
-        {type === "timeline" && <Milestones milestones={milestones} locale={locale} />}
-        {type === "roadmap" && <Roadmap milestones={milestones} locale={locale} />}
+        {type === "timeline" && <Milestones items={items} locale={locale} />}
+        {type === "roadmap" && <Roadmap items={items} locale={locale} />}
       </div>
     </BaseBlock>
   )
 }
 
-function Milestones({
-  milestones,
-  locale,
-}: Pick<MilestonesBlock, "milestones"> & { locale: Locale }) {
+function Milestones({ items, locale }: Pick<MilestonesBlock, "items"> & { locale: Locale }) {
   const containerElRef = useRef<HTMLDivElement>(null)
   const scrollerElRef = useRef<HTMLUListElement | null>(null)
   const startPointRef = useRef<[number, number] | null>(null)
@@ -123,7 +120,7 @@ function Milestones({
           x: spring,
         }}
       >
-        {milestones.map((milestone, index) => (
+        {items.map((milestone, index) => (
           <li
             key={index}
             className={cn("flex shrink-0 basis-3/4 select-none flex-col gap-y-2 md:basis-[320px]", {
@@ -150,7 +147,7 @@ function Milestones({
                     {milestone.title}
                   </h3>
                 </DialogTrigger>
-                <MilestoneDialogContent milestone={milestone} locale={locale} />
+                <MilestoneDialogContent item={milestone} locale={locale} />
               </Dialog>
               <div
                 className={cn("mx-auto w-0.5 flex-1 rounded-full bg-muted", {
@@ -202,7 +199,7 @@ function Milestones({
   )
 }
 
-function Roadmap({ milestones, locale }: Pick<MilestonesBlock, "milestones"> & { locale: Locale }) {
+function Roadmap({ items, locale }: Pick<MilestonesBlock, "items"> & { locale: Locale }) {
   const [selectedIndex, setSelectedIndex] = useState<number>()
   const [startIndex, setStartIndex] = useState<number>()
 
@@ -212,11 +209,11 @@ function Roadmap({ milestones, locale }: Pick<MilestonesBlock, "milestones"> & {
       setStartIndex(
         Math.max(
           0,
-          milestones.findIndex((m) => m.status === "active"),
+          items.findIndex((m) => m.status === "active"),
         ),
       )
     }, 100)
-  }, [milestones])
+  }, [items])
 
   return (
     <div>
@@ -233,7 +230,7 @@ function Roadmap({ milestones, locale }: Pick<MilestonesBlock, "milestones"> & {
           <CarouselNext className="static transform-none" />
         </div>
         <CarouselContent className="ml-0 gap-0">
-          {milestones.map((milestone, index) => (
+          {items.map((milestone, index) => (
             <CarouselItem
               key={index}
               className="group/milestone basis-3/4 pl-0 md:basis-1/3 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6"
@@ -284,7 +281,7 @@ function Roadmap({ milestones, locale }: Pick<MilestonesBlock, "milestones"> & {
                     </div>
                   </AspectRatio>
                 </DialogTrigger>
-                <MilestoneDialogContent milestone={milestone} locale={locale} />
+                <MilestoneDialogContent item={milestone} locale={locale} />
               </Dialog>
             </CarouselItem>
           ))}
@@ -295,32 +292,32 @@ function Roadmap({ milestones, locale }: Pick<MilestonesBlock, "milestones"> & {
 }
 
 function MilestoneDialogContent({
-  milestone,
+  item,
   locale,
 }: {
-  milestone: MilestonesBlock["milestones"][number]
+  item: MilestonesBlock["items"][number]
   locale: Locale
 }) {
   return (
     <DialogContent className="max-w-2xl overflow-hidden">
-      {hasBundledImage(milestone.media) && (
+      {hasBundledImage(item.media) && (
         <Image
           className="absolute -bottom-[5%] -right-[10%] -top-[15%] -z-[1] h-[120%] w-auto max-w-[50%] object-cover object-top opacity-10"
           image={{
-            ...milestone.media.bundled.image,
+            ...item.media.bundled.image,
             blurhash: undefined,
           }}
         />
       )}
       <DialogHeader>
         <DialogTitle>
-          <span className="mr-3">{milestone.title}</span>
-          <MilestoneStatus status={milestone.status} locale={locale} />
+          <span className="mr-3">{item.title}</span>
+          <MilestoneStatus status={item.status} locale={locale} />
         </DialogTitle>
-        <DialogDescription>{milestone.date}</DialogDescription>
+        <DialogDescription>{item.date}</DialogDescription>
       </DialogHeader>
       <ScrollArea className="prose mt-4 max-h-[80vh] text-sm lg:max-h-[60vh]">
-        <RichText nodes={milestone.text?.root.children ?? []} />
+        <RichText nodes={item.text?.root.children ?? []} />
       </ScrollArea>
     </DialogContent>
   )
@@ -330,7 +327,7 @@ function MilestoneStatus({
   status,
   locale,
 }: {
-  status: MilestonesBlock["milestones"][number]["status"]
+  status: MilestonesBlock["items"][number]["status"]
   locale: Locale
 }) {
   return (

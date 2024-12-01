@@ -40,7 +40,7 @@ export function TestimonialsBlock({
   centered,
   forceFullWidth,
   titleSize,
-  testimonials,
+  items,
 }: BlockProps<TestimonialsBlock>) {
   const elementId = useId()
 
@@ -74,7 +74,7 @@ export function TestimonialsBlock({
         }}
       >
         <CarouselContent className="ml-0.5 pb-10 md:pb-16">
-          {testimonials?.map((testimonial, index) => {
+          {items?.map((testimonial, index) => {
             const gradientId = `${elementId}_TestimonialGradient_${index}`
             return (
               <CarouselItem

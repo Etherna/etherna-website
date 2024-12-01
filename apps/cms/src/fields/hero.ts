@@ -62,7 +62,6 @@ export const hero: Field = {
           overrides: {
             name: "badges",
             maxRows: 2,
-            localized: true,
             admin: {
               width: "50%",
               condition: (_, { type } = {}) => type !== "none",
@@ -75,7 +74,6 @@ export const hero: Field = {
           },
           overrides: {
             maxRows: 2,
-            localized: true,
             admin: {
               width: "50%",
               condition: (_, { type } = {}) => type !== "none",

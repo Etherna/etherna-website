@@ -418,8 +418,8 @@ export async function bundleBlocks(blocks: AnyBlock[], locale: Locale, accessTok
           locale,
           accessToken,
         )
-        block.features = await Promise.all(
-          (block.features ?? []).map(async (feature) => {
+        block.items = await Promise.all(
+          (block.items ?? []).map(async (feature) => {
             feature.icon = (await bundleMedia(feature.icon, locale, accessToken)) as Media
             return feature
           }),
@@ -444,14 +444,14 @@ export async function bundleBlocks(blocks: AnyBlock[], locale: Locale, accessTok
         block.form.redirect = await resolveInternalLink(block.form.redirect, locale, accessToken)
         break
       }
-      case "milestones": {
+      case "mlst": {
         block.background.backgroundImage = await bundleMedia(
           block.background.backgroundImage,
           locale,
           accessToken,
         )
-        block.milestones = await Promise.all(
-          (block.milestones ?? []).map(async (milestone) => {
+        block.items = await Promise.all(
+          (block.items ?? []).map(async (milestone) => {
             milestone.media = (await bundleMedia(milestone.media, locale, accessToken)) as Media
             return milestone
           }),
@@ -492,14 +492,14 @@ export async function bundleBlocks(blocks: AnyBlock[], locale: Locale, accessTok
         )
         break
       }
-      case "testimonials": {
+      case "tstm": {
         block.background.backgroundImage = await bundleMedia(
           block.background.backgroundImage,
           locale,
           accessToken,
         )
-        block.testimonials = await Promise.all(
-          (block.testimonials ?? []).map(async (testimonial) => {
+        block.items = await Promise.all(
+          (block.items ?? []).map(async (testimonial) => {
             testimonial.avatar = (await bundleMedia(
               testimonial.avatar,
               locale,
