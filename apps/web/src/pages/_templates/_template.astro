@@ -37,4 +37,4 @@ const matchPost = !matchRedirect && route.test(pathname, ["/blog/:slug"])
 {matchPage && <Page {...Astro.props} />}
 {matchBlog && <Blog {...Astro.props} />}
 {matchPost && <Post {...Astro.props} />}
-{matchRedirect && <Redirect {...Astro.props} />}
+{matchRedirect && <Redirect redirectUrl={Astro.props.redirectUrl ?? ""} />}

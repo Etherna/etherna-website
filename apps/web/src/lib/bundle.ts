@@ -1,7 +1,7 @@
 import { getFile } from "astro-plugin-files"
 import { getImage } from "astro:assets"
 
-import { serverImageToBlurhash } from "./blurhash"
+import { clientImageToBlurhash, serverImageToBlurhash } from "./blurhash"
 import { fetchPayloadRequest } from "./payload"
 import { route } from "./routes"
 import { localized } from "@/i18n/utils"
@@ -79,12 +79,19 @@ export async function bundleCmsImage(
 
     svgContent = await fetch(src).then((res) => res.text())
   } else {
-    blurhash = await serverImageToBlurhash({
-      src,
-      format: result.options.format,
-      height: result.options.height,
-      width: result.options.width,
-    })
+    blurhash =
+      typeof window === "undefined"
+        ? await serverImageToBlurhash({
+            src,
+            format: result.options.format,
+            height: result.options.height,
+            width: result.options.width,
+          })
+        : await fetch(src)
+            .then((resp) => resp.arrayBuffer())
+            .then((img) =>
+              clientImageToBlurhash(img, result.options.width ?? 100, result.options.height ?? 100),
+            )
   }
 
   return {

@@ -9,28 +9,48 @@
     img.removeEventListener("load", imageEvent)
   }
 
-  window.addEventListener("load", () => {
-    const images = document.querySelectorAll<HTMLImageElement>("img[data-blurhash]")
-    images.forEach((img) => {
-      img.addEventListener("load", imageEvent)
+  function trackImage(img: HTMLImageElement) {
+    img.addEventListener("load", imageEvent)
 
-      if (img.complete) {
-        removeBlurhash(img)
-      }
+    if (img.complete) {
+      removeBlurhash(img)
+    }
 
-      const observer = new MutationObserver((record) => {
-        record.forEach(() => {
-          if (img.style.backgroundImage) {
-            removeBlurhash(img)
-          }
-        })
-      })
-      observer.observe(img, {
-        attributes: true,
-        attributeFilter: ["src", "srcset", "style"],
-        childList: false,
-        subtree: false,
+    const observer = new MutationObserver((record) => {
+      record.forEach(() => {
+        if (img.style.backgroundImage) {
+          removeBlurhash(img)
+        }
       })
     })
+    observer.observe(img, {
+      attributes: true,
+      attributeFilter: ["src", "srcset", "style"],
+      childList: false,
+      subtree: false,
+    })
+  }
+
+  function trackImagesAdded() {
+    const observer = new MutationObserver((records) => {
+      records.forEach((record) => {
+        const imgs = Array.from(record.addedNodes).flatMap((el) =>
+          Array.from((el as HTMLElement).querySelectorAll<HTMLImageElement>("img")),
+        )
+        imgs.forEach(trackImage)
+      })
+    })
+    observer.observe(document.body, {
+      attributes: false,
+      childList: true,
+      subtree: true,
+    })
+  }
+
+  window.addEventListener("load", () => {
+    const images = document.querySelectorAll<HTMLImageElement>("img[data-blurhash]")
+    images.forEach(trackImage)
+
+    trackImagesAdded()
   })
 </script>

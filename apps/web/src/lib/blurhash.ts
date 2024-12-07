@@ -52,7 +52,7 @@ export async function serverImageToBlurhash(transform: TransformOptions) {
       },
       imageConfig,
     )
-    image = data
+    image = data.buffer as ArrayBuffer
   }
 
   const pixels =

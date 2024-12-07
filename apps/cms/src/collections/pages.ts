@@ -54,13 +54,21 @@ export const Pages: CollectionConfig = {
       url: async ({ data, locale, payload }) => {
         const parents = await getParentsTree(data, "pages", payload)
         const path = "/" + parents.map((parent) => parent.slug).join("/")
-        return generatePreviewUrl(path, locale.code)
+        return generatePreviewUrl({
+          id: data.id,
+          path,
+          locale: locale.code,
+        })
       },
     },
     preview: async (data, { locale, req }) => {
       const parents = await getParentsTree(data, "pages", req.payload)
       const path = "/" + parents.map((parent) => parent.slug).join("/")
-      return generatePreviewUrl(path, locale)
+      return generatePreviewUrl({
+        id: data.id as string,
+        path,
+        locale,
+      })
     },
     useAsTitle: "title",
   },

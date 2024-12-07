@@ -1,40 +1,66 @@
 import { Suspense } from "react"
 
-import { Main } from "../layout/main"
 import { Spinner } from "../ui/spinner"
-import { Footer } from "./_footer"
-import { Header } from "./_header"
 import { Page } from "./_page"
 import { Post } from "./_post"
 import { DEFAULT_LOCALE, LOCALES } from "@/i18n/consts"
 import { route } from "@/lib/routes"
+import { fetchPage } from "@/queries/fetch-page"
+import { fetchPost } from "@/queries/fetch-post"
 
 import type { Locale } from "@/i18n/types"
 
 export function PreviewPage() {
-  const pathname = window.location.pathname
   const searchParams = new URLSearchParams(window.location.search)
 
-  const matchPage = route.test(pathname, ["/", "/:path"])
-  const matchPost = route.test(pathname, ["/blog/:slug"])
-
-  const localeValue = searchParams.get("locale") as Locale
+  const localeValue = searchParams.get("lang") as Locale
   const locale = LOCALES.includes(localeValue) ? localeValue : DEFAULT_LOCALE
+  const id = searchParams.get("id")
+  const path = searchParams.get("path")
+  const accessToken = searchParams.get("accessToken") ?? ""
+
+  if (!id || !path) {
+    return (
+      <p>
+        Missing <pre>id</pre> or <pre>path</pre>.
+      </p>
+    )
+  }
+
+  const matchPage = route.test(path, ["/", "/:path"])
+  const matchPost = route.test(path, ["/blog/:slug"])
 
   return (
     <>
-      <Suspense>
-        <Header />
-      </Suspense>
-      <Main>
-        <Suspense fallback={<Spinner size={32} />}>
-          {matchPage && <Page />}
-          {matchPost && <Post />}
+      {matchPage && (
+        <Suspense fallback={<Spinner className="absolute-center" size={32} />}>
+          <Page
+            locale={locale}
+            path={path}
+            accessToken={accessToken}
+            fetchPagePromise={fetchPage({
+              id,
+              locale,
+              accessToken,
+            })}
+          />
         </Suspense>
-      </Main>
-      <Suspense>
-        <Footer />
-      </Suspense>
+      )}
+
+      {matchPost && (
+        <Suspense fallback={<Spinner className="absolute-center" size={32} />}>
+          <Post
+            locale={locale}
+            path={path}
+            accessToken={accessToken}
+            fetchPostPromise={fetchPost({
+              id,
+              locale,
+              accessToken,
+            })}
+          />
+        </Suspense>
+      )}
     </>
   )
 }
