@@ -1,7 +1,7 @@
 import qs from "qs"
 
 import type { Locale } from "@/i18n/types"
-import type { Where } from "payload"
+import type { SelectType, Where } from "payload"
 
 type Method = "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
 
@@ -15,6 +15,7 @@ interface PayloadRequest {
     page?: number
     limit?: number
     where?: Where
+    select?: SelectType
   }
   body?: BodyInit
   accessToken?: string

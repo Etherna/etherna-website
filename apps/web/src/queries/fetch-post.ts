@@ -1,5 +1,7 @@
+import { LOCALES } from "@/i18n/consts"
 import { bundleLexical, bundleMedia } from "@/lib/bundle"
 import { fetchPayloadRequest } from "@/lib/payload"
+import { route } from "@/lib/routes"
 
 import type { Locale, LocalizedPath } from "@/i18n/types"
 import type { NodeType } from "@/lib/lexical"
@@ -14,12 +16,34 @@ interface FetchPostParams {
 export async function fetchPost(params: FetchPostParams) {
   const { id, locale, accessToken } = params
 
-  const postData = await fetchPayloadRequest<Post & { locale: Locale }>({
-    method: "GET",
-    path: `/posts/${id}`,
-    params: { locale, depth: 1 },
-    accessToken,
-  })
+  const otherLocales = LOCALES.filter((l) => l !== locale)
+
+  const [postData, otherLocalesData] = await Promise.all([
+    fetchPayloadRequest<Post & { locale: Locale }>({
+      method: "GET",
+      path: `/posts/${id}`,
+      params: { locale, depth: 1 },
+      accessToken,
+    }),
+    Promise.all(
+      otherLocales.map(async (otherLocale) => ({
+        locale: otherLocale,
+        ...(await fetchPayloadRequest<Post>({
+          method: "GET",
+          path: `/posts/${id}`,
+          params: {
+            locale: otherLocale,
+            depth: 1,
+            limit: 0,
+            select: {
+              slug: true,
+            },
+          },
+          accessToken,
+        })),
+      })),
+    ),
+  ])
 
   const post = {
     ...postData,
@@ -49,7 +73,12 @@ export async function fetchPost(params: FetchPostParams) {
     },
   } satisfies Post
 
-  const localizedPaths = [] satisfies LocalizedPath[]
+  const localizedPaths = otherLocalesData.map((localeData) => ({
+    locale: localeData.locale,
+    path: route("/blog/:slug", {
+      slug: (localeData.slug ?? "").replace(/^\//, ""),
+    }),
+  })) satisfies LocalizedPath[]
 
   return { post, localizedPaths }
 }
