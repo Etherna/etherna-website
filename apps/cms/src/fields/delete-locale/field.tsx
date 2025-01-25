@@ -29,8 +29,6 @@ export function DeleteLocaleField({ field }: DeleteLocaleFieldProps) {
       return false
     }
 
-    console.log(await response.json())
-
     return true
   }
 

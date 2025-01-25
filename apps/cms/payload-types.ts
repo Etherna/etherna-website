@@ -124,6 +124,9 @@ export interface Page {
                 } | null);
             url?: string | null;
             label: string;
+            /**
+             * Choose how the link should be rendered.
+             */
             appearance?: 'badge' | null;
           };
           id?: string | null;
@@ -149,6 +152,9 @@ export interface Page {
                 } | null);
             url?: string | null;
             label: string;
+            /**
+             * Choose how the link should be rendered.
+             */
             appearance?: ('default' | 'outline') | null;
           };
           id?: string | null;
@@ -180,6 +186,9 @@ export interface Page {
     | null;
   meta?: {
     title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
     image?: (string | null) | Media;
     description?: string | null;
   };
@@ -225,6 +234,9 @@ export interface Post {
   categories?: (string | Category)[] | null;
   meta?: {
     title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
     image?: (string | null) | Media;
     description?: string | null;
   };
@@ -321,6 +333,9 @@ export interface User {
  */
 export interface Redirect {
   id: string;
+  /**
+   * You will need to rebuild the website when changing this field.
+   */
   from: string;
   to?: {
     type?: ('reference' | 'custom') | null;
@@ -480,6 +495,9 @@ export interface CtaBlock {
               } | null);
           url?: string | null;
           label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
           appearance?: ('default' | 'outline') | null;
         };
         id?: string | null;
@@ -1390,6 +1408,9 @@ export interface Form {
       )[]
     | null;
   submitButtonLabel?: string | null;
+  /**
+   * Choose whether to display an on-page message or redirect to a different page after they submit the form.
+   */
   confirmationType?: ('message' | 'redirect') | null;
   confirmationMessage?: {
     root: {
@@ -1419,6 +1440,9 @@ export interface Form {
         } | null);
     url?: string | null;
   };
+  /**
+   * Send custom emails when the form submits. Use comma separated lists to send the same email to multiple recipients. To reference a value from this form, wrap that field's name with double curly brackets, i.e. {{firstName}}. You can use a wildcard {{*}} to output all data and {{*:table}} to format it as an HTML table in the email.
+   */
   emails?:
     | {
         emailTo?: string | null;
@@ -1427,6 +1451,9 @@ export interface Form {
         replyTo?: string | null;
         emailFrom?: string | null;
         subject: string;
+        /**
+         * Enter the message that should be sent in this email.
+         */
         message?: {
           root: {
             type: string;
@@ -1734,682 +1761,23 @@ export interface PagesSelect<T extends boolean = true> {
   layout?:
     | T
     | {
-        text?:
-          | T
-          | {
-              title?: T;
-              heading?: T;
-              subtitle?: T;
-              text?: T;
-              titleSize?: T;
-              centered?: T;
-              forceFullWidth?: T;
-              background?:
-                | T
-                | {
-                    type?: T;
-                    inverted?: T;
-                    dark?: T;
-                    backgroundImage?: T;
-                    color?: T;
-                    colorStops?:
-                      | T
-                      | {
-                          color?: T;
-                          stop?: T;
-                          id?: T;
-                        };
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        prose?:
-          | T
-          | {
-              content?: T;
-              background?:
-                | T
-                | {
-                    type?: T;
-                    inverted?: T;
-                    dark?: T;
-                    backgroundImage?: T;
-                    color?: T;
-                    colorStops?:
-                      | T
-                      | {
-                          color?: T;
-                          stop?: T;
-                          id?: T;
-                        };
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        cta?:
-          | T
-          | {
-              title?: T;
-              heading?: T;
-              subtitle?: T;
-              text?: T;
-              titleSize?: T;
-              centered?: T;
-              forceFullWidth?: T;
-              background?:
-                | T
-                | {
-                    type?: T;
-                    inverted?: T;
-                    dark?: T;
-                    backgroundImage?: T;
-                    color?: T;
-                    colorStops?:
-                      | T
-                      | {
-                          color?: T;
-                          stop?: T;
-                          id?: T;
-                        };
-                  };
-              links?:
-                | T
-                | {
-                    link?:
-                      | T
-                      | {
-                          type?: T;
-                          newTab?: T;
-                          reference?: T;
-                          url?: T;
-                          label?: T;
-                          appearance?: T;
-                        };
-                    id?: T;
-                  };
-              media?: T;
-              id?: T;
-              blockName?: T;
-            };
-        mlst?:
-          | T
-          | {
-              title?: T;
-              type?: T;
-              items?:
-                | T
-                | {
-                    title?: T;
-                    date?: T;
-                    status?: T;
-                    text?: T;
-                    media?: T;
-                    id?: T;
-                  };
-              background?:
-                | T
-                | {
-                    type?: T;
-                    inverted?: T;
-                    dark?: T;
-                    backgroundImage?: T;
-                    color?: T;
-                    colorStops?:
-                      | T
-                      | {
-                          color?: T;
-                          stop?: T;
-                          id?: T;
-                        };
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        clients?:
-          | T
-          | {
-              title?: T;
-              heading?: T;
-              subtitle?: T;
-              text?: T;
-              titleSize?: T;
-              centered?: T;
-              forceFullWidth?: T;
-              background?:
-                | T
-                | {
-                    type?: T;
-                    inverted?: T;
-                    dark?: T;
-                    backgroundImage?: T;
-                    color?: T;
-                    colorStops?:
-                      | T
-                      | {
-                          color?: T;
-                          stop?: T;
-                          id?: T;
-                        };
-                  };
-              clients?:
-                | T
-                | {
-                    logo?: T;
-                    link?:
-                      | T
-                      | {
-                          type?: T;
-                          newTab?: T;
-                          reference?: T;
-                          url?: T;
-                        };
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        features?:
-          | T
-          | {
-              title?: T;
-              heading?: T;
-              subtitle?: T;
-              text?: T;
-              titleSize?: T;
-              centered?: T;
-              forceFullWidth?: T;
-              background?:
-                | T
-                | {
-                    type?: T;
-                    inverted?: T;
-                    dark?: T;
-                    backgroundImage?: T;
-                    color?: T;
-                    colorStops?:
-                      | T
-                      | {
-                          color?: T;
-                          stop?: T;
-                          id?: T;
-                        };
-                  };
-              items?:
-                | T
-                | {
-                    title?: T;
-                    description?: T;
-                    icon?: T;
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        awards?:
-          | T
-          | {
-              title?: T;
-              heading?: T;
-              subtitle?: T;
-              text?: T;
-              titleSize?: T;
-              centered?: T;
-              forceFullWidth?: T;
-              background?:
-                | T
-                | {
-                    type?: T;
-                    inverted?: T;
-                    dark?: T;
-                    backgroundImage?: T;
-                    color?: T;
-                    colorStops?:
-                      | T
-                      | {
-                          color?: T;
-                          stop?: T;
-                          id?: T;
-                        };
-                  };
-              awards?:
-                | T
-                | {
-                    issuer?: T;
-                    name?: T;
-                    logo?: T;
-                    link?:
-                      | T
-                      | {
-                          type?: T;
-                          newTab?: T;
-                          reference?: T;
-                          url?: T;
-                        };
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        stats?:
-          | T
-          | {
-              title?: T;
-              heading?: T;
-              subtitle?: T;
-              text?: T;
-              titleSize?: T;
-              centered?: T;
-              forceFullWidth?: T;
-              background?:
-                | T
-                | {
-                    type?: T;
-                    inverted?: T;
-                    dark?: T;
-                    backgroundImage?: T;
-                    color?: T;
-                    colorStops?:
-                      | T
-                      | {
-                          color?: T;
-                          stop?: T;
-                          id?: T;
-                        };
-                  };
-              stats?:
-                | T
-                | {
-                    label?: T;
-                    value?: T;
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        grid?:
-          | T
-          | {
-              title?: T;
-              heading?: T;
-              subtitle?: T;
-              text?: T;
-              titleSize?: T;
-              centered?: T;
-              forceFullWidth?: T;
-              background?:
-                | T
-                | {
-                    type?: T;
-                    inverted?: T;
-                    dark?: T;
-                    backgroundImage?: T;
-                    color?: T;
-                    colorStops?:
-                      | T
-                      | {
-                          color?: T;
-                          stop?: T;
-                          id?: T;
-                        };
-                  };
-              size?: T;
-              rows?:
-                | T
-                | {
-                    items?:
-                      | T
-                      | {
-                          title?: T;
-                          description?: T;
-                          background?:
-                            | T
-                            | {
-                                type?: T;
-                                inverted?: T;
-                                dark?: T;
-                                backgroundImage?: T;
-                                color?: T;
-                                colorStops?:
-                                  | T
-                                  | {
-                                      color?: T;
-                                      stop?: T;
-                                      id?: T;
-                                    };
-                              };
-                          effect?: T;
-                          accentColor?: T;
-                          link?:
-                            | T
-                            | {
-                                type?: T;
-                                newTab?: T;
-                                reference?: T;
-                                url?: T;
-                              };
-                          id?: T;
-                        };
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        bento?:
-          | T
-          | {
-              title?: T;
-              heading?: T;
-              subtitle?: T;
-              text?: T;
-              titleSize?: T;
-              centered?: T;
-              forceFullWidth?: T;
-              background?:
-                | T
-                | {
-                    type?: T;
-                    inverted?: T;
-                    dark?: T;
-                    backgroundImage?: T;
-                    color?: T;
-                    colorStops?:
-                      | T
-                      | {
-                          color?: T;
-                          stop?: T;
-                          id?: T;
-                        };
-                  };
-              items?:
-                | T
-                | {
-                    title?: T;
-                    description?: T;
-                    background?:
-                      | T
-                      | {
-                          type?: T;
-                          inverted?: T;
-                          dark?: T;
-                          backgroundImage?: T;
-                          color?: T;
-                          colorStops?:
-                            | T
-                            | {
-                                color?: T;
-                                stop?: T;
-                                id?: T;
-                              };
-                        };
-                    accentColor?: T;
-                    rowSpan?: T;
-                    colSpan?: T;
-                    link?:
-                      | T
-                      | {
-                          type?: T;
-                          newTab?: T;
-                          reference?: T;
-                          url?: T;
-                        };
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        tstm?:
-          | T
-          | {
-              title?: T;
-              heading?: T;
-              subtitle?: T;
-              text?: T;
-              titleSize?: T;
-              centered?: T;
-              forceFullWidth?: T;
-              background?:
-                | T
-                | {
-                    type?: T;
-                    inverted?: T;
-                    dark?: T;
-                    backgroundImage?: T;
-                    color?: T;
-                    colorStops?:
-                      | T
-                      | {
-                          color?: T;
-                          stop?: T;
-                          id?: T;
-                        };
-                  };
-              items?:
-                | T
-                | {
-                    name?: T;
-                    role?: T;
-                    quote?: T;
-                    avatar?: T;
-                    link?:
-                      | T
-                      | {
-                          type?: T;
-                          newTab?: T;
-                          reference?: T;
-                          url?: T;
-                        };
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        faq?:
-          | T
-          | {
-              title?: T;
-              heading?: T;
-              subtitle?: T;
-              text?: T;
-              titleSize?: T;
-              centered?: T;
-              forceFullWidth?: T;
-              background?:
-                | T
-                | {
-                    type?: T;
-                    inverted?: T;
-                    dark?: T;
-                    backgroundImage?: T;
-                    color?: T;
-                    colorStops?:
-                      | T
-                      | {
-                          color?: T;
-                          stop?: T;
-                          id?: T;
-                        };
-                  };
-              faqs?:
-                | T
-                | {
-                    question?: T;
-                    text?: T;
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        team?:
-          | T
-          | {
-              title?: T;
-              heading?: T;
-              subtitle?: T;
-              text?: T;
-              titleSize?: T;
-              centered?: T;
-              forceFullWidth?: T;
-              background?:
-                | T
-                | {
-                    type?: T;
-                    inverted?: T;
-                    dark?: T;
-                    backgroundImage?: T;
-                    color?: T;
-                    colorStops?:
-                      | T
-                      | {
-                          color?: T;
-                          stop?: T;
-                          id?: T;
-                        };
-                  };
-              members?:
-                | T
-                | {
-                    name?: T;
-                    role?: T;
-                    bio?: T;
-                    photo?: T;
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        relatedPosts?:
-          | T
-          | {
-              title?: T;
-              heading?: T;
-              subtitle?: T;
-              text?: T;
-              titleSize?: T;
-              centered?: T;
-              forceFullWidth?: T;
-              background?:
-                | T
-                | {
-                    type?: T;
-                    inverted?: T;
-                    dark?: T;
-                    backgroundImage?: T;
-                    color?: T;
-                    colorStops?:
-                      | T
-                      | {
-                          color?: T;
-                          stop?: T;
-                          id?: T;
-                        };
-                  };
-              relatedPosts?: T;
-              id?: T;
-              blockName?: T;
-            };
-        form?:
-          | T
-          | {
-              title?: T;
-              heading?: T;
-              subtitle?: T;
-              text?: T;
-              titleSize?: T;
-              centered?: T;
-              forceFullWidth?: T;
-              background?:
-                | T
-                | {
-                    type?: T;
-                    inverted?: T;
-                    dark?: T;
-                    backgroundImage?: T;
-                    color?: T;
-                    colorStops?:
-                      | T
-                      | {
-                          color?: T;
-                          stop?: T;
-                          id?: T;
-                        };
-                  };
-              form?: T;
-              id?: T;
-              blockName?: T;
-            };
-        brand?:
-          | T
-          | {
-              title?: T;
-              heading?: T;
-              subtitle?: T;
-              text?: T;
-              titleSize?: T;
-              centered?: T;
-              forceFullWidth?: T;
-              background?:
-                | T
-                | {
-                    type?: T;
-                    inverted?: T;
-                    dark?: T;
-                    backgroundImage?: T;
-                    color?: T;
-                    colorStops?:
-                      | T
-                      | {
-                          color?: T;
-                          stop?: T;
-                          id?: T;
-                        };
-                  };
-              logos?:
-                | T
-                | {
-                    svgLogo?: T;
-                    pngLogo?: T;
-                    variant?: T;
-                    id?: T;
-                  };
-              colors?:
-                | T
-                | {
-                    name?: T;
-                    color?: T;
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        jobs?:
-          | T
-          | {
-              title?: T;
-              heading?: T;
-              subtitle?: T;
-              text?: T;
-              titleSize?: T;
-              centered?: T;
-              forceFullWidth?: T;
-              background?:
-                | T
-                | {
-                    type?: T;
-                    inverted?: T;
-                    dark?: T;
-                    backgroundImage?: T;
-                    color?: T;
-                    colorStops?:
-                      | T
-                      | {
-                          color?: T;
-                          stop?: T;
-                          id?: T;
-                        };
-                  };
-              id?: T;
-              blockName?: T;
-            };
+        text?: T | TextBlockSelect<T>;
+        prose?: T | ProseBlockSelect<T>;
+        cta?: T | CtaBlockSelect<T>;
+        mlst?: T | MilestonesBlockSelect<T>;
+        clients?: T | ClientsBlockSelect<T>;
+        features?: T | FeaturesBlockSelect<T>;
+        awards?: T | AwardsBlockSelect<T>;
+        stats?: T | StatsBlockSelect<T>;
+        grid?: T | GridBlockSelect<T>;
+        bento?: T | BentoBlockSelect<T>;
+        tstm?: T | TestimonialsBlockSelect<T>;
+        faq?: T | FAQBlockSelect<T>;
+        team?: T | TeamBlockSelect<T>;
+        relatedPosts?: T | RelatedPostsBlockSelect<T>;
+        form?: T | FormBlockSelect<T>;
+        brand?: T | BrandBlockSelect<T>;
+        jobs?: T | JobsBlockSelect<T>;
       };
   meta?:
     | T
@@ -2433,6 +1801,716 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBlock_select".
+ */
+export interface TextBlockSelect<T extends boolean = true> {
+  title?: T;
+  heading?: T;
+  subtitle?: T;
+  text?: T;
+  titleSize?: T;
+  centered?: T;
+  forceFullWidth?: T;
+  background?:
+    | T
+    | {
+        type?: T;
+        inverted?: T;
+        dark?: T;
+        backgroundImage?: T;
+        color?: T;
+        colorStops?:
+          | T
+          | {
+              color?: T;
+              stop?: T;
+              id?: T;
+            };
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProseBlock_select".
+ */
+export interface ProseBlockSelect<T extends boolean = true> {
+  content?: T;
+  background?:
+    | T
+    | {
+        type?: T;
+        inverted?: T;
+        dark?: T;
+        backgroundImage?: T;
+        color?: T;
+        colorStops?:
+          | T
+          | {
+              color?: T;
+              stop?: T;
+              id?: T;
+            };
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CtaBlock_select".
+ */
+export interface CtaBlockSelect<T extends boolean = true> {
+  title?: T;
+  heading?: T;
+  subtitle?: T;
+  text?: T;
+  titleSize?: T;
+  centered?: T;
+  forceFullWidth?: T;
+  background?:
+    | T
+    | {
+        type?: T;
+        inverted?: T;
+        dark?: T;
+        backgroundImage?: T;
+        color?: T;
+        colorStops?:
+          | T
+          | {
+              color?: T;
+              stop?: T;
+              id?: T;
+            };
+      };
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
+  media?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MilestonesBlock_select".
+ */
+export interface MilestonesBlockSelect<T extends boolean = true> {
+  title?: T;
+  type?: T;
+  items?:
+    | T
+    | {
+        title?: T;
+        date?: T;
+        status?: T;
+        text?: T;
+        media?: T;
+        id?: T;
+      };
+  background?:
+    | T
+    | {
+        type?: T;
+        inverted?: T;
+        dark?: T;
+        backgroundImage?: T;
+        color?: T;
+        colorStops?:
+          | T
+          | {
+              color?: T;
+              stop?: T;
+              id?: T;
+            };
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ClientsBlock_select".
+ */
+export interface ClientsBlockSelect<T extends boolean = true> {
+  title?: T;
+  heading?: T;
+  subtitle?: T;
+  text?: T;
+  titleSize?: T;
+  centered?: T;
+  forceFullWidth?: T;
+  background?:
+    | T
+    | {
+        type?: T;
+        inverted?: T;
+        dark?: T;
+        backgroundImage?: T;
+        color?: T;
+        colorStops?:
+          | T
+          | {
+              color?: T;
+              stop?: T;
+              id?: T;
+            };
+      };
+  clients?:
+    | T
+    | {
+        logo?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturesBlock_select".
+ */
+export interface FeaturesBlockSelect<T extends boolean = true> {
+  title?: T;
+  heading?: T;
+  subtitle?: T;
+  text?: T;
+  titleSize?: T;
+  centered?: T;
+  forceFullWidth?: T;
+  background?:
+    | T
+    | {
+        type?: T;
+        inverted?: T;
+        dark?: T;
+        backgroundImage?: T;
+        color?: T;
+        colorStops?:
+          | T
+          | {
+              color?: T;
+              stop?: T;
+              id?: T;
+            };
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        icon?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AwardsBlock_select".
+ */
+export interface AwardsBlockSelect<T extends boolean = true> {
+  title?: T;
+  heading?: T;
+  subtitle?: T;
+  text?: T;
+  titleSize?: T;
+  centered?: T;
+  forceFullWidth?: T;
+  background?:
+    | T
+    | {
+        type?: T;
+        inverted?: T;
+        dark?: T;
+        backgroundImage?: T;
+        color?: T;
+        colorStops?:
+          | T
+          | {
+              color?: T;
+              stop?: T;
+              id?: T;
+            };
+      };
+  awards?:
+    | T
+    | {
+        issuer?: T;
+        name?: T;
+        logo?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StatsBlock_select".
+ */
+export interface StatsBlockSelect<T extends boolean = true> {
+  title?: T;
+  heading?: T;
+  subtitle?: T;
+  text?: T;
+  titleSize?: T;
+  centered?: T;
+  forceFullWidth?: T;
+  background?:
+    | T
+    | {
+        type?: T;
+        inverted?: T;
+        dark?: T;
+        backgroundImage?: T;
+        color?: T;
+        colorStops?:
+          | T
+          | {
+              color?: T;
+              stop?: T;
+              id?: T;
+            };
+      };
+  stats?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GridBlock_select".
+ */
+export interface GridBlockSelect<T extends boolean = true> {
+  title?: T;
+  heading?: T;
+  subtitle?: T;
+  text?: T;
+  titleSize?: T;
+  centered?: T;
+  forceFullWidth?: T;
+  background?:
+    | T
+    | {
+        type?: T;
+        inverted?: T;
+        dark?: T;
+        backgroundImage?: T;
+        color?: T;
+        colorStops?:
+          | T
+          | {
+              color?: T;
+              stop?: T;
+              id?: T;
+            };
+      };
+  size?: T;
+  rows?:
+    | T
+    | {
+        items?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              background?:
+                | T
+                | {
+                    type?: T;
+                    inverted?: T;
+                    dark?: T;
+                    backgroundImage?: T;
+                    color?: T;
+                    colorStops?:
+                      | T
+                      | {
+                          color?: T;
+                          stop?: T;
+                          id?: T;
+                        };
+                  };
+              effect?: T;
+              accentColor?: T;
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BentoBlock_select".
+ */
+export interface BentoBlockSelect<T extends boolean = true> {
+  title?: T;
+  heading?: T;
+  subtitle?: T;
+  text?: T;
+  titleSize?: T;
+  centered?: T;
+  forceFullWidth?: T;
+  background?:
+    | T
+    | {
+        type?: T;
+        inverted?: T;
+        dark?: T;
+        backgroundImage?: T;
+        color?: T;
+        colorStops?:
+          | T
+          | {
+              color?: T;
+              stop?: T;
+              id?: T;
+            };
+      };
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        background?:
+          | T
+          | {
+              type?: T;
+              inverted?: T;
+              dark?: T;
+              backgroundImage?: T;
+              color?: T;
+              colorStops?:
+                | T
+                | {
+                    color?: T;
+                    stop?: T;
+                    id?: T;
+                  };
+            };
+        accentColor?: T;
+        rowSpan?: T;
+        colSpan?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsBlock_select".
+ */
+export interface TestimonialsBlockSelect<T extends boolean = true> {
+  title?: T;
+  heading?: T;
+  subtitle?: T;
+  text?: T;
+  titleSize?: T;
+  centered?: T;
+  forceFullWidth?: T;
+  background?:
+    | T
+    | {
+        type?: T;
+        inverted?: T;
+        dark?: T;
+        backgroundImage?: T;
+        color?: T;
+        colorStops?:
+          | T
+          | {
+              color?: T;
+              stop?: T;
+              id?: T;
+            };
+      };
+  items?:
+    | T
+    | {
+        name?: T;
+        role?: T;
+        quote?: T;
+        avatar?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQBlock_select".
+ */
+export interface FAQBlockSelect<T extends boolean = true> {
+  title?: T;
+  heading?: T;
+  subtitle?: T;
+  text?: T;
+  titleSize?: T;
+  centered?: T;
+  forceFullWidth?: T;
+  background?:
+    | T
+    | {
+        type?: T;
+        inverted?: T;
+        dark?: T;
+        backgroundImage?: T;
+        color?: T;
+        colorStops?:
+          | T
+          | {
+              color?: T;
+              stop?: T;
+              id?: T;
+            };
+      };
+  faqs?:
+    | T
+    | {
+        question?: T;
+        text?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TeamBlock_select".
+ */
+export interface TeamBlockSelect<T extends boolean = true> {
+  title?: T;
+  heading?: T;
+  subtitle?: T;
+  text?: T;
+  titleSize?: T;
+  centered?: T;
+  forceFullWidth?: T;
+  background?:
+    | T
+    | {
+        type?: T;
+        inverted?: T;
+        dark?: T;
+        backgroundImage?: T;
+        color?: T;
+        colorStops?:
+          | T
+          | {
+              color?: T;
+              stop?: T;
+              id?: T;
+            };
+      };
+  members?:
+    | T
+    | {
+        name?: T;
+        role?: T;
+        bio?: T;
+        photo?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RelatedPostsBlock_select".
+ */
+export interface RelatedPostsBlockSelect<T extends boolean = true> {
+  title?: T;
+  heading?: T;
+  subtitle?: T;
+  text?: T;
+  titleSize?: T;
+  centered?: T;
+  forceFullWidth?: T;
+  background?:
+    | T
+    | {
+        type?: T;
+        inverted?: T;
+        dark?: T;
+        backgroundImage?: T;
+        color?: T;
+        colorStops?:
+          | T
+          | {
+              color?: T;
+              stop?: T;
+              id?: T;
+            };
+      };
+  relatedPosts?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FormBlock_select".
+ */
+export interface FormBlockSelect<T extends boolean = true> {
+  title?: T;
+  heading?: T;
+  subtitle?: T;
+  text?: T;
+  titleSize?: T;
+  centered?: T;
+  forceFullWidth?: T;
+  background?:
+    | T
+    | {
+        type?: T;
+        inverted?: T;
+        dark?: T;
+        backgroundImage?: T;
+        color?: T;
+        colorStops?:
+          | T
+          | {
+              color?: T;
+              stop?: T;
+              id?: T;
+            };
+      };
+  form?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BrandBlock_select".
+ */
+export interface BrandBlockSelect<T extends boolean = true> {
+  title?: T;
+  heading?: T;
+  subtitle?: T;
+  text?: T;
+  titleSize?: T;
+  centered?: T;
+  forceFullWidth?: T;
+  background?:
+    | T
+    | {
+        type?: T;
+        inverted?: T;
+        dark?: T;
+        backgroundImage?: T;
+        color?: T;
+        colorStops?:
+          | T
+          | {
+              color?: T;
+              stop?: T;
+              id?: T;
+            };
+      };
+  logos?:
+    | T
+    | {
+        svgLogo?: T;
+        pngLogo?: T;
+        variant?: T;
+        id?: T;
+      };
+  colors?:
+    | T
+    | {
+        name?: T;
+        color?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "JobsBlock_select".
+ */
+export interface JobsBlockSelect<T extends boolean = true> {
+  title?: T;
+  heading?: T;
+  subtitle?: T;
+  text?: T;
+  titleSize?: T;
+  centered?: T;
+  forceFullWidth?: T;
+  background?:
+    | T
+    | {
+        type?: T;
+        inverted?: T;
+        dark?: T;
+        backgroundImage?: T;
+        color?: T;
+        colorStops?:
+          | T
+          | {
+              color?: T;
+              stop?: T;
+              id?: T;
+            };
+      };
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

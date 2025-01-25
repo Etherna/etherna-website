@@ -11,11 +11,14 @@ export default [
     rules: {
       "no-console":
         process.env.NODE_ENV === "production"
-          ? ["error", { allow: ["info", "warn", "error", "debug", "table"] }]
+          ? ["error", { allow: ["info", "warn", "error", "debug", "table", "dir"] }]
           : "off",
       "no-debugger": process.env.NODE_ENV !== "development" ? "error" : "off",
       "no-fallthrough": "error",
-      "@typescript-eslint/switch-exhaustiveness-check": "error",
+      "@typescript-eslint/switch-exhaustiveness-check": [
+        "error",
+        { considerDefaultExhaustiveForUnions: true },
+      ],
       "@typescript-eslint/no-empty-interface": "off",
       "@typescript-eslint/no-misused-promises": [
         "error",

@@ -53,12 +53,20 @@ export const Posts: CollectionConfig = {
     livePreview: {
       url: async ({ data, locale }) => {
         const path = "/blog/" + data.slug
-        return generatePreviewUrl(path, locale.code)
+        return generatePreviewUrl({
+          id: data.id,
+          path,
+          locale: locale.code,
+        })
       },
     },
     preview: async (data, { locale }) => {
       const path = "/blog/" + data.slug
-      return generatePreviewUrl(path, locale)
+      return generatePreviewUrl({
+        id: data.id as string,
+        path,
+        locale: locale,
+      })
     },
     useAsTitle: "title",
   },
@@ -254,7 +262,7 @@ export const Posts: CollectionConfig = {
       ({ doc, req }) => {
         let locale = req.locale ?? DEFAULT_LOCALE
 
-        if (!(locale in doc.slug)) {
+        if (!(locale in (doc.slug ?? {}))) {
           locale = DEFAULT_LOCALE
         }
 

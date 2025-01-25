@@ -1,6 +1,8 @@
 "use client"
 
-export function ColorCell(props: any) {
+import type { DefaultCellComponentProps } from "payload"
+
+export function ColorCell(props: DefaultCellComponentProps) {
   return (
     <div
       className="size-6 rounded"

@@ -13,8 +13,6 @@ export const deleteLocale: Endpoint = {
       return new Response("Forbidden", { status: 403 })
     }
 
-    console.dir(req.user, { depth: null })
-
     const { collection, id, locale } = req.routeParams ?? {}
     const payload = req.payload
 
