@@ -19,6 +19,7 @@ function TextColumns({
         {
           "items-center text-center": centered,
           "items-start lg:flex-row": inline,
+          "gap-8 lg:gap-10 xl:gap-12": !inline,
         },
         className,
       )}
@@ -65,62 +66,62 @@ const titleVariants = cva(
       {
         tag: "h2",
         size: "xs",
-        className: "text-base/none md:text-lg/none lg:text-xl/none",
+        className: "text-base/tight md:text-lg/tight lg:text-xl/tight",
       },
       {
         tag: "h2",
         size: "sm",
-        className: "text-2xl/none md:text-3xl/none lg:text-4xl/none",
+        className: "text-2xl/tight md:text-3xl/tight lg:text-4xl/extra-tight",
       },
       {
         tag: "h2",
         size: "default",
-        className: "text-3xl/none md:text-4xl/none lg:text-5xl/none",
+        className: "text-3xl/tight md:text-4xl/tight lg:text-5xl/extra-tight",
       },
       {
         tag: "h2",
         size: "lg",
-        className: "text-4xl/none md:text-5xl/none lg:text-6xl/none",
+        className: "text-4xl/tight md:text-5xl/tight lg:text-6xl/extra-tight",
       },
       {
         tag: "h3",
         size: "xs",
-        className: "text-base/none md:text-lg/none lg:text-xl/none",
+        className: "text-base/tight md:text-lg/tight lg:text-xl/tight",
       },
       {
         tag: "h3",
         size: "sm",
-        className: "text-xl/none md:text-2xl/none lg:text-3xl/none",
+        className: "text-xl/tight md:text-2xl/tight lg:text-3xl/tight",
       },
       {
         tag: "h3",
         size: "default",
-        className: "text-xl/none md:text-2xl/none lg:text-4xl/none",
+        className: "text-xl/tight md:text-2xl/tight lg:text-4xl/tight",
       },
       {
         tag: "h3",
         size: "lg",
-        className: "text-2xl/none md:text-3xl/none lg:text-5xl/none",
+        className: "text-2xl/tight md:text-3xl/tight lg:text-5xl/tight",
       },
       {
         tag: "h4",
         size: "xs",
-        className: "text-sm/none md:text-base/none lg:text-lg/none",
+        className: "text-sm/tight md:text-base/tight lg:text-lg/tight",
       },
       {
         tag: "h4",
         size: "sm",
-        className: "text-base/none md:text-lg/none lg:text-xl/none",
+        className: "text-base/tight md:text-lg/tight lg:text-xl/tight",
       },
       {
         tag: "h4",
         size: "default",
-        className: "text-lg/none md:text-xl/none lg:text-2xl/none",
+        className: "text-lg/tight md:text-xl/tight lg:text-2xl/tight",
       },
       {
         tag: "h4",
         size: "lg",
-        className: "text-xl/none md:text-2xl/none lg:text-4xl/none",
+        className: "text-xl/tight md:text-2xl/tight lg:text-4xl/tight",
       },
     ],
   },
@@ -144,11 +145,11 @@ const subtitleVariants = cva(
   {
     variants: {
       size: {
-        xs: "text-sm/none",
-        sm: "text-sm/none",
-        default: "textbase lg:text-lg/none",
-        lg: "textbase lg:text-lg/none",
-        xl: "textbase lg:text-lg/none",
+        xs: "text-sm/tight",
+        sm: "text-sm/tight",
+        default: "textbase lg:text-lg/tight",
+        lg: "textbase lg:text-lg/tight",
+        xl: "textbase lg:text-lg/tight",
       },
     },
     defaultVariants: {
@@ -173,7 +174,7 @@ function TextColumnsDescription({ children, className, ...props }: React.Compone
   return (
     <div
       className={cn(
-        "prose max-w-screen-sm text-secondary-foreground/70 group-data-[centered]/text:mx-auto",
+        "prose max-w-screen-sm text-secondary-foreground/70 dark:prose-invert group-data-[centered]/text:mx-auto",
         className,
       )}
       {...props}

@@ -98,6 +98,9 @@ export default {
         mono: ["Geist-Mono", ...fontFamily.mono],
         serif: ['DM Serif Display"', ...fontFamily.serif],
       },
+      lineHeight: {
+        "extra-tight": "1.15",
+      },
       fontSize: {
         "2xs": ["0.625rem", { lineHeight: "1rem" }],
       },

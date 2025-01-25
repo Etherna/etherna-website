@@ -30,7 +30,7 @@ function PostTitle({ className, children, ...props }: React.ComponentProps<"h1">
   return (
     <h1
       className={cn(
-        "text-center text-3xl/none font-bold sm:text-4xl/none lg:text-5xl/none",
+        "text-center text-3xl/tight font-bold sm:text-4xl/tight lg:text-5xl/tight",
         className,
       )}
       {...props}

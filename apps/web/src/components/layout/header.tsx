@@ -4,6 +4,7 @@ import { ChevronDownIcon } from "lucide-react"
 
 import { Logo } from "../assets/brand"
 import { LocaleSwitcher } from "../common/locale-switcher"
+import { Svg } from "../common/svg"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion"
 import { Button } from "../ui/button"
 import {
@@ -17,6 +18,7 @@ import {
 } from "../ui/navigation-menu"
 import { ScrollArea } from "../ui/scroll-area"
 import { localized } from "@/i18n/utils"
+import { hasBundledImage } from "@/lib/bundle"
 import { route } from "@/lib/routes"
 import { cn } from "@/lib/utils"
 
@@ -119,6 +121,12 @@ function NavMenu({
                           href={sublink.link.url ?? ""}
                           target={sublink.link.newTab ? "_blank" : undefined}
                         >
+                          {hasBundledImage(sublink.link.icon) && (
+                            <Svg
+                              className="mr-2 size-4"
+                              svg={sublink.link.icon.bundled.image.svgContent}
+                            />
+                          )}
                           {sublink.link.label}
                         </a>
                       ))}
@@ -132,6 +140,9 @@ function NavMenu({
                 target={navItem.link.newTab ? "_blank" : undefined}
                 data-active={path.startsWith(navItem.link.url ?? "") || undefined}
               >
+                {hasBundledImage(navItem.link.icon) && (
+                  <Svg className="mr-2 size-4" svg={navItem.link.icon.bundled.image.svgContent} />
+                )}
                 {navItem.link.label}
               </MobileLink>
             )}
@@ -164,6 +175,12 @@ function NavMenu({
                         target={sublink.link.newTab ? "_blank" : undefined}
                         data-active={path.startsWith(sublink.link.url ?? "") || undefined}
                       >
+                        {hasBundledImage(sublink.link.icon) && (
+                          <Svg
+                            className="mr-2 size-4"
+                            svg={sublink.link.icon.bundled.image.svgContent}
+                          />
+                        )}
                         {sublink.link.label}
                       </NavigationMenuLink>
                     ))}
@@ -178,6 +195,9 @@ function NavMenu({
                   target={navItem.link.newTab ? "_blank" : undefined}
                   data-active={path.startsWith(navItem.link.url ?? "") || undefined}
                 >
+                  {hasBundledImage(navItem.link.icon) && (
+                    <Svg className="mr-2 size-4" svg={navItem.link.icon.bundled.image.svgContent} />
+                  )}
                   {navItem.link.label}
                 </NavigationMenuLink>
               </NavigationMenuItem>

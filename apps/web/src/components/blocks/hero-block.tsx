@@ -70,10 +70,10 @@ export function HeroBlock({
             <h1
               className={cn("font-bold text-gradient", {
                 "max-w-screen-sm": type !== "highImpact",
-                "text-center text-4xl/none xs:text-5xl/none md:text-7xl/none":
+                "text-center text-4xl/tight xs:text-5xl/tight md:text-7xl/tight":
                   type === "highImpact",
-                "text-2xl/none xs:text-4xl/none md:text-6xl/none": type === "mediumImpact",
-                "text-2xl/none xs:text-3xl/none md:text-4xl/none":
+                "text-2xl/tight xs:text-4xl/tight md:text-6xl/tight": type === "mediumImpact",
+                "text-2xl/tight xs:text-3xl/tight md:text-4xl/tight":
                   type === "lowImpact" || type === "none",
               })}
             >
@@ -82,7 +82,7 @@ export function HeroBlock({
           </div>
 
           <div
-            className={cn("w-full max-w-screen-sm text-secondary-foreground", {
+            className={cn("prose w-full max-w-screen-sm text-secondary-foreground", {
               "mx-auto text-center": type === "highImpact",
             })}
           >

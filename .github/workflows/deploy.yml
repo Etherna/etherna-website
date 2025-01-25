@@ -19,7 +19,7 @@ jobs:
 
     env:
       PUBLIC_SITE_URL: "https://info.etherna.io"
-      PUBLIC_DIRECTUS_URL: "https://cms.etherna.io"
+      PUBLIC_PAYLOAD_URL: "https://cms.etherna.io"
       ANALYTICS_URL: "https://analytics.etherna.io"
       ANALYTICS_SITE_ID: "1"
 
@@ -34,13 +34,13 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 22
           architecture: "x64"
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 9
 
       - name: Install dependencies
         run: pnpm install

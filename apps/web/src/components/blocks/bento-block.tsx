@@ -86,8 +86,8 @@ export function BentoBlock({
                       />
                     )}
 
-                  <div className="flex max-w-[60%] flex-col items-start">
-                    <InnerTag className="text-lg/none font-semibold">{item.title}</InnerTag>
+                  <div className="flex w-full flex-col items-center text-center">
+                    <InnerTag className="text-lg/tight font-semibold">{item.title}</InnerTag>
 
                     {isNotEmptyLexical(item.description) && (
                       <div className="mt-3 text-sm text-secondary-foreground">

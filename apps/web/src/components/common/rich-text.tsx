@@ -150,7 +150,8 @@ export function RichText({ nodes, highlightStyles }: RichTextProps) {
               </blockquote>
             )
           }
-          case "link": {
+          case "link":
+          case "autolink": {
             const fields = node.fields
 
             return (

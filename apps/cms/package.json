@@ -45,6 +45,7 @@
     "@types/mailchimp__mailchimp_marketing": "3.0.20",
     "@types/node-schedule": "2.1.7",
     "@types/nodemailer-sendgrid": "1.0.3",
+    "babel-plugin-react-compiler": "19.0.0-beta-df7b47d-20241124",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*"
   }

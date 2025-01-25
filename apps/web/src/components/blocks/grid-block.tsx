@@ -117,7 +117,7 @@ export function GridBlock({
                               },
                             )}
                           >
-                            <InnerTag className="text-lg/none font-semibold md:text-2xl/none lg:text-3xl/none">
+                            <InnerTag className="text-lg/tight font-semibold md:text-2xl/tight lg:text-3xl/tight">
                               {item.title}
                             </InnerTag>
 

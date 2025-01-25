@@ -54,7 +54,12 @@ export function MilestonesBlock({
         </TextColumnsMainColumn>
       </TextColumns>
 
-      <div className="mt-8 overflow-hidden lg:mt-12 xl:mt-16">
+      <div
+        className={cn("overflow-hidden", {
+          "mt-8 lg:mt-12 xl:mt-16": type === "timeline",
+          "mt-6 lg:mt-8 xl:mt-10": type === "roadmap",
+        })}
+      >
         {type === "timeline" && <Milestones items={items} locale={locale} />}
         {type === "roadmap" && <Roadmap items={items} locale={locale} />}
       </div>

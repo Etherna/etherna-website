@@ -14,6 +14,8 @@ export async function fetchPaths(locales: Locale[]) {
     params: { lang: Locale; path: string }
   }[] = []
 
+  console.log("env", import.meta.env)
+
   const localizedPagesResults = await Promise.all(
     locales.map(async (locale) => ({
       locale,

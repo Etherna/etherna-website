@@ -42,3 +42,6 @@ yarn-error.log*
 
 # docker
 docker-compose.yml
+
+# local test files
+/test*.ts

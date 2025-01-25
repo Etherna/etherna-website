@@ -6,6 +6,7 @@ import type { SelectType, Where } from "payload"
 type Method = "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
 
 interface PayloadRequest {
+  url?: string
   method: Method
   path: string
   params?: {
@@ -23,14 +24,14 @@ interface PayloadRequest {
 
 export function getPayloadRequest(req: PayloadRequest) {
   const { method, path, params, body, accessToken } = req
-  const url = `${import.meta.env.PUBLIC_PAYLOAD_URL}/api${path}${
+  const url = `${req.url || import.meta.env.PUBLIC_PAYLOAD_URL}/api${path}${
     params ? "?" + qs.stringify(params) : ""
   }`
   const request = new Request(url, {
     method,
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
+      Authorization: accessToken ? `Bearer ${accessToken}` : ``,
     },
     body,
   })

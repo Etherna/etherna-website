@@ -78,7 +78,7 @@ export function BaseBlock({
         return background.color
       case "verticalGradient":
       case "horizontalGradient":
-        return stopColors[0]?.color
+        return background.color || stopColors[0]?.color
       case "none":
       case "image":
         return undefined
@@ -101,7 +101,7 @@ export function BaseBlock({
     <section
       {...props}
       className={cn(
-        "flex w-screen flex-col",
+        "flex w-screen flex-col text-foreground",
         {
           dark: background.dark,
           "py-4 md:py-6 lg:py-8": hasBackground && spacing === "sm",
