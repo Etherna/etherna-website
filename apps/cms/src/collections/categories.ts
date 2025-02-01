@@ -32,4 +32,24 @@ export const Categories: CollectionConfig = {
     colorField(),
     ...slugField(),
   ],
+  hooks: {
+    beforeRead: [
+      async ({ req, doc }) => {
+        if (req.searchParams.has("postsCount")) {
+          const posts = await req.payload.count({
+            collection: "posts",
+            where: {
+              categories: {
+                contains: doc.id,
+              },
+            },
+          })
+
+          doc.postsCount = posts.totalDocs
+        }
+
+        return doc
+      },
+    ],
+  },
 }

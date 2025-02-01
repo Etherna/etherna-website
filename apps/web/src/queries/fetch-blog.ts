@@ -44,21 +44,26 @@ export async function fetchBlog(params: FetchBlogParams) {
       LOCALES.map(async (locale) => {
         return {
           locale,
-          categories: await fetchPayloadRequest<PaginatedDocs<Category>>({
+          categories: await fetchPayloadRequest<PaginatedDocs<Category & { postsCount: number }>>({
             method: "GET",
             path: "/categories",
             params: {
               locale,
               limit: 1000,
+              postsCount: true,
             },
             accessToken,
-          }),
+          }).then((res) => ({
+            ...res,
+            docs: res.docs.filter((cat) => cat.postsCount > 0),
+          })),
         }
       }),
     ),
   ])
 
   const categories = categoriesByLocale.find((c) => c.locale === locale)?.categories.docs ?? []
+
   const otherLocalCategories = categoriesByLocale
     .filter((c) => c.locale !== locale)
     .map((c) => ({

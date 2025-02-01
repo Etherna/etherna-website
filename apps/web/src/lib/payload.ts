@@ -9,15 +9,19 @@ interface PayloadRequest {
   url?: string
   method: Method
   path: string
-  params?: {
-    depth?: number
-    locale?: Locale
-    fallbackLocale?: Locale
-    page?: number
-    limit?: number
-    where?: Where
-    select?: SelectType
-  }
+  params?:
+    | {
+        [key: string]: string | number | boolean | undefined
+      }
+    | ({
+        depth?: number
+        locale?: Locale
+        fallbackLocale?: Locale
+        page?: number
+        limit?: number
+        where?: Where
+        select?: SelectType
+      } & {})
   body?: BodyInit
   accessToken?: string
 }
