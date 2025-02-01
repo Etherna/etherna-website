@@ -1,4 +1,4 @@
-import { CheckCircleIcon, ChevronDownIcon, CircleCheckIcon, CircleIcon } from "lucide-react"
+import { ChevronDownIcon, CircleCheckIcon, CircleIcon } from "lucide-react"
 
 import { Button } from "../ui/button"
 import {

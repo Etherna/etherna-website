@@ -2,7 +2,13 @@ import { ClockIcon } from "lucide-react"
 
 import { FacebookLogo, LinkedInLogo, XLogo } from "../assets/brand"
 import { Image } from "../common/image"
+import { LocaleFlag } from "../common/locale-flag"
+import { Button } from "../ui/button"
+import { t } from "@/i18n"
+import { blogDictionary } from "@/i18n/dictionaries/blog"
+import { langsDictionary } from "@/i18n/dictionaries/langs"
 import { cn } from "@/lib/utils"
+import { $locale } from "@/stores/locale-store"
 
 import type { ImageProps } from "../common/image"
 import type { Locale, LocalizedPath } from "@/i18n/types"
@@ -93,9 +99,27 @@ function PostLocaleSwitcher({
   }
 
   return (
-    <div className={cn("flex gap-2", className)} {...props}>
-      <p className="text-sm text-muted-foreground">Also available in</p>
-      <div className="flex items-center gap-2"></div>
+    <div className={cn("flex flex-col items-center gap-2", className)} {...props}>
+      <p className="text-sm text-muted-foreground">
+        {t(blogDictionary.alsoAvailableIn, { locale })}
+      </p>
+      <div className="flex flex-wrap items-center justify-around gap-2">
+        {otherLocales.map((path) => (
+          <Button key={path.locale} className="items-center gap-2" variant={"outline"} asChild>
+            <a href={path.path}>
+              <LocaleFlag className="size-4" locale={path.locale} />
+              <span>
+                {t(blogDictionary.readIn, {
+                  locale: path.locale,
+                  params: {
+                    locale: t(langsDictionary[path.locale], { locale: path.locale }),
+                  },
+                })}
+              </span>
+            </a>
+          </Button>
+        ))}
+      </div>
     </div>
   )
 }

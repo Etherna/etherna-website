@@ -43,4 +43,12 @@ export const blogDictionary = defineDictionary({
     en: "{minutes} min read",
     it: "{minutes} min di lettura",
   },
+  alsoAvailableIn: {
+    en: "Also available in",
+    it: "Disponibile anche in",
+  },
+  readIn: {
+    en: "Read in {locale}",
+    it: "Leggi in {locale}",
+  },
 })
