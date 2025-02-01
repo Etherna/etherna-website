@@ -13,6 +13,7 @@ export default [
         process.env.NODE_ENV === "production"
           ? ["error", { allow: ["info", "warn", "error", "debug", "table", "dir"] }]
           : "off",
+      "no-empty-pattern": "off",
       "no-debugger": process.env.NODE_ENV !== "development" ? "error" : "off",
       "no-fallthrough": "error",
       "@typescript-eslint/switch-exhaustiveness-check": [

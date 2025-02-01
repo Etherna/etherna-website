@@ -16,12 +16,9 @@ export const deleteLocale: Endpoint = {
     const { collection, id, locale } = req.routeParams ?? {}
     const payload = req.payload
 
-    await payload.delete({
-      id: id as string,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      collection: `${collection}_locales` as any,
-      locale: locale as "it" | "en",
-    })
+    await payload.db.drizzle.execute(
+      `DELETE FROM ${collection}_locales WHERE _parent_id = '${id}' AND _locale = '${locale}'`,
+    )
 
     return new Response(JSON.stringify(req.routeParams), { status: 200 })
   },

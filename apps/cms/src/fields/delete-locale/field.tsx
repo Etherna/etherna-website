@@ -10,26 +10,38 @@ interface DeleteLocaleFieldProps extends TextFieldClientProps {
   checkboxFieldPath: string
 }
 
-export function DeleteLocaleField({ field }: DeleteLocaleFieldProps) {
+export function DeleteLocaleField({}: DeleteLocaleFieldProps) {
   const [collapsed, setCollapsed] = useState(true)
   const doc = useDocumentInfo()
   const locale = useLocale()
+  const [isPending, setIsPending] = useState(false)
 
   const handleDelete = async () => {
-    const response = await fetch(
-      `/api/delete-locale/${doc.docConfig?.slug}/${doc.id}/${locale.code}`,
-      {
-        method: "POST",
-      },
-    )
+    try {
+      setIsPending(true)
 
-    if (!response.ok) {
-      console.error(await response.text())
-      alert("Failed to delete locale")
-      return false
+      const response = await fetch(
+        `/api/delete-locale/${doc.docConfig?.slug}/${doc.id}/${locale.code}`,
+        {
+          method: "POST",
+        },
+      )
+
+      if (!response.ok) {
+        const msg = await response.text()
+        throw new Error(msg)
+      }
+
+      const redirectUrl = new URL(window.location.href)
+      redirectUrl.searchParams.delete("locale")
+
+      window.location.href = redirectUrl.href
+    } catch (error) {
+      console.error(error)
+      alert("Failed to delete locale: " + (error as Error).message)
+    } finally {
+      setIsPending(false)
     }
-
-    return true
   }
 
   return (
@@ -41,7 +53,12 @@ export function DeleteLocaleField({ field }: DeleteLocaleFieldProps) {
       >
         <h3>Delete this locale and all its content?</h3>
         <p>This action is irreversible.</p>
-        <Button className="bg-[var(--color-error-500)]" buttonStyle="pill" onClick={handleDelete}>
+        <Button
+          className="bg-[var(--color-error-500)]"
+          buttonStyle="pill"
+          onClick={handleDelete}
+          disabled={isPending}
+        >
           Delete this locale
         </Button>
       </Collapsible>

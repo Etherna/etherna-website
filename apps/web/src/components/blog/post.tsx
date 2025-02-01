@@ -8,7 +8,6 @@ import { t } from "@/i18n"
 import { blogDictionary } from "@/i18n/dictionaries/blog"
 import { langsDictionary } from "@/i18n/dictionaries/langs"
 import { cn } from "@/lib/utils"
-import { $locale } from "@/stores/locale-store"
 
 import type { ImageProps } from "../common/image"
 import type { Locale, LocalizedPath } from "@/i18n/types"
