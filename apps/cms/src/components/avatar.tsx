@@ -11,8 +11,7 @@ export function UserAvatar(props: ServerProps) {
   return (
     <div className="relative size-7 overflow-hidden rounded-full bg-slate-500/50">
       <Suspense>
-        {/* FIXME: uncomment when fixed: https://github.com/payloadcms/payload/issues/9359 */}
-        {/* <AvatarImage {...props} /> */}
+        <AvatarImage {...props} />
       </Suspense>
     </div>
   )
