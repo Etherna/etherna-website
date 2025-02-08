@@ -9,8 +9,8 @@
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsup src/index.ts src/endpoint.ts --format esm --loader '.html=text' --dts-resolve --minify --clean --sourcemap --dts",
-    "dev": "rm -rf dist && tsup src/index.ts src/endpoint.ts --format esm --loader '.html=text' --dts-resolve --clean --watch --sourcemap --dts",
+    "build": "tsup src/index.ts src/endpoint.ts --format esm --loader '.html=text' --minify --clean --sourcemap --dts",
+    "dev": "rm -rf dist && tsup src/index.ts src/endpoint.ts --format esm --loader '.html=text' --clean --watch --sourcemap --dts",
     "lint": "eslint --ext .ts,.tsx src"
   },
   "dependencies": {
