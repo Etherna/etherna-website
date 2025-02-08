@@ -59,7 +59,7 @@ export default defineConfig({
     }),
     matomo({
       enabled: true,
-      host: PUBLIC_ANALYTICS_URL ?? "http://not.found",
+      host: (PUBLIC_ANALYTICS_URL ?? "http://not.found").replace(/\/?$/, "/"),
       siteId: parseInt(PUBLIC_ANALYTICS_SITE_ID ?? "0"),
     }),
   ],
