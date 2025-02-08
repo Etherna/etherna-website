@@ -5,8 +5,8 @@ declare global {
     readonly PUBLIC_SITE_URL: string
     readonly PUBLIC_MAILCHIMP_AUDIENCE_ID: string
     readonly PUBLIC_MAILCHIMP_PRODUCT_AUDIENCE_ID: string
-    readonly ANALYTICS_URL: string
-    readonly ANALYTICS_SITE_ID: string
+    readonly PUBLIC_ANALYTICS_URL: string
+    readonly PUBLIC_ANALYTICS_SITE_ID: string
   }
 
   interface ImportMeta {

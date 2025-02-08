@@ -11,16 +11,11 @@ import { defineConfig } from "astro/config"
 import unfonts from "unplugin-fonts/astro"
 import { loadEnv } from "vite"
 
-const { PUBLIC_DIRECTUS_URL, ANALYTICS_URL, ANALYTICS_SITE_ID } = loadEnv(
+const { PUBLIC_DIRECTUS_URL, PUBLIC_ANALYTICS_URL, PUBLIC_ANALYTICS_SITE_ID } = loadEnv(
   process.env.NODE_ENV as string,
-  process.cwd(),
-  ""
-) as {
-  PUBLIC_DIRECTUS_URL: string
-  ANALYTICS_URL: string
-  ANALYTICS_SITE_ID: string
-}
-const cmsOrigin = new URL(PUBLIC_DIRECTUS_URL).hostname
+  process.cwd()
+)
+const cmsOrigin = new URL(PUBLIC_DIRECTUS_URL ?? "").hostname
 
 // https://astro.build/config
 export default defineConfig({
@@ -61,8 +56,8 @@ export default defineConfig({
     }),
     matomo({
       enabled: true,
-      host: ANALYTICS_URL,
-      siteId: parseInt(ANALYTICS_SITE_ID),
+      host: PUBLIC_ANALYTICS_URL ?? "http://not.found",
+      siteId: parseInt(PUBLIC_ANALYTICS_SITE_ID ?? "0"),
     }),
   ],
   vite: {
