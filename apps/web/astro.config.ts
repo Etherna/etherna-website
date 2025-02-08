@@ -11,10 +11,13 @@ import { defineConfig } from "astro/config"
 import unfonts from "unplugin-fonts/astro"
 import { loadEnv } from "vite"
 
-const { PUBLIC_DIRECTUS_URL, PUBLIC_ANALYTICS_URL, PUBLIC_ANALYTICS_SITE_ID } = loadEnv(
-  process.env.NODE_ENV as string,
-  process.cwd()
-)
+const localEnv = loadEnv(process.env.NODE_ENV as string, process.cwd(), "PUBLIC_")
+
+const PUBLIC_DIRECTUS_URL = process.env.PUBLIC_DIRECTUS_URL || localEnv.PUBLIC_DIRECTUS_URL || ""
+const PUBLIC_ANALYTICS_URL = process.env.PUBLIC_ANALYTICS_URL || localEnv.PUBLIC_ANALYTICS_URL || ""
+const PUBLIC_ANALYTICS_SITE_ID =
+  process.env.PUBLIC_ANALYTICS_SITE_ID || localEnv.PUBLIC_ANALYTICS_SITE_ID || ""
+
 const cmsOrigin = new URL(PUBLIC_DIRECTUS_URL ?? "").hostname
 
 // https://astro.build/config
