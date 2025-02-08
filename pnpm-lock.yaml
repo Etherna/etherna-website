@@ -187,6 +187,9 @@ importers:
       astro:
         specifier: 4.11.5
         version: 4.11.5(@types/node@20.11.5)(sass@1.78.0)(terser@5.36.0)(typescript@5.3.3)
+      astro-matomo:
+        specifier: 1.8.0
+        version: 1.8.0(astro@4.11.5(@types/node@20.11.5)(sass@1.78.0)(terser@5.36.0)(typescript@5.3.3))
       axios:
         specifier: 1.6.2
         version: 1.6.2
@@ -3533,6 +3536,11 @@ packages:
   ast-types-flow@0.0.8:
     resolution: {integrity: sha512-OH/2E5Fg20h2aPrbe+QL8JZQFko0YZaF+j4mnQ7BGhfavO7OpSLa8a0y9sBwomHdSbkhTS8TQNayBfnW5DwbvQ==}
 
+  astro-matomo@1.8.0:
+    resolution: {integrity: sha512-yg7XgTEyYrVqVIWi/MiQtlbHdczIa2P/E+a/x3dW/oa3H4haH7rwcgvBLtsCWu++MAJYs+D956rz8Nl9nNvC6Q==}
+    peerDependencies:
+      astro: ^2.0.0-beta.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
+
   astro@4.11.5:
     resolution: {integrity: sha512-TCRhuaLwrxwMhS8S1GG+ZTdrAXigX9C8E/YUTs/r2t+owHxDgwl86IV9xH1IHrCPoqhK6civyAQNOT+GKmkb0A==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
@@ -5878,6 +5886,7 @@ packages:
 
   lodash.get@4.4.2:
     resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==}
+    deprecated: This package is deprecated. Use the optional chaining (?.) operator instead.
 
   lodash.includes@4.3.0:
     resolution: {integrity: sha512-W3Bx6mdkRTGtlJISOvVD/lbqjTlPPUDTMnlXZFnVwi9NKJ6tiAk6LVdlhZMm17VZisqhKcgzpO5Wz91PCt5b0w==}
@@ -13227,6 +13236,10 @@ snapshots:
   assert-plus@1.0.0: {}
 
   ast-types-flow@0.0.8: {}
+
+  astro-matomo@1.8.0(astro@4.11.5(@types/node@20.11.5)(sass@1.78.0)(terser@5.36.0)(typescript@5.3.3)):
+    dependencies:
+      astro: 4.11.5(@types/node@20.11.5)(sass@1.78.0)(terser@5.36.0)(typescript@5.3.3)
 
   astro@4.11.5(@types/node@20.11.5)(sass@1.78.0)(terser@5.36.0)(typescript@5.3.3):
     dependencies:
