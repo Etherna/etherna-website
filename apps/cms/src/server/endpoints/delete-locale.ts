@@ -17,7 +17,12 @@ export const deleteLocale: Endpoint = {
     const payload = req.payload
 
     await payload.db.drizzle.execute(
-      `DELETE FROM ${collection}_locales WHERE _parent_id = '${id}' AND _locale = '${locale}'`,
+      `DELETE FROM ${collection}_locales
+      WHERE _parent_id = '${id}' AND _locale = '${locale}'`,
+    )
+    await payload.db.drizzle.execute(
+      `DELETE FROM _${collection}_v_locales
+      WHERE _parent_id IN (SELECT id FROM _${collection}_v WHERE parent_id = '${id}') AND _locale = '${locale}'`,
     )
 
     return new Response(JSON.stringify(req.routeParams), { status: 200 })

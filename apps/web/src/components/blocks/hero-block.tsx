@@ -1,5 +1,3 @@
-import React from "react"
-
 import { Image } from "../common/image"
 import { RichText } from "../common/rich-text"
 import { Badge } from "../ui/badge"

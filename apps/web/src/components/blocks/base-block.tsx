@@ -62,7 +62,7 @@ export function BaseBlock({
     switch (background.type) {
       case "image":
         return bgImageResult && bgImageResult.bundled?.image
-          ? `url(${bgImageResult.bundled.image.src}&q=100)`
+          ? `url(${bgImageResult.bundled.image.src})`
           : ""
       case "verticalGradient":
         return `linear-gradient(to bottom, ${bgColorsStops})`

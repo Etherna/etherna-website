@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { Button, Collapsible, useDocumentInfo, useLocale } from "@payloadcms/ui"
+import { DEFAULT_LOCALE, Locales } from "payload.i18n"
 
 import type { TextFieldClientProps } from "payload"
 
@@ -33,7 +34,11 @@ export function DeleteLocaleField({}: DeleteLocaleFieldProps) {
       }
 
       const redirectUrl = new URL(window.location.href)
-      redirectUrl.searchParams.delete("locale")
+      const newLocale =
+        locale.code === DEFAULT_LOCALE
+          ? (Locales.find((l) => l.code !== locale.code)?.code ?? DEFAULT_LOCALE)
+          : DEFAULT_LOCALE
+      redirectUrl.searchParams.set("locale", newLocale)
 
       window.location.href = redirectUrl.href
     } catch (error) {
