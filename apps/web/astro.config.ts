@@ -1,5 +1,6 @@
 import { dirname, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
+import matomo from "astro-matomo"
 import dynamicBase from "astro-plugin-dynamic-base"
 import files from "astro-plugin-files"
 import { defineConfig } from "astro/config"
@@ -10,10 +11,14 @@ import unfonts from "unplugin-fonts/astro"
 import { loadEnv } from "vite"
 import svgr from "vite-plugin-svgr"
 
-const { PUBLIC_PAYLOAD_URL } = loadEnv(process.env.NODE_ENV as string, process.cwd(), "") as {
-  PUBLIC_PAYLOAD_URL: string
-}
-const cmsOrigin = new URL(PUBLIC_PAYLOAD_URL).hostname
+const localEnv = loadEnv(process.env.NODE_ENV as string, process.cwd(), "PUBLIC_")
+
+const PUBLIC_PAYLOAD_URL = process.env.PUBLIC_PAYLOAD_URL || localEnv.PUBLIC_PAYLOAD_URL || ""
+const PUBLIC_ANALYTICS_URL = process.env.PUBLIC_ANALYTICS_URL || localEnv.PUBLIC_ANALYTICS_URL || ""
+const PUBLIC_ANALYTICS_SITE_ID =
+  process.env.PUBLIC_ANALYTICS_SITE_ID || localEnv.PUBLIC_ANALYTICS_SITE_ID || ""
+
+const cmsOrigin = new URL(PUBLIC_PAYLOAD_URL ?? "").hostname
 
 // https://astro.build/config
 export default defineConfig({
@@ -50,6 +55,11 @@ export default defineConfig({
     }),
     tailwind({
       applyBaseStyles: false,
+    }),
+    matomo({
+      enabled: true,
+      host: (PUBLIC_ANALYTICS_URL ?? "http://not.found").replace(/\/?$/, "/"),
+      siteId: parseInt(PUBLIC_ANALYTICS_SITE_ID ?? "0"),
     }),
   ],
   vite: {

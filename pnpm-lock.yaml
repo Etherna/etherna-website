@@ -262,6 +262,9 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: 1.1.7
         version: 1.1.7(@types/react-dom@19.0.3(@types/react@19.0.8))(@types/react@19.0.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      astro-matomo:
+        specifier: 1.8.0
+        version: 1.8.0(astro@5.1.9(@types/node@22.10.10)(jiti@1.21.7)(rollup@4.32.0)(sass@1.77.4)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0))
       axios:
         specifier: 1.7.9
         version: 1.7.9
@@ -3202,6 +3205,11 @@ packages:
   astro-eslint-parser@1.2.1:
     resolution: {integrity: sha512-3oqANMjrvJ+IE5pwlUWsH/4UztmYf/GTL0HPUkWnYBNAHiGVGrOh2EbegxS5niAwlO0w9dRYk0CkCPlJcu8c3Q==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  astro-matomo@1.8.0:
+    resolution: {integrity: sha512-yg7XgTEyYrVqVIWi/MiQtlbHdczIa2P/E+a/x3dW/oa3H4haH7rwcgvBLtsCWu++MAJYs+D956rz8Nl9nNvC6Q==}
+    peerDependencies:
+      astro: ^2.0.0-beta.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
 
   astro@5.1.9:
     resolution: {integrity: sha512-QB3MH7Ul3gEvmHXEfvPkGpTZyyB/TBKQbm0kTHpo0BTEB7BvaY+wrcWiGEJBVDpVdEAKY9fM3zrJ0c7hZSXVlw==}
@@ -10605,6 +10613,10 @@ snapshots:
       semver: 7.6.3
     transitivePeerDependencies:
       - supports-color
+
+  astro-matomo@1.8.0(astro@5.1.9(@types/node@22.10.10)(jiti@1.21.7)(rollup@4.32.0)(sass@1.77.4)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)):
+    dependencies:
+      astro: 5.1.9(@types/node@22.10.10)(jiti@1.21.7)(rollup@4.32.0)(sass@1.77.4)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
 
   astro@5.1.9(@types/node@22.10.10)(jiti@1.21.7)(rollup@4.32.0)(sass@1.77.4)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0):
     dependencies:
