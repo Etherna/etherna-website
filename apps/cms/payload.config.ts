@@ -39,6 +39,7 @@ import { admin } from "@/policies/admin"
 import { deployIfNeeded } from "@/schedules/deploy-if-needed"
 import { deleteLocale } from "@/server/endpoints/delete-locale"
 import { fetchWorkflow } from "@/server/endpoints/fetch-workflow"
+import { generateThumbhash } from "@/server/endpoints/gen-thumbhash"
 import { runDeploy } from "@/server/endpoints/run-deploy"
 import { submitForm } from "@/server/endpoints/submit-form"
 
@@ -165,7 +166,7 @@ export default buildConfig({
   globals: [Header, Footer, Company],
   cors: [process.env.PAYLOAD_PUBLIC_FRONTEND_URL || ""].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
-  endpoints: [fetchWorkflow, runDeploy, submitForm, deleteLocale],
+  endpoints: [fetchWorkflow, runDeploy, submitForm, deleteLocale, generateThumbhash],
   plugins: [
     redirectsPlugin({
       collections: ["pages", "posts"],

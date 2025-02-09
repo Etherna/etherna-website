@@ -310,7 +310,7 @@ function MilestoneDialogContent({
           className="absolute -bottom-[5%] -right-[10%] -top-[15%] -z-[1] h-[120%] w-auto max-w-[50%] object-cover object-top opacity-10"
           image={{
             ...item.media.bundled.image,
-            blurhash: undefined,
+            thumbhash: undefined,
           }}
         />
       )}

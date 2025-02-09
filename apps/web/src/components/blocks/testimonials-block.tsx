@@ -21,9 +21,9 @@ import {
   CarouselPrevious,
 } from "../ui/carousel"
 import { BaseBlock } from "./base-block"
-import { blurHashToDataURL } from "@/lib/blurhash"
 import { hasBundledImage } from "@/lib/bundle"
 import { isNotEmptyLexical } from "@/lib/lexical"
+import { thumbhashToDataURL } from "@/lib/thumbhash"
 import { cn } from "@/lib/utils"
 
 import type { BlockProps } from "./base-block"
@@ -112,8 +112,8 @@ export function TestimonialsBlock({
                           <AvatarFallback
                             className="bg-muted"
                             style={{
-                              backgroundImage: testimonial.avatar.bundled.image.blurhash
-                                ? `url(${blurHashToDataURL(testimonial.avatar.bundled.image.blurhash)})`
+                              backgroundImage: testimonial.avatar.bundled.image.thumbhash
+                                ? thumbhashToDataURL(testimonial.avatar.bundled.image.thumbhash)
                                 : undefined,
                             }}
                           />

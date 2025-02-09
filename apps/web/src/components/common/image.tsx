@@ -1,4 +1,4 @@
-import { blurHashToDataURL } from "@/lib/blurhash"
+import { thumbhashToDataURL } from "@/lib/thumbhash"
 import { cn } from "@/lib/utils"
 
 import type { BundledImage } from "@/lib/bundle"
@@ -16,12 +16,14 @@ export function Image({ className, image, src, srcSet, alt, style, ...props }: I
       alt={alt}
       loading="lazy"
       style={{
-        backgroundImage: image?.blurhash ? `url(${blurHashToDataURL(image.blurhash)})` : undefined,
-        backgroundSize: image?.blurhash ? "100% 100%" : undefined,
+        backgroundImage: image?.thumbhash
+          ? `url(${thumbhashToDataURL(image.thumbhash)})`
+          : undefined,
+        backgroundSize: image?.thumbhash ? "100% 100%" : undefined,
         ...style,
       }}
-      // blurhash is removed from custom script (src/pages/_templates/_scripts.astro)
-      data-blurhash={image?.blurhash ? "true" : undefined}
+      // thumbhash is removed from custom script (src/pages/_templates/_scripts.astro)
+      data-thumbhash={image?.thumbhash ? "true" : undefined}
       {...image?.attributes}
       {...props}
     />

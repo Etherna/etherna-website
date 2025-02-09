@@ -29,6 +29,7 @@ import { BlockquoteFeatureClient as BlockquoteFeatureClient_e70f5e05f09f93e00b99
 import { InlineCodeFeatureClient as InlineCodeFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { DeleteLocaleField as DeleteLocaleField_c0193440a5dfd8fd129273c878994259 } from '@/fields/delete-locale/field'
 import { FixedToolbarFeatureClient as FixedToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { Thumbhash as Thumbhash_861e801396517aed8ee8d3cfe901e55e } from '@/components/thumbhash'
 import { UserAvatar as UserAvatar_9c5b55a8450fd68e39ceb0b406054d4c } from '@/components/avatar'
 import { BeforeDashboard as BeforeDashboard_9f32ce6f473387f99159899dd857e0af } from '@/components/before-dashboard'
 
@@ -64,6 +65,7 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#InlineCodeFeatureClient": InlineCodeFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@/fields/delete-locale/field#DeleteLocaleField": DeleteLocaleField_c0193440a5dfd8fd129273c878994259,
   "@payloadcms/richtext-lexical/client#FixedToolbarFeatureClient": FixedToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@/components/thumbhash#Thumbhash": Thumbhash_861e801396517aed8ee8d3cfe901e55e,
   "@/components/avatar#UserAvatar": UserAvatar_9c5b55a8450fd68e39ceb0b406054d4c,
   "@/components/before-dashboard#BeforeDashboard": BeforeDashboard_9f32ce6f473387f99159899dd857e0af
 }

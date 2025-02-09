@@ -6,6 +6,7 @@ import {
   lexicalEditor,
 } from "@payloadcms/richtext-lexical"
 
+import { createThumbhash } from "./hooks/create-thumbhash"
 import { anyone } from "@/policies/anyone"
 import { authenticated } from "@/policies/authenticated"
 
@@ -42,7 +43,22 @@ export const Media: CollectionConfig = {
         },
       }),
     },
+    {
+      name: "thumbhash",
+      type: "text",
+      required: false,
+      admin: {
+        components: {
+          Field: {
+            path: "@/components/thumbhash#Thumbhash",
+          },
+        },
+      },
+    },
   ],
+  hooks: {
+    beforeChange: [createThumbhash],
+  },
   upload: {
     staticDir: path.resolve(dirname, "../../uploads"),
   },

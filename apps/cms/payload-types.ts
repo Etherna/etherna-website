@@ -292,6 +292,7 @@ export interface Media {
     };
     [k: string]: unknown;
   } | null;
+  thumbhash?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -2579,6 +2580,7 @@ export interface JobsSelect<T extends boolean = true> {
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   caption?: T;
+  thumbhash?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;

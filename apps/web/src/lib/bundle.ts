@@ -1,7 +1,6 @@
 import { getFile } from "astro-plugin-files"
 import { getImage } from "astro:assets"
 
-import { clientImageToBlurhash, serverImageToBlurhash } from "./blurhash"
 import { fetchPayloadRequest } from "./payload"
 import { route } from "./routes"
 import { localized } from "@/i18n/utils"
@@ -16,7 +15,7 @@ import type { PaginatedDocs } from "payload"
 export interface BundledImage extends GetImageResult {
   originalSrc: string
   svgContent?: string
-  blurhash?: string
+  thumbhash?: string
   filename: string
 }
 
@@ -49,56 +48,54 @@ export async function bundleCmsImage(
     return undefined
   }
 
-  const isClient = typeof window !== "undefined"
-  const src = `${import.meta.env.PUBLIC_PAYLOAD_URL}${img.url}`
-  const result = isClient
-    ? ({
-        src,
-        srcSet: { attribute: "srcset", values: [] },
-        attributes: {
-          alt: img.alt,
-        },
-        options: {
-          format: img.mimeType?.split("/")[1] ?? "jpeg",
-          height: img.height ?? 0,
-          width: img.width ?? 0,
-          src,
-        },
-        rawOptions: {
-          src,
-        },
-      } satisfies GetImageResult)
-    : await getImage({ src, alt: img.alt, inferSize: true })
+  img.url = img.url || `/api/media/file/${img.filename}`
 
-  let blurhash
+  const isClient = typeof window !== "undefined"
+  const isSvg = img.mimeType === "image/svg+xml"
+  const src = `${import.meta.env.PUBLIC_PAYLOAD_URL}${img.url}`
+  const defaultResult = {
+    src,
+    srcSet: { attribute: "srcset", values: [] },
+    attributes: {
+      alt: img.alt,
+    },
+    options: {
+      format: img.mimeType?.split("/")[1] ?? "jpeg",
+      height: img.height ?? 0,
+      width: img.width ?? 0,
+      src,
+    },
+    rawOptions: {
+      src,
+    },
+  } satisfies GetImageResult
+
+  const result = isClient
+    ? defaultResult
+    : await getImage({
+        src,
+        alt: img.alt,
+        inferSize: true,
+        format: isSvg ? "svg" : undefined,
+        quality: 95,
+      }).catch(() => defaultResult)
+
   let svgContent
 
-  if (img.mimeType === "image/svg+xml") {
-    // fix srcset for SVGs
-    result.src = result.src.replace(/(webp|jpg|jpeg|png)/, "svg")
+  if (isSvg) {
+    // remove search params
+    result.src = result.src.replace(/\?.*$/, "")
 
-    svgContent = await fetch(src).then((res) => res.text())
-  } else {
-    blurhash =
-      typeof window === "undefined"
-        ? await serverImageToBlurhash({
-            src,
-            format: result.options.format,
-            height: result.options.height,
-            width: result.options.width,
-          })
-        : await fetch(src)
-            .then((resp) => resp.arrayBuffer())
-            .then((img) =>
-              clientImageToBlurhash(img, result.options.width ?? 100, result.options.height ?? 100),
-            )
+    svgContent = await fetch(src)
+      .then((res) => res.text())
+      .catch(() => undefined)
   }
 
   return {
     ...result,
     originalSrc: src,
     svgContent,
-    blurhash,
+    thumbhash: img.thumbhash ?? undefined,
     filename: img.filename ?? src.split("/").at(-1) ?? "unnamed",
   }
 }
@@ -167,12 +164,9 @@ export async function bundleMedia(
   return media
 }
 
-type BlockLink =
-  | Omit<NonNullable<AwardsBlock["awards"][number]["link"]>, "appearance">
-  | null
-  | undefined
+type BlockLink = Omit<NonNullable<AwardsBlock["awards"][number]["link"]>, "appearance">
 
-export async function resolveInternalLink<T extends LinkFields | BlockLink>(
+export async function resolveInternalLink<T extends LinkFields | BlockLink | null | undefined>(
   link: T,
   locale: Locale,
   accessToken?: string,
@@ -184,8 +178,10 @@ export async function resolveInternalLink<T extends LinkFields | BlockLink>(
   const linkType = "linkType" in link ? link.linkType : link.type
 
   if (linkType === "internal" || linkType === "reference") {
-    const relationTo = "doc" in link ? link.doc?.relationTo : link.reference?.relationTo
-    const docValue = "doc" in link ? link.doc?.value : link.reference?.value
+    const isLinkField = (link: LinkFields | BlockLink): link is LinkFields => "doc" in link
+    const relation = isLinkField(link) ? link.doc : link.reference
+    const relationTo = relation?.relationTo
+    const docValue = relation?.value
 
     switch (relationTo) {
       case "pages": {
