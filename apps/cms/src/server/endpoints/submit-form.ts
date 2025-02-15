@@ -106,7 +106,6 @@ export const submitForm: Endpoint = {
       const submissionData = (form.fields ?? [])
         .filter((field) => field.blockType !== "message")
         .map((field) => ({
-          id: field.id,
           field: field.name,
           value: submission[field.name] ?? "",
         }))
