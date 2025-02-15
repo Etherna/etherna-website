@@ -13,10 +13,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@hookform/resolvers": "3.10.0",
+    "@hookform/resolvers": "4.0.0",
     "@nanostores/react": "0.8.4",
-    "@payloadcms/live-preview-react": "3.22.0",
-    "@payloadcms/richtext-lexical": "3.22.0",
+    "@payloadcms/live-preview-react": "3.23.0",
+    "@payloadcms/richtext-lexical": "3.23.0",
     "@radix-ui/react-accordion": "1.2.3",
     "@radix-ui/react-alert-dialog": "1.1.6",
     "@radix-ui/react-aspect-ratio": "1.1.2",
@@ -49,10 +49,10 @@
     "date-fns": "4.1.0",
     "dictionary-fn": "1.0.2",
     "embla-carousel-react": "8.5.2",
-    "framer-motion": "12.4.1",
+    "framer-motion": "12.4.3",
     "html-react-parser": "5.2.2",
     "jpeg-js": "0.4.4",
-    "nanostores": "0.11.3",
+    "nanostores": "0.11.4",
     "ndarray": "1.0.19",
     "next-themes": "0.4.4",
     "pngjs": "7.0.0",
@@ -65,7 +65,7 @@
     "schema-dts": "1.1.2",
     "sonner": "1.7.4",
     "vaul": "1.1.2",
-    "zod": "3.24.1"
+    "zod": "3.24.2"
   },
   "devDependencies": {
     "@astrojs/react": "4.2.0",
