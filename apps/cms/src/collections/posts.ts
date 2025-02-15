@@ -26,11 +26,9 @@ import { triggerDeploy } from "./hooks/trigger-deploy"
 import { CodeBlock } from "@/blocks/code-block"
 import { deleteLocaleField } from "@/fields/delete-locale"
 import { slugField } from "@/fields/slug"
-import { someAccess } from "@/lib/access"
 import { generatePreviewUrl } from "@/lib/preview"
-import { admin } from "@/policies/admin"
 import { authenticated } from "@/policies/authenticated"
-import { postAuthor } from "@/policies/post-author"
+import { postAuthorOrEditor } from "@/policies/post-author-or-editor"
 import { postContributor } from "@/policies/post-contributor"
 import { postEditor } from "@/policies/post-editor"
 import { published } from "@/policies/published"
@@ -41,12 +39,12 @@ export const Posts: CollectionConfig = {
   slug: "posts",
   access: {
     admin: authenticated,
-    create: someAccess(admin, postEditor, postContributor),
-    delete: someAccess(admin, postEditor),
-    read: someAccess(authenticated, published),
-    readVersions: someAccess(admin, postEditor),
-    update: someAccess(admin, postEditor, postAuthor),
-    unlock: someAccess(admin, postEditor),
+    create: postContributor,
+    delete: postEditor,
+    read: published,
+    readVersions: postEditor,
+    update: postAuthorOrEditor,
+    unlock: postEditor,
   },
   admin: {
     defaultColumns: ["title", "slug", "_status", "publishedAt", "updatedAt"],
@@ -244,6 +242,10 @@ export const Posts: CollectionConfig = {
         },
         {
           name: "name",
+          type: "text",
+        },
+        {
+          name: "role",
           type: "text",
         },
         {

@@ -1,6 +1,11 @@
+import type { User } from "@payload-types"
 import type { Access } from "payload"
 
-export const postEditor: Access = (args) => {
-  if (!args.req.user) return false
-  return args.req.user.policies.includes("postsEditor")
-}
+const postEditorPolicies: User["policies"] = ["administrator", "postsEditor"]
+
+export const postEditor = ((args) => {
+  const user = args.req.user
+  if (!user) return false
+  if (!user.policies.some((policy) => postEditorPolicies.includes(policy))) return false
+  return true
+}) satisfies Access

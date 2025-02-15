@@ -1,6 +1,4 @@
 ---
-import { Category } from "@payload-types"
-
 import { ArrowLeftIcon } from "lucide-react"
 
 import Lexical from "./_lexical.astro"
@@ -35,7 +33,7 @@ import { formatPostDate, getMinutesRead, getWordsCount } from "@/lib/string"
 import { fetchPost } from "@/queries/fetch-post"
 
 import type { Locale } from "@/i18n/types"
-import type { User } from "@payload-types"
+import type { Category, User } from "@payload-types"
 
 interface Props {
   id: string
@@ -98,8 +96,8 @@ const mainCategory = post.categories?.[0] as Category | undefined
     </PostTitle>
 
     {
-      post.authors && (
-        <PostAuthors className="text-sm" authors={post.authors as User[]} client:idle />
+      post.populatedAuthors && (
+        <PostAuthors className="text-sm" authors={post.populatedAuthors as User[]} client:idle />
       )
     }
 
@@ -123,7 +121,7 @@ const mainCategory = post.categories?.[0] as Category | undefined
       <Lexical nodes={post.content.root.children} />
 
       <ArticleSchema
-        authors={post.authors}
+        authors={post.populatedAuthors as User[]}
         title={post.title}
         image={hasBundledImage(post.thumbnail) ? post.thumbnail.bundled.image.src : undefined}
         url={localized(route("/blog/:slug", { slug: post.slug ?? "" }), post.locale)}

@@ -304,6 +304,7 @@ export interface Post {
     | {
         id?: string | null;
         name?: string | null;
+        role?: string | null;
         avatar?: (string | null) | Media;
       }[]
     | null;
@@ -2594,6 +2595,7 @@ export interface PostsSelect<T extends boolean = true> {
     | {
         id?: T;
         name?: T;
+        role?: T;
         avatar?: T;
       };
   updatedAt?: T;

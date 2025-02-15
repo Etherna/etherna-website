@@ -27,10 +27,8 @@ import { TestimonialsBlock } from "@/blocks/testimonials-block"
 import { TextBlock } from "@/blocks/text-block"
 import { hero } from "@/fields/hero"
 import { slugField } from "@/fields/slug"
-import { someAccess } from "@/lib/access"
 import { getParentsTree } from "@/lib/breadcrumb"
 import { generatePreviewUrl } from "@/lib/preview"
-import { admin } from "@/policies/admin"
 import { authenticated } from "@/policies/authenticated"
 import { published } from "@/policies/published"
 import { webDesigner } from "@/policies/web-designer"
@@ -41,12 +39,12 @@ export const Pages: CollectionConfig = {
   slug: "pages",
   access: {
     admin: authenticated,
-    create: someAccess(admin, webDesigner),
-    delete: someAccess(admin, webDesigner),
-    read: someAccess(authenticated, published),
-    readVersions: someAccess(admin, webDesigner),
-    update: someAccess(admin, webDesigner),
-    unlock: someAccess(admin, webDesigner),
+    create: webDesigner,
+    delete: webDesigner,
+    read: published,
+    readVersions: webDesigner,
+    update: webDesigner,
+    unlock: webDesigner,
   },
   admin: {
     defaultColumns: ["title", "slug", "_status", "publishedAt", "updatedAt"],

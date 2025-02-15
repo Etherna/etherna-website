@@ -93,8 +93,8 @@ export async function fetchBlog(params: FetchBlogParams) {
       postsData.docs.map(async (post) => ({
         ...post,
         thumbnail: await bundleMedia(post.thumbnail, locale, accessToken),
-        authors: await Promise.all(
-          (post.authors ?? [])
+        populatedAuthors: await Promise.all(
+          (post.populatedAuthors ?? [])
             .filter((a) => typeof a === "object")
             .map(async (author) => ({
               ...author,

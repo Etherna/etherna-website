@@ -1,28 +1,31 @@
+import type { Post } from "@payload-types"
 import type { CollectionAfterReadHook } from "payload"
-import type { User } from "payload-types"
 
-export const populateAuthors: CollectionAfterReadHook = async ({ doc, req, req: { payload } }) => {
-  if (doc && req.user && !doc.authors) {
-    doc.authors = [req.user?.id]
+export const populateAuthors: CollectionAfterReadHook<Post> = async ({
+  doc,
+  req,
+  req: { payload },
+}) => {
+  if (req.user && !doc.authors) {
+    doc.authors = [req.user.id]
   }
 
-  if (doc?.authors) {
-    const authorDocs: User[] = []
+  if (doc.authors) {
+    const authors = await Promise.all(
+      doc.authors.map((author) =>
+        payload.findByID({
+          collection: "users",
+          id: typeof author === "object" ? author.id : author,
+          depth: 1,
+          req,
+        }),
+      ),
+    )
 
-    for (const author of doc.authors) {
-      const authorDoc = await payload.findByID({
-        id: typeof author === "object" ? author?.id : author,
-        collection: "users",
-        depth: 0,
-        req,
-      })
-
-      authorDocs.push(authorDoc)
-    }
-
-    doc.populatedAuthors = authorDocs.map((authorDoc) => ({
+    doc.populatedAuthors = authors.map((authorDoc) => ({
       id: authorDoc.id,
       name: authorDoc.name,
+      role: authorDoc.role,
       avatar: authorDoc.avatar,
     }))
   }

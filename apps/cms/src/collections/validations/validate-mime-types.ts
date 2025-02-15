@@ -1,5 +1,5 @@
+import type { Media } from "@payload-types"
 import type { Validate } from "payload"
-import type { Media } from "payload-types"
 
 export const validateMimeTypes =
   (accept: string[]): Validate =>

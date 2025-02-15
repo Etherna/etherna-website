@@ -121,7 +121,13 @@ const activeCategory = categories.find((cat) => cat.id === id)
               <BlogPostsTitle>{post.title}</BlogPostsTitle>
             </BlogPostsLink>
             <BlogPostsMetas>
-              <PostAuthors authors={post.authors as User[]} variant={"compact"} />
+              {post.populatedAuthors && (
+                <PostAuthors
+                  authors={post.populatedAuthors as User[]}
+                  variant={"compact"}
+                  client:idle
+                />
+              )}
               {post.publishedAt && <BlogPostsDate>{formatPostDate(post, locale)}</BlogPostsDate>}
             </BlogPostsMetas>
           </BlogPostsItem>

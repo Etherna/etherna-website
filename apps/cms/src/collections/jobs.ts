@@ -3,9 +3,9 @@ import { lexicalEditor } from "@payloadcms/richtext-lexical"
 import { populatePublishedAt } from "./hooks/populate-published-at"
 import { triggerDeploy } from "./hooks/trigger-deploy"
 import { someAccess } from "@/lib/access"
-import { admin } from "@/policies/admin"
 import { authenticated } from "@/policies/authenticated"
 import { published } from "@/policies/published"
+import { webDesigner } from "@/policies/web-designer"
 
 import type { CollectionConfig } from "payload"
 
@@ -13,12 +13,12 @@ export const Jobs: CollectionConfig = {
   slug: "jobs",
   access: {
     admin: authenticated,
-    create: admin,
-    delete: admin,
+    create: webDesigner,
+    delete: webDesigner,
     read: someAccess(authenticated, published),
-    readVersions: admin,
-    update: admin,
-    unlock: admin,
+    readVersions: webDesigner,
+    update: webDesigner,
+    unlock: webDesigner,
   },
   admin: {
     defaultColumns: ["name", "location", "salary", "type", "createdAt", "_status"],

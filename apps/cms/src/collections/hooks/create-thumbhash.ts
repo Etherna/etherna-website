@@ -1,7 +1,7 @@
 import { getThumbhash } from "@/lib/thumbhash"
 
+import type { Media } from "@payload-types"
 import type { CollectionBeforeChangeHook } from "payload"
-import type { Media } from "payload-types"
 
 export const createThumbhash: CollectionBeforeChangeHook<Media> = async ({
   operation,

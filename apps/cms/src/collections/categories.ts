@@ -1,7 +1,5 @@
 import { colorField } from "@/fields/color"
 import { slugField } from "@/fields/slug"
-import { someAccess } from "@/lib/access"
-import { admin } from "@/policies/admin"
 import { anyone } from "@/policies/anyone"
 import { authenticated } from "@/policies/authenticated"
 import { postEditor } from "@/policies/post-editor"
@@ -12,12 +10,12 @@ export const Categories: CollectionConfig = {
   slug: "categories",
   access: {
     admin: authenticated,
-    create: someAccess(admin, postEditor),
-    delete: someAccess(admin, postEditor),
+    create: postEditor,
+    delete: postEditor,
     read: anyone,
-    readVersions: someAccess(admin, postEditor),
-    update: someAccess(admin, postEditor),
-    unlock: someAccess(admin, postEditor),
+    readVersions: postEditor,
+    update: postEditor,
+    unlock: postEditor,
   },
   admin: {
     useAsTitle: "title",

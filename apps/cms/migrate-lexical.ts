@@ -8,6 +8,7 @@ import { getPayload } from "payload"
 
 import buildConfig from "./payload.config"
 
+import type { Post } from "@payload-types"
 import type {
   SerializedBlockNode,
   SerializedHorizontalRuleNode,
@@ -17,7 +18,6 @@ import type {
   SerializedUploadNode,
   SlateNode,
 } from "@payloadcms/richtext-lexical"
-import type { Post } from "payload-types"
 
 const payload = await getPayload({
   config: await buildConfig,

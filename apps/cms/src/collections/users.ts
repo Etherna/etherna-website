@@ -1,7 +1,6 @@
 import { someAccess } from "@/lib/access"
 import { ACCESS_POLICIES } from "@/lib/const"
 import { admin, field_admin } from "@/policies/admin"
-import { anyone } from "@/policies/anyone"
 import { authenticated } from "@/policies/authenticated"
 import { selfUser } from "@/policies/self-user"
 
@@ -13,7 +12,7 @@ export const Users: CollectionConfig = {
     admin: authenticated,
     create: admin,
     delete: admin,
-    read: anyone,
+    read: authenticated,
     readVersions: someAccess(admin, selfUser),
     update: someAccess(admin, selfUser),
     unlock: admin,

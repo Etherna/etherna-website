@@ -4,8 +4,8 @@ import Image from "next/image"
 
 import { gravatarImage } from "@/lib/avatar"
 
+import type { Media } from "@payload-types"
 import type { ServerProps } from "payload"
-import type { Media } from "payload-types"
 
 export function UserAvatar(props: ServerProps) {
   return (

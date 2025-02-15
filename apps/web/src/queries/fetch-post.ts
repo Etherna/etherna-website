@@ -48,8 +48,8 @@ export async function fetchPost(params: FetchPostParams) {
   const post = {
     ...postData,
     thumbnail: await bundleMedia(postData.thumbnail, locale, accessToken),
-    authors: await Promise.all(
-      (postData.authors ?? [])
+    populatedAuthors: await Promise.all(
+      (postData.populatedAuthors ?? [])
         .filter((a) => typeof a === "object")
         .map(async (author) => ({
           ...author,
