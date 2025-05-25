@@ -1,4 +1,4 @@
-import { triggerDeploy } from "./hooks/trigger-deploy"
+import { globalTriggerDeploy } from "../hooks/global-trigger-deploy"
 import { link } from "@/fields/link"
 import { someAccess } from "@/lib/access"
 import { admin } from "@/policies/admin"
@@ -30,6 +30,6 @@ export const Header: GlobalConfig = {
     },
   ],
   hooks: {
-    afterChange: [triggerDeploy],
+    afterChange: [globalTriggerDeploy],
   },
 }

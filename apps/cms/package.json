@@ -29,6 +29,7 @@
     "@payloadcms/richtext-lexical": "3.23.0",
     "@payloadcms/ui": "3.23.0",
     "@sendgrid/mail": "8.1.4",
+    "@t3-oss/env-nextjs": "^0.13.4",
     "bson-objectid": "2.0.4",
     "date-fns": "4.1.0",
     "md5-ts": "0.1.6",

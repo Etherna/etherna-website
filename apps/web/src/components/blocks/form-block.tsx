@@ -45,6 +45,7 @@ const refine = (type: Zod.ZodSchema, field: Field, locale: Locale) => {
         return type.optional()
       }
     }
+    case "acceptance":
     case "checkbox": {
       if (field.required) {
         return type.refine((value) => value === true, {
@@ -151,16 +152,20 @@ export function FormBlock({
 
   const submit = async (values: z.infer<typeof schema>) => {
     try {
-      const response = await fetch(import.meta.env.PUBLIC_PAYLOAD_URL + "/api/submit-form", {
+      const dataToSend = Object.entries(values).map(([name, value]) => ({
+        field: name,
+        value,
+      }))
+
+      const response = await fetch(import.meta.env.PUBLIC_PAYLOAD_URL + "/api/form-submissions", {
         method: "POST",
+        body: JSON.stringify({
+          form: formBlock.id,
+          submissionData: dataToSend,
+        }),
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          formId: formBlock.id,
-          ...values,
-        }),
-        mode: "cors",
       })
 
       if (!response.ok) {
@@ -233,7 +238,13 @@ export function FormBlock({
                             : "100%",
                         }}
                       >
-                        <FormLabel>{formField.label}</FormLabel>
+                        <FormLabel>
+                          {formField.label && typeof formField.label === "object" ? (
+                            <RichText nodes={formField.label.root.children} />
+                          ) : (
+                            formField.label
+                          )}
+                        </FormLabel>
                         <FormControl>
                           {(() => {
                             switch (formField.blockType) {
@@ -243,6 +254,7 @@ export function FormBlock({
                                 return <Input {...field} value={field.value ?? ""} />
                               case "textarea":
                                 return <Textarea {...field} value={field.value ?? ""} />
+                              case "acceptance":
                               case "checkbox":
                                 return <Checkbox {...field} />
                               case "select":

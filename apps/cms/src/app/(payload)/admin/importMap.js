@@ -30,6 +30,10 @@ import { InlineCodeFeatureClient as InlineCodeFeatureClient_e70f5e05f09f93e00b99
 import { DeleteLocaleField as DeleteLocaleField_c0193440a5dfd8fd129273c878994259 } from '@/fields/delete-locale/field'
 import { FixedToolbarFeatureClient as FixedToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { Thumbhash as Thumbhash_861e801396517aed8ee8d3cfe901e55e } from '@/components/thumbhash'
+import { RelationshipFeatureClient as RelationshipFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { AlignFeatureClient as AlignFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { SuperscriptFeatureClient as SuperscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { SubscriptFeatureClient as SubscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { UserAvatar as UserAvatar_9c5b55a8450fd68e39ceb0b406054d4c } from '@/components/avatar'
 import { BeforeDashboard as BeforeDashboard_9f32ce6f473387f99159899dd857e0af } from '@/components/before-dashboard'
 
@@ -66,6 +70,10 @@ export const importMap = {
   "@/fields/delete-locale/field#DeleteLocaleField": DeleteLocaleField_c0193440a5dfd8fd129273c878994259,
   "@payloadcms/richtext-lexical/client#FixedToolbarFeatureClient": FixedToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@/components/thumbhash#Thumbhash": Thumbhash_861e801396517aed8ee8d3cfe901e55e,
+  "@payloadcms/richtext-lexical/client#RelationshipFeatureClient": RelationshipFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#AlignFeatureClient": AlignFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#SuperscriptFeatureClient": SuperscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#SubscriptFeatureClient": SubscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@/components/avatar#UserAvatar": UserAvatar_9c5b55a8450fd68e39ceb0b406054d4c,
   "@/components/before-dashboard#BeforeDashboard": BeforeDashboard_9f32ce6f473387f99159899dd857e0af
 }

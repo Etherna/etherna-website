@@ -2,10 +2,6 @@ import path from "path"
 import { fileURLToPath } from "url"
 import { postgresAdapter } from "@payloadcms/db-postgres"
 import { nodemailerAdapter } from "@payloadcms/email-nodemailer"
-import { formBuilderPlugin } from "@payloadcms/plugin-form-builder"
-import { nestedDocsPlugin } from "@payloadcms/plugin-nested-docs"
-import { redirectsPlugin } from "@payloadcms/plugin-redirects"
-import { seoPlugin } from "@payloadcms/plugin-seo"
 import {
   BoldFeature,
   HeadingFeature,
@@ -21,11 +17,9 @@ import { migrations } from "migrations"
 import nodemailerSendgrid from "nodemailer-sendgrid"
 import { buildConfig } from "payload"
 import { DEFAULT_LOCALE, Locales } from "payload.i18n"
-import { schedulerPlugin } from "plugins/scheduler"
 import sharp from "sharp"
 
 import { Categories } from "@/collections/categories"
-import { triggerDeploy } from "@/collections/hooks/trigger-deploy"
 import { Jobs } from "@/collections/jobs"
 import { Media } from "@/collections/media"
 import { Pages } from "@/collections/pages"
@@ -35,15 +29,13 @@ import { Company } from "@/globals/company"
 import { Footer } from "@/globals/footer"
 import { Header } from "@/globals/header"
 import { HighlightFeature } from "@/lexical/highlight/highlight-feature.server"
-import { admin } from "@/policies/admin"
-import { deployIfNeeded } from "@/schedules/deploy-if-needed"
+import { plugins } from "@/plugins"
 import { deleteLocale } from "@/server/endpoints/delete-locale"
 import { fetchWorkflow } from "@/server/endpoints/fetch-workflow"
 import { generateThumbhash } from "@/server/endpoints/gen-thumbhash"
 import { runDeploy } from "@/server/endpoints/run-deploy"
-import { submitForm } from "@/server/endpoints/submit-form"
 
-import type { Field } from "payload"
+import type { PayloadRequest } from "payload"
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -51,11 +43,6 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   admin: {
     components: {
-      // // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
-      // // Feel free to delete this at any time. Simply remove the line below and the import `BeforeLogin` statement on line 15.
-      // beforeLogin: ["@/components/BeforeLogin"],
-      // // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
-      // // Feel free to delete this at any time. Simply remove the line below and the import `BeforeDashboard` statement on line 15.
       beforeDashboard: ["@/components/before-dashboard#BeforeDashboard"],
     },
     avatar: {
@@ -156,6 +143,24 @@ export default buildConfig({
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
     },
+    // beforeSchemaInit: [
+    //   ({ schema, adapter }) => {
+    //     for (const tableName in adapter.rawTables) {
+    //       const table = adapter.rawTables[tableName]
+
+    //       if (!table) continue
+
+    //       for (const fieldName in table.columns) {
+    //         const column = table.columns[fieldName]
+
+    //         if (column && column.type === "enum") {
+    //           column.type = "varchar" as unknown as "enum"
+    //         }
+    //       }
+    //     }
+    //     return schema
+    //   },
+    // ],
   }),
   localization: {
     defaultLocale: DEFAULT_LOCALE,
@@ -166,139 +171,23 @@ export default buildConfig({
   globals: [Header, Footer, Company],
   cors: [process.env.PAYLOAD_PUBLIC_FRONTEND_URL || ""].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
-  endpoints: [fetchWorkflow, runDeploy, submitForm, deleteLocale, generateThumbhash],
-  plugins: [
-    redirectsPlugin({
-      collections: ["pages", "posts"],
-      overrides: {
-        admin: {
-          useAsTitle: "from",
-        },
-        fields: ({ defaultFields }) => {
-          return defaultFields.map((field) => {
-            if ("name" in field && field.name === "from") {
-              return {
-                ...field,
-                admin: {
-                  description: "You will need to rebuild the website when changing this field.",
-                },
-              } as Field
-            }
-            return field
-          })
-        },
-        hooks: {
-          afterChange: [triggerDeploy],
-        },
-      },
-    }),
-    nestedDocsPlugin({
-      collections: ["pages"],
-      generateURL: (docs) => "/" + docs.map((doc) => doc.slug).join("/"),
-    }),
-    seoPlugin({
-      generateTitle: ({ doc }) => {
-        return doc?.title ? `${doc.title} | Etherna` : "Etherna"
-      },
-      generateURL: ({ doc }) => {
-        return doc?.slug
-          ? `${process.env.NEXT_PUBLIC_SERVER_URL ?? ""}/${doc.slug}`
-          : (process.env.NEXT_PUBLIC_SERVER_URL ?? "")
-      },
-    }),
-    formBuilderPlugin({
-      fields: {
-        payment: false,
-        country: false,
-        state: false,
-      },
-      redirectRelationships: ["pages", "posts"],
-      formSubmissionOverrides: {
-        access: {
-          admin: admin,
-          create: admin,
-          read: admin,
-          update: admin,
-          delete: admin,
-          readVersions: admin,
-          unlock: admin,
-        },
-      },
-      formOverrides: {
-        fields: ({ defaultFields }) => {
-          const fields = defaultFields.map((field) => {
-            if ("name" in field) {
-              if (field.name === "confirmationMessage") {
-                return {
-                  ...field,
-                  localized: true,
-                  editor: lexicalEditor({
-                    features: ({ rootFeatures }) => {
-                      return [
-                        ...rootFeatures,
-                        HeadingFeature({ enabledHeadingSizes: ["h2", "h3", "h4"] }),
-                      ]
-                    },
-                  }),
-                }
-              }
-            }
-            return field
-          })
+  endpoints: [fetchWorkflow, runDeploy, deleteLocale, generateThumbhash],
+  plugins,
+  jobs: {
+    access: {
+      run: ({ req }: { req: PayloadRequest }): boolean => {
+        // Allow logged in users to execute this endpoint (default)
+        if (req.user) return true
 
-          fields.push(
-            {
-              name: "event",
-              type: "select",
-              defaultValue: "submission",
-              options: [
-                {
-                  value: "submission",
-                  label: "Submission",
-                },
-                {
-                  value: "registration",
-                  label: "Registration",
-                },
-              ],
-            },
-            {
-              name: "mailchimpList",
-              type: "text",
-              required: true,
-              admin: {
-                condition: ({ event }) => event === "registration",
-                width: "50%",
-              },
-            },
-            {
-              name: "mailchimpTags",
-              type: "text",
-              admin: {
-                condition: ({ event }) => event === "registration",
-                placeholder: "comma (,) separated tags",
-                width: "50%",
-              },
-            },
-          )
-
-          return fields
-        },
+        // If there is no logged in user, then check
+        // for the Vercel Cron secret to be present as an
+        // Authorization header:
+        const authHeader = req.headers.get("authorization")
+        return authHeader === `Bearer ${process.env.PAYLOAD_CRON_SECRET}`
       },
-    }),
-    schedulerPlugin({
-      jobs: [
-        {
-          name: "triggerDeploy",
-          // every minute
-          cron: "*/1 * * * *",
-          handler: deployIfNeeded({
-            collections: ["pages", "posts"],
-          }),
-        },
-      ],
-    }),
-  ],
+    },
+    tasks: [],
+  },
   secret: process.env.PAYLOAD_SECRET ?? "",
   sharp,
   typescript: {

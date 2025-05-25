@@ -1,4 +1,4 @@
-import { triggerDeploy } from "./hooks/trigger-deploy"
+import { globalTriggerDeploy } from "../hooks/global-trigger-deploy"
 import { link } from "@/fields/link"
 import { linkGroup } from "@/fields/link-group"
 import { someAccess } from "@/lib/access"
@@ -50,6 +50,6 @@ export const Footer: GlobalConfig = {
     }),
   ],
   hooks: {
-    afterChange: [triggerDeploy],
+    afterChange: [globalTriggerDeploy],
   },
 }

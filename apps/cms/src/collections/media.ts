@@ -6,7 +6,7 @@ import {
   lexicalEditor,
 } from "@payloadcms/richtext-lexical"
 
-import { createThumbhash } from "./hooks/create-thumbhash"
+import { createThumbhash } from "@/hooks/create-thumbhash"
 import { anyone } from "@/policies/anyone"
 import { authenticated } from "@/policies/authenticated"
 

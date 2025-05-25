@@ -6,8 +6,6 @@ import {
   PreviewField,
 } from "@payloadcms/plugin-seo/fields"
 
-import { populatePublishedAt } from "./hooks/populate-published-at"
-import { triggerDeploy } from "./hooks/trigger-deploy"
 import { AwardsBlock } from "@/blocks/awards-block"
 import { BentoBlock } from "@/blocks/bento-block"
 import { BrandBlock } from "@/blocks/brand-block"
@@ -27,6 +25,8 @@ import { TestimonialsBlock } from "@/blocks/testimonials-block"
 import { TextBlock } from "@/blocks/text-block"
 import { hero } from "@/fields/hero"
 import { slugField } from "@/fields/slug"
+import { populatePublishedAt } from "@/hooks/populate-published-at"
+import { triggerDeploy } from "@/hooks/trigger-deploy"
 import { getParentsTree } from "@/lib/breadcrumb"
 import { generatePreviewUrl } from "@/lib/preview"
 import { authenticated } from "@/policies/authenticated"

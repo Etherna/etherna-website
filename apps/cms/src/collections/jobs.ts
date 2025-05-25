@@ -1,7 +1,7 @@
 import { lexicalEditor } from "@payloadcms/richtext-lexical"
 
-import { populatePublishedAt } from "./hooks/populate-published-at"
-import { triggerDeploy } from "./hooks/trigger-deploy"
+import { populatePublishedAt } from "@/hooks/populate-published-at"
+import { triggerDeploy } from "@/hooks/trigger-deploy"
 import { someAccess } from "@/lib/access"
 import { authenticated } from "@/policies/authenticated"
 import { published } from "@/policies/published"

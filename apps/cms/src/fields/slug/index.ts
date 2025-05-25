@@ -1,4 +1,4 @@
-import { slugifyHook } from "@/collections/hooks/slugify"
+import { slugifyHook } from "@/hooks/slugify"
 
 import type { CheckboxField, TextField } from "payload"
 
