@@ -143,24 +143,24 @@ export default buildConfig({
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
     },
-    // beforeSchemaInit: [
-    //   ({ schema, adapter }) => {
-    //     for (const tableName in adapter.rawTables) {
-    //       const table = adapter.rawTables[tableName]
+    beforeSchemaInit: [
+      ({ schema, adapter }) => {
+        for (const tableName in adapter.rawTables) {
+          const table = adapter.rawTables[tableName]
 
-    //       if (!table) continue
+          if (!table) continue
 
-    //       for (const fieldName in table.columns) {
-    //         const column = table.columns[fieldName]
+          for (const fieldName in table.columns) {
+            const column = table.columns[fieldName]
 
-    //         if (column && column.type === "enum") {
-    //           column.type = "varchar" as unknown as "enum"
-    //         }
-    //       }
-    //     }
-    //     return schema
-    //   },
-    // ],
+            if (column && column.type === "enum") {
+              column.type = "varchar" as unknown as "enum"
+            }
+          }
+        }
+        return schema
+      },
+    ],
   }),
   localization: {
     defaultLocale: DEFAULT_LOCALE,

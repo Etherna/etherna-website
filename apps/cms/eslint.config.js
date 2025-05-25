@@ -9,7 +9,7 @@ export default [
         tsconfigRootDir: import.meta.dirname,
       },
     },
-    ignores: ["**/*.js"],
+    ignores: ["**/*.js", "migrations/"],
   },
   ...next,
 ]
