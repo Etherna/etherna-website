@@ -1,9 +1,9 @@
 import { use } from "react"
 
 import { Footer as LayoutFooter } from "@/components/layout/footer"
-import { Locale, LocalizedPath } from "@/i18n/types"
-import { fetchFooter } from "@/queries/fetch-footer"
 
+import type { Locale, LocalizedPath } from "@/i18n/types"
+import type { fetchFooter } from "@/queries/fetch-footer"
 import type { Footer } from "@payload-types"
 
 interface FooterProps {

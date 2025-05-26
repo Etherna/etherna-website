@@ -1,4 +1,5 @@
-module.exports = {
+/** @type {import('prettier').Config & import('@ianvs/prettier-plugin-sort-imports').PluginConfig} */
+export default {
   singleQuote: false,
   semi: false,
   useTabs: false,

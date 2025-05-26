@@ -1,6 +1,4 @@
 ---
-import { Page } from "@payload-types"
-
 import { AwardsBlock } from "@/components/blocks/awards-block"
 import { BentoBlock } from "@/components/blocks/bento-block"
 import { BrandBlock } from "@/components/blocks/brand-block"
@@ -18,7 +16,9 @@ import { StatsBlock } from "@/components/blocks/stats-block"
 import { TeamBlock } from "@/components/blocks/team-block"
 import { TestimonialsBlock } from "@/components/blocks/testimonials-block"
 import { TextBlock } from "@/components/blocks/text-block"
-import { Locale } from "@/i18n/types"
+
+import type { Locale } from "@/i18n/types"
+import type { Page } from "@payload-types"
 
 interface Props {
   blocks: Page["layout"]

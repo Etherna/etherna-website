@@ -1,8 +1,9 @@
 import { use } from "react"
 
 import { Header as LayoutHeader } from "@/components/layout/header"
-import { Locale, LocalizedPath } from "@/i18n/types"
-import { fetchHeader } from "@/queries/fetch-header"
+
+import type { Locale, LocalizedPath } from "@/i18n/types"
+import type { fetchHeader } from "@/queries/fetch-header"
 
 interface HeaderProps {
   locale: Locale

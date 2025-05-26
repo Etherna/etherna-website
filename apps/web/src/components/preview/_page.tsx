@@ -7,9 +7,9 @@ import { Footer } from "./_footer"
 import { Header } from "./_header"
 import { fetchFooter } from "@/queries/fetch-footer"
 import { fetchHeader } from "@/queries/fetch-header"
-import { fetchPage } from "@/queries/fetch-page"
 
 import type { Locale } from "@/i18n/types"
+import type { fetchPage } from "@/queries/fetch-page"
 
 interface PageProps {
   path: string

@@ -1,5 +1,5 @@
-/** @type {import('prettier').Config} */
-module.exports = {
+/** @type {import('prettier').Config & import('prettier-plugin-tailwindcss').PluginOptions& import('@ianvs/prettier-plugin-sort-imports').PluginConfig} */
+export default {
   htmlWhitespaceSensitivity: "ignore",
   printWidth: 100,
   singleQuote: false,

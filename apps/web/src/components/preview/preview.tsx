@@ -27,8 +27,8 @@ export function PreviewPage() {
     )
   }
 
-  const matchPage = route.test(path, ["/", "/:path"])
-  const matchPost = route.test(path, ["/blog/:slug"])
+  const matchPage = route.matchUrl(path, ["/", "/:path"])
+  const matchPost = route.matchUrl(path, ["/blog/:slug"])
 
   return (
     <>

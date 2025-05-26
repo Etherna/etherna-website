@@ -1,4 +1,4 @@
-import { Suspense } from "react"
+import React, { Suspense } from "react"
 import { headers } from "next/headers"
 import Image from "next/image"
 

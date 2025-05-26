@@ -20,16 +20,9 @@ interface Props {
 const pathname = Astro.props.path.replace(/^\/?/, "/")
 
 const matchRedirect = !!Astro.props.redirectUrl
-const matchPreview = !matchRedirect && route.test(pathname, ["/_preview"])
-const matchBlog =
-  !matchRedirect &&
-  route.test(pathname, [
-    "/blog",
-    "/blog/page/:page",
-    "/blog/category/:category",
-    "/blog/category/:category/page/:page",
-  ])
-const matchPost = !matchRedirect && route.test(pathname, ["/blog/:slug"])
+const matchPreview = !matchRedirect && route.matchUrl(pathname, "/_preview")
+const matchBlog = !matchRedirect && route.matchUrl(pathname, "/blog/*")
+const matchPost = !matchRedirect && route.matchUrl(pathname, "/blog/:slug")
 const matchPage = !matchPost && !matchBlog && !matchPreview && !matchRedirect
 ---
 

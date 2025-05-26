@@ -33,9 +33,9 @@ import { route } from "@/lib/routes"
 import { formatPostDate, getMinutesRead } from "@/lib/string"
 import { fetchFooter } from "@/queries/fetch-footer"
 import { fetchHeader } from "@/queries/fetch-header"
-import { fetchPost } from "@/queries/fetch-post"
 
 import type { Locale } from "@/i18n/types"
+import type { fetchPost } from "@/queries/fetch-post"
 import type { Category, User } from "@payload-types"
 
 interface PostProps {

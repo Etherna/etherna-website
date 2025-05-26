@@ -1,20 +1,21 @@
-import { fixupConfigRules } from "@eslint/compat"
-import next from "@next/eslint-plugin-next"
+// @ts-check
 
+import { dirname } from "path"
+import { fileURLToPath } from "url"
+import { FlatCompat } from "@eslint/eslintrc"
+import tseslint from "typescript-eslint"
 import baseConfig from "./base.js"
-import { flatCompat } from "./compat.js"
 
-const nextConfig = /** @type {import("eslint").Linter.Config[]} */ (
-  fixupConfigRules(
-    /** @type {import("@eslint/compat").FixupConfigArray} */
-    (flatCompat.config(next.configs["core-web-vitals"])),
-  )
-)
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
-/** @type {import("eslint").Linter.Configf[]} */
-export default [
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+})
+
+export default tseslint.config(
   ...baseConfig,
-  ...nextConfig,
+  ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
     languageOptions: {
       globals: {
@@ -24,4 +25,7 @@ export default [
     },
     rules: {},
   },
-]
+  {
+    ignores: [".next"],
+  },
+)

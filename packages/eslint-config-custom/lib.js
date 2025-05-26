@@ -1,9 +1,11 @@
-import baseConfig from "./base.js"
+// @ts-check
 
-/** @type {import("eslint").Linter.Configf[]} */
-export default [
+import baseConfig from "./base.js"
+import tseslint from "typescript-eslint"
+
+export default tseslint.config(
   ...baseConfig,
   {
     rules: {},
   },
-]
+)

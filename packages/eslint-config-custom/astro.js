@@ -1,9 +1,14 @@
+// @ts-check
+
 import eslintPluginAstro from "eslint-plugin-astro"
+import tseslint from "typescript-eslint"
 
 import baseConfig from "./base.js"
 
-/** @type {import("eslint").Linter.Configf[]} */
-export default [
+export default tseslint.config(
+  {
+    ignores: ['**/.astro',],
+  },
   ...baseConfig,
   ...eslintPluginAstro.configs.recommended,
   {
@@ -15,4 +20,13 @@ export default [
     },
     rules: {},
   },
-]
+  {
+    files: ['**/*.astro'],
+    languageOptions: {
+      parserOptions: {
+        parser: '@typescript-eslint/parser',
+        extraFileExtensions: ['.astro'],
+      },
+    },
+  },
+)

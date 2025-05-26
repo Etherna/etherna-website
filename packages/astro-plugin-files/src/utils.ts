@@ -15,7 +15,7 @@ export async function loadRemoteFile(url: string) {
       data: Buffer.from(await res.arrayBuffer()),
       type: res.headers.get("content-type"),
     }
-  } catch (err) {
+  } catch {
     return undefined
   }
 }

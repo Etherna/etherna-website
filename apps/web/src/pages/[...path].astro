@@ -1,9 +1,10 @@
 ---
 import Template from "./_templates/_template.astro"
 import { DEFAULT_LOCALE } from "@/i18n/consts"
-import { Locale } from "@/i18n/types"
 import { fetchPaths } from "@/queries/fetch-paths"
 import { $locale } from "@/stores/locale-store"
+
+import type { Locale } from "@/i18n/types"
 
 export async function getStaticPaths() {
   return await fetchPaths([DEFAULT_LOCALE])

@@ -1,9 +1,10 @@
-import eslint from "@eslint/js"
+// @ts-check
+
 import eslintConfigPrettier from "eslint-config-prettier"
+import eslint from "@eslint/js"
 import tseslint from "typescript-eslint"
 
-/** @type {import("eslint").Linter.Config[]} */
-export default [
+export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.strict,
   eslintConfigPrettier,
@@ -21,6 +22,7 @@ export default [
         { considerDefaultExhaustiveForUnions: true },
       ],
       "@typescript-eslint/no-empty-interface": "off",
+      "@typescript-eslint/no-empty-object-type": "off",
       "@typescript-eslint/no-misused-promises": [
         "error",
         {
@@ -35,6 +37,6 @@ export default [
     },
   },
   {
-    ignores: [".git", "node_modules", "dist", "build", ".next", "**/*.js"],
+    ignores: [".git", "node_modules", "dist", "build", "**/*.js"],
   },
-]
+)

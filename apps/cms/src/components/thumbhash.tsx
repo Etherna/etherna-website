@@ -15,11 +15,9 @@ export function Thumbhash({ path, field }: TextFieldClientProps) {
   const data = useForm()
 
   const mimeType = (data.getField("mimeType").value as string) ?? ""
-  const url = (data.getField("url").value as string) ?? ""
-  const width = (data.getField("width").value as number) ?? 100
-  const height = (data.getField("height").value as number) ?? 100
-
-  console.log(mimeType, url, width, height)
+  // const url = (data.getField("url").value as string) ?? ""
+  // const width = (data.getField("width").value as number) ?? 100
+  // const height = (data.getField("height").value as number) ?? 100
 
   const isImage = mimeType.startsWith("image/") && !mimeType.startsWith("image/svg")
   const thumbhash = value ? Buffer.from(value, "base64") : null
