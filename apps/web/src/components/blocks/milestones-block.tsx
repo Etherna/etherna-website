@@ -112,11 +112,35 @@ function Milestones({ items, locale }: Pick<MilestonesBlock, "items"> & { locale
     document.addEventListener("mouseup", onMouseUp)
   }
 
+  const onTouchMove = useCallback((event: TouchEvent) => {
+    event.preventDefault()
+    const touch = event.touches[0]
+    if (!touch || !startPointRef.current) return
+    const [startX, startTranslateX] = startPointRef.current
+    manualScrollAmountRef.current = startTranslateX + touch.clientX - startX
+
+    updateScroll()
+  }, [])
+
+  const onTouchEnd = useCallback(() => {
+    document.removeEventListener("touchmove", onTouchMove)
+    document.removeEventListener("touchend", onTouchEnd)
+  }, [])
+
+  const onTouchStart = (event: React.TouchEvent) => {
+    const touch = event.touches[0]
+    if (!touch) return
+    startPointRef.current = [touch.clientX, manualScrollAmountRef.current]
+    document.addEventListener("touchmove", onTouchMove, { passive: false })
+    document.addEventListener("touchend", onTouchEnd)
+  }
+
   return (
     <div
       ref={containerElRef}
       className="relative isolate z-0 w-full cursor-grab overflow-hidden transition-transform duration-75"
       onMouseDown={onMouseDown}
+      onTouchStart={onTouchStart}
     >
       <motion.ul
         ref={scrollerElRef}
