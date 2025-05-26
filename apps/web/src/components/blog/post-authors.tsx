@@ -2,7 +2,6 @@ import React from "react"
 
 import { Image } from "../common/image"
 import { Avatar, AvatarFallback, AvatarList, AvatarListExtraCount } from "../ui/avatar"
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "../ui/hover-card"
 import { t } from "@/i18n"
 import { blogDictionary } from "@/i18n/dictionaries/blog"
 import { hasBundledImage } from "@/lib/bundle"
@@ -59,21 +58,17 @@ function PostAuthors({ className, variant = "default", authors, ...props }: Post
           </span>
         </>
       )}
-      {variant === "default" &&
-        authors.map((author, index) => (
-          <HoverCard key={index}>
-            <HoverCardTrigger asChild>
-              <div className="flex items-center gap-1.5">
-                <PostAuthorAvatar author={author} />
-                <span>{author.firstName}</span>
-              </div>
-            </HoverCardTrigger>
-            <HoverCardContent className="flex flex-col">
-              <p className="text-base font-semibold">{author.name}</p>
-              <p className="text-sm text-muted-foreground">{author.role}</p>
-            </HoverCardContent>
-          </HoverCard>
-        ))}
+      {variant === "default" && (
+        <ul className="flex flex-col items-center justify-center gap-1.5">
+          {authors.map((author, index) => (
+            <li key={index} className="flex items-center gap-2">
+              <PostAuthorAvatar author={author} />
+              <span>{author.name}</span>
+              <span className="text-muted-foreground">{author.role}</span>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   )
 }

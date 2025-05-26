@@ -162,6 +162,24 @@ export default {
             h1: {
               fontWeight: "700",
             },
+            h2: {
+              fontWeight: "700",
+            },
+            h3: {
+              fontWeight: "700",
+            },
+            h4: {
+              fontWeight: "700",
+            },
+            h5: {
+              fontWeight: "600",
+            },
+            h6: {
+              fontWeight: "500",
+            },
+            strong: {
+              fontWeight: "600",
+            },
             a: {
               fontWeight: "500",
               textDecoration: "underline",
@@ -215,7 +233,7 @@ export default {
         ".text-gradient": {
           color: "transparent",
           background:
-            "linear-gradient(0deg, hsl(var(--foreground)) 0%, hsl(var(--foreground) / 0.3) 100%)",
+            "linear-gradient(0deg, hsl(var(--foreground)) 0%, hsl(var(--foreground) / 0.37) 100%)",
           "-webkit-background-clip": "text",
           "-webkit-text-fill-color": "transparent",
         },

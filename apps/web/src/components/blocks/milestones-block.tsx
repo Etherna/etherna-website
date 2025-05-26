@@ -246,7 +246,7 @@ function Roadmap({ items, locale }: Pick<MilestonesBlock, "items"> & { locale: L
                 <DialogTrigger asChild>
                   <AspectRatio
                     className="relative isolate cursor-pointer bg-muted transition-colors duration-300"
-                    ratio={0.75}
+                    ratio={0.6}
                   >
                     <motion.div
                       className="absolute inset-x-0 -z-[1] bg-foreground"
@@ -274,7 +274,7 @@ function Roadmap({ items, locale }: Pick<MilestonesBlock, "items"> & { locale: L
                     )}
 
                     <div
-                      className={cn("flex flex-col items-center gap-1 p-3", {
+                      className={cn("flex flex-col items-center gap-1 px-3 py-6", {
                         dark: selectedIndex === index,
                       })}
                     >

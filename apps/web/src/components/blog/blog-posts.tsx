@@ -40,15 +40,23 @@ function BlogPostsLink({ className, children, ...props }: React.ComponentProps<"
   )
 }
 
-function BlogPostsThumbnail({ className, ...props }: React.ComponentProps<typeof Image>) {
-  return (
+function BlogPostsThumbnail({ className, image, ...props }: React.ComponentProps<typeof Image>) {
+  return image ? (
     <Image
       className={cn(
         "aspect-[16/10] w-full overflow-hidden rounded-lg border border-muted bg-muted object-cover",
         className,
       )}
+      image={image}
       {...props}
     />
+  ) : (
+    <div className="flex aspect-[16/10] w-full flex-col items-center justify-center rounded-lg border border-muted bg-gradient-to-b from-muted to-muted/50">
+      <span className="text-center text-4xl font-bold opacity-20 text-gradient">404</span>
+      <span className="text-center text-sm text-muted-foreground opacity-30">
+        thumbnail not found
+      </span>
+    </div>
   )
 }
 
@@ -64,8 +72,8 @@ function BlogPostsMetas({ className, children, ...props }: React.ComponentProps<
   return (
     <div
       className={cn(
-        "flex flex-wrap items-center gap-x-3 gap-y-1 text-xs/tight text-muted-foreground",
-        "[&>*:last-child]:after:hidden [&>*]:after:ml-3 [&>*]:after:text-xl [&>*]:after:font-light [&>*]:after:text-muted-foreground/30 [&>*]:after:content-['/']",
+        "flex flex-wrap items-center gap-x-2 gap-y-1 text-xs/tight text-muted-foreground",
+        "[&>*:last-child]:after:hidden [&>*]:after:text-xl [&>*]:after:font-light [&>*]:after:text-muted-foreground/30 [&>*]:after:content-['/']",
         className,
       )}
       {...props}

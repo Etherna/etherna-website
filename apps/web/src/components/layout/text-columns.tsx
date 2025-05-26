@@ -174,7 +174,7 @@ function TextColumnsDescription({ children, className, ...props }: React.Compone
   return (
     <div
       className={cn(
-        "prose max-w-screen-sm text-secondary-foreground/70 dark:prose-invert group-data-[centered]/text:mx-auto",
+        "prose max-w-screen-sm text-secondary-foreground/80 dark:prose-invert group-data-[centered]/text:mx-auto",
         className,
       )}
       {...props}

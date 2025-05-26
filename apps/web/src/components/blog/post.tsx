@@ -7,6 +7,7 @@ import { Button } from "../ui/button"
 import { t } from "@/i18n"
 import { blogDictionary } from "@/i18n/dictionaries/blog"
 import { langsDictionary } from "@/i18n/dictionaries/langs"
+import { localized } from "@/i18n/utils"
 import { cn } from "@/lib/utils"
 
 import type { ImageProps } from "../common/image"
@@ -105,7 +106,7 @@ function PostLocaleSwitcher({
       <div className="flex flex-wrap items-center justify-around gap-2">
         {otherLocales.map((path) => (
           <Button key={path.locale} className="items-center gap-2" variant={"outline"} asChild>
-            <a href={path.path}>
+            <a href={localized(path.path, path.locale)}>
               <LocaleFlag className="size-4" locale={path.locale} />
               <span>
                 {t(blogDictionary.readIn, {
