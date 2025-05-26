@@ -26,6 +26,9 @@ export const Media: CollectionConfig = {
     update: authenticated,
     unlock: authenticated,
   },
+  admin: {
+    folders: true,
+  },
   fields: [
     {
       name: "alt",
