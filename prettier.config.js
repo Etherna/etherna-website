@@ -1,5 +1,5 @@
-/** @type {import('prettier').Config} */
-module.exports = {
+/** @type {import('prettier').Config & import('@ianvs/prettier-plugin-sort-imports').PluginConfig} */
+export default {
   printWidth: 100,
   semi: false,
   importOrder: [
