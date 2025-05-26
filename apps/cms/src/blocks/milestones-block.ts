@@ -36,6 +36,17 @@ export const MilestonesBlock = {
       name: "items",
       type: "array",
       required: true,
+      admin: {
+        initCollapsed: true,
+        components: {
+          RowLabel: {
+            path: "@/fields/row-label/component",
+            clientProps: {
+              useAsTitle: "title",
+            },
+          },
+        },
+      },
       fields: [
         {
           name: "title",

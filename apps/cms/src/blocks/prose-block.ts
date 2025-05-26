@@ -17,6 +17,7 @@ export const ProseBlock = {
       type: "richText",
       localized: true,
       required: false,
+      label: false,
       editor: lexicalEditor({
         features: ({ rootFeatures }) => {
           return [...rootFeatures]

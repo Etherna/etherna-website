@@ -3199,6 +3199,15 @@ export interface Footer {
  */
 export interface Company {
   id: string;
+  companyName: string;
+  companyEmail: string;
+  companyFoundingDate: string;
+  companyAddress: {
+    streetAddress: string;
+    state: string;
+    zip: string;
+    country: string;
+  };
   socials?:
     | {
         social:
@@ -3220,15 +3229,6 @@ export interface Company {
         id?: string | null;
       }[]
     | null;
-  companyName: string;
-  companyEmail: string;
-  companyFoundingDate: string;
-  companyAddress: {
-    streetAddress: string;
-    state: string;
-    zip: string;
-    country: string;
-  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -3319,13 +3319,6 @@ export interface FooterSelect<T extends boolean = true> {
  * via the `definition` "company_select".
  */
 export interface CompanySelect<T extends boolean = true> {
-  socials?:
-    | T
-    | {
-        social?: T;
-        link?: T;
-        id?: T;
-      };
   companyName?: T;
   companyEmail?: T;
   companyFoundingDate?: T;
@@ -3336,6 +3329,13 @@ export interface CompanySelect<T extends boolean = true> {
         state?: T;
         zip?: T;
         country?: T;
+      };
+  socials?:
+    | T
+    | {
+        social?: T;
+        link?: T;
+        id?: T;
       };
   updatedAt?: T;
   createdAt?: T;

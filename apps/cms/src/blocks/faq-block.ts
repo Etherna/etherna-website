@@ -18,6 +18,17 @@ export const FAQBlock = {
       type: "array",
       required: true,
       minRows: 1,
+      admin: {
+        initCollapsed: true,
+        components: {
+          RowLabel: {
+            path: "@/fields/row-label/component",
+            clientProps: {
+              useAsTitle: "question",
+            },
+          },
+        },
+      },
       fields: [
         {
           name: "question",

@@ -14,7 +14,17 @@ export const StatsBlock = {
     {
       name: "stats",
       type: "array",
-      admin: {},
+      admin: {
+        initCollapsed: true,
+        components: {
+          RowLabel: {
+            path: "@/fields/row-label/component",
+            clientProps: {
+              useAsTitle: "label",
+            },
+          },
+        },
+      },
       fields: [
         {
           name: "label",

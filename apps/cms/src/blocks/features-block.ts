@@ -17,6 +17,17 @@ export const FeaturesBlock = {
       type: "array",
       required: true,
       minRows: 1,
+      admin: {
+        initCollapsed: true,
+        components: {
+          RowLabel: {
+            path: "@/fields/row-label/component",
+            clientProps: {
+              useAsTitle: "title",
+            },
+          },
+        },
+      },
       fields: [
         {
           name: "title",

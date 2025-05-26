@@ -19,6 +19,17 @@ export const BentoBlock = {
     {
       name: "items",
       type: "array",
+      admin: {
+        initCollapsed: true,
+        components: {
+          RowLabel: {
+            path: "@/fields/row-label/component",
+            clientProps: {
+              useAsTitle: "title",
+            },
+          },
+        },
+      },
       fields: [
         {
           name: "title",

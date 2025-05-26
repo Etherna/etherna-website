@@ -16,6 +16,17 @@ export const TeamBlock = {
       type: "array",
       required: true,
       minRows: 1,
+      admin: {
+        initCollapsed: true,
+        components: {
+          RowLabel: {
+            path: "@/fields/row-label/component",
+            clientProps: {
+              useAsTitle: "name",
+            },
+          },
+        },
+      },
       fields: [
         {
           name: "name",

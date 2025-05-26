@@ -13,6 +13,17 @@ export const linkGroup: LinkGroupType = ({ overrides = {}, linkOptions } = {}) =
   const generatedLinkGroup = {
     name: "links",
     type: "array",
+    admin: {
+      components: {
+        RowLabel: {
+          path: "@/fields/row-label/component",
+          clientProps: {
+            useAsTitle: "link.label",
+          },
+        },
+      },
+      initCollapsed: true,
+    },
     fields: [
       link({
         ...linkOptions,
@@ -20,5 +31,6 @@ export const linkGroup: LinkGroupType = ({ overrides = {}, linkOptions } = {}) =
     ],
   } satisfies Field
 
-  return deepMerge(generatedLinkGroup, overrides)
+  const field = deepMerge(generatedLinkGroup, overrides)
+  return field
 }

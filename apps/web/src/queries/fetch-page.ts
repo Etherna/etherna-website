@@ -1,5 +1,4 @@
 import { LOCALES } from "@/i18n/consts"
-import { localized } from "@/i18n/utils"
 import { bundleBlocks, bundleHero, bundleMedia } from "@/lib/bundle"
 import { fetchPayloadRequest } from "@/lib/payload"
 import { route } from "@/lib/routes"

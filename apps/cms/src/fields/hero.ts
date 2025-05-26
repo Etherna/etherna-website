@@ -6,7 +6,7 @@ import type { Field } from "payload"
 
 export const hero: Field = {
   name: "hero",
-  label: "Hero",
+  label: false,
   type: "group",
   fields: [
     {
@@ -52,36 +52,32 @@ export const hero: Field = {
         condition: (_, { type } = {}) => type !== "none",
       },
     },
-    {
-      type: "row",
-      fields: [
-        linkGroup({
-          linkOptions: {
-            appearances: ["badge"],
-          },
-          overrides: {
-            name: "badges",
-            maxRows: 2,
-            admin: {
-              width: "50%",
-              condition: (_, { type } = {}) => type !== "none",
-            },
-          },
-        }),
-        linkGroup({
-          linkOptions: {
-            appearances: ["default", "outline"],
-          },
-          overrides: {
-            maxRows: 2,
-            admin: {
-              width: "50%",
-              condition: (_, { type } = {}) => type !== "none",
-            },
-          },
-        }),
-      ],
-    },
+    linkGroup({
+      linkOptions: {
+        appearances: ["badge"],
+      },
+      overrides: {
+        name: "badges",
+        maxRows: 2,
+        admin: {
+          condition: (_, { type } = {}) => type !== "none",
+        },
+      },
+    }),
+    linkGroup({
+      linkOptions: {
+        appearances: ["default", "outline"],
+        overrides: {
+          label: false,
+        },
+      },
+      overrides: {
+        maxRows: 2,
+        admin: {
+          condition: (_, { type } = {}) => type !== "none",
+        },
+      },
+    }),
     {
       name: "media",
       type: "upload",

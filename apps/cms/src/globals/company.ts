@@ -19,11 +19,78 @@ export const Company: GlobalConfig = {
       type: "tabs",
       tabs: [
         {
+          label: "Company Info",
+          fields: [
+            {
+              name: "companyName",
+              type: "text",
+              required: true,
+            },
+            {
+              name: "companyEmail",
+              type: "text",
+              required: true,
+            },
+            {
+              name: "companyFoundingDate",
+              type: "date",
+              required: true,
+              admin: {
+                date: {
+                  pickerAppearance: "default",
+                },
+                position: "sidebar",
+              },
+            },
+            {
+              name: "companyAddress",
+              type: "group",
+              fields: [
+                {
+                  name: "streetAddress",
+                  type: "text",
+                  required: true,
+                },
+                {
+                  name: "state",
+                  type: "text",
+                  required: true,
+                },
+                {
+                  name: "zip",
+                  type: "text",
+                  required: true,
+                },
+                {
+                  name: "country",
+                  type: "text",
+                  required: true,
+                  maxLength: 2,
+                  hooks: {
+                    beforeValidate: [({ value }) => (value ? value.toUpperCase() : value)],
+                  },
+                },
+              ],
+            },
+          ],
+        },
+        {
           label: "Socials",
           fields: [
             {
               name: "socials",
               type: "array",
+              admin: {
+                initCollapsed: true,
+                components: {
+                  RowLabel: {
+                    path: "@/fields/row-label/component",
+                    clientProps: {
+                      useAsTitle: "social",
+                    },
+                  },
+                },
+              },
               fields: [
                 {
                   name: "social",
@@ -92,62 +159,6 @@ export const Company: GlobalConfig = {
                   name: "link",
                   type: "text",
                   required: true,
-                },
-              ],
-            },
-          ],
-        },
-        {
-          label: "Company Info",
-          fields: [
-            {
-              name: "companyName",
-              type: "text",
-              required: true,
-            },
-            {
-              name: "companyEmail",
-              type: "text",
-              required: true,
-            },
-            {
-              name: "companyFoundingDate",
-              type: "date",
-              required: true,
-              admin: {
-                date: {
-                  pickerAppearance: "default",
-                },
-                position: "sidebar",
-              },
-            },
-            {
-              name: "companyAddress",
-              type: "group",
-              fields: [
-                {
-                  name: "streetAddress",
-                  type: "text",
-                  required: true,
-                },
-                {
-                  name: "state",
-                  type: "text",
-                  required: true,
-                },
-                {
-                  name: "zip",
-                  type: "text",
-                  required: true,
-                },
-                {
-                  name: "country",
-                  type: "text",
-                  required: true,
-                  maxLength: 2,
-                  hooks: {
-                    beforeValidate: [({ value }) => (value ? value.toUpperCase() : value)],
-                  },
                 },
               ],
             },

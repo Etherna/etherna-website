@@ -15,6 +15,9 @@ export const BrandBlock = {
     {
       name: "logos",
       type: "array",
+      admin: {
+        initCollapsed: true,
+      },
       fields: [
         {
           name: "svgLogo",

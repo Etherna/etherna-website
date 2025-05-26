@@ -34,12 +34,26 @@ export const GridBlock = {
     {
       name: "rows",
       type: "array",
+      admin: {
+        initCollapsed: true,
+      },
       fields: [
         {
           name: "items",
           type: "array",
           minRows: 1,
           maxRows: 3,
+          admin: {
+            initCollapsed: true,
+            components: {
+              RowLabel: {
+                path: "@/fields/row-label/component",
+                clientProps: {
+                  useAsTitle: "title",
+                },
+              },
+            },
+          },
           fields: [
             {
               name: "title",
