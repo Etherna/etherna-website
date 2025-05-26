@@ -19,7 +19,7 @@ export const createLead: CollectionBeforeChangeHook<FormSubmission> = async ({
         : data.form
 
     const isLead = form?.event === "registration"
-    const email = data.submissionData?.find((field) => field.field === "email")?.value
+    const email = data.submissionData?.find((field) => field.field === "EMAIL")?.value
     const FNAME = data.submissionData?.find((field) => field.field === "FNAME")?.value
     const LNAME = data.submissionData?.find((field) => field.field === "LNAME")?.value
 
