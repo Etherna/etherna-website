@@ -1,20 +1,31 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["**/.env.*local"],
+  "globalDependencies": [
+    "**/.env.*local"
+  ],
   "tasks": {
     "dev": {
       "cache": false,
       "persistent": true
     },
     "web:dev": {
-      "dependsOn": ["astro-plugin-dynamic-base#dev", "astro-plugin-files#dev"]
+      "dependsOn": [
+        "astro-plugin-dynamic-base#dev",
+        "astro-plugin-files#dev"
+      ]
     },
     "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**"]
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "dist/**"
+      ]
     },
     "cms#build": {
-      "dependsOn": ["^build"],
+      "dependsOn": [
+        "^build"
+      ],
       "env": [
         "PORT",
         "PAYLOAD_SECRET",
@@ -28,11 +39,20 @@
         "DB_SSL"
       ]
     },
-    "cms#migrate": {},
+    "cms#migrate": {
+      "cache": false
+    },
     "cms#snapshot": {},
     "web#build": {
-      "dependsOn": ["^build"],
-      "env": ["PUBLIC_DIRECTUS_URL", "PUBLIC_SITE_URL", "NODE_ENV", "NODE_TLS_REJECT_UNAUTHORIZED"]
+      "dependsOn": [
+        "^build"
+      ],
+      "env": [
+        "PUBLIC_DIRECTUS_URL",
+        "PUBLIC_SITE_URL",
+        "NODE_ENV",
+        "NODE_TLS_REJECT_UNAUTHORIZED"
+      ]
     },
     "start": {},
     "lint": {},
