@@ -22,7 +22,7 @@ export function HeroBlock({
       blockType={"hero"}
       background={{
         type: "image",
-        backgroundImage: backgroundImage,
+        backgroundImage,
       }}
       spacing="none"
     >

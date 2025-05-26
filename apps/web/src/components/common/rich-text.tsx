@@ -1,4 +1,5 @@
 import React from "react"
+import { SiGithub } from "@icons-pack/react-simple-icons"
 
 import { CodeBlock } from "../blocks/code-block"
 import { Document } from "../common/document"
@@ -13,6 +14,7 @@ import {
   IS_SUPERSCRIPT,
   IS_UNDERLINE,
 } from "@/lib/lexical"
+import { cn } from "@/lib/utils"
 
 import type { BundledUploadFields } from "@/lib/bundle"
 import type { NodeType } from "@/lib/lexical"
@@ -154,8 +156,20 @@ export function RichText({ nodes, highlightStyles }: RichTextProps) {
           case "autolink": {
             const fields = node.fields
 
+            const isSmartLink = fields.url?.includes("github.com")
+            const isGitHub = fields.url?.includes("github.com")
+
             return (
-              <a key={index} href={fields.url} target={fields.newTab ? "_blank" : undefined}>
+              <a
+                key={index}
+                className={cn({
+                  "inline-flex items-center gap-1 rounded-[6px] bg-muted px-1 py-px no-underline hover:bg-foreground hover:text-background":
+                    isSmartLink,
+                })}
+                href={fields.url}
+                target={fields.newTab ? "_blank" : undefined}
+              >
+                {isGitHub && <SiGithub className="size-[1em]" />}
                 <RichText nodes={node.children} highlightStyles={highlightStyles} />
               </a>
             )

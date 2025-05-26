@@ -162,6 +162,15 @@ export default {
             h1: {
               fontWeight: "700",
             },
+            a: {
+              fontWeight: "500",
+              textDecoration: "underline",
+              textUnderlineOffset: "4px",
+              transition: "color 0.2s, text-underline-offset 0.2s",
+              "&:hover": {
+                textUnderlineOffset: "2px",
+              },
+            },
             "blockquote p:first-of-type::before": {
               content: "none",
             },

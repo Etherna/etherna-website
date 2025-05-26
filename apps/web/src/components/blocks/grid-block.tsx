@@ -75,91 +75,98 @@ export function GridBlock({
                     "md:grid-cols-3": itemsCount === 3,
                   })}
                 >
-                  {row.items?.map((item, index) => (
-                    <li
-                      key={index}
-                      className={cn("relative flex h-full w-full flex-col overflow-hidden", {
-                        "border-l border-border/80": index > 0,
-                        "group/item": item.effect && item.effect !== "none",
-                        "focus:outline-none": item.effect === "appear",
-                      })}
-                      tabIndex={item.effect === "appear" ? 0 : undefined}
-                    >
-                      <Hr className="md:hidden" />
-                      <a
-                        href={item.link?.url || undefined}
-                        className={cn(
-                          "flex w-full grow bg-gradient-to-r from-transparent via-transparent to-transparent group-hover/item:from-transparent group-hover/item:via-card group-hover/item:to-transparent",
-                          {
-                            "md:group-hover/item:from-transparent md:group-hover/item:via-card md:group-hover/item:to-card":
-                              index === 0 && itemsCount > 1,
-                            "md:group-hover/item:from-card md:group-hover/item:via-card md:group-hover/item:to-card":
-                              index > 0 && index < itemsCount - 1 && itemsCount > 1,
-                            "md:group-hover/item:from-card md:group-hover/item:via-card md:group-hover/item:to-transparent":
-                              index === itemsCount - 1 && itemsCount > 1,
-                          },
-                        )}
+                  {row.items?.map((item, index) => {
+                    const hasLink = !!item.link?.url && item.effect !== "appear"
+                    return (
+                      <li
+                        key={index}
+                        className={cn("relative flex h-full w-full flex-col overflow-hidden", {
+                          "border-l border-border/80": index > 0,
+                          "group/item": item.effect && item.effect !== "none",
+                          "focus:outline-none": item.effect === "appear",
+                          "cursor-pointer": hasLink,
+                        })}
+                        tabIndex={item.effect === "appear" ? 0 : undefined}
                       >
+                        <Hr className="md:hidden" />
                         <div
                           className={cn(
-                            "relative flex h-full w-full flex-col p-6 lg:p-12 xl:p-20",
+                            "flex w-full grow bg-gradient-to-r from-transparent via-transparent to-transparent group-hover/item:from-transparent group-hover/item:via-card group-hover/item:to-transparent",
                             {
-                              "mx-auto max-w-3xl": itemsCount === 1,
+                              "md:group-hover/item:from-transparent md:group-hover/item:via-card md:group-hover/item:to-card":
+                                index === 0 && itemsCount > 1,
+                              "md:group-hover/item:from-card md:group-hover/item:via-card md:group-hover/item:to-card":
+                                index > 0 && index < itemsCount - 1 && itemsCount > 1,
+                              "md:group-hover/item:from-card md:group-hover/item:via-card md:group-hover/item:to-transparent":
+                                index === itemsCount - 1 && itemsCount > 1,
                             },
                           )}
                         >
                           <div
                             className={cn(
-                              "flex max-w-xs flex-col items-start transition-all duration-300 md:my-auto",
+                              "relative flex h-full w-full flex-col p-6 lg:p-12 xl:p-20",
                               {
-                                "-translate-y-full opacity-0 delay-300 group-focus/item:translate-y-0 group-focus/item:opacity-100":
-                                  item.effect === "appear",
+                                "mx-auto max-w-3xl": itemsCount === 1,
                               },
                             )}
                           >
-                            <InnerTag className="text-lg/tight font-semibold md:text-2xl/tight lg:text-3xl/tight">
-                              {item.title}
-                            </InnerTag>
+                            <div
+                              className={cn(
+                                "flex max-w-lg flex-col items-start transition-all duration-300",
+                                {
+                                  "-translate-y-full opacity-0 delay-300 group-focus/item:translate-y-0 group-focus/item:opacity-100":
+                                    item.effect === "appear",
+                                },
+                              )}
+                            >
+                              <InnerTag className="text-lg/tight font-semibold md:text-2xl/tight lg:text-3xl/tight">
+                                {item.title}
+                              </InnerTag>
 
-                            {isNotEmptyLexical(item.description) && (
-                              <div className="mt-3 text-sm text-secondary-foreground">
-                                <RichText
-                                  nodes={item.description.root.children}
-                                  highlightStyles={{
-                                    background: "transparent",
-                                    color: item.accentColor ?? "",
-                                  }}
+                              {isNotEmptyLexical(item.description) && (
+                                <div className="prose mt-3 text-sm text-secondary-foreground prose-p:my-1">
+                                  <RichText
+                                    nodes={item.description.root.children}
+                                    highlightStyles={{
+                                      background: "transparent",
+                                      color: item.accentColor ?? "",
+                                    }}
+                                  />
+                                </div>
+                              )}
+                            </div>
+                            {item.background.type === "image" &&
+                              hasBundledImage(item.background.backgroundImage) && (
+                                <Image
+                                  className={cn(
+                                    "absolute -bottom-[5%] -right-[5%] top-[25%] h-[110%] w-auto select-none object-contain object-right duration-500 md:-top-[5%]",
+                                    {
+                                      "group-hover/item:scale-105": item.effect === "zoom",
+                                      "group-hover/item:-translate-x-[5%]": item.effect === "slide",
+                                      "translate-x-full scale-90 delay-300 group-focus/item:translate-x-0 group-focus/item:scale-100":
+                                        item.effect === "appear",
+                                    },
+                                  )}
+                                  image={item.background.backgroundImage.bundled.image}
                                 />
+                              )}
+
+                            {item.effect === "appear" && (
+                              <div className="flex size-12 items-center justify-center rounded-full bg-muted text-muted-foreground transition-transform duration-300 absolute-center group-focus/item:scale-0">
+                                <LockIcon className="size-4" />
                               </div>
                             )}
                           </div>
-                          {item.background.type === "image" &&
-                            hasBundledImage(item.background.backgroundImage) && (
-                              <Image
-                                className={cn(
-                                  "absolute -bottom-[5%] -right-[5%] top-[25%] h-[110%] w-auto select-none object-contain object-right duration-500 md:-top-[5%]",
-                                  {
-                                    "group-hover/item:scale-105": item.effect === "zoom",
-                                    "group-hover/item:-translate-x-[5%]": item.effect === "slide",
-                                    "translate-x-full scale-90 delay-300 group-focus/item:translate-x-0 group-focus/item:scale-100":
-                                      item.effect === "appear",
-                                  },
-                                )}
-                                image={item.background.backgroundImage.bundled.image}
-                              />
-                            )}
-
-                          {item.effect === "appear" && (
-                            <div className="flex size-12 items-center justify-center rounded-full bg-muted text-muted-foreground transition-transform duration-300 absolute-center group-focus/item:scale-0">
-                              <LockIcon className="size-4" />
-                            </div>
-                          )}
                         </div>
-                      </a>
 
-                      {index === itemsCount - 1 && <Hr className="md:hidden" />}
-                    </li>
-                  ))}
+                        {item.link?.url && item.effect !== "appear" && (
+                          <a href={item.link.url} className="absolute inset-0 focus:outline-none" />
+                        )}
+
+                        {index === itemsCount - 1 && <Hr className="md:hidden" />}
+                      </li>
+                    )
+                  })}
                 </ul>
 
                 {index === rows.length - 1 && <Hr className="hidden md:block" />}
