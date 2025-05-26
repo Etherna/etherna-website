@@ -132,7 +132,7 @@ export default buildConfig({
     },
   }),
   db: postgresAdapter({
-    push: process.env.NODE_ENV === "development",
+    push: false,
     migrationDir: "migrations",
     prodMigrations: migrations,
     idType: "uuid",

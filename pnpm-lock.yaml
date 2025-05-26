@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@icons-pack/react-simple-icons':
+        specifier: 12.8.0
+        version: 12.8.0(react@19.0.0)
       astro:
         specifier: 5.3.0
         version: 5.3.0(@types/node@22.13.4)(jiti@1.21.7)(rollup@4.34.6)(sass@1.77.4)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
@@ -1456,6 +1459,11 @@ packages:
     peerDependenciesMeta:
       '@vue/compiler-sfc':
         optional: true
+
+  '@icons-pack/react-simple-icons@12.8.0':
+    resolution: {integrity: sha512-Xj6tBadpPYVaoDaXqKpSJc5AXtcXSBk+se+GsceRouYin9XvKv2at0fO5GSr1dNDc3WfZSVc1Gs7KGwUY8PfHA==}
+    peerDependencies:
+      react: ^16.13 || ^17 || ^18 || ^19
 
   '@img/sharp-darwin-arm64@0.33.5':
     resolution: {integrity: sha512-UT4p+iz/2H4twwAoLCqfA9UH5pI6DggwKEGuaPy7nCVQ8ZsiY5PIcrRvD1DzuY3qYL07NtIQcWnBSY/heikIFQ==}
@@ -8478,6 +8486,10 @@ snapshots:
       semver: 7.6.3
     transitivePeerDependencies:
       - supports-color
+
+  '@icons-pack/react-simple-icons@12.8.0(react@19.0.0)':
+    dependencies:
+      react: 19.0.0
 
   '@img/sharp-darwin-arm64@0.33.5':
     optionalDependencies:
