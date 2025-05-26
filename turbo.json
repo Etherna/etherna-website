@@ -1,7 +1,8 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": [
-    "**/.env.*local"
+    "**/.env.*local",
+    "**/.env"
   ],
   "tasks": {
     "dev": {
@@ -27,16 +28,23 @@
         "^build"
       ],
       "env": [
-        "PORT",
-        "PAYLOAD_SECRET",
-        "PAYLOAD_PUBLIC_SERVER_URL",
-        "GITHUB_TOKEN",
         "DB_HOST",
         "DB_PORT",
         "DB_DATABASE",
         "DB_USER",
         "DB_PASSWORD",
-        "DB_SSL"
+        "PAYLOAD_SECRET",
+        "PAYLOAD_PUBLIC_SERVER_URL",
+        "PAYLOAD_PUBLIC_FRONTEND_URL",
+        "PAYLOAD_AUTOLOGIN_EMAIL",
+        "PAYLOAD_AUTOLOGIN_PASSWORD",
+        "PAYLOAD_EMAIL_FROM",
+        "PAYLOAD_EMAIL_DEFAULT_RECEIVER",
+        "PAYLOAD_CRON_SECRET",
+        "GITHUB_TOKEN",
+        "SENDGRID_TOKEN",
+        "MAILCHIMP_TOKEN",
+        "MAILCHIMP_SERVER"
       ]
     },
     "cms#migrate": {
@@ -48,10 +56,10 @@
         "^build"
       ],
       "env": [
-        "PUBLIC_DIRECTUS_URL",
         "PUBLIC_SITE_URL",
-        "NODE_ENV",
-        "NODE_TLS_REJECT_UNAUTHORIZED"
+        "PUBLIC_PAYLOAD_URL",
+        "ANALYTICS_URL",
+        "ANALYTICS_SITE_ID"
       ]
     },
     "start": {},
