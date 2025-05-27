@@ -24,9 +24,6 @@ export async function fetchBlog(params: FetchBlogParams) {
       path: "/posts",
       params: {
         where: {
-          _status: {
-            equals: "published",
-          },
           categories: categoryId
             ? {
                 contains: categoryId,
