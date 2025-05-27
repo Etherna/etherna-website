@@ -25,6 +25,7 @@ import { Media } from "@/collections/media"
 import { Pages } from "@/collections/pages"
 import { Posts } from "@/collections/posts"
 import { Users } from "@/collections/users"
+import { env } from "@/env"
 import { Company } from "@/globals/company"
 import { Footer } from "@/globals/footer"
 import { Header } from "@/globals/header"
@@ -49,10 +50,10 @@ export default buildConfig({
       },
     },
     autoLogin:
-      process.env.NODE_ENV === "development"
+      env.NODE_ENV === "development"
         ? {
-            email: process.env.PAYLOAD_AUTOLOGIN_EMAIL,
-            password: process.env.PAYLOAD_AUTOLOGIN_PASSWORD,
+            email: env.PAYLOAD_AUTOLOGIN_EMAIL,
+            password: env.PAYLOAD_AUTOLOGIN_PASSWORD,
           }
         : undefined,
     importMap: {
@@ -82,12 +83,12 @@ export default buildConfig({
       ],
     },
   },
-  email: process.env.SENDGRID_TOKEN
+  email: env.SENDGRID_TOKEN
     ? nodemailerAdapter({
-        defaultFromAddress: process.env.PAYLOAD_EMAIL_FROM || "no-reply@etherna.io",
+        defaultFromAddress: env.PAYLOAD_EMAIL_FROM || "no-reply@etherna.io",
         defaultFromName: "Etherna Website",
         transportOptions: nodemailerSendgrid({
-          apiKey: process.env.SENDGRID_TOKEN,
+          apiKey: env.SENDGRID_TOKEN,
         }),
       })
     : undefined,
@@ -135,11 +136,11 @@ export default buildConfig({
     prodMigrations: migrations,
     idType: "uuid",
     pool: {
-      host: process.env.DB_HOST,
-      port: parseInt(process.env.DB_PORT ?? "5432"),
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_DATABASE,
+      host: env.DB_HOST,
+      port: parseInt(env.DB_PORT ?? "5432"),
+      user: env.DB_USER,
+      password: env.DB_PASSWORD,
+      database: env.DB_DATABASE,
     },
     beforeSchemaInit: [
       ({ schema, adapter }) => {
@@ -167,8 +168,8 @@ export default buildConfig({
   },
   collections: [Pages, Posts, Categories, Jobs, Media, Users],
   globals: [Header, Footer, Company],
-  cors: [process.env.PAYLOAD_PUBLIC_FRONTEND_URL || ""].filter(Boolean),
-  csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
+  cors: [env.NEXT_PUBLIC_FRONTEND_URL || ""].filter(Boolean),
+  csrf: [env.NEXT_PUBLIC_SERVER_URL || ""].filter(Boolean),
   endpoints: [fetchWorkflow, runDeploy, deleteLocale, generateThumbhash],
   plugins,
   jobs: {
@@ -181,7 +182,7 @@ export default buildConfig({
         // for the Vercel Cron secret to be present as an
         // Authorization header:
         const authHeader = req.headers.get("authorization")
-        return authHeader === `Bearer ${process.env.PAYLOAD_CRON_SECRET}`
+        return authHeader === `Bearer ${env.PAYLOAD_CRON_SECRET}`
       },
     },
     autoRun: [
@@ -195,7 +196,7 @@ export default buildConfig({
       return true
     },
   },
-  secret: process.env.PAYLOAD_SECRET ?? "",
+  secret: env.PAYLOAD_SECRET ?? "",
   sharp,
   typescript: {
     autoGenerate: true,

@@ -1,8 +1,9 @@
 import { github, owner, repo } from "../common"
+import { env } from "@/env"
 import { DEPLOY_WORKFLOW_ID } from "@/lib/const"
 
 export async function deploy() {
-  if (process.env.NODE_ENV !== "production") {
+  if (env.NODE_ENV !== "production") {
     console.info("Skipping deploy in development")
     return
   }

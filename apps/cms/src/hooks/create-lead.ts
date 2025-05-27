@@ -1,5 +1,7 @@
 import mailchimp from "@mailchimp/mailchimp_marketing"
 
+import { env } from "@/env"
+
 import type { FormSubmission } from "@payload-types"
 import type { CollectionBeforeChangeHook } from "payload"
 
@@ -25,8 +27,8 @@ export const createLead: CollectionBeforeChangeHook<FormSubmission> = async ({
 
     if (isLead && form.mailchimpList && email) {
       mailchimp.setConfig({
-        apiKey: process.env.MAILCHIMP_TOKEN,
-        server: process.env.MAILCHIMP_SERVER,
+        apiKey: env.MAILCHIMP_TOKEN,
+        server: env.MAILCHIMP_SERVER,
       })
 
       const listId = form.mailchimpList

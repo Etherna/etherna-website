@@ -1,3 +1,5 @@
+import { env } from "@/env"
+
 interface PreviewUrlParams {
   id: string
   locale: string
@@ -5,5 +7,5 @@ interface PreviewUrlParams {
 }
 
 export function generatePreviewUrl({ id, locale, path }: PreviewUrlParams) {
-  return `${process.env.PAYLOAD_PUBLIC_FRONTEND_URL}/_preview?id=${id}&path=${encodeURIComponent(path)}&lang=${locale}`
+  return `${env.NEXT_PUBLIC_FRONTEND_URL}/_preview?id=${id}&path=${encodeURIComponent(path)}&lang=${locale}`
 }

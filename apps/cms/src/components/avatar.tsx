@@ -1,7 +1,8 @@
-import React, { Suspense } from "react"
+import { Suspense } from "react"
 import { headers } from "next/headers"
 import Image from "next/image"
 
+import { env } from "@/env"
 import { gravatarImage } from "@/lib/avatar"
 
 import type { Media } from "@payload-types"
@@ -25,7 +26,7 @@ export async function AvatarImage({ payload }: ServerProps) {
       className="absolute inset-0"
       src={
         user?.avatar
-          ? `${process.env.PAYLOAD_PUBLIC_SERVER_URL}${(user.avatar as Media).url}`
+          ? `${env.NEXT_PUBLIC_SERVER_URL}${(user.avatar as Media).url}`
           : gravatarImage(user?.email ?? "at@example.com")
       }
       width={128}

@@ -1,6 +1,7 @@
 import { formBuilderPlugin } from "@payloadcms/plugin-form-builder"
 import { HeadingFeature, lexicalEditor } from "@payloadcms/richtext-lexical"
 
+import { env } from "@/env"
 import { createLead } from "@/hooks/create-lead"
 import { admin } from "@/policies/admin"
 import { anyone } from "@/policies/anyone"
@@ -13,7 +14,7 @@ export const formBuilder = formBuilderPlugin({
     country: false,
     state: false,
   },
-  defaultToEmail: process.env.PAYLOAD_EMAIL_DEFAULT_RECEIVER,
+  defaultToEmail: env.PAYLOAD_EMAIL_DEFAULT_RECEIVER,
   redirectRelationships: ["pages", "posts"],
   formSubmissionOverrides: {
     access: {

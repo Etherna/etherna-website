@@ -64,8 +64,7 @@
     "route-fn": "1.5.1",
     "schema-dts": "1.1.5",
     "sonner": "2.0.3",
-    "vaul": "1.1.2",
-    "zod": "3.25.28"
+    "vaul": "1.1.2"
   },
   "devDependencies": {
     "@astrojs/react": "4.3.0",

@@ -1,3 +1,4 @@
+import { env } from "@/env"
 import { DEPLOY_WORKFLOW_ID } from "@/lib/const"
 import { deploy } from "@/server/actions/deploy"
 import { github, owner, repo } from "@/server/common"
@@ -13,7 +14,7 @@ interface DeployIfNeededConfig {
 const SCHEDULE_SECONDS = 60 // 1 minute
 
 export const deployIfNeeded = async ({ collections, payload }: DeployIfNeededConfig) => {
-  if (process.env.NODE_ENV !== "production") {
+  if (env.NODE_ENV !== "production") {
     payload.logger.info("Skipping deploy check in non-production environment")
     return
   }
