@@ -5,6 +5,14 @@ export const published: Access = () => {
     _status: {
       equals: "published",
     },
+  }
+}
+
+export const manuallyPublished: Access = () => {
+  return {
+    _status: {
+      equals: "published",
+    },
     publishedAt: {
       less_than_equal: new Date().toISOString(),
     },

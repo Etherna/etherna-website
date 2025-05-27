@@ -1,12 +1,15 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
   "globalDependencies": [
     "**/.env.*local",
     "**/.env"
   ],
   "tasks": {
     "dev": {
-      "cache": false,
+      "cache": false
+    },
+    "cms#dev": {
       "persistent": true
     },
     "web:dev": {
@@ -63,6 +66,9 @@
       ]
     },
     "start": {},
+    "gen": {
+      "cache": false
+    },
     "lint": {},
     "typecheck": {}
   }

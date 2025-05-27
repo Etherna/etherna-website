@@ -2,12 +2,14 @@ import { deploy } from "@/server/actions/deploy"
 
 import type { CollectionAfterChangeHook } from "payload"
 
-export const triggerDeploy: CollectionAfterChangeHook = async (args) => {
+export const triggerDeploy: CollectionAfterChangeHook = ({ collection, doc, previousDoc, req }) => {
   // draft -> draft should not trigger redeploy
-  if (args.doc._status === "draft" && args.previousDoc?._status === "draft") {
+  if (doc._status === "draft" && previousDoc?._status === "draft") {
     return
   }
 
+  req.payload.logger.info(`Triggering deploy for collection "${collection.slug}"`)
+
   // both draft -> published and published -> draft shoudl trigger redeploy
-  await deploy()
+  deploy()
 }

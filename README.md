@@ -1,7 +1,6 @@
 # Etherna Website Monorepo
-
-- [cms](./apps/cms/README.md)
-- [web](./apps/web/README.md)
+* [cms](./apps/cms/README.md)
+* [web](./apps/web/README.md)
 
 ## Development
 
@@ -14,7 +13,7 @@ pnpm install
 ### 2. Bootstrap CMS
 
 ```bash
-pnpm bootstrap
+pnpm migrate
 ```
 
 ### 3. Start development server

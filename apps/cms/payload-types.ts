@@ -264,7 +264,6 @@ export interface Page {
   };
   slug?: string | null;
   slugLock?: boolean | null;
-  publishedAt?: string | null;
   parent?: (string | null) | Page;
   breadcrumbs?:
     | {
@@ -2010,7 +2009,6 @@ export interface PagesSelect<T extends boolean = true> {
       };
   slug?: T;
   slugLock?: T;
-  publishedAt?: T;
   parent?: T;
   breadcrumbs?:
     | T

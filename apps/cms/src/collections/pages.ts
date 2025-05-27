@@ -25,8 +25,8 @@ import { TestimonialsBlock } from "@/blocks/testimonials-block"
 import { TextBlock } from "@/blocks/text-block"
 import { hero } from "@/fields/hero"
 import { slugField } from "@/fields/slug"
-import { populatePublishedAt } from "@/hooks/populate-published-at"
 import { triggerDeploy } from "@/hooks/trigger-deploy"
+import { someAccess } from "@/lib/access"
 import { getParentsTree } from "@/lib/breadcrumb"
 import { generatePreviewUrl } from "@/lib/preview"
 import { authenticated } from "@/policies/authenticated"
@@ -41,7 +41,7 @@ export const Pages: CollectionConfig = {
     admin: authenticated,
     create: webDesigner,
     delete: webDesigner,
-    read: published,
+    read: someAccess(authenticated, published),
     readVersions: webDesigner,
     update: webDesigner,
     unlock: webDesigner,
@@ -49,8 +49,8 @@ export const Pages: CollectionConfig = {
   admin: {
     defaultColumns: ["title", "slug", "_status", "publishedAt", "updatedAt"],
     livePreview: {
-      url: async ({ data, locale, payload }) => {
-        const parents = await getParentsTree(data, "pages", payload)
+      url: async ({ data, locale, req }) => {
+        const parents = await getParentsTree(data, "pages", req.payload)
         const path = "/" + parents.map((parent) => parent.slug).join("/")
         return generatePreviewUrl({
           id: data.id,
@@ -147,20 +147,9 @@ export const Pages: CollectionConfig = {
       ],
     },
     ...slugField(),
-    {
-      name: "publishedAt",
-      type: "date",
-      admin: {
-        date: {
-          pickerAppearance: "dayAndTime",
-        },
-        position: "sidebar",
-      },
-    },
   ],
   hooks: {
     afterChange: [triggerDeploy],
-    beforeChange: [populatePublishedAt],
   },
   versions: {
     drafts: {

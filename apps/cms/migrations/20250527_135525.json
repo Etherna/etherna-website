@@ -1,5 +1,5 @@
 {
-  "id": "19490788-c923-4bba-b276-1535b83a2f24",
+  "id": "70733bbc-3ce1-4351-b05a-1e81afc78043",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -9426,12 +9426,6 @@
           "primaryKey": false,
           "notNull": false,
           "default": true
-        },
-        "published_at": {
-          "name": "published_at",
-          "type": "timestamp(3) with time zone",
-          "primaryKey": false,
-          "notNull": false
         },
         "parent_id": {
           "name": "parent_id",
@@ -19775,12 +19769,6 @@
           "primaryKey": false,
           "notNull": false,
           "default": true
-        },
-        "version_published_at": {
-          "name": "version_published_at",
-          "type": "timestamp(3) with time zone",
-          "primaryKey": false,
-          "notNull": false
         },
         "version_parent_id": {
           "name": "version_parent_id",

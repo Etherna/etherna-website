@@ -35,8 +35,6 @@ import { fetchWorkflow } from "@/server/endpoints/fetch-workflow"
 import { generateThumbhash } from "@/server/endpoints/gen-thumbhash"
 import { runDeploy } from "@/server/endpoints/run-deploy"
 
-import type { PayloadRequest } from "payload"
-
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
@@ -175,7 +173,7 @@ export default buildConfig({
   plugins,
   jobs: {
     access: {
-      run: ({ req }: { req: PayloadRequest }): boolean => {
+      run: ({ req }) => {
         // Allow logged in users to execute this endpoint (default)
         if (req.user) return true
 
@@ -186,7 +184,16 @@ export default buildConfig({
         return authHeader === `Bearer ${process.env.PAYLOAD_CRON_SECRET}`
       },
     },
-    tasks: [],
+    autoRun: [
+      {
+        queue: "default", // schedulePublish task run on default queue
+        cron: "* * * * *", // Every minute
+        limit: 1,
+      },
+    ],
+    shouldAutoRun: () => {
+      return true
+    },
   },
   secret: process.env.PAYLOAD_SECRET ?? "",
   sharp,

@@ -26,12 +26,13 @@ import { slugField } from "@/fields/slug"
 import { populateAuthors } from "@/hooks/populate-authors"
 import { populatePublishedAt } from "@/hooks/populate-published-at"
 import { triggerDeploy } from "@/hooks/trigger-deploy"
+import { someAccess } from "@/lib/access"
 import { generatePreviewUrl } from "@/lib/preview"
 import { authenticated } from "@/policies/authenticated"
 import { postAuthorOrEditor } from "@/policies/post-author-or-editor"
 import { postContributor } from "@/policies/post-contributor"
 import { postEditor } from "@/policies/post-editor"
-import { published } from "@/policies/published"
+import { manuallyPublished } from "@/policies/published"
 
 import type { CollectionConfig } from "payload"
 
@@ -41,7 +42,7 @@ export const Posts: CollectionConfig = {
     admin: authenticated,
     create: postContributor,
     delete: postEditor,
-    read: published,
+    read: someAccess(authenticated, manuallyPublished),
     readVersions: postEditor,
     update: postAuthorOrEditor,
     unlock: postEditor,
