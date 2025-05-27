@@ -27,6 +27,7 @@ import { BaseBlock } from "./base-block"
 import { t } from "@/i18n"
 import { milestonesDictionary } from "@/i18n/dictionaries/milestones"
 import { hasBundledImage } from "@/lib/bundle"
+import { isEmptyLexical } from "@/lib/lexical"
 import { cn } from "@/lib/utils"
 
 import type { BlockProps } from "./base-block"
@@ -149,74 +150,83 @@ function Milestones({ items, locale }: Pick<MilestonesBlock, "items"> & { locale
           x: spring,
         }}
       >
-        {items.map((milestone, index) => (
-          <li
-            key={index}
-            className={cn("flex shrink-0 basis-3/4 select-none flex-col gap-y-2 md:basis-[320px]", {
-              "flex-col-reverse": index % 2 !== 0,
-            })}
-            data-current={milestone.status === "active" ? "true" : undefined}
-          >
-            <div
-              className={cn("flex flex-1 flex-col px-4", {
-                "flex-col-reverse": index % 2 !== 0,
-              })}
-            >
-              <Dialog>
-                <DialogTrigger asChild>
-                  <h3
-                    className={cn(
-                      "cursor-pointer py-1 text-center text-muted-foreground/50 underline-offset-4 hover:underline",
-                      {
-                        "font-semibold text-primary": milestone.status === "active",
-                        "text-muted-foreground": milestone.status === "completed",
-                      },
-                    )}
-                  >
-                    {milestone.title}
-                  </h3>
-                </DialogTrigger>
-                <MilestoneDialogContent item={milestone} locale={locale} />
-              </Dialog>
-              <div
-                className={cn("mx-auto w-0.5 flex-1 rounded-full bg-muted", {
-                  "bg-muted-foreground": milestone.status === "completed",
-                  "bg-primary": milestone.status === "active",
-                })}
-              />
-            </div>
-            <div
+        {items.map((milestone, index) => {
+          const hasContent = !isEmptyLexical(milestone.text)
+
+          return (
+            <li
+              key={index}
               className={cn(
-                "mx-auto flex size-5 shrink-0 items-center justify-center rounded-full border border-black/5 bg-muted text-muted-foreground",
+                "flex shrink-0 basis-3/4 select-none flex-col gap-y-2 md:basis-[320px]",
                 {
-                  "bg-muted-foreground text-muted": milestone.status === "completed",
-                  "bg-primary text-primary-foreground": milestone.status === "active",
+                  "flex-col-reverse": index % 2 !== 0,
                 },
               )}
-            >
-              {milestone.status === "completed" && <CheckIcon className="size-3" />}
-              {milestone.status === "active" && <ClockIcon className="size-3" />}
-              {milestone.status === "upcoming" && <MilestoneIcon className="size-3" />}
-            </div>
-            <div
-              className={cn("flex flex-1 flex-col", {
-                "flex-col-reverse": index % 2 !== 0,
-              })}
+              data-current={milestone.status === "active" ? "true" : undefined}
             >
               <div
+                className={cn("flex flex-1 flex-col px-4", {
+                  "flex-col-reverse": index % 2 !== 0,
+                })}
+              >
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <h3
+                      className={cn(
+                        "py-1 text-center text-muted-foreground/50 underline-offset-4",
+                        {
+                          "cursor-pointer hover:underline": hasContent,
+                          "font-semibold text-primary": milestone.status === "active",
+                          "text-muted-foreground": milestone.status === "completed",
+                        },
+                      )}
+                    >
+                      {milestone.title}
+                    </h3>
+                  </DialogTrigger>
+
+                  {hasContent && <MilestoneDialogContent item={milestone} locale={locale} />}
+                </Dialog>
+                <div
+                  className={cn("mx-auto w-0.5 flex-1 rounded-full bg-muted", {
+                    "bg-muted-foreground": milestone.status === "completed",
+                    "bg-primary": milestone.status === "active",
+                  })}
+                />
+              </div>
+              <div
                 className={cn(
-                  "mx-auto flex items-center gap-1 rounded-full bg-muted px-1.5 py-px text-xs text-muted-foreground",
+                  "mx-auto flex size-5 shrink-0 items-center justify-center rounded-full border border-black/5 bg-muted text-muted-foreground",
                   {
                     "bg-muted-foreground text-muted": milestone.status === "completed",
                     "bg-primary text-primary-foreground": milestone.status === "active",
                   },
                 )}
               >
-                <span>{milestone.date}</span>
+                {milestone.status === "completed" && <CheckIcon className="size-3" />}
+                {milestone.status === "active" && <ClockIcon className="size-3" />}
+                {milestone.status === "upcoming" && <MilestoneIcon className="size-3" />}
               </div>
-            </div>
-          </li>
-        ))}
+              <div
+                className={cn("flex flex-1 flex-col", {
+                  "flex-col-reverse": index % 2 !== 0,
+                })}
+              >
+                <div
+                  className={cn(
+                    "mx-auto flex items-center gap-1 rounded-full bg-muted px-1.5 py-px text-xs text-muted-foreground",
+                    {
+                      "bg-muted-foreground text-muted": milestone.status === "completed",
+                      "bg-primary text-primary-foreground": milestone.status === "active",
+                    },
+                  )}
+                >
+                  <span>{milestone.date}</span>
+                </div>
+              </div>
+            </li>
+          )
+        })}
       </motion.ul>
 
       <div className="absolute left-0 top-1/2 -z-[1] flex w-full -translate-y-1/2 flex-col gap-1">
@@ -259,61 +269,68 @@ function Roadmap({ items, locale }: Pick<MilestonesBlock, "items"> & { locale: L
           <CarouselNext className="static transform-none" />
         </div>
         <CarouselContent className="ml-0 gap-0">
-          {items.map((milestone, index) => (
-            <CarouselItem
-              key={index}
-              className="group/milestone basis-3/4 pl-0 md:basis-1/3 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6"
-              onMouseEnter={() => setSelectedIndex(index)}
-              onMouseLeave={() => setSelectedIndex(undefined)}
-            >
-              <Dialog onOpenChange={(open) => !open && setSelectedIndex(undefined)}>
-                <DialogTrigger asChild>
-                  <AspectRatio
-                    className="relative isolate cursor-pointer bg-muted transition-colors duration-300"
-                    ratio={0.6}
-                  >
-                    <motion.div
-                      className="absolute inset-x-0 -z-[1] bg-foreground"
-                      initial={"initial"}
-                      animate={
-                        selectedIndex === index
-                          ? "visible"
-                          : selectedIndex !== undefined
-                            ? "hidden"
-                            : "initial"
-                      }
-                      variants={{
-                        initial: { height: 0, bottom: 0 },
-                        hidden: { height: 0, bottom: "100%", top: 0 },
-                        visible: { height: "100%", bottom: 0, top: 0 },
-                      }}
-                      transition={{ type: "spring", bounce: 0 }}
-                    />
+          {items.map((milestone, index) => {
+            const hasContent = !isEmptyLexical(milestone.text)
 
-                    {hasBundledImage(milestone.media) && (
-                      <Image
-                        className="absolute -z-[1] h-full w-full object-cover transition-all duration-500 group-hover/milestone:opacity-80 group-hover/milestone:invert"
-                        image={milestone.media.bundled.image}
-                      />
-                    )}
-
-                    <div
-                      className={cn("flex flex-col items-center gap-1 px-3 py-6", {
-                        dark: selectedIndex === index,
-                      })}
+            return (
+              <CarouselItem
+                key={index}
+                className="group/milestone basis-3/4 pl-0 md:basis-1/3 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6"
+                onMouseEnter={() => setSelectedIndex(index)}
+                onMouseLeave={() => setSelectedIndex(undefined)}
+              >
+                <Dialog onOpenChange={(open) => !open && setSelectedIndex(undefined)}>
+                  <DialogTrigger asChild>
+                    <AspectRatio
+                      className="relative isolate cursor-pointer bg-muted transition-colors duration-300"
+                      ratio={0.6}
                     >
-                      <MilestoneStatus status={milestone.status} locale={locale} />
-                      <h3 className="text-center font-semibold text-foreground">
-                        {milestone.title}
-                      </h3>
-                      <p className="text-center text-sm text-muted-foreground">{milestone.date}</p>
-                    </div>
-                  </AspectRatio>
-                </DialogTrigger>
-                <MilestoneDialogContent item={milestone} locale={locale} />
-              </Dialog>
-            </CarouselItem>
-          ))}
+                      <motion.div
+                        className="absolute inset-x-0 -z-[1] bg-foreground"
+                        initial={"initial"}
+                        animate={
+                          selectedIndex === index
+                            ? "visible"
+                            : selectedIndex !== undefined
+                              ? "hidden"
+                              : "initial"
+                        }
+                        variants={{
+                          initial: { height: 0, bottom: 0 },
+                          hidden: { height: 0, bottom: "100%", top: 0 },
+                          visible: { height: "100%", bottom: 0, top: 0 },
+                        }}
+                        transition={{ type: "spring", bounce: 0 }}
+                      />
+
+                      {hasBundledImage(milestone.media) && (
+                        <Image
+                          className="absolute -z-[1] h-full w-full object-cover transition-all duration-500 group-hover/milestone:opacity-80 group-hover/milestone:invert"
+                          image={milestone.media.bundled.image}
+                        />
+                      )}
+
+                      <div
+                        className={cn("flex flex-col items-center gap-1 px-3 py-6", {
+                          dark: selectedIndex === index,
+                        })}
+                      >
+                        <MilestoneStatus status={milestone.status} locale={locale} />
+                        <h3 className="text-center font-semibold text-foreground">
+                          {milestone.title}
+                        </h3>
+                        <p className="text-center text-sm text-muted-foreground">
+                          {milestone.date}
+                        </p>
+                      </div>
+                    </AspectRatio>
+                  </DialogTrigger>
+
+                  {hasContent && <MilestoneDialogContent item={milestone} locale={locale} />}
+                </Dialog>
+              </CarouselItem>
+            )
+          })}
         </CarouselContent>
       </Carousel>
     </div>
