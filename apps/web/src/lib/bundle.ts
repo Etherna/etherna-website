@@ -238,6 +238,14 @@ export async function resolveInternalLink<T extends LinkFields | BlockLink | nul
       default:
         break
     }
+  } else if (linkType === "attachment") {
+    const isBlockLink = (link: LinkFields | BlockLink): link is BlockLink => !("doc" in link)
+    if (isBlockLink(link) && link.attachment) {
+      const bundle = await bundleCmsFile(link.attachment)
+      if (bundle) {
+        link.url = bundle.url
+      }
+    }
   }
 
   return link
@@ -533,12 +541,14 @@ export async function bundleHero(hero: Page["hero"], locale: Locale, accessToken
   hero.badges = await Promise.all(
     (hero.badges ?? []).map(async (badge) => {
       badge.link = await resolveInternalLink(badge.link, locale, accessToken)
+      badge.link.icon = await bundleMedia(badge.link.icon, locale, accessToken)
       return badge
     }),
   )
   hero.links = await Promise.all(
     (hero.links ?? []).map(async (link) => {
       link.link = await resolveInternalLink(link.link, locale, accessToken)
+      link.link.icon = await bundleMedia(link.link.icon, locale, accessToken)
       return link
     }),
   )

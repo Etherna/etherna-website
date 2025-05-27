@@ -55,6 +55,10 @@ export const hero: Field = {
     linkGroup({
       linkOptions: {
         appearances: ["badge"],
+        icon: true,
+        overrides: {
+          label: false,
+        },
       },
       overrides: {
         name: "badges",
@@ -67,6 +71,7 @@ export const hero: Field = {
     linkGroup({
       linkOptions: {
         appearances: ["default", "outline"],
+        icon: true,
         overrides: {
           label: false,
         },

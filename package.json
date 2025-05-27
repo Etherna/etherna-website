@@ -10,8 +10,10 @@
   "type": "module",
   "scripts": {
     "build": "turbo run build",
-    "start": "turbo run start",
     "dev": "turbo run dev",
+    "start": "turbo run start",
+    "preview": "turbo run preview",
+    "gen": "turbo run gen",
     "snapshot": "turbo run snapshot",
     "migrate": "turbo run migrate",
     "lint": "turbo run lint",

@@ -1,8 +1,10 @@
 import { Image } from "../common/image"
 import { RichText } from "../common/rich-text"
+import { Svg } from "../common/svg"
 import { Badge } from "../ui/badge"
 import { Button } from "../ui/button"
 import { BaseBlock } from "./base-block"
+import { hasBundledImage } from "@/lib/bundle"
 import { cn } from "@/lib/utils"
 
 import type { Page } from "@payload-types"
@@ -52,14 +54,21 @@ export function HeroBlock({
                   <Badge
                     key={i}
                     className="border-0 p-0.5 text-foreground"
-                    asChild
                     style={{
                       backgroundImage:
                         "linear-gradient(35deg, #3acfd5 0%, #d59a3a 50%, #853ad5 100%)",
                     }}
+                    asChild
                   >
                     <a href={badge.link.url ?? ""}>
-                      <span className="rounded-full bg-current-background px-2 py-0.5 transition-colors duration-300 hover:bg-transparent hover:text-white">
+                      <span className="inline-flex items-center gap-2 rounded-full bg-current-background px-2 py-1 transition-colors duration-300 hover:bg-transparent hover:text-white">
+                        {hasBundledImage(badge.link.icon) &&
+                          badge.link.icon.bundled.image.svgContent && (
+                            <Svg
+                              svg={badge.link.icon.bundled.image.svgContent}
+                              className="size-3.5"
+                            />
+                          )}
                         {badge.link.label}
                       </span>
                     </a>

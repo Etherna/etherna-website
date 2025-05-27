@@ -62,6 +62,10 @@ export const link: LinkType = ({
                 value: "reference",
               },
               {
+                label: "File download",
+                value: "attachment",
+              },
+              {
                 label: "Custom URL",
                 value: "custom",
               },
@@ -107,6 +111,22 @@ export const link: LinkType = ({
       label: "Document to link to",
       maxDepth: 1,
       relationTo: ["pages", "posts", "redirects"],
+      required,
+    },
+    {
+      name: "attachment",
+      type: "relationship",
+      admin: {
+        condition: (_, siblingData) => siblingData?.type === "attachment",
+      },
+      label: "File to download",
+      maxDepth: 1,
+      filterOptions: () => {
+        return {
+          or: [{ mimeType: { like: "application/" } }, { mimeType: { like: "text/" } }],
+        }
+      },
+      relationTo: "media",
       required,
     },
     {

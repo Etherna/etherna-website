@@ -177,8 +177,9 @@ export interface Page {
     badges?:
       | {
           link: {
-            type?: ('reference' | 'custom') | null;
+            type?: ('reference' | 'attachment' | 'custom') | null;
             newTab?: boolean | null;
+            icon?: (string | null) | Media;
             reference?:
               | ({
                   relationTo: 'pages';
@@ -192,6 +193,7 @@ export interface Page {
                   relationTo: 'redirects';
                   value: string | Redirect;
                 } | null);
+            attachment?: (string | null) | Media;
             url?: string | null;
             label: string;
             /**
@@ -205,8 +207,9 @@ export interface Page {
     links?:
       | {
           link: {
-            type?: ('reference' | 'custom') | null;
+            type?: ('reference' | 'attachment' | 'custom') | null;
             newTab?: boolean | null;
+            icon?: (string | null) | Media;
             reference?:
               | ({
                   relationTo: 'pages';
@@ -220,6 +223,7 @@ export interface Page {
                   relationTo: 'redirects';
                   value: string | Redirect;
                 } | null);
+            attachment?: (string | null) | Media;
             url?: string | null;
             label: string;
             /**
@@ -276,6 +280,67 @@ export interface Page {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: string;
+  alt?: string | null;
+  caption?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  thumbhash?: string | null;
+  folder?: (string | null) | FolderInterface;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-folders".
+ */
+export interface FolderInterface {
+  id: string;
+  name: string;
+  folder?: (string | null) | FolderInterface;
+  documentsAndFolders?: {
+    docs?: (
+      | {
+          relationTo?: 'payload-folders';
+          value: string | FolderInterface;
+        }
+      | {
+          relationTo?: 'media';
+          value: string | Media;
+        }
+    )[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -337,67 +402,6 @@ export interface Category {
   color?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: string;
-  alt?: string | null;
-  caption?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  thumbhash?: string | null;
-  folder?: (string | null) | FolderInterface;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-folders".
- */
-export interface FolderInterface {
-  id: string;
-  name: string;
-  folder?: (string | null) | FolderInterface;
-  documentsAndFolders?: {
-    docs?: (
-      | {
-          relationTo?: 'payload-folders';
-          value: string | FolderInterface;
-        }
-      | {
-          relationTo?: 'media';
-          value: string | Media;
-        }
-    )[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
   updatedAt: string;
   createdAt: string;
 }
@@ -575,7 +579,7 @@ export interface CtaBlock {
   links?:
     | {
         link: {
-          type?: ('reference' | 'custom') | null;
+          type?: ('reference' | 'attachment' | 'custom') | null;
           newTab?: boolean | null;
           reference?:
             | ({
@@ -590,6 +594,7 @@ export interface CtaBlock {
                 relationTo: 'redirects';
                 value: string | Redirect;
               } | null);
+          attachment?: (string | null) | Media;
           url?: string | null;
           label: string;
           /**
@@ -695,7 +700,7 @@ export interface ClientsBlock {
   clients: {
     logo: string | Media;
     link?: {
-      type?: ('reference' | 'custom') | null;
+      type?: ('reference' | 'attachment' | 'custom') | null;
       newTab?: boolean | null;
       reference?:
         | ({
@@ -710,6 +715,7 @@ export interface ClientsBlock {
             relationTo: 'redirects';
             value: string | Redirect;
           } | null);
+      attachment?: (string | null) | Media;
       url?: string | null;
     };
     id?: string | null;
@@ -827,7 +833,7 @@ export interface AwardsBlock {
     name: string;
     logo: string | Media;
     link?: {
-      type?: ('reference' | 'custom') | null;
+      type?: ('reference' | 'attachment' | 'custom') | null;
       newTab?: boolean | null;
       reference?:
         | ({
@@ -842,6 +848,7 @@ export interface AwardsBlock {
             relationTo: 'redirects';
             value: string | Redirect;
           } | null);
+      attachment?: (string | null) | Media;
       url?: string | null;
     };
     id?: string | null;
@@ -979,7 +986,7 @@ export interface GridBlock {
               effect?: ('none' | 'appear' | 'zoom' | 'slide') | null;
               accentColor?: string | null;
               link?: {
-                type?: ('reference' | 'custom') | null;
+                type?: ('reference' | 'attachment' | 'custom') | null;
                 newTab?: boolean | null;
                 reference?:
                   | ({
@@ -994,6 +1001,7 @@ export interface GridBlock {
                       relationTo: 'redirects';
                       value: string | Redirect;
                     } | null);
+                attachment?: (string | null) | Media;
                 url?: string | null;
               };
               id?: string | null;
@@ -1082,7 +1090,7 @@ export interface BentoBlock {
         rowSpan?: number | null;
         colSpan?: number | null;
         link?: {
-          type?: ('reference' | 'custom') | null;
+          type?: ('reference' | 'attachment' | 'custom') | null;
           newTab?: boolean | null;
           reference?:
             | ({
@@ -1097,6 +1105,7 @@ export interface BentoBlock {
                 relationTo: 'redirects';
                 value: string | Redirect;
               } | null);
+          attachment?: (string | null) | Media;
           url?: string | null;
         };
         id?: string | null;
@@ -1166,7 +1175,7 @@ export interface TestimonialsBlock {
     } | null;
     avatar?: (string | null) | Media;
     link?: {
-      type?: ('reference' | 'custom') | null;
+      type?: ('reference' | 'attachment' | 'custom') | null;
       newTab?: boolean | null;
       reference?:
         | ({
@@ -1181,6 +1190,7 @@ export interface TestimonialsBlock {
             relationTo: 'redirects';
             value: string | Redirect;
           } | null);
+      attachment?: (string | null) | Media;
       url?: string | null;
     };
     id?: string | null;
@@ -1954,7 +1964,9 @@ export interface PagesSelect<T extends boolean = true> {
                 | {
                     type?: T;
                     newTab?: T;
+                    icon?: T;
                     reference?: T;
+                    attachment?: T;
                     url?: T;
                     label?: T;
                     appearance?: T;
@@ -1969,7 +1981,9 @@ export interface PagesSelect<T extends boolean = true> {
                 | {
                     type?: T;
                     newTab?: T;
+                    icon?: T;
                     reference?: T;
+                    attachment?: T;
                     url?: T;
                     label?: T;
                     appearance?: T;
@@ -2115,6 +2129,7 @@ export interface CtaBlockSelect<T extends boolean = true> {
               type?: T;
               newTab?: T;
               reference?: T;
+              attachment?: T;
               url?: T;
               label?: T;
               appearance?: T;
@@ -2199,6 +2214,7 @@ export interface ClientsBlockSelect<T extends boolean = true> {
               type?: T;
               newTab?: T;
               reference?: T;
+              attachment?: T;
               url?: T;
             };
         id?: T;
@@ -2285,6 +2301,7 @@ export interface AwardsBlockSelect<T extends boolean = true> {
               type?: T;
               newTab?: T;
               reference?: T;
+              attachment?: T;
               url?: T;
             };
         id?: T;
@@ -2391,6 +2408,7 @@ export interface GridBlockSelect<T extends boolean = true> {
                     type?: T;
                     newTab?: T;
                     reference?: T;
+                    attachment?: T;
                     url?: T;
                   };
               id?: T;
@@ -2458,6 +2476,7 @@ export interface BentoBlockSelect<T extends boolean = true> {
               type?: T;
               newTab?: T;
               reference?: T;
+              attachment?: T;
               url?: T;
             };
         id?: T;
@@ -2506,6 +2525,7 @@ export interface TestimonialsBlockSelect<T extends boolean = true> {
               type?: T;
               newTab?: T;
               reference?: T;
+              attachment?: T;
               url?: T;
             };
         id?: T;
@@ -3078,7 +3098,7 @@ export interface Header {
   navItems?:
     | {
         link: {
-          type?: ('reference' | 'custom') | null;
+          type?: ('reference' | 'attachment' | 'custom') | null;
           newTab?: boolean | null;
           icon?: (string | null) | Media;
           reference?:
@@ -3094,12 +3114,13 @@ export interface Header {
                 relationTo: 'redirects';
                 value: string | Redirect;
               } | null);
+          attachment?: (string | null) | Media;
           url?: string | null;
           label: string;
           sublinks?:
             | {
                 link: {
-                  type?: ('reference' | 'custom') | null;
+                  type?: ('reference' | 'attachment' | 'custom') | null;
                   newTab?: boolean | null;
                   icon?: (string | null) | Media;
                   reference?:
@@ -3115,6 +3136,7 @@ export interface Header {
                         relationTo: 'redirects';
                         value: string | Redirect;
                       } | null);
+                  attachment?: (string | null) | Media;
                   url?: string | null;
                   label: string;
                 };
@@ -3140,7 +3162,7 @@ export interface Footer {
         groupItems?:
           | {
               link: {
-                type?: ('reference' | 'custom') | null;
+                type?: ('reference' | 'attachment' | 'custom') | null;
                 newTab?: boolean | null;
                 reference?:
                   | ({
@@ -3155,6 +3177,7 @@ export interface Footer {
                       relationTo: 'redirects';
                       value: string | Redirect;
                     } | null);
+                attachment?: (string | null) | Media;
                 url?: string | null;
                 label: string;
               };
@@ -3167,7 +3190,7 @@ export interface Footer {
   legalLinks?:
     | {
         link: {
-          type?: ('reference' | 'custom') | null;
+          type?: ('reference' | 'attachment' | 'custom') | null;
           newTab?: boolean | null;
           reference?:
             | ({
@@ -3182,6 +3205,7 @@ export interface Footer {
                 relationTo: 'redirects';
                 value: string | Redirect;
               } | null);
+          attachment?: (string | null) | Media;
           url?: string | null;
           label: string;
         };
@@ -3245,6 +3269,7 @@ export interface HeaderSelect<T extends boolean = true> {
               newTab?: T;
               icon?: T;
               reference?: T;
+              attachment?: T;
               url?: T;
               label?: T;
               sublinks?:
@@ -3257,6 +3282,7 @@ export interface HeaderSelect<T extends boolean = true> {
                           newTab?: T;
                           icon?: T;
                           reference?: T;
+                          attachment?: T;
                           url?: T;
                           label?: T;
                         };
@@ -3287,6 +3313,7 @@ export interface FooterSelect<T extends boolean = true> {
                     type?: T;
                     newTab?: T;
                     reference?: T;
+                    attachment?: T;
                     url?: T;
                     label?: T;
                   };
@@ -3303,6 +3330,7 @@ export interface FooterSelect<T extends boolean = true> {
               type?: T;
               newTab?: T;
               reference?: T;
+              attachment?: T;
               url?: T;
               label?: T;
             };
