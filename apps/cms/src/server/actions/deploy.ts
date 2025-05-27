@@ -17,20 +17,34 @@ export async function deploy() {
     .then((res) => res.data.workflow_runs[0])
 
   if (last?.status && ["requested", "queued", "pending", "waiting"].includes(last.status)) {
+    // not started yet, so there is no need to cancel
     return last
   }
 
   if (last?.status === "in_progress") {
-    await github.actions.cancelWorkflowRun({
+    const jobs = await github.actions.listJobsForWorkflowRun({
       owner,
       repo,
       run_id: last.id,
     })
-    await github.actions.deleteWorkflowRun({
-      owner,
-      repo,
-      run_id: last.id,
-    })
+
+    const isPublishInProgress = jobs.data.jobs.some(
+      (job) => job.name === "Publish" && job.status === "in_progress",
+    )
+
+    if (!isPublishInProgress) {
+      // only stop during build to avoid site downtime
+      await github.actions.cancelWorkflowRun({
+        owner,
+        repo,
+        run_id: last.id,
+      })
+      await github.actions.deleteWorkflowRun({
+        owner,
+        repo,
+        run_id: last.id,
+      })
+    }
   }
 
   const newRun = await github.actions.createWorkflowDispatch({
