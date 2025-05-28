@@ -37,4 +37,4 @@ USER nextjs
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV HOSTNAME="0.0.0.0"
-CMD node server.js
+CMD ["node", "server.js"]
