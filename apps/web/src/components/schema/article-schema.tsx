@@ -45,14 +45,16 @@ export function ArticleSchema({
         image: image ?? undefined,
         description: excerpt ?? undefined,
         dateCreated: publishDate ? formatDate(publishDate, "yyyy-MM-dd") : undefined,
-        datePublished: publishDate ? formatDate(publishDate, "yyyy-MM-dd") : undefined,
-        dateModified: updateDate ? formatDate(updateDate, "yyyy-MM-dd") : undefined,
+        datePublished: publishDate
+          ? formatDate(publishDate, "yyyy-MM-dd'T'HH:mm:ssxxx")
+          : undefined,
+        dateModified: updateDate ? formatDate(updateDate, "yyyy-MM-dd'T'HH:mm:ssxxx") : undefined,
         wordCount: wordCount ?? undefined,
         keywords: keywords?.split(/[ ,;]/).join(" "),
         publisher: {
           "@type": "Organization",
           name: "Etherna SA",
-          email: "info(at)etherna.io",
+          email: `mailto:info@etherna.io`,
           logo: {
             "@type": "ImageObject",
             url: import.meta.env.PUBLIC_SITE_URL + ethernaLogo.src,

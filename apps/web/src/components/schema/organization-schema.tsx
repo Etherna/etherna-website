@@ -39,7 +39,7 @@ export function OrganizationSchema({
           streetAddress: companyStreetAddress,
           addressCountry: companyCountry,
         },
-        email: companyEmail.replace("@", "(at)"),
+        email: `mailto:${companyEmail}`,
         foundingDate: formatDate(companyFoundingDate, "yyyy-MM-dd"),
         keywords: companyKeywords,
         logo: {
