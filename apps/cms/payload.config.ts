@@ -43,6 +43,21 @@ export default buildConfig({
   admin: {
     components: {
       beforeDashboard: ["@/components/before-dashboard#BeforeDashboard"],
+      graphics: {
+        Logo: {
+          path: "@/components/logo#Logo",
+          clientProps: {
+            height: 44,
+          },
+        },
+        Icon: {
+          path: "@/components/logo#Symbol",
+          clientProps: {
+            width: 22,
+            height: 22,
+          },
+        },
+      },
     },
     avatar: {
       Component: {

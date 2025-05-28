@@ -11,6 +11,10 @@ body .rich-text-lexical .editor-container {
   @apply bg-zinc-200/30 dark:bg-zinc-800/50;
 }
 
+.step-nav__home {
+  @apply size-6;
+}
+
 :root {
   --background: 210 40% 98%;
   --foreground: 222.2 84% 4.9%;

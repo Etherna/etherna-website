@@ -39,6 +39,8 @@ import { Thumbhash as Thumbhash_861e801396517aed8ee8d3cfe901e55e } from '@/compo
 import { FolderTableCell as FolderTableCell_ab83ff7e88da8d3530831f296ec4756a } from '@payloadcms/ui/rsc'
 import { FolderEditField as FolderEditField_ab83ff7e88da8d3530831f296ec4756a } from '@payloadcms/ui/rsc'
 import { UserAvatar as UserAvatar_9c5b55a8450fd68e39ceb0b406054d4c } from '@/components/avatar'
+import { Symbol as Symbol_7a89b5675912f3f4f82dd41bbb03d52e } from '@/components/logo'
+import { Logo as Logo_7a89b5675912f3f4f82dd41bbb03d52e } from '@/components/logo'
 import { BeforeDashboard as BeforeDashboard_9f32ce6f473387f99159899dd857e0af } from '@/components/before-dashboard'
 
 export const importMap = {
@@ -83,5 +85,7 @@ export const importMap = {
   "@payloadcms/ui/rsc#FolderTableCell": FolderTableCell_ab83ff7e88da8d3530831f296ec4756a,
   "@payloadcms/ui/rsc#FolderEditField": FolderEditField_ab83ff7e88da8d3530831f296ec4756a,
   "@/components/avatar#UserAvatar": UserAvatar_9c5b55a8450fd68e39ceb0b406054d4c,
+  "@/components/logo#Symbol": Symbol_7a89b5675912f3f4f82dd41bbb03d52e,
+  "@/components/logo#Logo": Logo_7a89b5675912f3f4f82dd41bbb03d52e,
   "@/components/before-dashboard#BeforeDashboard": BeforeDashboard_9f32ce6f473387f99159899dd857e0af
 }
