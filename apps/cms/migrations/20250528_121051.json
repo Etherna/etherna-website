@@ -1,5 +1,5 @@
 {
-  "id": "4d1e25f8-259a-44c9-98ba-9efdb7cf0f6b",
+  "id": "80aa1d59-f8ef-4ba3-97f0-32d44b887388",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -41,6 +41,12 @@
         },
         "link_icon_id": {
           "name": "link_icon_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "link_attachment_id": {
+          "name": "link_attachment_id",
           "type": "uuid",
           "primaryKey": false,
           "notNull": false
@@ -97,6 +103,21 @@
           "concurrently": false,
           "method": "btree",
           "with": {}
+        },
+        "pages_hero_badges_link_link_attachment_idx": {
+          "name": "pages_hero_badges_link_link_attachment_idx",
+          "columns": [
+            {
+              "expression": "link_attachment_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
         }
       },
       "foreignKeys": {
@@ -106,6 +127,19 @@
           "tableTo": "media",
           "columnsFrom": [
             "link_icon_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "pages_hero_badges_link_attachment_id_media_id_fk": {
+          "name": "pages_hero_badges_link_attachment_id_media_id_fk",
+          "tableFrom": "pages_hero_badges",
+          "tableTo": "media",
+          "columnsFrom": [
+            "link_attachment_id"
           ],
           "columnsTo": [
             "id"
@@ -253,6 +287,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "link_attachment_id": {
+          "name": "link_attachment_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
         "link_appearance": {
           "name": "link_appearance",
           "type": "varchar",
@@ -305,6 +345,21 @@
           "concurrently": false,
           "method": "btree",
           "with": {}
+        },
+        "pages_hero_links_link_link_attachment_idx": {
+          "name": "pages_hero_links_link_link_attachment_idx",
+          "columns": [
+            {
+              "expression": "link_attachment_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
         }
       },
       "foreignKeys": {
@@ -314,6 +369,19 @@
           "tableTo": "media",
           "columnsFrom": [
             "link_icon_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "pages_hero_links_link_attachment_id_media_id_fk": {
+          "name": "pages_hero_links_link_attachment_id_media_id_fk",
+          "tableFrom": "pages_hero_links",
+          "tableTo": "media",
+          "columnsFrom": [
+            "link_attachment_id"
           ],
           "columnsTo": [
             "id"
@@ -1228,6 +1296,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "link_attachment_id": {
+          "name": "link_attachment_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
         "link_appearance": {
           "name": "link_appearance",
           "type": "varchar",
@@ -1265,9 +1339,37 @@
           "concurrently": false,
           "method": "btree",
           "with": {}
+        },
+        "pages_blocks_cta_links_link_link_attachment_idx": {
+          "name": "pages_blocks_cta_links_link_link_attachment_idx",
+          "columns": [
+            {
+              "expression": "link_attachment_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
         }
       },
       "foreignKeys": {
+        "pages_blocks_cta_links_link_attachment_id_media_id_fk": {
+          "name": "pages_blocks_cta_links_link_attachment_id_media_id_fk",
+          "tableFrom": "pages_blocks_cta_links",
+          "tableTo": "media",
+          "columnsFrom": [
+            "link_attachment_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
         "pages_blocks_cta_links_parent_id_fk": {
           "name": "pages_blocks_cta_links_parent_id_fk",
           "tableFrom": "pages_blocks_cta_links",
@@ -2334,6 +2436,12 @@
           "type": "boolean",
           "primaryKey": false,
           "notNull": false
+        },
+        "link_attachment_id": {
+          "name": "link_attachment_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {
@@ -2381,6 +2489,21 @@
           "concurrently": false,
           "method": "btree",
           "with": {}
+        },
+        "pages_blocks_clients_clients_link_link_attachment_idx": {
+          "name": "pages_blocks_clients_clients_link_link_attachment_idx",
+          "columns": [
+            {
+              "expression": "link_attachment_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
         }
       },
       "foreignKeys": {
@@ -2390,6 +2513,19 @@
           "tableTo": "media",
           "columnsFrom": [
             "logo_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "pages_blocks_clients_clients_link_attachment_id_media_id_fk": {
+          "name": "pages_blocks_clients_clients_link_attachment_id_media_id_fk",
+          "tableFrom": "pages_blocks_clients_clients",
+          "tableTo": "media",
+          "columnsFrom": [
+            "link_attachment_id"
           ],
           "columnsTo": [
             "id"
@@ -3449,6 +3585,12 @@
           "type": "boolean",
           "primaryKey": false,
           "notNull": false
+        },
+        "link_attachment_id": {
+          "name": "link_attachment_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {
@@ -3496,6 +3638,21 @@
           "concurrently": false,
           "method": "btree",
           "with": {}
+        },
+        "pages_blocks_awards_awards_link_link_attachment_idx": {
+          "name": "pages_blocks_awards_awards_link_link_attachment_idx",
+          "columns": [
+            {
+              "expression": "link_attachment_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
         }
       },
       "foreignKeys": {
@@ -3505,6 +3662,19 @@
           "tableTo": "media",
           "columnsFrom": [
             "logo_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "pages_blocks_awards_awards_link_attachment_id_media_id_fk": {
+          "name": "pages_blocks_awards_awards_link_attachment_id_media_id_fk",
+          "tableFrom": "pages_blocks_awards_awards",
+          "tableTo": "media",
+          "columnsFrom": [
+            "link_attachment_id"
           ],
           "columnsTo": [
             "id"
@@ -4656,6 +4826,12 @@
           "type": "boolean",
           "primaryKey": false,
           "notNull": false
+        },
+        "link_attachment_id": {
+          "name": "link_attachment_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {
@@ -4703,6 +4879,21 @@
           "concurrently": false,
           "method": "btree",
           "with": {}
+        },
+        "pages_blocks_grid_rows_items_link_link_attachment_idx": {
+          "name": "pages_blocks_grid_rows_items_link_link_attachment_idx",
+          "columns": [
+            {
+              "expression": "link_attachment_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
         }
       },
       "foreignKeys": {
@@ -4712,6 +4903,19 @@
           "tableTo": "media",
           "columnsFrom": [
             "background_background_image_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "pages_blocks_grid_rows_items_link_attachment_id_media_id_fk": {
+          "name": "pages_blocks_grid_rows_items_link_attachment_id_media_id_fk",
+          "tableFrom": "pages_blocks_grid_rows_items",
+          "tableTo": "media",
+          "columnsFrom": [
+            "link_attachment_id"
           ],
           "columnsTo": [
             "id"
@@ -5442,6 +5646,12 @@
           "type": "boolean",
           "primaryKey": false,
           "notNull": false
+        },
+        "link_attachment_id": {
+          "name": "link_attachment_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {
@@ -5489,6 +5699,21 @@
           "concurrently": false,
           "method": "btree",
           "with": {}
+        },
+        "pages_blocks_bento_items_link_link_attachment_idx": {
+          "name": "pages_blocks_bento_items_link_link_attachment_idx",
+          "columns": [
+            {
+              "expression": "link_attachment_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
         }
       },
       "foreignKeys": {
@@ -5498,6 +5723,19 @@
           "tableTo": "media",
           "columnsFrom": [
             "background_background_image_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "pages_blocks_bento_items_link_attachment_id_media_id_fk": {
+          "name": "pages_blocks_bento_items_link_attachment_id_media_id_fk",
+          "tableFrom": "pages_blocks_bento_items",
+          "tableTo": "media",
+          "columnsFrom": [
+            "link_attachment_id"
           ],
           "columnsTo": [
             "id"
@@ -6018,6 +6256,12 @@
           "type": "boolean",
           "primaryKey": false,
           "notNull": false
+        },
+        "link_attachment_id": {
+          "name": "link_attachment_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {
@@ -6065,6 +6309,21 @@
           "concurrently": false,
           "method": "btree",
           "with": {}
+        },
+        "pages_blocks_tstm_items_link_link_attachment_idx": {
+          "name": "pages_blocks_tstm_items_link_link_attachment_idx",
+          "columns": [
+            {
+              "expression": "link_attachment_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
         }
       },
       "foreignKeys": {
@@ -6074,6 +6333,19 @@
           "tableTo": "media",
           "columnsFrom": [
             "avatar_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "pages_blocks_tstm_items_link_attachment_id_media_id_fk": {
+          "name": "pages_blocks_tstm_items_link_attachment_id_media_id_fk",
+          "tableFrom": "pages_blocks_tstm_items",
+          "tableTo": "media",
+          "columnsFrom": [
+            "link_attachment_id"
           ],
           "columnsTo": [
             "id"
@@ -10080,6 +10352,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "link_attachment_id": {
+          "name": "link_attachment_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
         "link_appearance": {
           "name": "link_appearance",
           "type": "varchar",
@@ -10138,6 +10416,21 @@
           "concurrently": false,
           "method": "btree",
           "with": {}
+        },
+        "_pages_v_version_hero_badges_link_link_attachment_idx": {
+          "name": "_pages_v_version_hero_badges_link_link_attachment_idx",
+          "columns": [
+            {
+              "expression": "link_attachment_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
         }
       },
       "foreignKeys": {
@@ -10147,6 +10440,19 @@
           "tableTo": "media",
           "columnsFrom": [
             "link_icon_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "_pages_v_version_hero_badges_link_attachment_id_media_id_fk": {
+          "name": "_pages_v_version_hero_badges_link_attachment_id_media_id_fk",
+          "tableFrom": "_pages_v_version_hero_badges",
+          "tableTo": "media",
+          "columnsFrom": [
+            "link_attachment_id"
           ],
           "columnsTo": [
             "id"
@@ -10295,6 +10601,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "link_attachment_id": {
+          "name": "link_attachment_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
         "link_appearance": {
           "name": "link_appearance",
           "type": "varchar",
@@ -10353,6 +10665,21 @@
           "concurrently": false,
           "method": "btree",
           "with": {}
+        },
+        "_pages_v_version_hero_links_link_link_attachment_idx": {
+          "name": "_pages_v_version_hero_links_link_link_attachment_idx",
+          "columns": [
+            {
+              "expression": "link_attachment_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
         }
       },
       "foreignKeys": {
@@ -10362,6 +10689,19 @@
           "tableTo": "media",
           "columnsFrom": [
             "link_icon_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "_pages_v_version_hero_links_link_attachment_id_media_id_fk": {
+          "name": "_pages_v_version_hero_links_link_attachment_id_media_id_fk",
+          "tableFrom": "_pages_v_version_hero_links",
+          "tableTo": "media",
+          "columnsFrom": [
+            "link_attachment_id"
           ],
           "columnsTo": [
             "id"
@@ -11312,6 +11652,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "link_attachment_id": {
+          "name": "link_attachment_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
         "link_appearance": {
           "name": "link_appearance",
           "type": "varchar",
@@ -11355,9 +11701,37 @@
           "concurrently": false,
           "method": "btree",
           "with": {}
+        },
+        "_pages_v_blocks_cta_links_link_link_attachment_idx": {
+          "name": "_pages_v_blocks_cta_links_link_link_attachment_idx",
+          "columns": [
+            {
+              "expression": "link_attachment_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
         }
       },
       "foreignKeys": {
+        "_pages_v_blocks_cta_links_link_attachment_id_media_id_fk": {
+          "name": "_pages_v_blocks_cta_links_link_attachment_id_media_id_fk",
+          "tableFrom": "_pages_v_blocks_cta_links",
+          "tableTo": "media",
+          "columnsFrom": [
+            "link_attachment_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
         "_pages_v_blocks_cta_links_parent_id_fk": {
           "name": "_pages_v_blocks_cta_links_parent_id_fk",
           "tableFrom": "_pages_v_blocks_cta_links",
@@ -12461,6 +12835,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "link_attachment_id": {
+          "name": "link_attachment_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
         "_uuid": {
           "name": "_uuid",
           "type": "varchar",
@@ -12513,6 +12893,21 @@
           "concurrently": false,
           "method": "btree",
           "with": {}
+        },
+        "_pages_v_blocks_clients_clients_link_link_attachment_idx": {
+          "name": "_pages_v_blocks_clients_clients_link_link_attachment_idx",
+          "columns": [
+            {
+              "expression": "link_attachment_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
         }
       },
       "foreignKeys": {
@@ -12522,6 +12917,19 @@
           "tableTo": "media",
           "columnsFrom": [
             "logo_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "_pages_v_blocks_clients_clients_link_attachment_id_media_id_fk": {
+          "name": "_pages_v_blocks_clients_clients_link_attachment_id_media_id_fk",
+          "tableFrom": "_pages_v_blocks_clients_clients",
+          "tableTo": "media",
+          "columnsFrom": [
+            "link_attachment_id"
           ],
           "columnsTo": [
             "id"
@@ -13618,6 +14026,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "link_attachment_id": {
+          "name": "link_attachment_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
         "_uuid": {
           "name": "_uuid",
           "type": "varchar",
@@ -13670,6 +14084,21 @@
           "concurrently": false,
           "method": "btree",
           "with": {}
+        },
+        "_pages_v_blocks_awards_awards_link_link_attachment_idx": {
+          "name": "_pages_v_blocks_awards_awards_link_link_attachment_idx",
+          "columns": [
+            {
+              "expression": "link_attachment_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
         }
       },
       "foreignKeys": {
@@ -13679,6 +14108,19 @@
           "tableTo": "media",
           "columnsFrom": [
             "logo_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "_pages_v_blocks_awards_awards_link_attachment_id_media_id_fk": {
+          "name": "_pages_v_blocks_awards_awards_link_attachment_id_media_id_fk",
+          "tableFrom": "_pages_v_blocks_awards_awards",
+          "tableTo": "media",
+          "columnsFrom": [
+            "link_attachment_id"
           ],
           "columnsTo": [
             "id"
@@ -14874,6 +15316,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "link_attachment_id": {
+          "name": "link_attachment_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
         "_uuid": {
           "name": "_uuid",
           "type": "varchar",
@@ -14926,6 +15374,21 @@
           "concurrently": false,
           "method": "btree",
           "with": {}
+        },
+        "_pages_v_blocks_grid_rows_items_link_link_attachment_idx": {
+          "name": "_pages_v_blocks_grid_rows_items_link_link_attachment_idx",
+          "columns": [
+            {
+              "expression": "link_attachment_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
         }
       },
       "foreignKeys": {
@@ -14935,6 +15398,19 @@
           "tableTo": "media",
           "columnsFrom": [
             "background_background_image_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "_pages_v_blocks_grid_rows_items_link_attachment_id_media_id_fk": {
+          "name": "_pages_v_blocks_grid_rows_items_link_attachment_id_media_id_fk",
+          "tableFrom": "_pages_v_blocks_grid_rows_items",
+          "tableTo": "media",
+          "columnsFrom": [
+            "link_attachment_id"
           ],
           "columnsTo": [
             "id"
@@ -15695,6 +16171,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "link_attachment_id": {
+          "name": "link_attachment_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
         "_uuid": {
           "name": "_uuid",
           "type": "varchar",
@@ -15747,6 +16229,21 @@
           "concurrently": false,
           "method": "btree",
           "with": {}
+        },
+        "_pages_v_blocks_bento_items_link_link_attachment_idx": {
+          "name": "_pages_v_blocks_bento_items_link_link_attachment_idx",
+          "columns": [
+            {
+              "expression": "link_attachment_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
         }
       },
       "foreignKeys": {
@@ -15756,6 +16253,19 @@
           "tableTo": "media",
           "columnsFrom": [
             "background_background_image_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "_pages_v_blocks_bento_items_link_attachment_id_media_id_fk": {
+          "name": "_pages_v_blocks_bento_items_link_attachment_id_media_id_fk",
+          "tableFrom": "_pages_v_blocks_bento_items",
+          "tableTo": "media",
+          "columnsFrom": [
+            "link_attachment_id"
           ],
           "columnsTo": [
             "id"
@@ -16292,6 +16802,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "link_attachment_id": {
+          "name": "link_attachment_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
         "_uuid": {
           "name": "_uuid",
           "type": "varchar",
@@ -16344,6 +16860,21 @@
           "concurrently": false,
           "method": "btree",
           "with": {}
+        },
+        "_pages_v_blocks_tstm_items_link_link_attachment_idx": {
+          "name": "_pages_v_blocks_tstm_items_link_link_attachment_idx",
+          "columns": [
+            {
+              "expression": "link_attachment_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
         }
       },
       "foreignKeys": {
@@ -16353,6 +16884,19 @@
           "tableTo": "media",
           "columnsFrom": [
             "avatar_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "_pages_v_blocks_tstm_items_link_attachment_id_media_id_fk": {
+          "name": "_pages_v_blocks_tstm_items_link_attachment_id_media_id_fk",
+          "tableFrom": "_pages_v_blocks_tstm_items",
+          "tableTo": "media",
+          "columnsFrom": [
+            "link_attachment_id"
           ],
           "columnsTo": [
             "id"
@@ -27287,6 +27831,12 @@
           "type": "uuid",
           "primaryKey": false,
           "notNull": false
+        },
+        "link_attachment_id": {
+          "name": "link_attachment_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {
@@ -27334,6 +27884,21 @@
           "concurrently": false,
           "method": "btree",
           "with": {}
+        },
+        "header_nav_items_link_sublinks_link_link_attachment_idx": {
+          "name": "header_nav_items_link_sublinks_link_link_attachment_idx",
+          "columns": [
+            {
+              "expression": "link_attachment_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
         }
       },
       "foreignKeys": {
@@ -27343,6 +27908,19 @@
           "tableTo": "media",
           "columnsFrom": [
             "link_icon_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "header_nav_items_link_sublinks_link_attachment_id_media_id_fk": {
+          "name": "header_nav_items_link_sublinks_link_attachment_id_media_id_fk",
+          "tableFrom": "header_nav_items_link_sublinks",
+          "tableTo": "media",
+          "columnsFrom": [
+            "link_attachment_id"
           ],
           "columnsTo": [
             "id"
@@ -27489,6 +28067,12 @@
           "type": "uuid",
           "primaryKey": false,
           "notNull": false
+        },
+        "link_attachment_id": {
+          "name": "link_attachment_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {
@@ -27536,6 +28120,21 @@
           "concurrently": false,
           "method": "btree",
           "with": {}
+        },
+        "header_nav_items_link_link_attachment_idx": {
+          "name": "header_nav_items_link_link_attachment_idx",
+          "columns": [
+            {
+              "expression": "link_attachment_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
         }
       },
       "foreignKeys": {
@@ -27545,6 +28144,19 @@
           "tableTo": "media",
           "columnsFrom": [
             "link_icon_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "header_nav_items_link_attachment_id_media_id_fk": {
+          "name": "header_nav_items_link_attachment_id_media_id_fk",
+          "tableFrom": "header_nav_items",
+          "tableTo": "media",
+          "columnsFrom": [
+            "link_attachment_id"
           ],
           "columnsTo": [
             "id"
@@ -27916,6 +28528,12 @@
           "type": "boolean",
           "primaryKey": false,
           "notNull": false
+        },
+        "link_attachment_id": {
+          "name": "link_attachment_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {
@@ -27948,9 +28566,37 @@
           "concurrently": false,
           "method": "btree",
           "with": {}
+        },
+        "footer_groups_group_items_link_link_attachment_idx": {
+          "name": "footer_groups_group_items_link_link_attachment_idx",
+          "columns": [
+            {
+              "expression": "link_attachment_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
         }
       },
       "foreignKeys": {
+        "footer_groups_group_items_link_attachment_id_media_id_fk": {
+          "name": "footer_groups_group_items_link_attachment_id_media_id_fk",
+          "tableFrom": "footer_groups_group_items",
+          "tableTo": "media",
+          "columnsFrom": [
+            "link_attachment_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
         "footer_groups_group_items_parent_id_fk": {
           "name": "footer_groups_group_items_parent_id_fk",
           "tableFrom": "footer_groups_group_items",
@@ -28233,6 +28879,12 @@
           "type": "boolean",
           "primaryKey": false,
           "notNull": false
+        },
+        "link_attachment_id": {
+          "name": "link_attachment_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {
@@ -28265,9 +28917,37 @@
           "concurrently": false,
           "method": "btree",
           "with": {}
+        },
+        "footer_legal_links_link_link_attachment_idx": {
+          "name": "footer_legal_links_link_link_attachment_idx",
+          "columns": [
+            {
+              "expression": "link_attachment_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
         }
       },
       "foreignKeys": {
+        "footer_legal_links_link_attachment_id_media_id_fk": {
+          "name": "footer_legal_links_link_attachment_id_media_id_fk",
+          "tableFrom": "footer_legal_links",
+          "tableTo": "media",
+          "columnsFrom": [
+            "link_attachment_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
         "footer_legal_links_parent_id_fk": {
           "name": "footer_legal_links_parent_id_fk",
           "tableFrom": "footer_legal_links",
