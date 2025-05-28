@@ -141,13 +141,10 @@ const activeCategory = categories.find((cat) => cat.id === id)
       page={posts.page ?? 1}
       basePath={localized(
         activeCategory
-          ? route("/blog/category/:category/page/:page", {
+          ? route("/blog/category/:category", {
               category: activeCategory.slug ?? "-",
-              page: "",
             })
-          : route("/blog/page/:page", {
-              page: "",
-            }),
+          : route("/blog"),
         locale,
       )}
     />

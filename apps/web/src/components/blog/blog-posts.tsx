@@ -134,7 +134,7 @@ function BlogPostsPagination({
         variant={"ghost"}
         asChild
       >
-        <a href={`${basePath}${page - 1}`} className="">
+        <a href={`${basePath}${page > 2 ? `/page/${page - 1}` : ""}`} className="">
           <ArrowLeftIcon className="mr-1.5 size-3" strokeWidth={2.5} />
           {t(blogDictionary.previous, { locale })}
         </a>
@@ -151,7 +151,7 @@ function BlogPostsPagination({
         variant={"ghost"}
         asChild
       >
-        <a href={`${basePath}${page + 1}`} className="">
+        <a href={`${basePath}${`/page/${page + 1}`}`} className="">
           {t(blogDictionary.next, { locale })}
           <ArrowRightIcon className="ml-1.5 size-3" strokeWidth={2.5} />
         </a>
