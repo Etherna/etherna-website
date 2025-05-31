@@ -259,12 +259,15 @@ export async function bundleLexical(nodes: NodeType[], locale: Locale, accessTok
         break
       }
       case "upload": {
-        const media = await fetchPayloadRequest<Media>({
-          method: "GET",
-          path: `/media/${node.id}`,
-          params: { locale },
-          accessToken,
-        })
+        const media =
+          typeof node.value === "string"
+            ? await fetchPayloadRequest<Media>({
+                method: "GET",
+                path: `/media/${node.value}`,
+                params: { locale },
+                accessToken,
+              })
+            : (node.value as Media)
         node.fields = {
           image: await bundleCmsImage(media),
           file: await bundleCmsFile(media),

@@ -15,11 +15,8 @@ import type { Locale, LocalizedPath } from "@/i18n/types"
 
 function Post({ className, children, ...props }: React.ComponentProps<"div">) {
   return (
-    <div
-      className={cn("container my-32 flex max-w-prose flex-col items-center gap-10", className)}
-      {...props}
-    >
-      {children}
+    <div className={cn("container my-32 flex flex-col", className)} {...props}>
+      <div className="flex max-w-prose flex-col items-center gap-10 lg:text-lg">{children}</div>
     </div>
   )
 }
