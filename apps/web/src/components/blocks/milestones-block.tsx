@@ -286,7 +286,7 @@ function Roadmap({ items, locale }: Pick<MilestonesBlock, "items"> & { locale: L
                       ratio={0.6}
                     >
                       <motion.div
-                        className="absolute inset-x-0 -z-[1] bg-foreground"
+                        className="absolute inset-x-0 -z-[1] bg-primary"
                         initial={"initial"}
                         animate={
                           selectedIndex === index
@@ -305,7 +305,7 @@ function Roadmap({ items, locale }: Pick<MilestonesBlock, "items"> & { locale: L
 
                       {hasBundledImage(milestone.media) && (
                         <Image
-                          className="absolute -z-[1] h-full w-full object-cover transition-all duration-500 group-hover/milestone:opacity-80 group-hover/milestone:invert"
+                          className="absolute -z-[1] h-full w-full object-cover transition-all duration-500 group-hover/milestone:opacity-50"
                           image={milestone.media.bundled.image}
                         />
                       )}
@@ -319,7 +319,7 @@ function Roadmap({ items, locale }: Pick<MilestonesBlock, "items"> & { locale: L
                         <h3 className="text-center font-semibold text-foreground">
                           {milestone.title}
                         </h3>
-                        <p className="text-center text-sm text-muted-foreground">
+                        <p className="text-center text-sm text-muted-foreground group-hover/milestone:text-white/50">
                           {milestone.date}
                         </p>
                       </div>
@@ -379,7 +379,7 @@ function MilestoneStatus({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1 rounded-full border px-1.5 py-px text-xs font-medium",
+        "inline-flex items-center gap-1 rounded-full border px-1.5 py-px text-xs font-medium group-hover/milestone:border-white group-hover/milestone:text-white",
         {
           "border-primary text-primary": status === "active",
           "border-muted-foreground text-muted-foreground": status === "completed",

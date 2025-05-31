@@ -22,10 +22,10 @@ const AccordionTrigger = React.forwardRef<
   <AccordionPrimitive.Header className="flex">
     <AccordionPrimitive.Trigger
       ref={ref}
-      className={cn("group/accordion flex flex-1 py-4 font-medium transition-all", className)}
+      className={cn("group/accordion flex flex-1 py-3 font-medium transition-all", className)}
       {...props}
     >
-      <div className="flex grow items-center justify-between">
+      <div className="flex grow items-center justify-between text-left text-base/tight">
         {children}
         <ChevronDown className="size-4 shrink-0 transition-transform duration-200 group-data-[state=open]/accordion:rotate-180" />
       </div>
