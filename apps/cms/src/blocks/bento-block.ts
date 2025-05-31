@@ -31,6 +31,22 @@ export const BentoBlock = {
         },
       },
       fields: [
+        background(),
+        {
+          type: "collapsible",
+          label: "Link",
+          admin: {
+            initCollapsed: true,
+          },
+          fields: [
+            link({
+              required: false,
+              disableLabel: true,
+              appearances: false,
+              overrides: { label: false },
+            }),
+          ],
+        },
         {
           name: "title",
           type: "text",
@@ -46,36 +62,36 @@ export const BentoBlock = {
             },
           }),
         },
-        background(),
-        colorField({
-          name: "accentColor",
-          admin: {
-            width: "50%",
-          },
-        }),
         {
-          name: "rowSpan",
-          label: "Row Span (1-2)",
-          type: "number",
-          defaultValue: 1,
-          min: 1,
-          max: 2,
-          admin: {
-            width: "50%",
-          },
+          name: "media",
+          type: "upload",
+          required: false,
+          relationTo: "media",
         },
         {
-          name: "colSpan",
-          label: "Col Span (1-6)",
-          type: "number",
-          defaultValue: 3,
-          min: 1,
-          max: 6,
-          admin: {
-            width: "50%",
-          },
+          type: "row",
+          fields: [
+            colorField({
+              name: "accentColor",
+            }),
+            {
+              name: "rowSpan",
+              label: "Row Span (1-2)",
+              type: "number",
+              defaultValue: 1,
+              min: 1,
+              max: 2,
+            },
+            {
+              name: "colSpan",
+              label: "Col Span (1-6)",
+              type: "number",
+              defaultValue: 3,
+              min: 1,
+              max: 6,
+            },
+          ],
         },
-        link({ required: false, disableLabel: true, appearances: false }),
       ],
     },
   ],

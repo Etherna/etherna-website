@@ -350,6 +350,7 @@ export async function bundleBlocks(blocks: AnyBlock[], locale: Locale, accessTok
         )
         block.items = await Promise.all(
           (block.items ?? []).map(async (item) => {
+            item.media = await bundleMedia(item.media, locale, accessToken)
             item.background.backgroundImage = await bundleMedia(
               item.background.backgroundImage,
               locale,
