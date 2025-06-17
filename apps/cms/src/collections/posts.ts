@@ -68,6 +68,15 @@ export const Posts: CollectionConfig = {
       })
     },
     useAsTitle: "title",
+    components: {
+      edit: {
+        beforeDocumentControls: [
+          {
+            path: "@/components/ai.tsx",
+          },
+        ],
+      },
+    },
   },
   fields: [
     {

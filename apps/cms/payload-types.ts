@@ -110,11 +110,13 @@ export interface Config {
     header: Header;
     footer: Footer;
     company: Company;
+    prompts: Prompt;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     company: CompanySelect<false> | CompanySelect<true>;
+    prompts: PromptsSelect<false> | PromptsSelect<true>;
   };
   locale: 'en' | 'it';
   user: User & {
@@ -1056,22 +1058,6 @@ export interface BentoBlock {
   };
   items?:
     | {
-        title?: string | null;
-        description?: {
-          root: {
-            type: string;
-            children: {
-              type: string;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
         background: {
           type: 'none' | 'color' | 'image' | 'verticalGradient' | 'horizontalGradient';
           inverted?: boolean | null;
@@ -1086,9 +1072,6 @@ export interface BentoBlock {
               }[]
             | null;
         };
-        accentColor?: string | null;
-        rowSpan?: number | null;
-        colSpan?: number | null;
         link?: {
           type?: ('reference' | 'attachment' | 'custom') | null;
           newTab?: boolean | null;
@@ -1108,6 +1091,26 @@ export interface BentoBlock {
           attachment?: (string | null) | Media;
           url?: string | null;
         };
+        title?: string | null;
+        description?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        media?: (string | null) | Media;
+        accentColor?: string | null;
+        rowSpan?: number | null;
+        colSpan?: number | null;
         id?: string | null;
       }[]
     | null;
@@ -2449,8 +2452,6 @@ export interface BentoBlockSelect<T extends boolean = true> {
   items?:
     | T
     | {
-        title?: T;
-        description?: T;
         background?:
           | T
           | {
@@ -2467,9 +2468,6 @@ export interface BentoBlockSelect<T extends boolean = true> {
                     id?: T;
                   };
             };
-        accentColor?: T;
-        rowSpan?: T;
-        colSpan?: T;
         link?:
           | T
           | {
@@ -2479,6 +2477,12 @@ export interface BentoBlockSelect<T extends boolean = true> {
               attachment?: T;
               url?: T;
             };
+        title?: T;
+        description?: T;
+        media?: T;
+        accentColor?: T;
+        rowSpan?: T;
+        colSpan?: T;
         id?: T;
       };
   id?: T;
@@ -3256,6 +3260,31 @@ export interface Company {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "prompts".
+ */
+export interface Prompt {
+  id: string;
+  articlePrompt?: string | null;
+  variants?:
+    | {
+        name?: string | null;
+        prompt?: string | null;
+        context?:
+          | {
+              type?: ('attachment' | 'url') | null;
+              attachment?: (string | null) | Media;
+              url?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -3361,6 +3390,31 @@ export interface CompanySelect<T extends boolean = true> {
     | {
         social?: T;
         link?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "prompts_select".
+ */
+export interface PromptsSelect<T extends boolean = true> {
+  articlePrompt?: T;
+  variants?:
+    | T
+    | {
+        name?: T;
+        prompt?: T;
+        context?:
+          | T
+          | {
+              type?: T;
+              attachment?: T;
+              url?: T;
+              id?: T;
+            };
         id?: T;
       };
   updatedAt?: T;

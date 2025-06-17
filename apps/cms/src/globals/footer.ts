@@ -1,8 +1,6 @@
 import { globalTriggerDeploy } from "../hooks/global-trigger-deploy"
 import { link } from "@/fields/link"
 import { linkGroup } from "@/fields/link-group"
-import { someAccess } from "@/lib/access"
-import { admin } from "@/policies/admin"
 import { anyone } from "@/policies/anyone"
 import { webDesigner } from "@/policies/web-designer"
 
@@ -12,9 +10,9 @@ export const Footer: GlobalConfig = {
   slug: "footer",
   access: {
     read: anyone,
-    readDrafts: someAccess(admin, webDesigner),
-    readVersions: someAccess(admin, webDesigner),
-    update: someAccess(admin, webDesigner),
+    readDrafts: webDesigner,
+    readVersions: webDesigner,
+    update: webDesigner,
   },
   fields: [
     {

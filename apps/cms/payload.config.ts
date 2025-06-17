@@ -29,8 +29,10 @@ import { env } from "@/env"
 import { Company } from "@/globals/company"
 import { Footer } from "@/globals/footer"
 import { Header } from "@/globals/header"
+import { Prompts } from "@/globals/prompts"
 import { HighlightFeature } from "@/lexical/highlight/highlight-feature.server"
 import { plugins } from "@/plugins"
+import { aiGenerate } from "@/server/endpoints/ai-generate"
 import { deleteLocale } from "@/server/endpoints/delete-locale"
 import { fetchWorkflow } from "@/server/endpoints/fetch-workflow"
 import { generateThumbhash } from "@/server/endpoints/gen-thumbhash"
@@ -182,10 +184,10 @@ export default buildConfig({
     fallback: true,
   },
   collections: [Pages, Posts, Categories, Jobs, Media, Users],
-  globals: [Header, Footer, Company],
+  globals: [Header, Footer, Company, Prompts],
   cors: [env.NEXT_PUBLIC_FRONTEND_URL || ""].filter(Boolean),
   csrf: [env.NEXT_PUBLIC_SERVER_URL || ""].filter(Boolean),
-  endpoints: [fetchWorkflow, runDeploy, deleteLocale, generateThumbhash],
+  endpoints: [fetchWorkflow, runDeploy, deleteLocale, generateThumbhash, aiGenerate],
   plugins,
   jobs: {
     access: {

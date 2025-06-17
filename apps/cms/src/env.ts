@@ -23,6 +23,7 @@ export const env = createEnv({
     SENDGRID_TOKEN: z.string(),
     MAILCHIMP_TOKEN: z.string(),
     MAILCHIMP_SERVER: z.string(),
+    OPENAI_API_KEY: z.string().optional(),
   },
 
   /**
@@ -56,6 +57,7 @@ export const env = createEnv({
     SENDGRID_TOKEN: process.env.SENDGRID_TOKEN,
     MAILCHIMP_TOKEN: process.env.MAILCHIMP_TOKEN,
     MAILCHIMP_SERVER: process.env.MAILCHIMP_SERVER,
+    OPENAI_API_KEY: process.env.OPENAI_API_KEY,
     NEXT_PUBLIC_SERVER_URL: process.env.NEXT_PUBLIC_SERVER_URL,
     NEXT_PUBLIC_FRONTEND_URL: process.env.NEXT_PUBLIC_FRONTEND_URL,
   },
