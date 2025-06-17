@@ -11,6 +11,15 @@ export const heading = (overrides?: Partial<CollapsibleField>) =>
       type: "collapsible",
       admin: {
         initCollapsed: true,
+        components: {
+          Label: {
+            path: "@/fields/collapse-label/component",
+            clientProps: {
+              useAsTitle: "{heading}: {title}",
+            },
+          },
+        },
+        ...overrides?.admin,
       },
       fields: [
         {

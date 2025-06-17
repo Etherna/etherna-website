@@ -13,6 +13,15 @@ export const background = (
       type: "collapsible",
       admin: {
         initCollapsed: true,
+        components: {
+          Label: {
+            path: "@/fields/collapse-label/component",
+            clientProps: {
+              useAsTitle: "Background {background.type}",
+            },
+          },
+        },
+        ...overrides?.admin,
       },
       fields: [
         deepMerge(

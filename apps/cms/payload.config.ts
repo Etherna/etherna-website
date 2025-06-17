@@ -52,13 +52,13 @@ export default buildConfig({
             height: 44,
           },
         },
-        Icon: {
-          path: "@/components/logo#Symbol",
-          clientProps: {
-            width: 22,
-            height: 22,
-          },
-        },
+        // Icon: {
+        //   path: "@/components/logo#Symbol",
+        //   clientProps: {
+        //     width: 22,
+        //     height: 22,
+        //   },
+        // },
       },
     },
     avatar: {
@@ -152,6 +152,7 @@ export default buildConfig({
     migrationDir: "migrations",
     prodMigrations: migrations,
     idType: "uuid",
+    blocksAsJSON: true,
     pool: {
       host: env.DB_HOST,
       port: parseInt(env.DB_PORT ?? "5432"),

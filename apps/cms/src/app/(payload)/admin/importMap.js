@@ -23,6 +23,7 @@ import { ParagraphFeatureClient as ParagraphFeatureClient_e70f5e05f09f93e00b997e
 import { InlineCodeFeatureClient as InlineCodeFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { SuperscriptFeatureClient as SuperscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { SubscriptFeatureClient as SubscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { default as default_fee7ae94fdd12458221b32cdeab38d44 } from '@/fields/collapse-label/component'
 import { ColorCell as ColorCell_21e046bacee4b582f3e3870d85f38f31 } from '@/fields/color/cell'
 import { ColorField as ColorField_0e1f984132c5bac20cb759d051a93f52 } from '@/fields/color/field'
 import { OverviewComponent as OverviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
@@ -40,7 +41,6 @@ import { Thumbhash as Thumbhash_861e801396517aed8ee8d3cfe901e55e } from '@/compo
 import { FolderTableCell as FolderTableCell_ab83ff7e88da8d3530831f296ec4756a } from '@payloadcms/ui/rsc'
 import { FolderEditField as FolderEditField_ab83ff7e88da8d3530831f296ec4756a } from '@payloadcms/ui/rsc'
 import { UserAvatar as UserAvatar_9c5b55a8450fd68e39ceb0b406054d4c } from '@/components/avatar'
-import { Symbol as Symbol_7a89b5675912f3f4f82dd41bbb03d52e } from '@/components/logo'
 import { Logo as Logo_7a89b5675912f3f4f82dd41bbb03d52e } from '@/components/logo'
 import { BeforeDashboard as BeforeDashboard_9f32ce6f473387f99159899dd857e0af } from '@/components/before-dashboard'
 
@@ -70,6 +70,7 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#InlineCodeFeatureClient": InlineCodeFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#SuperscriptFeatureClient": SuperscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#SubscriptFeatureClient": SubscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@/fields/collapse-label/component#default": default_fee7ae94fdd12458221b32cdeab38d44,
   "@/fields/color/cell#ColorCell": ColorCell_21e046bacee4b582f3e3870d85f38f31,
   "@/fields/color/field#ColorField": ColorField_0e1f984132c5bac20cb759d051a93f52,
   "@payloadcms/plugin-seo/client#OverviewComponent": OverviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
@@ -87,7 +88,6 @@ export const importMap = {
   "@payloadcms/ui/rsc#FolderTableCell": FolderTableCell_ab83ff7e88da8d3530831f296ec4756a,
   "@payloadcms/ui/rsc#FolderEditField": FolderEditField_ab83ff7e88da8d3530831f296ec4756a,
   "@/components/avatar#UserAvatar": UserAvatar_9c5b55a8450fd68e39ceb0b406054d4c,
-  "@/components/logo#Symbol": Symbol_7a89b5675912f3f4f82dd41bbb03d52e,
   "@/components/logo#Logo": Logo_7a89b5675912f3f4f82dd41bbb03d52e,
   "@/components/before-dashboard#BeforeDashboard": BeforeDashboard_9f32ce6f473387f99159899dd857e0af
 }

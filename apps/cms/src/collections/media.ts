@@ -26,8 +26,8 @@ export const Media: CollectionConfig = {
     update: authenticated,
     unlock: authenticated,
   },
-  admin: {
-    folders: true,
+  folders: {
+    browseByFolder: false,
   },
   fields: [
     {
