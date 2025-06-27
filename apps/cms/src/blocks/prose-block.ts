@@ -1,4 +1,8 @@
-import { lexicalEditor } from "@payloadcms/richtext-lexical"
+import {
+  lexicalEditor,
+  OrderedListFeature,
+  UnorderedListFeature,
+} from "@payloadcms/richtext-lexical"
 
 import { background } from "@/fields/background"
 
@@ -21,7 +25,7 @@ export const ProseBlock = {
       label: false,
       editor: lexicalEditor({
         features: ({ rootFeatures }) => {
-          return [...rootFeatures]
+          return [...rootFeatures, UnorderedListFeature(), OrderedListFeature()]
         },
       }),
     },

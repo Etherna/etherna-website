@@ -21,7 +21,7 @@ export async function fetchPage(params: FetchPageParams) {
     fetchPayloadRequest<Page>({
       method: "GET",
       path: `/pages/${id}`,
-      params: { locale, depth: 1, limit: 0 },
+      params: { locale, depth: 3, limit: 0 },
       accessToken,
     }),
     Promise.all(

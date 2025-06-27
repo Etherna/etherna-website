@@ -32,7 +32,7 @@ export function Footer({
 }: FooterProps) {
   return (
     <footer className={cn("w-screen bg-muted pb-8 pt-12", className)} {...props}>
-      <div className="container flex flex-col gap-6 md:gap-12">
+      <div className="container flex flex-col gap-6 gap-y-12 md:gap-12">
         <h2 className="sr-only">Footer</h2>
         <FooterRowHeader />
         <FooterRowGroups groups={groups ?? []} locale={locale} />
@@ -133,14 +133,14 @@ function FooterRowLegal({
   return (
     <div
       className={cn(
-        "flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-8",
+        "flex flex-col items-start gap-y-6 sm:flex-row sm:items-center sm:gap-8",
         className,
       )}
       {...props}
     >
       <LocaleSwitcher locale={locale} localizedPaths={localizedPaths} />
       <h2 className="sr-only">Legal</h2>
-      <ul className="flex flex-col gap-3 sm:flex-row sm:gap-8">
+      <ul className="grid w-full grid-cols-2 gap-3 sm:flex sm:gap-8 sm:*:basis-auto">
         {legalLinks.map((link, index) => (
           <li key={index}>
             <FooterRowLink href={link.link.url ?? ""}>{link.link.label}</FooterRowLink>

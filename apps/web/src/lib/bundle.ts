@@ -474,6 +474,19 @@ export async function bundleBlocks(blocks: AnyBlock[], locale: Locale, accessTok
         break
       }
       case "prose": {
+        block.content = block.content
+          ? {
+              ...block.content,
+              root: {
+                ...block.content.root,
+                children: await bundleLexical(
+                  block.content.root.children as NodeType[],
+                  locale,
+                  accessToken,
+                ),
+              },
+            }
+          : undefined
         break
       }
       case "relatedPosts": {

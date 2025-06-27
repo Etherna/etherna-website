@@ -10,8 +10,11 @@ import {
   ItalicFeature,
   lexicalEditor,
   LinkFeature,
+  OrderedListFeature,
+  ParagraphFeature,
   StrikethroughFeature,
   UnderlineFeature,
+  UnorderedListFeature,
 } from "@payloadcms/richtext-lexical"
 import { migrations } from "migrations"
 import nodemailerSendgrid from "nodemailer-sendgrid"
@@ -114,6 +117,7 @@ export default buildConfig({
     features: () => {
       return [
         HeadingFeature({ enabledHeadingSizes: ["h2", "h3", "h4", "h5", "h6"] }),
+        ParagraphFeature(),
         BoldFeature(),
         ItalicFeature(),
         UnderlineFeature(),
@@ -121,7 +125,6 @@ export default buildConfig({
         HighlightFeature(),
         HorizontalRuleFeature(),
         InlineToolbarFeature(),
-        // CollapsibleFeature(),
         LinkFeature({
           enabledCollections: ["pages", "posts", "redirects"],
           fields: ({ defaultFields }) => {
