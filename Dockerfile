@@ -15,6 +15,8 @@ COPY --from=deps /app/apps/cms/node_modules ./apps/cms/node_modules
 COPY --from=deps /app/packages/eslint-config-custom/node_modules ./packages/eslint-config-custom/node_modules
 COPY --from=deps /app/packages/tsconfig/node_modules ./packages/tsconfig/node_modules
 COPY . .
+ENV NEXT_PUBLIC_SERVER_URL=https://cms.etherna.io
+ENV NEXT_PUBLIC_FRONTEND_URL=https://info.etherna.io
 ENV SKIP_ENV_VALIDATION=true
 RUN corepack enable pnpm && pnpm run build --filter cms
 

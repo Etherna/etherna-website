@@ -1,7 +1,5 @@
 import { withPayload } from "@payloadcms/next/withPayload"
 
-import { env } from "@/env"
-
 export default withPayload({
   reactStrictMode: true,
   output: "standalone",
@@ -11,7 +9,7 @@ export default withPayload({
   images: {
     remotePatterns: [
       {
-        hostname: new URL(env.NEXT_PUBLIC_SERVER_URL ?? "").hostname,
+        hostname: new URL(process.env.NEXT_PUBLIC_SERVER_URL ?? "").hostname,
       },
       {
         protocol: "https",
