@@ -1,52 +1,31 @@
-import { useEffect, useRef, useState } from "react"
+import { thumbhashToDataURL } from "@/lib/thumbhash"
+import { cn } from "@/lib/utils"
 
-import { blurHashToDataURL } from "@/utils/blurhash"
-import { cn } from "@/utils/classnames"
+import type { BundledImage } from "@/lib/bundle"
 
-import type { AstroImageAsset } from "@/utils/data-parser"
-
-interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
-  data: AstroImageAsset | null | undefined
-  objectFit?: "contain" | "cover" | "fill" | "none" | "scale-down"
+export interface ImageProps extends React.ComponentProps<"img"> {
+  image?: BundledImage | null
 }
 
-export function Image({ className, data, objectFit, ...attr }: ImageProps) {
-  const [hasLoaded, setHasLoaded] = useState(false)
-  const imgRef = useRef<HTMLImageElement>(null)
-
-  useEffect(() => {
-    if (imgRef.current?.complete) {
-      setHasLoaded(true)
-    }
-  }, [])
-
+export function Image({ className, image, src, srcSet, alt, style, ...props }: ImageProps) {
   return (
-    <div className="relative">
-      <img
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        {...(data?.attributes as any)}
-        {...attr}
-        ref={imgRef}
-        className={className}
-        loading="lazy"
-        style={{
-          objectFit,
-        }}
-        alt={attr.alt}
-        onLoad={() => setHasLoaded(true)}
-      />
-
-      {data?.blurhash && (
-        <div
-          className={cn("absolute inset-0 transition-opacity duration-300", {
-            "pointer-events-none opacity-0": hasLoaded,
-          })}
-          style={{
-            backgroundImage: `url(${blurHashToDataURL(data.blurhash)})`,
-            backgroundSize: "100% 100%",
-          }}
-        />
-      )}
-    </div>
+    <img
+      className={cn("relative", className)}
+      src={image?.src ?? src}
+      srcSet={srcSet}
+      alt={alt}
+      loading="lazy"
+      style={{
+        backgroundImage: image?.thumbhash
+          ? `url(${thumbhashToDataURL(image.thumbhash)})`
+          : undefined,
+        backgroundSize: image?.thumbhash ? "100% 100%" : undefined,
+        ...style,
+      }}
+      // thumbhash is removed from custom script (src/pages/_templates/_scripts.astro)
+      data-thumbhash={image?.thumbhash ? "true" : undefined}
+      {...image?.attributes}
+      {...props}
+    />
   )
 }

@@ -31,7 +31,7 @@ export default function files(): AstroIntegration {
 
           const url = joinPaths(
             "/",
-            astroConfig?.build.assetsPrefix ?? "_astro",
+            (astroConfig?.build.assetsPrefix as string) ?? "_astro",
             finalFilePath
           )
 

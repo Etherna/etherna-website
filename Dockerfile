@@ -1,18 +1,40 @@
-FROM node:20-alpine AS build
-RUN apk add --no-cache --virtual build-dependencies build-base gcc python3
-COPY . /usr/src/app
-WORKDIR /usr/src/app
-RUN corepack enable
-RUN pnpm install --force --frozen-lockfile
-RUN pnpm run build:cms
+FROM node:22-slim AS base
 
-FROM directus/directus
-USER node
-ENV ADMIN_EMAIL="admin@example.com"
-ENV ADMIN_PASSWORD="d1r3ctu5"
-COPY --from=build ./usr/src/app/apps/cms/snapshot.yaml ./snapshot.yaml
-COPY --from=build ./usr/src/app/apps/cms/extensions ./extensions
-COPY --from=build ./usr/src/app/apps/cms/migrations ./migrations
-RUN mkdir -p uploads
-RUN chown -R node:node uploads
-CMD node cli.js bootstrap && node cli.js database migrate:latest && node cli.js start
+FROM base AS deps
+WORKDIR /app
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY apps/cms/package.json ./apps/cms/
+COPY packages/eslint-config-custom/package.json ./packages/eslint-config-custom/
+COPY packages/tsconfig/package.json ./packages/tsconfig/
+RUN corepack enable pnpm && pnpm i --frozen-lockfile
+
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/apps/cms/node_modules ./apps/cms/node_modules
+COPY --from=deps /app/packages/eslint-config-custom/node_modules ./packages/eslint-config-custom/node_modules
+COPY --from=deps /app/packages/tsconfig/node_modules ./packages/tsconfig/node_modules
+COPY . .
+ENV SKIP_ENV_VALIDATION=true
+RUN corepack enable pnpm && pnpm run build --filter cms
+
+FROM base AS runner
+WORKDIR /app
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+COPY --from=builder --chown=nextjs:nodejs /app/apps/cms/.next/standalone/node_modules ./node_modules
+WORKDIR /app/apps/cms
+RUN mkdir .next
+RUN mkdir uploads
+RUN chown nextjs:nodejs .next
+RUN chown nextjs:nodejs uploads
+COPY --from=builder --chown=nextjs:nodejs /app/apps/cms/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/apps/cms/.next/standalone/apps/cms ./
+COPY --from=builder --chown=nextjs:nodejs /app/apps/cms/.next/static ./.next/static
+RUN if ! [ -f ./server.js ]; then echo 'server.js is missing'; exit 1; fi
+
+USER nextjs
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV HOSTNAME="0.0.0.0"
+CMD ["node", "server.js"]

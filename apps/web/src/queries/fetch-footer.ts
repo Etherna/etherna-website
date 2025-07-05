@@ -1,57 +1,59 @@
-import { readItems } from "@directus/sdk"
+import { resolveInternalLink } from "@/lib/bundle"
+import { fetchPayloadRequest } from "@/lib/payload"
 
-import { directusClient } from "@/classes/directus-client"
-import { findTranslation } from "@/utils/data-parser"
+import type { Locale } from "@/i18n/types"
+import type { Company, Footer } from "@payload-types"
 
-import type { Lang } from "@/utils/lang"
+interface FetchFooterParams {
+  locale: Locale
+  accessToken?: string
+}
 
-export type ParsedFooterData = Awaited<ReturnType<typeof fetchFooter>>
+export async function fetchFooter(params: FetchFooterParams) {
+  const { locale, accessToken } = params
 
-export async function fetchFooter(lang: Lang) {
-  const [pagesResult, projectsResult] = await Promise.all([
-    directusClient.request(
-      readItems("pages", {
-        fields: [
-          "show_in_menu",
-          {
-            translations: ["title", "slug", "locale"],
-          },
-        ],
-      })
-    ),
-    directusClient.request(
-      readItems("projects", {
-        fields: [
-          "external_link",
-          {
-            translations: ["title", "slug", "locale"],
-          },
-        ],
-      })
-    ),
+  const [footerData, companyData] = await Promise.all([
+    fetchPayloadRequest<Footer>({
+      method: "GET",
+      path: `/globals/footer`,
+      params: { locale },
+      accessToken,
+    }),
+    fetchPayloadRequest<Company>({
+      method: "GET",
+      path: `/globals/company`,
+      params: { locale },
+      accessToken,
+    }),
   ])
 
-  const pages = pagesResult.map(res => {
-    const translation = findTranslation(res.translations ?? [], lang)
-    return {
-      showInMenu: res.show_in_menu,
-      title: translation.title,
-      slug: translation.slug,
-      locale: translation.locale,
-    }
-  })
-  const projects = projectsResult.map(res => {
-    const translation = findTranslation(res.translations ?? [], lang)
-    return {
-      externalLink: res.external_link,
-      title: translation.title,
-      slug: translation.slug,
-      locale: translation.locale,
-    }
-  })
+  const footer = {
+    ...footerData,
+    groups: await Promise.all(
+      (footerData.groups ?? []).map(async (group) => ({
+        ...group,
+        groupItems: await Promise.all(
+          (group.groupItems ?? []).map(async (item) => ({
+            ...item,
+            link: {
+              ...(await resolveInternalLink(item.link, locale, accessToken)),
+            },
+          })),
+        ),
+      })),
+    ),
+    legalLinks: await Promise.all(
+      (footerData.legalLinks ?? []).map(async (link) => ({
+        ...link,
+        link: {
+          ...(await resolveInternalLink(link.link, locale, accessToken)),
+        },
+      })),
+    ),
+  } satisfies Footer
 
   return {
-    pages,
-    projects,
+    footer,
+    company: companyData,
   }
 }

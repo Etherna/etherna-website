@@ -1,0 +1,53 @@
+---
+import Blocks from "./_blocks.astro"
+import Root from "./_root.astro"
+import { HeroBlock } from "@/components/blocks/hero-block"
+import { OrganizationSchema } from "@/components/schema/organization-schema"
+import { fetchCompany } from "@/queries/fetch-company"
+import { fetchPage } from "@/queries/fetch-page"
+
+import type { Locale } from "@/i18n/types"
+
+interface Props {
+  id: string
+  path: string
+  locale: Locale
+}
+
+const [{ page, localizedPaths }, { company }] = await Promise.all([
+  fetchPage({
+    id: Astro.props.id,
+    locale: Astro.props.locale,
+  }),
+  Astro.props.path === "/"
+    ? fetchCompany({ locale: Astro.props.locale })
+    : Promise.resolve({ company: null }),
+])
+---
+
+<Root
+  title={page.meta?.title || page.title}
+  description={page.meta?.description}
+  image={page.meta?.image?.bundled?.image?.src}
+  locale={Astro.props.locale}
+  path={Astro.props.path}
+  localizedPaths={localizedPaths}
+>
+  <HeroBlock {...page.hero} client:idle />
+  <Blocks blocks={page.layout} locale={Astro.props.locale} />
+
+  {
+    company && (
+      <OrganizationSchema
+        companyName={company.companyName}
+        companyAddressLocality={company.companyAddress.state}
+        companyPostalCode={company.companyAddress.zip}
+        companyStreetAddress={company.companyAddress.streetAddress}
+        companyCountry={company.companyAddress.country}
+        companyEmail={company.companyEmail}
+        companyFoundingDate={new Date(company.companyFoundingDate)}
+        companyKeywords={"decentralized,storage,s3,video on demand,video streaming"}
+      />
+    )
+  }
+</Root>

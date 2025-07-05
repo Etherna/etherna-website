@@ -1,0 +1,25 @@
+---
+import { Footer as LayoutFooter } from "@/components/layout/footer"
+import { fetchFooter } from "@/queries/fetch-footer"
+
+import type { Locale, LocalizedPath } from "@/i18n/types"
+
+interface Props {
+  path: string
+  locale: Locale
+  localizedPaths: LocalizedPath[]
+}
+
+const { footer, company } = await fetchFooter({
+  locale: Astro.props.locale,
+})
+---
+
+<LayoutFooter
+  locale={Astro.props.locale}
+  localizedPaths={Astro.props.localizedPaths}
+  groups={footer.groups}
+  companyName={company.companyName}
+  legalLinks={footer.legalLinks ?? []}
+  client:idle
+/>

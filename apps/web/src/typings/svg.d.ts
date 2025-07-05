@@ -1,5 +1,7 @@
-export {}
+declare module "*.svg?react" {
+  import type * as React from "react"
 
-declare global {
-  interface SvgIconProps extends React.SVGAttributes<SVGSVGElement> {}
+  const ReactComponent: React.FunctionComponent<React.ComponentProps<"svg"> & { title?: string }>
+
+  export default ReactComponent
 }

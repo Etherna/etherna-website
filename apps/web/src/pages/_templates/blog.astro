@@ -1,0 +1,152 @@
+---
+import { colord } from "colord"
+
+import Root from "./_root.astro"
+import {
+  BlogCategories,
+  BlogCategoriesItem,
+  BlogCategoriesLink,
+} from "@/components/blog/blog-categories"
+import { BlogContent, BlogHeader, BlogTitle } from "@/components/blog/blog-header"
+import {
+  BlogPosts,
+  BlogPostsCategory,
+  BlogPostsCategoryies,
+  BlogPostsDate,
+  BlogPostsItem,
+  BlogPostsLink,
+  BlogPostsMetas,
+  BlogPostsPagination,
+  BlogPostsThumbnail,
+  BlogPostsTitle,
+} from "@/components/blog/blog-posts"
+import { PostAuthors } from "@/components/blog/post-authors"
+import { t } from "@/i18n"
+import { blogDictionary } from "@/i18n/dictionaries/blog"
+import { localized } from "@/i18n/utils"
+import { hasBundledImage } from "@/lib/bundle"
+import { route } from "@/lib/routes"
+import { formatPostDate } from "@/lib/string"
+import { fetchBlog } from "@/queries/fetch-blog"
+import { PAGINATION_LIMIT } from "@/queries/fetch-paths"
+
+import type { Locale } from "@/i18n/types"
+import type { User } from "@payload-types"
+
+interface Props {
+  id: string
+  path: string
+  locale: Locale
+  category?: string
+  page?: number
+}
+
+const { locale, page, id, path } = Astro.props
+const { posts, categories, localizedPaths } = await fetchBlog({
+  categoryId: id,
+  locale,
+  page,
+  limit: PAGINATION_LIMIT,
+})
+const activeCategory = categories.find((cat) => cat.id === id)
+---
+
+<Root
+  title={t(blogDictionary.pageTitle, { locale })}
+  description={t(blogDictionary.pageDescription, { locale })}
+  locale={locale}
+  path={path}
+  localizedPaths={localizedPaths}
+>
+  <BlogContent>
+    <BlogHeader>
+      <BlogTitle>Blog</BlogTitle>
+      <BlogCategories label={activeCategory?.title} client:idle>
+        <BlogCategoriesItem>
+          <BlogCategoriesLink
+            href={localized(route("/blog"), locale)}
+            data-active={!activeCategory || undefined}
+          >
+            {t(blogDictionary.allPosts, { locale })}
+          </BlogCategoriesLink>
+        </BlogCategoriesItem>
+        {
+          categories.map((category) => (
+            <BlogCategoriesItem>
+              <BlogCategoriesLink
+                href={localized(
+                  route("/blog/category/:category", { category: category.slug ?? "-" }),
+                  locale,
+                )}
+                data-active={category.slug === activeCategory?.slug || undefined}
+              >
+                {category.title}
+              </BlogCategoriesLink>
+            </BlogCategoriesItem>
+          ))
+        }
+      </BlogCategories>
+    </BlogHeader>
+
+    <BlogPosts>
+      {
+        posts.docs.map((post) => (
+          <BlogPostsItem>
+            <BlogPostsLink
+              href={localized(route("/blog/:slug", { slug: post.slug ?? "-" }), post.locale)}
+            >
+              <BlogPostsThumbnail
+                image={hasBundledImage(post.thumbnail) ? post.thumbnail.bundled.image : undefined}
+              />
+              {(post.categories?.length ?? 0) > 0 && !activeCategory && (
+                <BlogPostsCategoryies>
+                  {post.categories
+                    ?.filter((c) => typeof c === "object")
+                    .map((category) => (
+                      <BlogPostsCategory
+                        style={{
+                          backgroundColor: category.color ?? undefined,
+                          color: category.color
+                            ? colord(category.color).isDark()
+                              ? "white"
+                              : "black"
+                            : undefined,
+                        }}
+                      >
+                        {category.title}
+                      </BlogPostsCategory>
+                    ))}
+                </BlogPostsCategoryies>
+              )}
+              <BlogPostsTitle>{post.title}</BlogPostsTitle>
+            </BlogPostsLink>
+            <BlogPostsMetas>
+              {post.populatedAuthors && (
+                <PostAuthors
+                  authors={post.populatedAuthors as User[]}
+                  variant={"compact"}
+                  client:idle
+                />
+              )}
+              {post.publishedAt && <BlogPostsDate>{formatPostDate(post, locale)}</BlogPostsDate>}
+            </BlogPostsMetas>
+          </BlogPostsItem>
+        ))
+      }
+    </BlogPosts>
+
+    <BlogPostsPagination
+      totalDocs={posts.totalDocs}
+      totalPages={posts.totalPages}
+      page={posts.page ?? 1}
+      basePath={localized(
+        activeCategory
+          ? route("/blog/category/:category", {
+              category: activeCategory.slug ?? "-",
+            })
+          : route("/blog"),
+        locale,
+      )}
+    />
+  </BlogContent>
+</Root>

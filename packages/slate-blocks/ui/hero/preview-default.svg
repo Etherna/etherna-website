@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 96">
-  <rect fill="var(--theme--background-page)" width="156" height="96" rx="6" />
-  <rect fill-opacity=".25" fill="var(--theme--primary)" x="60" y="10" width="36" height="36" rx="2" />
-  <rect fill="var(--theme--primary)" x="33" y="51" width="90" height="7" rx="2" />
-  <rect fill-opacity=".25" fill="var(--theme--primary)" x="48" y="63" width="60" height="10" rx="2" />
-  <rect fill-opacity=".25" fill="var(--theme--primary)" x="56" y="79" width="20" height="7" rx="2" />
-  <rect fill="var(--theme--primary)" x="80" y="79" width="20" height="7" rx="2" />
-</svg>

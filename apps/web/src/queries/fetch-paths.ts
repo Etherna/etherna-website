@@ -1,204 +1,150 @@
-import { readItems } from "@directus/sdk"
+import { resolveInternalLink } from "@/lib/bundle"
+import { fetchPayloadRequest } from "@/lib/payload"
+import { route } from "@/lib/routes"
 
-import { directusClient } from "@/classes/directus-client"
-import { localeToLang } from "@/utils/data-parser"
-import { DEFAULT_LOCALE } from "@/utils/lang"
-import { routes, withPagination } from "@/utils/routes"
+import type { Locale } from "@/i18n/types"
+import type { Category, Page, Post, Redirect } from "@payload-types"
+import type { PaginatedDocs } from "payload"
 
-import type { Lang } from "@/utils/lang"
+export const PAGINATION_LIMIT = import.meta.env.DEV ? 3 : 20
 
-export const PAGINATION_LIMIT = import.meta.env.DEV ? 2 : 20
+export async function fetchPaths(locales: Locale[]) {
+  const paths: {
+    props: { id: string; page?: number; category?: string; redirectUrl?: string }
+    params: { lang: Locale; path: string }
+  }[] = []
 
-export const StaticPaths = [
-  // home
-  { params: { lang: "en", path: "/" } },
-  { params: { lang: "it", path: "/" } },
-  // about
-  { params: { lang: "en", path: "/about" } },
-  { params: { lang: "it", path: "/chi-siamo" } },
-  // brand kit
-  { params: { lang: "en", path: "/brand-kit" } },
-  { params: { lang: "it", path: "/brand-kit" } },
-] as { params: { lang: Lang; path: string } }[]
+  const localizedPagesResults = await Promise.all(
+    locales.map(async (locale) => ({
+      locale,
+      posts: await fetchPayloadRequest<PaginatedDocs<Post>>({
+        method: "GET",
+        path: "/posts",
+        params: { locale, depth: 2, limit: 0 },
+      }),
+      pages: await fetchPayloadRequest<PaginatedDocs<Page>>({
+        method: "GET",
+        path: "/pages",
+        params: { locale, depth: 5, limit: 0 }, // max nested docs
+      }),
+      categories: await fetchPayloadRequest<PaginatedDocs<Category>>({
+        method: "GET",
+        path: "/categories",
+        params: { locale, limit: 0 },
+      }),
+    })),
+  )
+  const redirects = await fetchPayloadRequest<PaginatedDocs<Redirect>>({
+    method: "GET",
+    path: "/redirects",
+    params: { limit: 0 },
+  })
 
-export const withoutLocale = (path: string, lang: Lang) => {
-  return path.replace(new RegExp(`^/?${lang}/`), "/")
-}
+  for (const result of localizedPagesResults) {
+    const { locale, posts, pages, categories } = result
 
-export async function fetchPaths(langs: Lang[]) {
-  const [pagesResult, projectsResult, postsResult, categoriesResult] = await Promise.all([
-    directusClient.request(
-      readItems("pages", {
-        fields: [
-          {
-            translations: ["slug", "locale"],
+    for (const page of pages.docs) {
+      const segments = (function joinPath(segments: string[], page: Page) {
+        const slug = ["home", "homepage"].includes(page.slug ?? "") ? "" : (page.slug ?? "")
+        segments.unshift(slug)
+
+        if (page.parent) {
+          return joinPath(segments, page.parent as Page)
+        }
+
+        return segments
+      })([], page)
+
+      for (const post of posts.docs) {
+        paths.push({
+          props: {
+            id: post.id,
           },
-        ],
-        filter: {
-          _or: langs.map(lang => ({
-            translations: {
-              locale: {
-                _starts_with: lang as Locale,
-              },
-            },
-          })),
-        },
-      })
-    ),
-    directusClient.request(
-      readItems("projects", {
-        fields: [
-          {
-            translations: ["slug", "locale"],
+          params: {
+            lang: locale,
+            path: route("/blog/:slug", { slug: post.slug ?? "" }),
           },
-        ],
-        filter: {
-          _or: langs.map(lang => ({
-            translations: {
-              locale: {
-                _starts_with: lang as Locale,
-              },
-            },
-          })),
-        },
-      })
-    ),
-    directusClient.request(
-      readItems("blog_articles", {
-        fields: [
-          {
-            primary_category_id: [
-              {
-                translations: ["slug", "locale"],
-              },
-            ],
-            translations: ["slug", "locale"],
-          },
-        ],
-        filter: {
-          _or: langs.map(lang => ({
-            translations: {
-              locale: {
-                _starts_with: lang as Locale,
-              },
-            },
-          })),
-        },
-      })
-    ),
-    directusClient.request(
-      readItems("blog_categories", {
-        fields: [
-          {
-            translations: ["slug", "locale"],
-          },
-        ],
-        filter: {
-          _or: langs.map(lang => ({
-            translations: {
-              locale: {
-                _starts_with: lang as Locale,
-              },
-            },
-          })),
-        },
-      })
-    ),
-  ])
+        })
+      }
 
-  const dynamicPaths = [
-    ...pagesResult
-      .flatMap(page => page.translations)
-      .filter(Boolean)
-      .map(pageTranslation => ({
+      paths.push({
+        props: {
+          id: page.id,
+          page: 1,
+        },
         params: {
-          lang: localeToLang(pageTranslation.locale),
-          path: withoutLocale(
-            routes.pagePath(pageTranslation.slug, localeToLang(pageTranslation.locale)),
-            localeToLang(pageTranslation.locale)
-          ),
+          lang: locale,
+          path: route("/:path", { path: segments.join("/") }),
         },
-      })),
-    ...projectsResult
-      .flatMap(project => project.translations)
-      .filter(Boolean)
-      .map(projectTranslation => ({
-        params: {
-          lang: localeToLang(projectTranslation.locale),
-          path: withoutLocale(
-            routes.projectPath(projectTranslation.slug, localeToLang(projectTranslation.locale)),
-            localeToLang(projectTranslation.locale)
-          ),
-        },
-      })),
-    ...postsResult
-      .flatMap(post => post.translations)
-      .filter(Boolean)
-      .map(postTranslation => ({
-        params: {
-          lang: localeToLang(postTranslation.locale),
-          path: withoutLocale(
-            routes.blogPostPath(postTranslation.slug, localeToLang(postTranslation.locale)),
-            localeToLang(postTranslation.locale)
-          ),
-        },
-      })),
-    ...langs
-      .map(lang =>
-        new Array(
-          Math.ceil(
-            postsResult.filter(p => p.translations?.some(lc => localeToLang(lc.locale) === lang))
-              .length / PAGINATION_LIMIT
-          )
-        )
-          .fill(0)
-          .map((_, i) => ({
-            params: {
-              lang,
-              path: withPagination(withoutLocale(routes.blogPath(lang), lang), i + 1),
-            },
-          }))
-      )
-      .flat(),
-    ...categoriesResult
-      .flatMap(category => category.translations)
-      .filter(Boolean)
-      .map(category =>
-        new Array(
-          Math.ceil(
-            postsResult.filter(
-              p =>
-                (p.primary_category_id as BlogCategory | null)?.translations.some(
-                  lc => lc.slug === category.slug && lc.locale === category.locale
-                ) && p.translations?.some(lc => lc.locale === category.locale)
-            ).length / PAGINATION_LIMIT
-          )
-        )
-          .fill(0)
-          .map((_, i) => ({
-            params: {
-              lang: localeToLang(category.locale),
-              path: withPagination(
-                withoutLocale(
-                  routes.blogCategoryPath(category.slug, localeToLang(category.locale)),
-                  localeToLang(category.locale)
-                ),
-                i + 1
-              ),
-            },
-          }))
-      )
-      .flat(),
-  ] satisfies { params: { lang: Lang; path: string } }[]
+      })
+    }
 
-  const paths = StaticPaths.concat(dynamicPaths)
-    .filter(({ params }) => langs.includes(params.lang))
-    .map(({ params }) => ({
-      params: {
-        lang: params.lang === DEFAULT_LOCALE ? undefined : params.lang,
-        path: params.path === "/" ? undefined : params.path.replace(/^\//, ""),
-      },
-    }))
+    const postsPages = Math.ceil(posts.totalDocs / PAGINATION_LIMIT)
+    for (let page = 2; page <= postsPages; page++) {
+      paths.push({
+        props: {
+          id: "",
+          page,
+        },
+        params: {
+          lang: locale,
+          path: route("/blog/page/:page", { page: page.toString() }),
+        },
+      })
+    }
+
+    for (const { slug, id } of categories.docs) {
+      const postsCount = posts.docs.filter((post) =>
+        post.categories?.some((c) => (c as Category).id === id),
+      ).length
+      const totalPages = Math.ceil(postsCount / PAGINATION_LIMIT)
+
+      for (let page = 1; page <= totalPages; page++) {
+        paths.push({
+          props: {
+            id,
+            page,
+            category: slug ?? "-",
+          },
+          params: {
+            lang: locale,
+            path:
+              page === 1
+                ? route("/blog/category/:category", {
+                    category: slug ?? "-",
+                  })
+                : route("/blog/category/:category/page/:page", {
+                    category: slug ?? "-",
+                    page: page.toString(),
+                  }),
+          },
+        })
+      }
+    }
+
+    paths.push({
+      props: { id: "" },
+      params: { lang: locale, path: route("/blog") },
+    })
+
+    if (result.locale === "en") {
+      paths.push({
+        props: { id: "" },
+        params: {
+          lang: "en",
+          path: route("/_preview"),
+        },
+      })
+    }
+  }
+
+  for (const redirect of redirects.docs) {
+    const redirectUrl = (await resolveInternalLink(redirect.to, "en"))?.url ?? ""
+    paths.push({
+      props: { id: redirect.id, redirectUrl },
+      params: { lang: "en", path: redirect.from },
+    })
+  }
 
   return paths
 }

@@ -1,4 +1,3 @@
-/* eslint-disable no-bitwise */
 import { deterministicString } from "deterministic-object-hash"
 import mime from "mime"
 
@@ -16,7 +15,7 @@ export async function loadRemoteFile(url: string) {
       data: Buffer.from(await res.arrayBuffer()),
       type: res.headers.get("content-type"),
     }
-  } catch (err) {
+  } catch {
     return undefined
   }
 }
@@ -69,7 +68,7 @@ export function joinPaths(...paths: string[]) {
 export function hashFileName(options: FileOptions) {
   const { src, filename, type } = options
 
-  const ext = type ? mime.getExtension(type) ?? "" : ""
+  const ext = type ? (mime.getExtension(type) ?? "") : ""
   const filenameWithoutExt =
     ext && filename.endsWith(ext)
       ? filename.slice(0, -(ext.length + 1))

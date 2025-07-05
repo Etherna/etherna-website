@@ -1,0 +1,35 @@
+---
+import Blog from "./blog.astro"
+import Page from "./page.astro"
+import Post from "./post.astro"
+import Preview from "./preview.astro"
+import Redirect from "./redirect.astro"
+import { route } from "@/lib/routes"
+
+import type { Locale } from "@/i18n/types"
+
+interface Props {
+  id: string
+  path: string
+  locale: Locale
+  category?: string
+  page?: number
+  redirectUrl?: string
+}
+
+const pathname = Astro.props.path.replace(/^\/?/, "/")
+
+const matchRedirect = !!Astro.props.redirectUrl
+const matchPreview = !matchRedirect && route.matchUrl(pathname, "/_preview")
+const matchBlog =
+  !matchRedirect &&
+  route.matchUrl(pathname, ["/blog", "/blog/page/:page/*", "/blog/category/:category/*"])
+const matchPost = !matchRedirect && route.matchUrl(pathname, "/blog/:slug")
+const matchPage = !matchPost && !matchBlog && !matchPreview && !matchRedirect
+---
+
+{matchPreview && <Preview {...Astro.props} />}
+{matchPage && <Page {...Astro.props} />}
+{matchBlog && <Blog {...Astro.props} />}
+{matchPost && <Post {...Astro.props} />}
+{matchRedirect && <Redirect redirectUrl={Astro.props.redirectUrl ?? ""} />}

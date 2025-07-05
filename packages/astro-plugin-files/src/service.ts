@@ -14,7 +14,9 @@ export const fileService = {
     const searchParams = new URLSearchParams()
     searchParams.set("href", src)
     searchParams.set("filename", filename)
-    type && searchParams.set("type", type)
+    if (type) {
+      searchParams.set("type", type)
+    }
 
     const fileEndpoint = joinPaths(import.meta.env.BASE_URL, "/_file")
 

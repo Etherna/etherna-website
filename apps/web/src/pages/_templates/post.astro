@@ -1,0 +1,139 @@
+---
+import { ArrowLeftIcon } from "lucide-react"
+
+import Lexical from "./_lexical.astro"
+import Root from "./_root.astro"
+import {
+  PostContent,
+  PostDate,
+  PostLocaleSwitcher,
+  PostMetas,
+  PostMinutesRead,
+  PostShare,
+  PostThumbnail,
+  PostTitle,
+  Post as PostWrapper,
+} from "@/components/blog/post"
+import { PostAuthors } from "@/components/blog/post-authors"
+import { ArticleSchema } from "@/components/schema/article-schema"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+import { t } from "@/i18n"
+import { blogDictionary } from "@/i18n/dictionaries/blog"
+import { localized } from "@/i18n/utils"
+import { hasBundledImage } from "@/lib/bundle"
+import { stripLexicalTags } from "@/lib/lexical"
+import { route } from "@/lib/routes"
+import { formatPostDate, getMinutesRead, getWordsCount } from "@/lib/string"
+import { fetchPost } from "@/queries/fetch-post"
+
+import type { Locale } from "@/i18n/types"
+import type { Category, User } from "@payload-types"
+
+interface Props {
+  id: string
+  path: string
+  locale: Locale
+}
+
+const { locale } = Astro.props
+
+const { post, localizedPaths } = await fetchPost({
+  id: Astro.props.id,
+  locale,
+})
+
+const mainCategory = post.categories?.[0] as Category | undefined
+---
+
+<Root
+  title={post.meta?.title || post.title}
+  description={post.meta?.description}
+  image={post.meta?.image?.bundled?.image?.src}
+  path={Astro.props.path}
+  locale={locale}
+  localizedPaths={localizedPaths}
+>
+  <PostWrapper>
+    <Breadcrumb>
+      <BreadcrumbList>
+        <BreadcrumbItem>
+          <BreadcrumbLink href={localized(route("/blog"), locale)}>
+            <ArrowLeftIcon className="mr-1 inline size-3" />
+            <span>
+              {t(blogDictionary.pageTitle, { locale })}
+            </span>
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+        {
+          mainCategory && (
+            <>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink
+                  className="text-foreground font-semibold"
+                  href={localized(
+                    route("/blog/category/:category", { category: mainCategory.slug ?? "-" }),
+                    locale,
+                  )}
+                >
+                  {mainCategory.title}
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+            </>
+          )
+        }
+      </BreadcrumbList>
+    </Breadcrumb>
+
+    <PostTitle>
+      {post.title}
+    </PostTitle>
+
+    {
+      post.populatedAuthors && (
+        <PostAuthors className="text-sm" authors={post.populatedAuthors as User[]} client:idle />
+      )
+    }
+
+    <PostLocaleSwitcher localizedPaths={localizedPaths} locale={locale} />
+
+    {post.thumbnail && <PostThumbnail image={post.thumbnail.bundled?.image} />}
+
+    <PostMetas>
+      <PostMinutesRead>
+        {
+          t(blogDictionary.minutesRead, {
+            locale,
+            params: { minutes: getMinutesRead(stripLexicalTags(post.content)) },
+          })
+        }
+      </PostMinutesRead>
+      <PostDate>{formatPostDate(post, locale)}</PostDate>
+    </PostMetas>
+
+    <PostContent>
+      <Lexical nodes={post.content.root.children} />
+
+      <ArticleSchema
+        authors={post.populatedAuthors as User[]}
+        title={post.title}
+        image={hasBundledImage(post.thumbnail) ? post.thumbnail.bundled.image.src : undefined}
+        url={localized(route("/blog/:slug", { slug: post.slug ?? "" }), post.locale)}
+        excerpt={post.meta?.description}
+        wordCount={getWordsCount(stripLexicalTags(post.content))}
+        keywords={undefined}
+        lang={locale}
+        publishDate={post.publishedAt}
+        updateDate={post.editedAt}
+      />
+    </PostContent>
+
+    <PostShare href={`${import.meta.env.BASE_URL}${Astro.props.path}`} title={post.title} />
+  </PostWrapper>
+</Root>

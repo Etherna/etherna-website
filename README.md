@@ -1,7 +1,6 @@
 # Etherna Website Monorepo
-
-- [cms](./apps/cms/README.md)
-- [web](./apps/web/README.md)
+* [cms](./apps/cms/README.md)
+* [web](./apps/web/README.md)
 
 ## Issues
 If you want to submit a bug or feature request go to our [Jira issues](https://etherna.atlassian.net/jira/software/c/projects/EWEB/issues).
@@ -17,7 +16,7 @@ pnpm install
 ### 2. Bootstrap CMS
 
 ```bash
-pnpm bootstrap
+pnpm migrate
 ```
 
 ### 3. Start development server

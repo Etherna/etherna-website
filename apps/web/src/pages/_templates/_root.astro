@@ -1,0 +1,36 @@
+---
+import "@/styles/globals.css"
+
+import Footer from "./_footer.astro"
+import Head from "./_head.astro"
+import Header from "./_header.astro"
+import Scripts from "./_scripts.astro"
+import { Main } from "@/components/layout/main"
+
+import type { Locale, LocalizedPath } from "@/i18n/types"
+
+interface Props {
+  title: string
+  description?: string | null
+  image?: string
+  locale: Locale
+  path: string
+  localizedPaths: LocalizedPath[]
+}
+
+const { title, description, image, locale, path, localizedPaths } = Astro.props
+---
+
+<html lang={locale}>
+  <head>
+    <Head title={title} description={description} image={image} />
+    <Scripts />
+  </head>
+  <body>
+    <Header path={path} localizedPaths={localizedPaths} locale={locale} />
+    <Main>
+      <slot />
+    </Main>
+    <Footer path={path} localizedPaths={localizedPaths} locale={locale} />
+  </body>
+</html>

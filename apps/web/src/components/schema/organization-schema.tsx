@@ -1,8 +1,7 @@
 import { JsonLd } from "react-schemaorg"
+import { formatDate } from "date-fns"
 
 import ethernaLogo from "@/assets/logo-etherna.png"
-
-import { dayjs } from "@/utils/dayjs"
 
 import type { Organization } from "schema-dts"
 
@@ -40,8 +39,8 @@ export function OrganizationSchema({
           streetAddress: companyStreetAddress,
           addressCountry: companyCountry,
         },
-        email: companyEmail.replace("@", "(at)"),
-        foundingDate: dayjs(companyFoundingDate).format("YYY-MM-DD"),
+        email: `mailto:${companyEmail}`,
+        foundingDate: formatDate(companyFoundingDate, "yyyy-MM-dd"),
         keywords: companyKeywords,
         logo: {
           "@type": "ImageObject",

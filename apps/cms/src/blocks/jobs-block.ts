@@ -1,0 +1,15 @@
+import { TextBlock } from "./text-block"
+
+import type { Block } from "payload"
+
+export const JobsBlock = {
+  slug: "jobs",
+  interfaceName: "JobsBlock",
+  labels: {
+    singular: "Jobs",
+    plural: "Jobs Blocks",
+  },
+  fields: [...TextBlock.fields],
+  imageURL:
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 180'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath fill='%23F7F7F7' d='M0 0h320v180H0z'/%3E%3Cg fill='%23000'%3E%3Ctext font-family='Geist-Bold, Geist' font-size='12' font-weight='bold' letter-spacing='-.577' transform='translate(27 73)'%3E%3Ctspan x='.352' y='11'%3ELorem ipsum dolor%3C/tspan%3E%3C/text%3E%3Ctext font-family='Geist-Regular, Geist' font-size='8' letter-spacing='-.385' transform='translate(27 73)'%3E%3Ctspan x='0' y='24'%3ELorem ipsum dolor sit amet, consectetur %3C/tspan%3E%3Ctspan x='0' y='33'%3Eadipiscing elit, sed do eiusmod tempor %3C/tspan%3E%3Ctspan x='0' y='42'%3Eincididunt ut labore et dolore magna %3C/tspan%3E%3Ctspan x='0' y='51'%3Ealiqua. %3C/tspan%3E%3C/text%3E%3C/g%3E%3Ctext font-family='Geist-Medium, Geist' font-size='8' font-weight='400' letter-spacing='-.385' fill='%23000' transform='translate(175 51)'%3E%3Ctspan x='0' y='7'%3ESenior Frontend Engineer%3C/tspan%3E%3C/text%3E%3Ctext font-family='Geist-Medium, Geist' font-size='6' font-weight='400' letter-spacing='-.289' fill='%238A8A8A' transform='translate(175 51)'%3E%3Ctspan x='0' y='17'%3ERemote - 100k%3C/tspan%3E%3C/text%3E%3Cpath d='M282 65l3-3-3-3' opacity='.288' stroke='%23000' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ctext font-family='Geist-Medium, Geist' font-size='8' font-weight='400' letter-spacing='-.385' fill='%23000' transform='translate(176 86)'%3E%3Ctspan x='0' y='7'%3ESenior Backend Engineer%3C/tspan%3E%3C/text%3E%3Ctext font-family='Geist-Medium, Geist' font-size='6' font-weight='400' letter-spacing='-.289' fill='%238A8A8A' transform='translate(176 86)'%3E%3Ctspan x='0' y='17'%3ERemote - 100k%3C/tspan%3E%3C/text%3E%3Cpath d='M283 100l3-3-3-3' opacity='.288' stroke='%23000' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cg%3E%3Ctext font-family='Geist-Medium, Geist' font-size='8' font-weight='400' letter-spacing='-.385' fill='%23000' transform='translate(176 121)'%3E%3Ctspan x='0' y='7'%3EJunior Backend Engineer%3C/tspan%3E%3C/text%3E%3Ctext font-family='Geist-Medium, Geist' font-size='6' font-weight='400' letter-spacing='-.289' fill='%238A8A8A' transform='translate(176 121)'%3E%3Ctspan x='0' y='17'%3ERemote - 80k%3C/tspan%3E%3C/text%3E%3Cpath d='M283 135l3-3-3-3' opacity='.288' stroke='%23000' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/g%3E%3Cpath stroke='%23E0E0E0' stroke-width='.5' stroke-linecap='square' d='M175.5 77.5h118M175.5 112.5h118'/%3E%3Cg transform='translate(27 47)' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5'%3E%3Cpath d='M10 10h.01M14 4V2a2 2 0 00-2-2H8a2 2 0 00-2 2v2M20 11a18.15 18.15 0 01-20 0'/%3E%3Crect y='4' width='20' height='14' rx='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E",
+} as const satisfies Block

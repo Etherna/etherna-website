@@ -1,24 +1,24 @@
-// @ts-check
-
 import { dirname, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
-import react from "@astrojs/react"
-import sitemap from "@astrojs/sitemap"
 import matomo from "astro-matomo"
 import dynamicBase from "astro-plugin-dynamic-base"
 import files from "astro-plugin-files"
 import { defineConfig } from "astro/config"
+import react from "@astrojs/react"
+import sitemap from "@astrojs/sitemap"
+import tailwind from "@astrojs/tailwind"
 import unfonts from "unplugin-fonts/astro"
 import { loadEnv } from "vite"
+import svgr from "vite-plugin-svgr"
 
 const localEnv = loadEnv(process.env.NODE_ENV as string, process.cwd(), "PUBLIC_")
 
-const PUBLIC_DIRECTUS_URL = process.env.PUBLIC_DIRECTUS_URL || localEnv.PUBLIC_DIRECTUS_URL || ""
+const PUBLIC_PAYLOAD_URL = process.env.PUBLIC_PAYLOAD_URL || localEnv.PUBLIC_PAYLOAD_URL || ""
 const PUBLIC_ANALYTICS_URL = process.env.PUBLIC_ANALYTICS_URL || localEnv.PUBLIC_ANALYTICS_URL || ""
 const PUBLIC_ANALYTICS_SITE_ID =
   process.env.PUBLIC_ANALYTICS_SITE_ID || localEnv.PUBLIC_ANALYTICS_SITE_ID || ""
 
-const cmsOrigin = new URL(PUBLIC_DIRECTUS_URL ?? "").hostname
+const cmsOrigin = new URL(PUBLIC_PAYLOAD_URL ?? "").hostname
 
 // https://astro.build/config
 export default defineConfig({
@@ -41,10 +41,6 @@ export default defineConfig({
             name: "Geist Mono",
             src: "./fonts/geist-mono/*.woff2",
           },
-          {
-            name: "DM Serif Display",
-            src: "./fonts/dm-serif-display/*.woff2",
-          },
         ],
       },
     }),
@@ -57,6 +53,9 @@ export default defineConfig({
         },
       },
     }),
+    tailwind({
+      applyBaseStyles: false,
+    }),
     matomo({
       enabled: true,
       host: (PUBLIC_ANALYTICS_URL ?? "http://not.found").replace(/\/?$/, "/"),
@@ -67,5 +66,11 @@ export default defineConfig({
     resolve: {
       alias: [{ find: "@", replacement: resolve(dirname(fileURLToPath(import.meta.url)), "src") }],
     },
+    plugins: [
+      svgr({
+        // svgrOptions: { exportType: "named", ref: true, svgo: false, titleProp: true },
+        // include: "**/*.svg",
+      }),
+    ],
   },
 })
