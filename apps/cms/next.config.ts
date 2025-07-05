@@ -4,7 +4,7 @@ export default withPayload({
   reactStrictMode: true,
   output: "standalone",
   experimental: {
-    reactCompiler: true,
+    // reactCompiler: true,
   },
   images: {
     remotePatterns: [
