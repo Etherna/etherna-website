@@ -9,12 +9,9 @@ import {
   InlineToolbarFeature,
   ItalicFeature,
   lexicalEditor,
-  LinkFeature,
-  OrderedListFeature,
-  ParagraphFeature,
+  LinkFeature, ParagraphFeature,
   StrikethroughFeature,
-  UnderlineFeature,
-  UnorderedListFeature,
+  UnderlineFeature
 } from "@payloadcms/richtext-lexical"
 import { migrations } from "migrations"
 import nodemailerSendgrid from "nodemailer-sendgrid"
@@ -34,6 +31,7 @@ import { Footer } from "@/globals/footer"
 import { Header } from "@/globals/header"
 import { Prompts } from "@/globals/prompts"
 import { HighlightFeature } from "@/lexical/highlight/highlight-feature.server"
+import { MarkdownPasteFeature } from "@/lexical/markdown-paste/markdown-paste-feature.server"
 import { plugins } from "@/plugins"
 import { aiGenerate } from "@/server/endpoints/ai-generate"
 import { deleteLocale } from "@/server/endpoints/delete-locale"
@@ -147,6 +145,7 @@ export default buildConfig({
             ]
           },
         }),
+        MarkdownPasteFeature(),
       ]
     },
   }),

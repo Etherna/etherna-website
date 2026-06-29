@@ -10,52 +10,70 @@ export function Deploys() {
     <div className="dashboard__group mb-10">
       <h2>Deploys</h2>
 
+      <Suspense
+        fallback={
+          <>
+            <div>
+              <h3 className="mb-2">Active</h3>
+              <Grid>
+                <Skeleton className="h-[105px]" />
+                <Skeleton className="h-[105px]" />
+              </Grid>
+            </div>
+
+            <div>
+              <h3 className="mb-2">Older deploys</h3>
+              <Grid>
+                <Loading />
+              </Grid>
+            </div>
+          </>
+        }
+      >
+        <DeploysContent />
+      </Suspense>
+    </div>
+  )
+}
+
+async function DeploysContent() {
+  const { runs, error } = await fetchDeploys()
+
+  if (error) {
+    return <DeploysUnavailable message={error} />
+  }
+
+  return (
+    <>
       <div>
         <h3 className="mb-2">Active</h3>
         <Grid>
-          <Suspense
-            fallback={
-              <>
-                <Skeleton className="h-[105px]" />
-                <Skeleton className="h-[105px]" />
-              </>
-            }
-          >
-            <CurrentDeploy />
-          </Suspense>
+          {runs.filter(isActiveState).map((run, i) => (
+            <DeployCard key={i} run={run} isActiveState={run.conclusion === "success"} />
+          ))}
+
+          <DeployButton className="card card-posts card--has-onclick" />
         </Grid>
       </div>
 
       <div>
         <h3 className="mb-2">Older deploys</h3>
-        <Grid>
-          <Suspense fallback={<Loading />}>
-            <DeploysList />
-          </Suspense>
-        </Grid>
+        <Grid>{runs.filter(isOlderState).map((run, i) => <DeployCard key={i} run={run} />)}</Grid>
       </div>
-    </div>
-  )
-}
-
-async function CurrentDeploy() {
-  const runs = await fetchDeploys()
-
-  return (
-    <>
-      {runs.filter(isActiveState).map((run, i) => (
-        <DeployCard key={i} run={run} isActiveState={run.conclusion === "success"} />
-      ))}
-
-      <DeployButton className="card card-posts card--has-onclick" />
     </>
   )
 }
 
-async function DeploysList() {
-  const runs = await fetchDeploys()
-
-  return runs.filter(isOlderState).map((run, i) => <DeployCard key={i} run={run} />)
+function DeploysUnavailable({ message }: { message: string }) {
+  return (
+    <div className="card card-posts">
+      <p className="text-sm text-[var(--theme-elevation-500)]">{message}</p>
+      <p className="mt-1 text-xs text-[var(--theme-elevation-400)]">
+        The rest of the dashboard is unaffected. Deploy actions will be unavailable until GitHub is
+        reachable.
+      </p>
+    </div>
+  )
 }
 
 function Grid({ className, children, ...props }: React.ComponentProps<"div">) {

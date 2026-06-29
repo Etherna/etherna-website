@@ -11,4 +11,4 @@ export function isOlderState(run: DeployRun, i: number, array: DeployRun[]) {
   return !isActiveState(run, i, array)
 }
 
-export type DeployRun = Awaited<ReturnType<typeof fetchDeploys>>[number]
+export type DeployRun = Awaited<ReturnType<typeof fetchDeploys>>["runs"][number]

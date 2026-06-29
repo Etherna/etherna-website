@@ -1,4 +1,5 @@
 import {
+  EXPERIMENTAL_TableFeature,
   lexicalEditor,
   OrderedListFeature,
   UnorderedListFeature,
@@ -25,7 +26,7 @@ export const ProseBlock = {
       label: false,
       editor: lexicalEditor({
         features: ({ rootFeatures }) => {
-          return [...rootFeatures, UnorderedListFeature(), OrderedListFeature()]
+          return [...rootFeatures, UnorderedListFeature(), OrderedListFeature(), EXPERIMENTAL_TableFeature()]
         },
       }),
     },
