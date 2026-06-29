@@ -2,22 +2,45 @@ import { github, owner, repo } from "../common"
 import { env } from "@/env"
 import { DEPLOY_WORKFLOW_ID } from "@/lib/const"
 
+async function getLastDeployRun() {
+  const { data } = await github.actions.listWorkflowRuns({
+    owner,
+    repo,
+    workflow_id: DEPLOY_WORKFLOW_ID,
+    per_page: 1,
+  })
+
+  return data.workflow_runs[0]
+}
+
+async function waitForRunToComplete(runId: number, timeoutMs = 30_000) {
+  const deadline = Date.now() + timeoutMs
+
+  while (Date.now() < deadline) {
+    const { data } = await github.actions.getWorkflowRun({
+      owner,
+      repo,
+      run_id: runId,
+    })
+
+    if (data.status === "completed") {
+      return
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 1_000))
+  }
+}
+
 export async function deploy() {
   if (env.NODE_ENV !== "production") {
     console.info("Skipping deploy in development")
     return
   }
 
-  const last = await github.actions
-    .listWorkflowRunsForRepo({
-      owner,
-      repo,
-      per_page: 1,
-    })
-    .then((res) => res.data.workflow_runs[0])
+  const last = await getLastDeployRun()
 
   if (last?.status && ["requested", "queued", "pending", "waiting"].includes(last.status)) {
-    // not started yet, so there is no need to cancel
+    // A deploy is already queued — no need to dispatch another.
     return last
   }
 
@@ -33,26 +56,22 @@ export async function deploy() {
     )
 
     if (!isPublishInProgress) {
-      // only stop during build to avoid site downtime
+      // Only stop during build to avoid site downtime.
       await github.actions.cancelWorkflowRun({
         owner,
         repo,
         run_id: last.id,
       })
-      await github.actions.deleteWorkflowRun({
-        owner,
-        repo,
-        run_id: last.id,
-      })
+      await waitForRunToComplete(last.id)
     }
   }
 
-  const newRun = await github.actions.createWorkflowDispatch({
+  await github.actions.createWorkflowDispatch({
     owner,
     repo,
     workflow_id: DEPLOY_WORKFLOW_ID,
     ref: "main",
   })
 
-  return newRun.data
+  return getLastDeployRun()
 }
