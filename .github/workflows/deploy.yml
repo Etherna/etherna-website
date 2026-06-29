@@ -9,6 +9,10 @@ on:
       - develop
   workflow_dispatch:
 
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
 jobs:
   build:
     name: Build
@@ -43,11 +47,12 @@ jobs:
       - name: Build site
         run: pnpm build --filter web
 
-      - name: Cache build artifacts
-        uses: actions/cache@v4
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
         with:
-          path: "**/dist"
-          key: build-artifacts-${{ github.sha }}
+          name: web-dist
+          path: apps/web/dist
+          retention-days: 1
 
   publish:
     name: Publish
@@ -58,14 +63,11 @@ jobs:
       name: production
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Restore build artifacts
-        uses: actions/cache@v4
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
         with:
-          path: "**/dist"
-          key: build-artifacts-${{ github.sha }}
+          name: web-dist
+          path: apps/web/dist
 
       - name: Upload to Host
         uses: sebastianpopp/ftp-action@releases/v2
@@ -86,14 +88,11 @@ jobs:
   #     name: production
 
   #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v3
-
-  #     - name: Restore build artifacts
-  #       uses: actions/cache@v4
+  #     - name: Download build artifacts
+  #       uses: actions/download-artifact@v4
   #       with:
-  #         path: "**/dist"
-  #         key: build-artifacts-${{ github.sha }}
+  #         name: web-dist
+  #         path: apps/web/dist
 
   #     - name: Upload to swarm
   #       uses: Etherna/swarm-upload-action@2.0.0
