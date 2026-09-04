@@ -132,7 +132,7 @@ function PostShare({
       <p className="text-sm text-muted-foreground">Share this post</p>
       <div className="flex items-center gap-6 [&_svg]:size-6">
         <a
-          href={`https://www.facebook.com/sharer/sharer.php?u=${href}&t=${encodeURIComponent(title)}`}
+          href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(href)}&t=${encodeURIComponent(title)}`}
           className=""
           target="_blank"
           rel="noreferrer noopener"
@@ -140,7 +140,7 @@ function PostShare({
           <FacebookLogo className="text-muted-foreground/80 transition-colors duration-300 hover:text-foreground" />
         </a>
         <a
-          href={`https://twitter.com/share?url=${href}&text=${encodeURIComponent(title)}`}
+          href={`https://twitter.com/share?url=${encodeURIComponent(href)}&text=${encodeURIComponent(title)}`}
           className=""
           target="_blank"
           rel="noreferrer noopener"
@@ -148,7 +148,7 @@ function PostShare({
           <XLogo className="text-muted-foreground/80 transition-colors duration-300 hover:text-foreground" />
         </a>
         <a
-          href={`https://www.linkedin.com/sharing/share-offsite/?url=${href}`}
+          href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(href)}`}
           className=""
           target="_blank"
           rel="noreferrer noopener"

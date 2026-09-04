@@ -114,7 +114,10 @@ export function Post({ path, locale, accessToken, fetchPostPromise }: PostProps)
             <RichText nodes={post.content.root.children} />
           </PostContent>
 
-          <PostShare href={`${import.meta.env.BASE_URL}${path}`} title={post.title} />
+          <PostShare
+            href={`${import.meta.env.PUBLIC_SITE_URL}${localized(route("/blog/:slug", { slug: post.slug ?? "" }), locale)}`}
+            title={post.title}
+          />
         </PostWrapper>
       </Main>
       <Suspense>

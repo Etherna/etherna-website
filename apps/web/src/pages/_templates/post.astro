@@ -134,6 +134,9 @@ const mainCategory = post.categories?.[0] as Category | undefined
       />
     </PostContent>
 
-    <PostShare href={`${import.meta.env.BASE_URL}${Astro.props.path}`} title={post.title} />
+    <PostShare
+      href={`${import.meta.env.PUBLIC_SITE_URL}${localized(route("/blog/:slug", { slug: post.slug ?? "" }), locale)}`}
+      title={post.title}
+    />
   </PostWrapper>
 </Root>
