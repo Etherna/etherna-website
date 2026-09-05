@@ -22,6 +22,7 @@ export function TextBlock({
   centered,
   forceFullWidth,
   titleSize,
+  locale,
 }: BlockProps<TextBlock>) {
   return (
     <BaseBlock blockId={id} blockType={blockType} background={background}>
@@ -43,7 +44,7 @@ export function TextBlock({
 
           {text && (
             <TextColumnsDescription>
-              <RichText nodes={text.root.children} />
+              <RichText locale={locale} nodes={text.root.children} />
             </TextColumnsDescription>
           )}
         </TextColumnsMainColumn>

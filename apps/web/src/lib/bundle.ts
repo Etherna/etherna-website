@@ -1,9 +1,8 @@
 import { getFile } from "astro-plugin-files"
 import { getImage } from "astro:assets"
 
+import { hrefFromRelation } from "./link"
 import { fetchPayloadRequest } from "./payload"
-import { route } from "./routes"
-import { localized } from "@/i18n/utils"
 
 import type { NodeType } from "./lexical"
 import type { GetImageResult } from "astro"
@@ -194,12 +193,7 @@ export async function resolveInternalLink<T extends LinkFields | BlockLink | nul
                 accessToken,
               })
             : (docValue as unknown as Page)
-        link.url = localized(
-          route("/:path", {
-            path: (page.breadcrumbs?.at(-1)?.url ?? page.slug ?? "").replace(/^\//, ""),
-          }),
-          locale,
-        )
+        link.url = hrefFromRelation({ relationTo, value: page }, locale)
         break
       }
       case "posts": {
@@ -212,12 +206,7 @@ export async function resolveInternalLink<T extends LinkFields | BlockLink | nul
                 accessToken,
               })
             : (docValue as unknown as Post)
-        link.url = localized(
-          route("/blog/:slug", {
-            slug: (post.slug ?? "").replace(/^\//, ""),
-          }),
-          locale,
-        )
+        link.url = hrefFromRelation({ relationTo, value: post }, locale)
         break
       }
       case "redirects": {
@@ -230,9 +219,7 @@ export async function resolveInternalLink<T extends LinkFields | BlockLink | nul
                 accessToken,
               })
             : (docValue as unknown as Redirect)
-        link.url = route("/:path", {
-          path: redirect.from.replace(/^\//, ""),
-        })
+        link.url = hrefFromRelation({ relationTo, value: redirect }, locale)
         break
       }
       default:
@@ -415,6 +402,25 @@ export async function bundleBlocks(blocks: AnyBlock[], locale: Locale, accessTok
           block.background.backgroundImage,
           locale,
           accessToken,
+        )
+        if (block.text?.root.children) {
+          block.text.root.children = await bundleLexical(
+            block.text.root.children as NodeType[],
+            locale,
+            accessToken,
+          )
+        }
+        block.faqs = await Promise.all(
+          (block.faqs ?? []).map(async (faq) => {
+            if (faq.text?.root.children) {
+              faq.text.root.children = await bundleLexical(
+                faq.text.root.children as NodeType[],
+                locale,
+                accessToken,
+              )
+            }
+            return faq
+          }),
         )
         break
       }

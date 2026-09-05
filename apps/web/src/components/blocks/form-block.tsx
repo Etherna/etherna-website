@@ -206,7 +206,7 @@ export function FormBlock({
 
           {isNotEmptyLexical(text) && (
             <TextColumnsDescription>
-              <RichText nodes={text.root.children} />
+              <RichText locale={locale} nodes={text.root.children} />
             </TextColumnsDescription>
           )}
         </TextColumnsMainColumn>
@@ -240,7 +240,7 @@ export function FormBlock({
                       >
                         <FormLabel>
                           {formField.label && typeof formField.label === "object" ? (
-                            <RichText nodes={formField.label.root.children} />
+                            <RichText locale={locale} nodes={formField.label.root.children} />
                           ) : (
                             formField.label
                           )}
@@ -292,7 +292,7 @@ export function FormBlock({
                   />
                 ) : (
                   <div>
-                    <RichText nodes={formField.message?.root.children ?? []} />
+                    <RichText locale={locale} nodes={formField.message?.root.children ?? []} />
                   </div>
                 ),
               )}
@@ -310,7 +310,7 @@ export function FormBlock({
 
               {form.formState.isSubmitSuccessful && formBlock.confirmationType === "message" && (
                 <Alert className="text-sm" variant={"success"}>
-                  <RichText nodes={formBlock.confirmationMessage?.root.children ?? []} />
+                  <RichText locale={locale} nodes={formBlock.confirmationMessage?.root.children ?? []} />
                 </Alert>
               )}
             </form>

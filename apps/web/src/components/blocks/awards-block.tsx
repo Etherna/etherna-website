@@ -31,6 +31,7 @@ export function AwardsBlock({
   forceFullWidth,
   titleSize,
   awards,
+  locale,
 }: BlockProps<AwardsBlock>) {
   const elementId = useId()
   const InnerTag = getInnerTag(heading)
@@ -51,7 +52,7 @@ export function AwardsBlock({
 
           {isNotEmptyLexical(text) && (
             <TextColumnsDescription>
-              <RichText nodes={text.root.children} />
+              <RichText locale={locale} nodes={text.root.children} />
             </TextColumnsDescription>
           )}
         </TextColumnsMainColumn>

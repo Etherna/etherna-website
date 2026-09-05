@@ -40,6 +40,7 @@ export function TeamBlock({
   forceFullWidth,
   titleSize,
   members,
+  locale,
 }: BlockProps<TeamBlock>) {
   const InnerTag = getInnerTag(heading)
 
@@ -59,7 +60,7 @@ export function TeamBlock({
 
           {isNotEmptyLexical(text) && (
             <TextColumnsDescription>
-              <RichText nodes={text.root.children} />
+              <RichText locale={locale} nodes={text.root.children} />
             </TextColumnsDescription>
           )}
         </TextColumnsMainColumn>
@@ -117,7 +118,7 @@ export function TeamBlock({
                       </div>
                     </DialogHeader>
                     <ScrollArea className="prose mt-8 max-h-[80vh] text-sm lg:max-h-[60vh]">
-                      <RichText nodes={member.bio?.root.children ?? []} />
+                      <RichText locale={locale} nodes={member.bio?.root.children ?? []} />
                     </ScrollArea>
                   </DialogContent>
                 </Dialog>

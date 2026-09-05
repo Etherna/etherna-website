@@ -29,6 +29,7 @@ export function ClientsBlock({
   forceFullWidth,
   titleSize,
   clients,
+  locale,
 }: BlockProps<ClientsBlock>) {
   const elementId = useId()
 
@@ -52,7 +53,7 @@ export function ClientsBlock({
 
           {isNotEmptyLexical(text) && (
             <TextColumnsDescription className="text-sm">
-              <RichText nodes={text.root.children} />
+              <RichText locale={locale} nodes={text.root.children} />
             </TextColumnsDescription>
           )}
         </TextColumnsMainColumn>

@@ -37,6 +37,7 @@ export function BrandBlock({
   titleSize,
   colors,
   logos,
+  locale,
 }: BlockProps<BrandBlock>) {
   const colorsList = colors ?? []
   const logosList = logos ?? []
@@ -57,7 +58,7 @@ export function BrandBlock({
 
           {isNotEmptyLexical(text) && (
             <TextColumnsDescription>
-              <RichText nodes={text.root.children} />
+              <RichText locale={locale} nodes={text.root.children} />
             </TextColumnsDescription>
           )}
         </TextColumnsMainColumn>

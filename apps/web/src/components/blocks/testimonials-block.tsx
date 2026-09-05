@@ -41,6 +41,7 @@ export function TestimonialsBlock({
   forceFullWidth,
   titleSize,
   items,
+  locale,
 }: BlockProps<TestimonialsBlock>) {
   const elementId = useId()
 
@@ -60,7 +61,7 @@ export function TestimonialsBlock({
 
           {isNotEmptyLexical(text) && (
             <TextColumnsDescription>
-              <RichText nodes={text.root.children} />
+              <RichText locale={locale} nodes={text.root.children} />
             </TextColumnsDescription>
           )}
         </TextColumnsMainColumn>
@@ -104,7 +105,7 @@ export function TestimonialsBlock({
                       />
                     </span>
                     <div className="prose text-base/tight">
-                      <RichText nodes={testimonial.quote?.root.children ?? []} />
+                      <RichText locale={locale} nodes={testimonial.quote?.root.children ?? []} />
                     </div>
                     <div className="mt-3 flex items-start gap-2">
                       {hasBundledImage(testimonial.avatar) && (

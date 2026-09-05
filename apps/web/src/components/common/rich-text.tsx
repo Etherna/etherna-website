@@ -4,6 +4,7 @@ import { SiGithub } from "@icons-pack/react-simple-icons"
 import { CodeBlock } from "../blocks/code-block"
 import { Document } from "../common/document"
 import { Image } from "../common/image"
+import { DEFAULT_LOCALE } from "@/i18n/consts"
 import {
   IS_BOLD,
   IS_CODE,
@@ -14,8 +15,10 @@ import {
   IS_SUPERSCRIPT,
   IS_UNDERLINE,
 } from "@/lib/lexical"
+import { resolveLinkHref } from "@/lib/link"
 import { cn } from "@/lib/utils"
 
+import type { Locale } from "@/i18n/types"
 import type { BundledUploadFields } from "@/lib/bundle"
 import type { NodeType } from "@/lib/lexical"
 
@@ -26,9 +29,10 @@ interface RichTextProps {
     [k: string]: unknown
   }[]
   highlightStyles?: React.CSSProperties
+  locale?: Locale
 }
 
-export function RichText({ nodes, highlightStyles }: RichTextProps) {
+export function RichText({ nodes, highlightStyles, locale = DEFAULT_LOCALE }: RichTextProps) {
   return (
     <>
       {(nodes as NodeType[]).map((node, index) => {
@@ -103,7 +107,7 @@ export function RichText({ nodes, highlightStyles }: RichTextProps) {
           case "paragraph": {
             return (
               <p key={index}>
-                <RichText nodes={node.children} highlightStyles={highlightStyles} />
+                <RichText nodes={node.children} highlightStyles={highlightStyles} locale={locale} />
               </p>
             )
           }
@@ -111,7 +115,7 @@ export function RichText({ nodes, highlightStyles }: RichTextProps) {
             const Tag = node?.tag
             return (
               <Tag key={index}>
-                <RichText nodes={node.children} highlightStyles={highlightStyles} />
+                <RichText nodes={node.children} highlightStyles={highlightStyles} locale={locale} />
               </Tag>
             )
           }
@@ -119,7 +123,7 @@ export function RichText({ nodes, highlightStyles }: RichTextProps) {
             const Tag = node?.tag
             return (
               <Tag key={index}>
-                <RichText nodes={node.children} highlightStyles={highlightStyles} />
+                <RichText nodes={node.children} highlightStyles={highlightStyles} locale={locale} />
               </Tag>
             )
           }
@@ -134,13 +138,13 @@ export function RichText({ nodes, highlightStyles }: RichTextProps) {
                   tabIndex={-1}
                   value={node?.value}
                 >
-                  <RichText nodes={node.children} highlightStyles={highlightStyles} />
+                  <RichText nodes={node.children} highlightStyles={highlightStyles} locale={locale} />
                 </li>
               )
             } else {
               return (
                 <li key={index} value={node?.value}>
-                  <RichText nodes={node.children} highlightStyles={highlightStyles} />
+                  <RichText nodes={node.children} highlightStyles={highlightStyles} locale={locale} />
                 </li>
               )
             }
@@ -148,16 +152,17 @@ export function RichText({ nodes, highlightStyles }: RichTextProps) {
           case "quote": {
             return (
               <blockquote key={index}>
-                <RichText nodes={node.children} highlightStyles={highlightStyles} />
+                <RichText nodes={node.children} highlightStyles={highlightStyles} locale={locale} />
               </blockquote>
             )
           }
           case "link":
           case "autolink": {
             const fields = node.fields
+            const href = resolveLinkHref(fields, locale)
 
-            const isSmartLink = fields.url?.includes("github.com")
-            const isGitHub = fields.url?.includes("github.com")
+            const isSmartLink = href?.includes("github.com")
+            const isGitHub = href?.includes("github.com")
 
             return (
               <a
@@ -166,11 +171,11 @@ export function RichText({ nodes, highlightStyles }: RichTextProps) {
                   "inline-flex items-center gap-1 rounded-[6px] bg-muted px-1 py-px no-underline hover:bg-foreground hover:text-background":
                     isSmartLink,
                 })}
-                href={fields.url}
+                href={href}
                 target={fields.newTab ? "_blank" : undefined}
               >
                 {isGitHub && <SiGithub className="size-[1em]" />}
-                <RichText nodes={node.children} highlightStyles={highlightStyles} />
+                <RichText nodes={node.children} highlightStyles={highlightStyles} locale={locale} />
               </a>
             )
           }

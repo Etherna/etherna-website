@@ -28,6 +28,7 @@ export function FeaturesBlock({
   forceFullWidth,
   titleSize,
   items,
+  locale,
 }: BlockProps<FeaturesBlock>) {
   const isInline = !forceFullWidth && !centered
   const InnerTag = getInnerTag(heading)
@@ -48,7 +49,7 @@ export function FeaturesBlock({
 
           {isNotEmptyLexical(text) && (
             <TextColumnsDescription>
-              <RichText nodes={text.root.children} />
+              <RichText locale={locale} nodes={text.root.children} />
             </TextColumnsDescription>
           )}
         </TextColumnsMainColumn>
@@ -76,7 +77,7 @@ export function FeaturesBlock({
                   {feature.title}
                 </InnerTag>
                 <div className="text-sm/tight text-muted-foreground md:text-base/tight">
-                  <RichText nodes={feature.description?.root.children ?? []} />
+                  <RichText locale={locale} nodes={feature.description?.root.children ?? []} />
                 </div>
               </li>
             ))}

@@ -35,7 +35,7 @@ export function Page({ path, locale, accessToken, fetchPagePromise }: PageProps)
         />
       </Suspense>
       <Main>
-        <HeroBlock {...page.hero} />
+        <HeroBlock {...page.hero} locale={locale} />
         <Blocks blocks={page.layout} locale={locale} />
       </Main>
       <Suspense>
