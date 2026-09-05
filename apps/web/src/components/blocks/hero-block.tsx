@@ -7,6 +7,7 @@ import { BaseBlock } from "./base-block"
 import { hasBundledImage } from "@/lib/bundle"
 import { cn } from "@/lib/utils"
 
+import type { Locale } from "@/i18n/types"
 import type { Page } from "@payload-types"
 
 export function HeroBlock({
@@ -17,7 +18,8 @@ export function HeroBlock({
   description,
   links,
   media,
-}: Page["hero"]) {
+  locale,
+}: Page["hero"] & { locale: Locale }) {
   return (
     <BaseBlock
       className="bg-card pb-8 pt-24 reset-current-bg-card"
@@ -95,7 +97,7 @@ export function HeroBlock({
               "mx-auto text-center": type === "highImpact",
             })}
           >
-            <RichText nodes={description?.root.children ?? []} />
+            <RichText locale={locale} nodes={description?.root.children ?? []} />
           </div>
 
           {(links?.length ?? 0) > 0 && (

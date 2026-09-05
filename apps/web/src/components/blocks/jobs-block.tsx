@@ -39,6 +39,7 @@ export function JobsBlock({
   forceFullWidth,
   titleSize,
   jobs,
+  locale,
 }: BlockProps<JobsBlock> & { jobs?: Job[] }) {
   const InnerTag = getInnerTag(heading)
 
@@ -80,7 +81,7 @@ export function JobsBlock({
 
           {isNotEmptyLexical(text) && (
             <TextColumnsDescription>
-              <RichText nodes={text.root.children} />
+              <RichText locale={locale} nodes={text.root.children} />
             </TextColumnsDescription>
           )}
         </TextColumnsMainColumn>
@@ -115,7 +116,7 @@ export function JobsBlock({
                       <DialogDescription>{job.location}</DialogDescription>
                     </DialogHeader>
                     <ScrollArea className="prose mt-8 max-h-[80vh] text-sm lg:max-h-[60vh]">
-                      <RichText nodes={job.description?.root.children ?? []} />
+                      <RichText locale={locale} nodes={job.description?.root.children ?? []} />
                     </ScrollArea>
                     <DialogFooter>
                       <Button onClick={() => applyForJob(job)}>

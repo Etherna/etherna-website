@@ -111,7 +111,7 @@ export function Post({ path, locale, accessToken, fetchPostPromise }: PostProps)
           </PostMetas>
 
           <PostContent>
-            <RichText nodes={post.content.root.children} />
+            <RichText locale={locale} nodes={post.content.root.children} />
           </PostContent>
 
           <PostShare

@@ -363,7 +363,7 @@ function MilestoneDialogContent({
         <DialogDescription>{item.date}</DialogDescription>
       </DialogHeader>
       <ScrollArea className="prose mt-4 max-h-[80vh] text-sm lg:max-h-[60vh]">
-        <RichText nodes={item.text?.root.children ?? []} />
+        <RichText locale={locale} nodes={item.text?.root.children ?? []} />
       </ScrollArea>
     </DialogContent>
   )

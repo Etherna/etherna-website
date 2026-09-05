@@ -118,7 +118,7 @@ const mainCategory = post.categories?.[0] as Category | undefined
     </PostMetas>
 
     <PostContent>
-      <Lexical nodes={post.content.root.children} />
+      <Lexical nodes={post.content.root.children} locale={locale} />
 
       <ArticleSchema
         authors={post.populatedAuthors as User[]}

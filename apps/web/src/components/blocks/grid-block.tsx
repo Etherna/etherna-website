@@ -29,6 +29,7 @@ export function GridBlock({
   size,
   titleSize,
   rows,
+  locale,
 }: BlockProps<GridBlock>) {
   const InnerTag = getInnerTag(heading)
 
@@ -48,7 +49,7 @@ export function GridBlock({
 
           {isNotEmptyLexical(text) && (
             <TextColumnsDescription className="text-sm">
-              <RichText nodes={text.root.children} />
+              <RichText locale={locale} nodes={text.root.children} />
             </TextColumnsDescription>
           )}
         </TextColumnsMainColumn>
@@ -126,6 +127,7 @@ export function GridBlock({
                               {isNotEmptyLexical(item.description) && (
                                 <div className="prose mt-3 text-sm text-secondary-foreground prose-p:my-1">
                                   <RichText
+                                    locale={locale}
                                     nodes={item.description.root.children}
                                     highlightStyles={{
                                       background: "transparent",

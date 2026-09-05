@@ -30,6 +30,7 @@ export function CtaBlock({
   titleSize,
   links,
   media,
+  locale,
 }: BlockProps<CtaBlock>) {
   const verticalButtons = !forceFullWidth && !centered
 
@@ -53,7 +54,7 @@ export function CtaBlock({
 
           {isNotEmptyLexical(text) && (
             <TextColumnsDescription>
-              <RichText nodes={text.root.children} />
+              <RichText locale={locale} nodes={text.root.children} />
             </TextColumnsDescription>
           )}
         </TextColumnsMainColumn>

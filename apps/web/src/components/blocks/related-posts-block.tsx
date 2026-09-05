@@ -51,7 +51,7 @@ export function RelatedPostsBlock({
 
           {isNotEmptyLexical(text) && (
             <TextColumnsDescription>
-              <RichText nodes={text.root.children} />
+              <RichText locale={locale} nodes={text.root.children} />
             </TextColumnsDescription>
           )}
         </TextColumnsMainColumn>

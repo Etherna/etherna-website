@@ -26,6 +26,7 @@ export function FAQBlock({
   forceFullWidth,
   titleSize,
   faqs,
+  locale,
 }: BlockProps<FAQBlock>) {
   return (
     <BaseBlock blockId={id} blockType={blockType} background={background}>
@@ -47,7 +48,7 @@ export function FAQBlock({
 
           {isNotEmptyLexical(text) && (
             <TextColumnsDescription>
-              <RichText nodes={text.root.children} />
+              <RichText locale={locale} nodes={text.root.children} />
             </TextColumnsDescription>
           )}
         </TextColumnsMainColumn>
@@ -57,7 +58,7 @@ export function FAQBlock({
               <AccordionItem key={index} value={index.toString()}>
                 <AccordionTrigger>{faq.question}</AccordionTrigger>
                 <AccordionContent>
-                  <RichText nodes={faq.text?.root.children ?? []} />
+                  <RichText locale={locale} nodes={faq.text?.root.children ?? []} />
                 </AccordionContent>
               </AccordionItem>
             ))}

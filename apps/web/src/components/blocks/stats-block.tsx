@@ -26,6 +26,7 @@ export function StatsBlock({
   forceFullWidth,
   titleSize,
   stats,
+  locale,
 }: BlockProps<StatsBlock>) {
   return (
     <BaseBlock blockId={id} blockType={blockType} background={background}>
@@ -43,7 +44,7 @@ export function StatsBlock({
 
           {isNotEmptyLexical(text) && (
             <TextColumnsDescription>
-              <RichText nodes={text.root.children} />
+              <RichText locale={locale} nodes={text.root.children} />
             </TextColumnsDescription>
           )}
         </TextColumnsMainColumn>

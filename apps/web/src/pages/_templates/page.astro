@@ -33,7 +33,7 @@ const [{ page, localizedPaths }, { company }] = await Promise.all([
   path={Astro.props.path}
   localizedPaths={localizedPaths}
 >
-  <HeroBlock {...page.hero} client:idle />
+  <HeroBlock {...page.hero} locale={Astro.props.locale} client:idle />
   <Blocks blocks={page.layout} locale={Astro.props.locale} />
 
   {

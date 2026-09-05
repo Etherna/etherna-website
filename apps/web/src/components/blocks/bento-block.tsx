@@ -31,6 +31,7 @@ export function BentoBlock({
   forceFullWidth,
   titleSize,
   items,
+  locale,
 }: BlockProps<BentoBlock>) {
   const InnerTag = getInnerTag(heading)
 
@@ -54,7 +55,7 @@ export function BentoBlock({
 
           {isNotEmptyLexical(text) && (
             <TextColumnsDescription className="text-sm">
-              <RichText nodes={text.root.children} />
+              <RichText locale={locale} nodes={text.root.children} />
             </TextColumnsDescription>
           )}
         </TextColumnsMainColumn>
@@ -115,6 +116,7 @@ export function BentoBlock({
                       {isNotEmptyLexical(item.description) && (
                         <div className="mt-3 text-sm text-secondary-foreground">
                           <RichText
+                            locale={locale}
                             nodes={item.description.root.children}
                             highlightStyles={{
                               background: "transparent",

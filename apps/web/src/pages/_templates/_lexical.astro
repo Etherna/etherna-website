@@ -13,12 +13,16 @@ import {
   IS_UNDERLINE,
 } from "@/lib/lexical"
 
+import { resolveLinkHref } from "@/lib/link"
+
+import type { Locale } from "@/i18n/types"
 import type { BundledUploadFields } from "@/lib/bundle"
 import type { NodeType } from "@/lib/lexical"
 import type { DefaultNodeTypes } from "@payloadcms/richtext-lexical"
 
 interface Props {
   nodes: NodeType[]
+  locale: Locale
 }
 ---
 
@@ -83,7 +87,7 @@ interface Props {
       case "paragraph": {
         return (
           <p>
-            <Astro.self nodes={node.children as DefaultNodeTypes[]} />
+            <Astro.self nodes={node.children as DefaultNodeTypes[]} locale={Astro.props.locale} />
           </p>
         )
       }
@@ -91,7 +95,7 @@ interface Props {
         const Tag = node?.tag
         return (
           <Tag>
-            <Astro.self nodes={node.children as DefaultNodeTypes[]} />
+            <Astro.self nodes={node.children as DefaultNodeTypes[]} locale={Astro.props.locale} />
           </Tag>
         )
       }
@@ -99,7 +103,7 @@ interface Props {
         const Tag = node?.tag
         return (
           <Tag>
-            <Astro.self nodes={node.children as DefaultNodeTypes[]} />
+            <Astro.self nodes={node.children as DefaultNodeTypes[]} locale={Astro.props.locale} />
           </Tag>
         )
       }
@@ -113,13 +117,13 @@ interface Props {
               tabindex={-1}
               value={node?.value}
             >
-              <Astro.self nodes={node.children as DefaultNodeTypes[]} />
+              <Astro.self nodes={node.children as DefaultNodeTypes[]} locale={Astro.props.locale} />
             </li>
           )
         } else {
           return (
             <li value={node?.value}>
-              <Astro.self nodes={node.children as DefaultNodeTypes[]} />
+              <Astro.self nodes={node.children as DefaultNodeTypes[]} locale={Astro.props.locale} />
             </li>
           )
         }
@@ -127,7 +131,7 @@ interface Props {
       case "quote": {
         return (
           <blockquote>
-            <Astro.self nodes={node.children as DefaultNodeTypes[]} />
+            <Astro.self nodes={node.children as DefaultNodeTypes[]} locale={Astro.props.locale} />
           </blockquote>
         )
       }
@@ -136,8 +140,11 @@ interface Props {
         const fields = node.fields
 
         return (
-          <a href={fields.url} target={fields.newTab ? "_blank" : undefined}>
-            <Astro.self nodes={node.children as DefaultNodeTypes[]} />
+          <a
+            href={resolveLinkHref(fields, Astro.props.locale)}
+            target={fields.newTab ? "_blank" : undefined}
+          >
+            <Astro.self nodes={node.children as DefaultNodeTypes[]} locale={Astro.props.locale} />
           </a>
         )
       }
